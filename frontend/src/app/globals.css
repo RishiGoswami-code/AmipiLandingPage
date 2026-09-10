@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Amipi palette — a single, committed dark identity.
+
+   ~60%  #2C3B5B  Deep Midnight Navy  — primary background / canvas
+   ~30%  #EDF1FD  Soft Ice White      — surfaces, highlights, glass, reflections
+   ~10%  #FED700  Radiant Gold        — hero focal points, sparkle, top-tier type
+     -   #C1282D  Crimson Red         — CTAs, badges and active triggers only
+
+   Each brand hex is flagged inside its ramp below; the surrounding steps are
+   tints and shades for hover, border and depth states.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Deep Midnight Navy — the backdrop that carries ~60% of the surface */
+  --color-navy-50: #edf1fd;
+  --color-navy-100: #d9dfef;
+  --color-navy-200: #bcc6db;
+  --color-navy-300: #94a2c1;
+  --color-navy-400: #6e80a8;
+  --color-navy-500: #4a5f8c;
+  --color-navy-600: #3a4c73;
+  --color-navy-700: #2c3b5b; /* brand */
+  --color-navy-800: #232f49;
+  --color-navy-900: #1b2438;
+  --color-navy-950: #121926;
+
+  /* Soft Ice White — light, air and ambient reflection across ~30% */
+  --color-ice-50: #ffffff;
+  --color-ice-100: #edf1fd; /* brand */
+  --color-ice-200: #dfe6fa;
+  --color-ice-300: #c7d2f2;
+  --color-ice-400: #a8b7e4;
+
+  /* Radiant Gold — reserved for the diamond, particles and hero typography */
+  --color-gold-100: #fff5cc;
+  --color-gold-200: #ffec99;
+  --color-gold-300: #fee45c;
+  --color-gold-400: #fede2e;
+  --color-gold-500: #fed700; /* brand */
+  --color-gold-600: #d9b600;
+  --color-gold-700: #a88d00;
+
+  /* Crimson Red — call to action, nothing else */
+  --color-crimson-200: #efb4b6;
+  --color-crimson-300: #e27c7f;
+  --color-crimson-400: #d64a4f;
+  --color-crimson-500: #c1282d; /* brand */
+  --color-crimson-600: #a31f24;
+  --color-crimson-700: #86191d;
+
+  /* Semantic aliases — prefer these in components over raw ramp steps */
+  --color-background: #2c3b5b;
+  --color-surface: #232f49;
+  --color-surface-raised: #3a4c73;
+  --color-foreground: #edf1fd;
+  --color-muted: #94a2c1;
+  --color-border: #3a4c73;
+  --color-accent: #fed700;
+  --color-accent-foreground: #1b2438;
+  --color-cta: #c1282d;
+  --color-cta-hover: #a31f24;
+  --color-cta-foreground: #edf1fd;
+  --color-ring: #fed700;
+}
+
+@theme inline {
+  /* Manrope end to end, matching the reference navbar/typography. One
+     variable family covers body copy and the display headline both - no
+     serif pairing. */
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-manrope);
+}
+
+
+@layer base {
+  html {
+    /* The palette is intentionally dark-only; keep form controls in step. */
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Ice-white film over the navy field, for floating cards and 3D overlays. */
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-ice-100) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-ice-100) 16%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* Luxury metallic golden yellow with white shades — diamond-grade finish */
+.gold-shimmer-gradient {
+  background: linear-gradient(
+    115deg,
+    #c49c4d 0%,
+    #dfbf7b 20%,
+    #fff8e7 44%,
+    #ffffff 50%,
+    #f3e2b8 56%,
+    #d4ae5c 78%,
+    #b68a38 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  color: #121926;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.gold-shimmer-gradient:hover {
+  background-position: 100% 0%;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    #dfbf7b 0%,
+    #fff8e7 35%,
+    #ffffff 50%,
+    #d4ae5c 70%,
+    #b68a38 100%
+  );
+}
+
+/* Entrance animation for the fixed booking card */
+@keyframes apptCardIn {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
