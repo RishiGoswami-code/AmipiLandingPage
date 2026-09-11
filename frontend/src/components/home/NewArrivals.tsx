@@ -4,12 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Piece = {
   name: string;
   spec: string;
-  price: string;
   /** Unsplash placeholder photo - freely licensed, standing in for real
    * product photography. Swap for the real shot whenever it exists; the
    * card's `fill` + `object-cover` treatment needs no changes either way. */
@@ -17,8 +21,9 @@ type Piece = {
 };
 
 /**
- * Placeholder content, not a live catalog - there's no real pricing wired
- * up yet. The first two pieces deliberately match the hero's
+ * Placeholder content, not a live catalog - no real product data is wired
+ * up yet (pricing removed for the same reason - nothing here is a real
+ * quote). The first two pieces deliberately match the hero's
  * bracelet/necklace hotspots (see HeroStage.tsx) so scrolling into this
  * section reads as "here they are again, closer" rather than introducing
  * two unrelated names.
@@ -27,28 +32,24 @@ const PIECES: Piece[] = [
   {
     name: "The Diamond Riviera Bracelet",
     spec: "18k White Gold",
-    price: "From $4,200",
     image:
       "https://images.unsplash.com/photo-1763029513623-37d488cb97b1?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "The Solitaire Diamond Choker",
     spec: "18k White Gold",
-    price: "From $2,100",
     image:
       "https://images.unsplash.com/photo-1689775703655-6d999e38e64c?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "Classic Diamond Hoops",
     spec: "14k White Gold",
-    price: "From $1,650",
     image:
       "https://images.unsplash.com/photo-1729101913531-69d0954b191e?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "The Eternity Band",
     spec: "Platinum",
-    price: "From $3,800",
     image:
       "https://images.unsplash.com/photo-1679156271376-3a69ba96a2dc?auto=format&fit=crop&w=800&h=1000&q=80",
   },
@@ -60,10 +61,44 @@ const PIECES: Piece[] = [
  * progress track and prev/next controls under that.
  */
 export function NewArrivals() {
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [progress, setProgress] = useState({ ratio: 1, offset: 0 });
+
+  // Entrance: cards rise and fade in, staggered, the first time this
+  // section crosses into view - a one-shot reveal, not a scrub. Skipped
+  // for prefers-reduced-motion, same as the hero's own entrance.
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      // Queried directly rather than passed as the "[data-card]" string -
+      // GSAP resolves string selectors through its scope-closure lazily,
+      // which is one more moving part than this needs when the elements
+      // are trivially reachable from the ref already in hand.
+      const cards =
+        sectionRef.current?.querySelectorAll<HTMLElement>("[data-card]");
+      if (!cards || !cards.length) return;
+
+      gsap.from(cards, {
+        opacity: 0,
+        y: 48,
+        scale: 0.94,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      });
+    },
+    { scope: sectionRef },
+  );
 
   const updateScrollState = useCallback(() => {
     const el = trackRef.current;
@@ -98,7 +133,10 @@ export function NewArrivals() {
   };
 
   return (
-    <section className="relative bg-navy-950 px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
+    <section
+      ref={sectionRef}
+      className="relative bg-navy-950 px-6 py-20 sm:px-12 sm:py-28 lg:px-20"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -189,7 +227,7 @@ function PieceCard({ piece }: { piece: Piece }) {
 
       {/* Scrim - always present enough to keep the heart icon and info
           legible over a bright photo, deepens on hover to seat the
-          Buy Now button that slides up under the price. */}
+          Buy Now button that grows in below the name. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-navy-950/95 via-navy-950/55 to-transparent transition-opacity duration-300 group-hover:opacity-100" />
 
       <button
@@ -215,7 +253,6 @@ function PieceCard({ piece }: { piece: Piece }) {
         <h3 className="mt-1 font-display text-base leading-snug font-semibold text-ice-100">
           {piece.name}
         </h3>
-        <p className="mt-1 text-sm text-ice-100/60">{piece.price}</p>
 
         {/* Buy Now - clipped to zero height at rest, grows open on hover.
             The grid-rows trick animates a height that's naturally "auto",
