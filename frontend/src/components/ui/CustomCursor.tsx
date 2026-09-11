@@ -8,8 +8,8 @@ const INTERACTIVE_SELECTOR =
 
 /**
  * Custom cursor for fine-pointer desktops: a gold dot glued exactly to the
- * pointer, and a diamond-cut outline (not a generic circle - this is a
- * diamond brand) that trails a beat behind it, then blooms gold on hover.
+ * pointer, and a ring that trails a beat behind it, then blooms gold on
+ * hover.
  *
  * Touch devices and prefers-reduced-motion keep the system cursor untouched -
  * there's no pointer to decorate on one, and the trailing lag is itself a
@@ -17,7 +17,7 @@ const INTERACTIVE_SELECTOR =
  */
 export function CustomCursor() {
   const dotWrap = useRef<HTMLDivElement>(null!);
-  const diamondWrap = useRef<HTMLDivElement>(null!);
+  const ringWrap = useRef<HTMLDivElement>(null!);
 
   useEffect(() => {
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
@@ -28,20 +28,20 @@ export function CustomCursor() {
 
     const root = document.documentElement;
     const dot = dotWrap.current;
-    const diamond = diamondWrap.current;
+    const ring = ringWrap.current;
 
     root.classList.add("custom-cursor-active");
 
     // The dot tracks the raw pointer position every frame - zero lag, so it
-    // always reads as "the" cursor. The diamond eases toward the same point
-    // on its own clock, which is what makes it feel like it's trailing
-    // rather than just a second, redundant pointer.
-    gsap.set(diamond, { xPercent: -50, yPercent: -50, rotation: 45 });
-    const setDiamondX = gsap.quickTo(diamond, "x", {
+    // always reads as "the" cursor. The ring eases toward the same point on
+    // its own clock, which is what makes it feel like it's trailing rather
+    // than just a second, redundant pointer.
+    gsap.set(ring, { xPercent: -50, yPercent: -50 });
+    const setRingX = gsap.quickTo(ring, "x", {
       duration: 0.45,
       ease: "power3.out",
     });
-    const setDiamondY = gsap.quickTo(diamond, "y", {
+    const setRingY = gsap.quickTo(ring, "y", {
       duration: 0.45,
       ease: "power3.out",
     });
@@ -51,8 +51,8 @@ export function CustomCursor() {
 
     const onMove = (e: PointerEvent) => {
       dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      setDiamondX(e.clientX);
-      setDiamondY(e.clientY);
+      setRingX(e.clientX);
+      setRingY(e.clientY);
       show();
     };
 
@@ -97,8 +97,8 @@ export function CustomCursor() {
       <div ref={dotWrap} className="cursor-dot-wrap">
         <span className="cursor-dot-shape" />
       </div>
-      <div ref={diamondWrap} className="cursor-diamond-wrap">
-        <span className="cursor-diamond-shape" />
+      <div ref={ringWrap} className="cursor-ring-wrap">
+        <span className="cursor-ring-shape" />
       </div>
     </>
   );
