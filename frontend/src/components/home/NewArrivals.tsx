@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
@@ -9,52 +10,54 @@ type Piece = {
   name: string;
   spec: string;
   price: string;
-  icon: "bracelet" | "pendant" | "hoops" | "band";
+  /** Unsplash placeholder photo - freely licensed, standing in for real
+   * product photography. Swap for the real shot whenever it exists; the
+   * card's `fill` + `object-cover` treatment needs no changes either way. */
+  image: string;
 };
 
 /**
- * Placeholder content, not a live catalog. There's no product photography
- * or real pricing wired up yet - swap `name`/`spec`/`price` for the real
- * thing whenever it exists, and swap PieceIcon's line-art for a photo in
- * PieceCard's image slot (same fixed-height block, same position) rather
- * than restyling around it. The first two pieces deliberately match the
- * hero's bracelet/necklace hotspots (see HeroStage.tsx) so scrolling into
- * this section reads as "here they are again, closer" rather than
- * introducing two unrelated names.
+ * Placeholder content, not a live catalog - there's no real pricing wired
+ * up yet. The first two pieces deliberately match the hero's
+ * bracelet/necklace hotspots (see HeroStage.tsx) so scrolling into this
+ * section reads as "here they are again, closer" rather than introducing
+ * two unrelated names.
  */
 const PIECES: Piece[] = [
   {
     name: "The Diamond Riviera Bracelet",
     spec: "18k White Gold",
     price: "From $4,200",
-    icon: "bracelet",
+    image:
+      "https://images.unsplash.com/photo-1763029513623-37d488cb97b1?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "The Solitaire Diamond Choker",
     spec: "18k White Gold",
     price: "From $2,100",
-    icon: "pendant",
+    image:
+      "https://images.unsplash.com/photo-1689775703655-6d999e38e64c?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "Classic Diamond Hoops",
     spec: "14k White Gold",
     price: "From $1,650",
-    icon: "hoops",
+    image:
+      "https://images.unsplash.com/photo-1729101913531-69d0954b191e?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
     name: "The Eternity Band",
     spec: "Platinum",
     price: "From $3,800",
-    icon: "band",
+    image:
+      "https://images.unsplash.com/photo-1679156271376-3a69ba96a2dc?auto=format&fit=crop&w=800&h=1000&q=80",
   },
 ];
 
 /**
  * New Arrivals — a seasonal/festival best-sellers carousel: kicker, heading
  * and "view all" up top, a horizontally-scrolling card rail below it, a
- * progress track and prev/next controls under that. Card *effects* (hover,
- * etc.) are intentionally left plain for now - structure and layout only,
- * per the reference this was built from.
+ * progress track and prev/next controls under that.
  */
 export function NewArrivals() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -90,7 +93,7 @@ export function NewArrivals() {
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-card]");
     const gap = 24;
-    const amount = (card?.offsetWidth ?? 260) + gap;
+    const amount = (card?.offsetWidth ?? 280) + gap;
     el.scrollBy({ left: direction * amount, behavior: "smooth" });
   };
 
@@ -173,95 +176,63 @@ function PieceCard({ piece }: { piece: Piece }) {
   return (
     <article
       data-card
-      className="relative w-[72vw] max-w-[280px] shrink-0 overflow-hidden rounded-2xl border border-ice-100/8 bg-navy-900 sm:w-[260px]"
+      className="group relative h-[380px] w-[72vw] max-w-[300px] shrink-0 overflow-hidden rounded-2xl border border-ice-100/8 bg-navy-900 transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_20px_40px_-12px_rgba(254,215,0,0.18)] sm:h-[420px] sm:w-[280px]"
       style={{ scrollSnapAlign: "start" }}
     >
+      <Image
+        src={piece.image}
+        alt={piece.name}
+        fill
+        sizes="(min-width: 640px) 280px, 72vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+
+      {/* Scrim - always present enough to keep the heart icon and info
+          legible over a bright photo, deepens on hover to seat the
+          Buy Now button that slides up under the price. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-navy-950/95 via-navy-950/55 to-transparent transition-opacity duration-300 group-hover:opacity-100" />
+
       <button
         type="button"
         onClick={() => setSaved((v) => !v)}
         aria-label={saved ? "Remove from saved pieces" : "Save this piece"}
         aria-pressed={saved}
-        className="absolute top-3 right-3 z-10 text-ice-100/70 transition-colors hover:text-gold-500"
+        className="absolute top-3 right-3 z-10 text-ice-100/80 transition-[color,transform] duration-200 hover:text-gold-500 active:scale-90"
       >
         <Heart
-          className={saved ? "h-[18px] w-[18px] fill-gold-500 text-gold-500" : "h-[18px] w-[18px]"}
+          className={
+            saved
+              ? "h-[18px] w-[18px] fill-gold-500 text-gold-500"
+              : "h-[18px] w-[18px]"
+          }
         />
       </button>
 
-      <div className="flex h-48 items-center justify-center sm:h-52">
-        <PieceIcon type={piece.icon} className="h-20 w-20 text-gold-500/90" />
-      </div>
-
-      <div className="px-4 pb-5">
+      <div className="absolute inset-x-0 bottom-0 p-4 transition-transform duration-300 ease-out group-hover:-translate-y-1">
         <p className="text-[11px] tracking-[0.22em] text-gold-500 uppercase">
           {piece.spec}
         </p>
         <h3 className="mt-1 font-display text-base leading-snug font-semibold text-ice-100">
           {piece.name}
         </h3>
-        <p className="mt-1 text-sm text-ice-100/55">{piece.price}</p>
+        <p className="mt-1 text-sm text-ice-100/60">{piece.price}</p>
+
+        {/* Buy Now - clipped to zero height at rest, grows open on hover.
+            The grid-rows trick animates a height that's naturally "auto",
+            which a plain max-height transition can't do smoothly. */}
+        <div className="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out group-hover:mt-3 group-hover:grid-rows-[1fr] group-hover:opacity-100">
+          <div className="overflow-hidden">
+            <PillButton
+              href="#contact"
+              variant="solid"
+              size="sm"
+              className="w-full justify-center"
+            >
+              Buy Now
+            </PillButton>
+          </div>
+        </div>
       </div>
     </article>
-  );
-}
-
-/** Simple gold line-art per piece type — a stand-in for real product photography. */
-function PieceIcon({
-  type,
-  className,
-}: {
-  type: Piece["icon"];
-  className?: string;
-}) {
-  const common = {
-    viewBox: "0 0 64 64",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.75,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    className,
-    "aria-hidden": true,
-  };
-
-  if (type === "bracelet") {
-    return (
-      <svg {...common}>
-        <ellipse cx="32" cy="34" rx="24" ry="14" />
-        {[16, 24, 32, 40, 48].map((x) => (
-          <circle key={x} cx={x} cy={20.5 - Math.abs(32 - x) * 0.15} r="1.6" fill="currentColor" stroke="none" />
-        ))}
-      </svg>
-    );
-  }
-
-  if (type === "pendant") {
-    return (
-      <svg {...common}>
-        <path d="M10 14 L32 40 L54 14" />
-        <circle cx="32" cy="44" r="4.5" />
-      </svg>
-    );
-  }
-
-  if (type === "hoops") {
-    return (
-      <svg {...common}>
-        <path d="M22 18a4 4 0 1 1 8 0" />
-        <circle cx="26" cy="34" r="12" />
-        <path d="M36 18a4 4 0 1 1 8 0" />
-        <circle cx="40" cy="34" r="12" />
-      </svg>
-    );
-  }
-
-  // band
-  return (
-    <svg {...common}>
-      <circle cx="32" cy="36" r="16" />
-      {[18, 24, 32, 40, 46].map((x) => (
-        <circle key={x} cx={x} cy={22 - Math.abs(32 - x) * 0.25} r="1.7" fill="currentColor" stroke="none" />
-      ))}
-    </svg>
   );
 }
