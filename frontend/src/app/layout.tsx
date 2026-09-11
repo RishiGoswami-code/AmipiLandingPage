@@ -24,6 +24,13 @@ export const metadata: Metadata = {
   title: "AMIPI — The Wholesale Diamond Hub",
   description:
     "Discover wholesale natural and lab-grown diamonds, fine jewelry, and transparent fixed pricing from AMIPI. Your diamond source, without the bull.",
+  icons: {
+    // The full lockup's tagline is illegible at favicon size, so the tab
+    // icon crops down to just the "no bull" mark - see public/icon.png.
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

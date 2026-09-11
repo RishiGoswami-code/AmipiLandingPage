@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
@@ -27,13 +28,17 @@ export function Navbar() {
       <div className="relative mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full bg-ice-100/95 px-4 shadow-[0_8px_30px_-4px_rgba(18,25,38,0.35)] backdrop-blur-md sm:h-16 sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2"
+          className="flex items-center"
           onClick={() => setOpen(false)}
         >
-          <span className="h-2 w-2 rounded-full bg-crimson-500" />
-          <span className="font-display text-base font-extrabold tracking-[0.2em] text-navy-900 uppercase sm:text-lg">
-            Amipi
-          </span>
+          <Image
+            src="/amipi-logo.png"
+            alt="AMIPI — Your favorite diamond guys"
+            width={596}
+            height={201}
+            priority
+            className="h-8 w-auto sm:h-10"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">
