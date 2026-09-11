@@ -94,6 +94,15 @@ export function NewArrivals() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
+          // Without this, ScrollTrigger's default ("play none none
+          // reverse") replays the stagger backwards the moment the section
+          // scrolls back above the trigger line - easy to trip with Lenis's
+          // momentum overshoot. Catching that reverse mid-flight is what
+          // left the cards sitting at different heights/opacities instead
+          // of the settled row this is meant to be. "play none none none"
+          // makes it the one-shot reveal the comment above already says it
+          // is: plays once, never un-plays.
+          toggleActions: "play none none none",
         },
       });
     },
