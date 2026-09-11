@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Claude Code's own tooling directory (worktrees for parallel sessions,
+# local settings, launch configs) - never part of the app itself.
+/.claude/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
