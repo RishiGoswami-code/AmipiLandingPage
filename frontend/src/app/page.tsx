@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import HeroStage from "@/components/hero/HeroStage";
+import { NewArrivals } from "@/components/home/NewArrivals";
 import { PillButton } from "@/components/ui/PillButton";
 
 const CATEGORIES = [
@@ -78,6 +79,7 @@ export default function Home() {
   return (
     <div className="flex-1 bg-background">
       <HeroStage />
+      <NewArrivals />
     </div>
   );
 }
