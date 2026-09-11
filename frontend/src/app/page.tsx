@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import HeroStage from "@/components/hero/HeroStage";
+import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
 import { PillButton } from "@/components/ui/PillButton";
 
@@ -79,6 +80,7 @@ export default function Home() {
   return (
     <div className="flex-1 bg-background">
       <HeroStage />
+      <DiamondSearch />
       <NewArrivals />
     </div>
   );
