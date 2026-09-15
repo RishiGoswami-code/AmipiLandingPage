@@ -269,7 +269,7 @@ function PieceCard({ piece }: { piece: Piece }) {
         <div className="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out group-hover:mt-3 group-hover:grid-rows-[1fr] group-hover:opacity-100">
           <div className="overflow-hidden">
             <PillButton
-              href="#contact"
+              href="/contact"
               variant="solid"
               size="sm"
               className="w-full justify-center"

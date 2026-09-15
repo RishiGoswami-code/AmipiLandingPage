@@ -221,15 +221,3 @@
     transform: translateX(0);
   }
 }
-
-/* Infinite ticker strip — see MarqueeStrip.tsx. Track holds two identical
-   copies of the content back to back, so translating exactly -50% loops
-   seamlessly regardless of how wide the content ends up being. */
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}

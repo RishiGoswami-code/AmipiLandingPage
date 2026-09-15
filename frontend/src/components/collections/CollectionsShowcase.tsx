@@ -216,7 +216,7 @@ export function CollectionCard({
         <div className="mt-4 grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
           <div className="overflow-hidden">
             <PillButton
-              href="#contact"
+              href="/contact"
               variant={spanFeatured ? "solid" : "outline"}
               size="sm"
               icon="arrow"

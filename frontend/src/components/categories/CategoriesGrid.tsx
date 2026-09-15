@@ -12,8 +12,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export type Category = {
   name: string;
   spec: string;
-  /** Unsplash placeholder photo - swap for real category photography
-   * whenever it exists, no layout changes needed either way. */
+  /** Real product photography lives under /public/Collections for the
+   * categories it covers; anything still unphotographed falls back to an
+   * Unsplash placeholder - no layout changes needed either way. */
   image: string;
 };
 
@@ -21,32 +22,29 @@ export const CATEGORIES: Category[] = [
   {
     name: "Rings & Bands",
     spec: "Bridal to Anniversary",
-    image:
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&h=1100&q=80",
+    // Filed as "Bangles.png" but shows a diamond eternity band - matched
+    // here by what's actually in the shot, not the filename.
+    image: "/Collections/Bangles.png",
   },
   {
     name: "Necklaces & Pendants",
     spec: "Solitaire to Riviera",
-    image:
-      "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=900&h=1100&q=80",
+    image: "/Collections/Necklace.png",
   },
   {
     name: "Diamond Studs & Hoops",
     spec: "Natural & Lab-Grown",
-    image:
-      "https://images.unsplash.com/photo-1629224316810-9d8805b95e76?auto=format&fit=crop&w=900&h=1100&q=80",
+    image: "/Collections/Hoop.png",
   },
   {
     name: "Tennis Bracelets",
     spec: "18k White & Yellow Gold",
-    image:
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=900&h=1100&q=80",
+    image: "/Collections/Bracelet.png",
   },
   {
     name: "Bridal & Engagement",
     spec: "Solitaire to Halo",
-    image:
-      "https://images.unsplash.com/photo-1605100804567-1ffe942b5cd6?auto=format&fit=crop&w=900&h=1100&q=80",
+    image: "/Collections/Ring.png",
   },
   {
     name: "Men's Jewelry",

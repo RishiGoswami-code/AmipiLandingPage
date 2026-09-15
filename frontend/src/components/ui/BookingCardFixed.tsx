@@ -11,7 +11,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 export function BookingCardFixed() {
   return (
     <Link
-      href="#contact"
+      href="/contact"
       aria-label="Book an appointment for private diamond viewing"
       className="appt-card-fixed group pointer-events-auto fixed right-4 bottom-4 z-50 flex items-center gap-4 rounded-2xl border border-ice-100/15 bg-navy-950/80 p-3 opacity-0 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all duration-300 hover:border-gold-300/40 hover:bg-navy-950/90 hover:shadow-[0_20px_50px_-8px_rgba(212,175,55,0.3)] sm:right-8 sm:bottom-8 sm:p-4"
       style={{

@@ -1,33 +1,33 @@
 import type { Metadata } from "next";
-import { CategoriesGrid } from "@/components/categories/CategoriesGrid";
+import { PhilosophyPrinciples } from "@/components/philosophy/PhilosophyPrinciples";
 import { PillButton } from "@/components/ui/PillButton";
 
 export const metadata: Metadata = {
-  title: "Shop by Category — AMIPI",
+  title: "Our Philosophy — AMIPI",
   description:
-    "Browse AMIPI's fine jewelry by category — rings, necklaces, bracelets, earrings, bridal, men's and loose diamonds, all backed by transparent fixed pricing.",
+    "The six principles AMIPI operates by — honest grading, transparent fixed pricing, and no back-room negotiating. The no-bull standard.",
 };
 
-export default function CategoriesPage() {
+export default function PhilosophyPage() {
   return (
-    <div className="bg-navy-950 pt-24 sm:pt-28">
-      <CategoriesGrid />
+    <div className="bg-navy-950">
+      <PhilosophyPrinciples />
 
       <section className="relative bg-navy-900 px-6 py-20 text-center sm:px-12 sm:py-24 lg:px-20">
         <div className="mx-auto max-w-2xl">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-            Can&rsquo;t Find It Here
+            See It In Practice
           </p>
           <h2 className="mt-4 font-display text-2xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-3xl">
-            We Source Bespoke Pieces Daily
+            Browse The Collection
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ice-100/60">
-            Tell us what you&rsquo;re after and our team will hand-pick options
-            from our wholesale network within one business day.
+            Every piece we list is graded, priced and described the same
+            honest way - come see for yourself.
           </p>
           <div className="mt-8 flex justify-center">
-            <PillButton href="/contact" variant="solid" icon="arrow">
-              Book a Consultation
+            <PillButton href="/categories" variant="solid" icon="arrow">
+              Shop By Category
             </PillButton>
           </div>
         </div>

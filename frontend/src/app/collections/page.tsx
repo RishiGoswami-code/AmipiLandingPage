@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { CollectionsShowcase } from "@/components/collections/CollectionsShowcase";
-import { MarqueeStrip } from "@/components/ui/MarqueeStrip";
-import { PageHero } from "@/components/ui/PageHero";
+import { ShopByStyle } from "@/components/collections/ShopByStyle";
 import { PillButton } from "@/components/ui/PillButton";
 
 export const metadata: Metadata = {
@@ -12,26 +11,8 @@ export const metadata: Metadata = {
 
 export default function CollectionsPage() {
   return (
-    <div className="bg-navy-900">
-      <PageHero
-        breadcrumb="Collections"
-        kicker="Curated Edits"
-        title={
-          <>
-            Collections Built <span className="text-gold-500">Around a Story</span>
-          </>
-        }
-        description="Each edit is a point of view, not just a photo grid - lines of diamonds, bridal essentials, or the pieces men actually reach for every day."
-      />
-      <MarqueeStrip
-        words={[
-          "The Riviera Collection",
-          "Aurora Bridal Edit",
-          "Lab-Grown Brilliance",
-          "The Heritage Vault",
-          "Men's Signet Series",
-        ]}
-      />
+    <div className="bg-navy-900 pt-24 sm:pt-28">
+      <ShopByStyle />
       <CollectionsShowcase />
 
       <section className="relative bg-navy-950 px-6 py-20 text-center sm:px-12 sm:py-24 lg:px-20">
@@ -47,7 +28,7 @@ export default function CollectionsPage() {
             collection for you to see and compare side by side.
           </p>
           <div className="mt-8 flex justify-center">
-            <PillButton href="#contact" variant="solid" icon="arrow">
+            <PillButton href="/contact" variant="solid" icon="arrow">
               Book a Private Viewing
             </PillButton>
           </div>
