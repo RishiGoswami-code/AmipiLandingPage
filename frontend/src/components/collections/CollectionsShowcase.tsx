@@ -9,7 +9,7 @@ import { PillButton } from "@/components/ui/PillButton";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-type Collection = {
+export type Collection = {
   name: string;
   tagline: string;
   description: string;
@@ -19,7 +19,7 @@ type Collection = {
   featured?: boolean;
 };
 
-const COLLECTIONS: Collection[] = [
+export const COLLECTIONS: Collection[] = [
   {
     name: "The Riviera Collection",
     tagline: "Tennis-Line Fluidity",
@@ -67,6 +67,24 @@ const COLLECTIONS: Collection[] = [
  * reads as premium glass, not a gimmick. */
 const TILT_MAX_DEG = 6;
 
+/** Cursor-tracking 3D tilt, shared by the full showcase grid and the
+ * homepage preview - pure DOM writes (see CollectionCard) so the pointer
+ * stays glued to 60fps instead of round-tripping through React state. */
+export function handleCardTiltMove(e: MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  const px = (e.clientX - rect.left) / rect.width - 0.5;
+  const py = (e.clientY - rect.top) / rect.height - 0.5;
+  el.style.setProperty("--tilt-x", `${(py * -TILT_MAX_DEG).toFixed(2)}deg`);
+  el.style.setProperty("--tilt-y", `${(px * TILT_MAX_DEG).toFixed(2)}deg`);
+}
+
+export function handleCardTiltLeave(e: MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  el.style.setProperty("--tilt-x", "0deg");
+  el.style.setProperty("--tilt-y", "0deg");
+}
+
 /**
  * Editorial bento grid: one oversized featured tile plus four supporting
  * cards, each tracking the cursor with a subtle 3D tilt (perspective +
@@ -107,21 +125,6 @@ export function CollectionsShowcase() {
     { scope: sectionRef },
   );
 
-  const handleMove = (e: MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--tilt-x", `${(py * -TILT_MAX_DEG).toFixed(2)}deg`);
-    el.style.setProperty("--tilt-y", `${(px * TILT_MAX_DEG).toFixed(2)}deg`);
-  };
-
-  const handleLeave = (e: MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget;
-    el.style.setProperty("--tilt-x", "0deg");
-    el.style.setProperty("--tilt-y", "0deg");
-  };
-
   return (
     <section
       ref={sectionRef}
@@ -129,78 +132,100 @@ export function CollectionsShowcase() {
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
         {COLLECTIONS.map((collection) => (
-          <article
+          <CollectionCard
             key={collection.name}
-            data-card
-            onMouseMove={handleMove}
-            onMouseLeave={handleLeave}
-            className={[
-              "group relative overflow-hidden rounded-3xl border border-ice-100/8 bg-navy-950 [transform:perspective(1000px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,border-color,box-shadow] duration-300 ease-out will-change-transform hover:border-gold-500/40 hover:shadow-[0_24px_50px_-16px_rgba(254,215,0,0.22)]",
-              collection.featured
-                ? "aspect-[4/5] sm:col-span-2 sm:aspect-auto lg:col-span-2 lg:row-span-2"
-                : "aspect-[4/5] sm:aspect-[4/5]",
-            ].join(" ")}
-          >
-            <Image
-              src={collection.image}
-              alt={collection.name}
-              fill
-              sizes={
-                collection.featured
-                  ? "(min-width: 1024px) 46vw, 92vw"
-                  : "(min-width: 1024px) 22vw, (min-width: 640px) 46vw, 92vw"
-              }
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/35 to-transparent" />
-
-            <div
-              className={[
-                "absolute inset-x-0 bottom-0 p-5 transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:p-6",
-                collection.featured ? "lg:p-8" : "",
-              ].join(" ")}
-            >
-              <p className="text-[10px] tracking-[0.3em] text-gold-500 uppercase sm:text-[11px]">
-                {collection.tagline}
-              </p>
-              <h3
-                className={[
-                  "mt-2 font-display font-extrabold tracking-[0.01em] text-ice-100 uppercase",
-                  collection.featured
-                    ? "text-2xl sm:text-3xl lg:text-4xl"
-                    : "text-lg sm:text-xl",
-                ].join(" ")}
-              >
-                {collection.name}
-              </h3>
-              <p
-                className={[
-                  "mt-2 text-ice-100/60",
-                  collection.featured
-                    ? "max-w-sm text-sm leading-relaxed sm:text-base"
-                    : "hidden text-xs leading-relaxed sm:block",
-                ].join(" ")}
-              >
-                {collection.description}
-              </p>
-
-              <div className="mt-4 grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
-                <div className="overflow-hidden">
-                  <PillButton
-                    href="#contact"
-                    variant={collection.featured ? "solid" : "outline"}
-                    size="sm"
-                    icon="arrow"
-                  >
-                    Explore Collection
-                  </PillButton>
-                </div>
-              </div>
-            </div>
-          </article>
+            collection={collection}
+            onMouseMove={handleCardTiltMove}
+            onMouseLeave={handleCardTiltLeave}
+          />
         ))}
       </div>
     </section>
+  );
+}
+
+export function CollectionCard({
+  collection,
+  spanFeatured = collection.featured,
+  onMouseMove,
+  onMouseLeave,
+}: {
+  collection: Collection;
+  /** Overrides `collection.featured` for the bento-spanning classes - the
+   * homepage preview forces this false so every card in its plain row
+   * comes out the same size, even for the collection normally featured
+   * on the full showcase grid. */
+  spanFeatured?: boolean;
+  onMouseMove: (e: MouseEvent<HTMLElement>) => void;
+  onMouseLeave: (e: MouseEvent<HTMLElement>) => void;
+}) {
+  return (
+    <article
+      data-card
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className={[
+        "group relative overflow-hidden rounded-3xl border border-ice-100/8 bg-navy-950 [transform:perspective(1000px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,border-color,box-shadow] duration-300 ease-out will-change-transform hover:border-gold-500/40 hover:shadow-[0_24px_50px_-16px_rgba(254,215,0,0.22)]",
+        spanFeatured
+          ? "aspect-[4/5] sm:col-span-2 sm:aspect-auto lg:col-span-2 lg:row-span-2"
+          : "aspect-[4/5]",
+      ].join(" ")}
+    >
+      <Image
+        src={collection.image}
+        alt={collection.name}
+        fill
+        sizes={
+          spanFeatured
+            ? "(min-width: 1024px) 46vw, 92vw"
+            : "(min-width: 1024px) 22vw, (min-width: 640px) 46vw, 92vw"
+        }
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/35 to-transparent" />
+
+      <div
+        className={[
+          "absolute inset-x-0 bottom-0 p-5 transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:p-6",
+          spanFeatured ? "lg:p-8" : "",
+        ].join(" ")}
+      >
+        <p className="text-[10px] tracking-[0.3em] text-gold-500 uppercase sm:text-[11px]">
+          {collection.tagline}
+        </p>
+        <h3
+          className={[
+            "mt-2 font-display font-extrabold tracking-[0.01em] text-ice-100 uppercase",
+            spanFeatured ? "text-2xl sm:text-3xl lg:text-4xl" : "text-lg sm:text-xl",
+          ].join(" ")}
+        >
+          {collection.name}
+        </h3>
+        <p
+          className={[
+            "mt-2 text-ice-100/60",
+            spanFeatured
+              ? "max-w-sm text-sm leading-relaxed sm:text-base"
+              : "hidden text-xs leading-relaxed sm:block",
+          ].join(" ")}
+        >
+          {collection.description}
+        </p>
+
+        <div className="mt-4 grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
+          <div className="overflow-hidden">
+            <PillButton
+              href="#contact"
+              variant={spanFeatured ? "solid" : "outline"}
+              size="sm"
+              icon="arrow"
+            >
+              Explore Collection
+            </PillButton>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
