@@ -3,6 +3,7 @@ import { Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
+import { Footer } from "@/components/nav/Footer";
 import { BookingCardFixed } from "@/components/ui/BookingCardFixed";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
@@ -42,7 +43,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         <Navbar />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {children}
+          <Footer />
+        </SmoothScroll>
         {/* Always-visible fixed booking card — persists across all scroll depths */}
         <BookingCardFixed />
         <CustomCursor />
