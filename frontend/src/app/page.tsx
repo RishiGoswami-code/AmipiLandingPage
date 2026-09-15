@@ -1,69 +1,9 @@
-import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import HeroStage from "@/components/hero/HeroStage";
 import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
 import { CategoriesPreview } from "@/components/home/CategoriesPreview";
 import { CollectionsPreview } from "@/components/home/CollectionsPreview";
 import { FAQ } from "@/components/home/FAQ";
-import { PillButton } from "@/components/ui/PillButton";
-
-const PHILOSOPHY = [
-  {
-    title: "It Is The Amipi Way",
-    body: "Excellence in every interaction, from the first call to the final shipment.",
-  },
-  {
-    title: "We Say It Like It Is",
-    body: "Accurate grading and honest descriptions. What you see is exactly what you get.",
-  },
-  {
-    title: "Transparent Fixed Pricing",
-    body: "One fair, clearly marked price on every piece. No haggling, no back-room negotiating.",
-  },
-  {
-    title: "Clear Terms & Conditions",
-    body: "Every policy explained in plain language before you buy - never buried in fine print.",
-  },
-  {
-    title: "We Know How To Say Sorry",
-    body: "Mistakes happen. We own them, fix them fast, and make it right.",
-  },
-  {
-    title: "No Bull",
-    body: "We simply refuse to do business the dishonest way. Full stop.",
-  },
-];
-
-const SELLING_STEPS = [
-  {
-    step: "01",
-    title: "Get Your Price",
-    body: "Shop around - we will quote a fair, final number on your diamond or jewelry piece.",
-  },
-  {
-    step: "02",
-    title: "Send The Details",
-    body: "Confirm your price with item details and photos. No obligation to sell.",
-  },
-  {
-    step: "03",
-    title: "Ship & Get Paid",
-    body: "Prepaid, insured shipping. Funds out within one business day of receipt.",
-  },
-];
-
-const TRADE_SHOWS = [
-  {
-    name: "RJO Liberty Tour",
-    dates: "Sept 29 - Oct 2, 2026",
-    location: "42 W 48th St, 15th Floor, New York, NY",
-  },
-  {
-    name: "JIS Miami",
-    dates: "Oct 16 - 19, 2026",
-    location: "Booth #1335, Miami Beach Convention Center",
-  },
-];
 
 export default function Home() {
   // The wrapper below is deliberately NOT a flex column. ScrollTrigger pins

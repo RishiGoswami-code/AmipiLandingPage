@@ -577,10 +577,10 @@ export function DiamondSearch() {
 
         {/* CTAs */}
         <div className="mt-14 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <PillButton href="#contact" variant="outline" size="md">
+          <PillButton href="/contact" variant="outline" size="md">
             Search Earth Mined Diamonds
           </PillButton>
-          <PillButton href="#contact" variant="solid" size="md">
+          <PillButton href="/contact" variant="solid" size="md">
             Search Lab Grown Diamonds
           </PillButton>
         </div>

@@ -141,7 +141,7 @@ export function FAQ() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <PillButton href="#contact" variant="outline" icon="arrow">
+          <PillButton href="/contact" variant="outline" icon="arrow">
             Still Have Questions? Book a Call
           </PillButton>
         </div>

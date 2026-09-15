@@ -9,9 +9,9 @@ import { PillButton } from "@/components/ui/PillButton";
 const LINKS = [
   { label: "Categories", href: "/categories" },
   { label: "Collections", href: "/collections" },
-  { label: "Our Philosophy", href: "/#philosophy" },
-  { label: "Sell Your Diamonds", href: "/#sell" },
-  { label: "Visit Us", href: "/#visit" },
+  { label: "Our Philosophy", href: "/philosophy" },
+  { label: "Sell Your Diamonds", href: "/sell-your-diamonds" },
+  { label: "Visit Us", href: "/contact" },
 ];
 
 /**
