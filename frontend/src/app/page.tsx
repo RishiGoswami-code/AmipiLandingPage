@@ -2,6 +2,7 @@ import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import HeroStage from "@/components/hero/HeroStage";
 import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
+import { FAQ } from "@/components/home/FAQ";
 import { PillButton } from "@/components/ui/PillButton";
 
 const CATEGORIES = [
@@ -82,6 +83,7 @@ export default function Home() {
       <HeroStage />
       <DiamondSearch />
       <NewArrivals />
+      <FAQ />
     </div>
   );
 }

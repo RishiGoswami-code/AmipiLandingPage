@@ -7,10 +7,11 @@ import { Menu, X } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
 const LINKS = [
-  { label: "Diamonds & Jewelry", href: "#collection" },
-  { label: "Our Philosophy", href: "#philosophy" },
-  { label: "Sell Your Diamonds", href: "#sell" },
-  { label: "Visit Us", href: "#visit" },
+  { label: "Categories", href: "/categories" },
+  { label: "Collections", href: "/collections" },
+  { label: "Our Philosophy", href: "/#philosophy" },
+  { label: "Sell Your Diamonds", href: "/#sell" },
+  { label: "Visit Us", href: "/#visit" },
 ];
 
 /**
@@ -43,13 +44,13 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-7 lg:flex">
           {LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-[13px] font-semibold tracking-wide text-navy-700 transition-colors hover:text-crimson-500"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -85,14 +86,14 @@ export function Navbar() {
         <div className="mx-auto mt-2 max-w-6xl rounded-3xl bg-ice-100/98 p-4 shadow-[0_8px_30px_-4px_rgba(18,25,38,0.35)] backdrop-blur-md lg:hidden">
           <nav className="flex flex-col gap-1">
             {LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-3 text-sm font-semibold text-navy-800 transition-colors hover:bg-navy-900/5"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <a
               href="tel:+18005302647"
