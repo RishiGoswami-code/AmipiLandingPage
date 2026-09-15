@@ -38,11 +38,30 @@ export default function SmoothScroll({
     // smoothed one - momentum scrolling is itself a motion effect.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Every section below builds its own scroll-triggered reveal in its own
+    // effect, and React fires child effects before this parent one, so every
+    // trigger on the page already exists by the time we get here. GSAP
+    // normally re-measures all of them itself on the browser's native "load"
+    // event - but on a slow connection or a cold cache, "load" can fire
+    // before hydration ever runs, so that listener gets registered too late
+    // to catch it. Any trigger whose start/end was measured against a
+    // not-yet-settled layout is then stuck wrong until the next full
+    // reload - cards left mid-reveal (partway through their fade/rise/scale)
+    // or, worse, never played at all. Refreshing again here, after every
+    // section has mounted, re-measures against the final layout regardless
+    // of how that race landed; a second pass on "load" catches anything that
+    // still shifts after (e.g. a slow-decoding image). Both are no-ops for a
+    // page that measured correctly the first time.
+    const refresh = () => ScrollTrigger.refresh();
+    requestAnimationFrame(refresh);
+    window.addEventListener("load", refresh);
+
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
     if (isTouch) {
       ScrollTrigger.normalizeScroll(true);
       return () => {
+        window.removeEventListener("load", refresh);
         ScrollTrigger.normalizeScroll(false);
       };
     }
@@ -60,6 +79,7 @@ export default function SmoothScroll({
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      window.removeEventListener("load", refresh);
       gsap.ticker.remove(raf);
       gsap.ticker.lagSmoothing(500, 33);
       lenis.destroy();
