@@ -2,15 +2,10 @@ import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import HeroStage from "@/components/hero/HeroStage";
 import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
+import { CategoriesPreview } from "@/components/home/CategoriesPreview";
+import { CollectionsPreview } from "@/components/home/CollectionsPreview";
 import { FAQ } from "@/components/home/FAQ";
 import { PillButton } from "@/components/ui/PillButton";
-
-const CATEGORIES = [
-  { name: "Diamond Studs & Hoops", spec: "Natural & Lab-Grown" },
-  { name: "Tennis Bracelets", spec: "18k White & Yellow Gold" },
-  { name: "Necklaces & Pendants", spec: "Solitaire to Riviera" },
-  { name: "Rings & Bands", spec: "Bridal & Anniversary" },
-];
 
 const PHILOSOPHY = [
   {
@@ -83,6 +78,8 @@ export default function Home() {
       <HeroStage />
       <DiamondSearch />
       <NewArrivals />
+      <CategoriesPreview />
+      <CollectionsPreview />
       <FAQ />
     </div>
   );
