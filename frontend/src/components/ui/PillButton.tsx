@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "solid" | "dark" | "outline";
+type Variant = "solid" | "dark" | "outline" | "outline-inverse";
 type Size = "sm" | "md";
 type Icon = "arrow" | "dot" | "none";
 
@@ -21,7 +21,10 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   solid:
     "gold-shimmer-gradient border border-white/40 shadow-[0_4px_20px_-4px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_-2px_rgba(212,175,55,0.6)]",
   dark: "bg-navy-900 text-ice-100",
-  outline: "border border-ice-100/25 text-ice-100",
+  outline: "border border-foreground/25 text-foreground",
+  // For use over a photo/dark scrim rather than the page's own light
+  // canvas - same ghost-button treatment, inverted for contrast.
+  "outline-inverse": "border border-ice-100/25 text-ice-100",
 };
 
 const SIZE_CLASSES: Record<Size, string> = {

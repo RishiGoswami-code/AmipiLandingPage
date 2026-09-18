@@ -1,15 +1,13 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Amipi palette — a single, committed dark identity.
+   Amipi palette — a light identity built on the same brand ramps.
 
-   ~60%  #2C3B5B  Deep Midnight Navy  — primary background / canvas
-   ~30%  #EDF1FD  Soft Ice White      — surfaces, highlights, glass, reflections
-   ~10%  #FED700  Radiant Gold        — hero focal points, sparkle, top-tier type
-     -   #C1282D  Crimson Red         — CTAs, badges and active triggers only
-
-   Each brand hex is flagged inside its ramp below; the surrounding steps are
-   tints and shades for hover, border and depth states.
+   The navy/ice/gold/crimson ramps below are unchanged (and still used
+   as-is for on-photo scrims, the navbar's own light pill, and small
+   gold-contrast text) — only the semantic aliases further down
+   (background/surface/foreground/muted/border) were repointed to light
+   values, since those are what every section actually paints with.
 --------------------------------------------------------------------------- */
 
 @theme {
@@ -50,18 +48,21 @@
   --color-crimson-600: #a31f24;
   --color-crimson-700: #86191d;
 
-  /* Semantic aliases — prefer these in components over raw ramp steps */
-  --color-background: #2c3b5b;
-  --color-surface: #232f49;
-  --color-surface-raised: #3a4c73;
-  --color-foreground: #edf1fd;
-  --color-muted: #94a2c1;
-  --color-border: #3a4c73;
+  /* Semantic aliases — prefer these in components over raw ramp steps.
+     Section backgrounds/text read these two names (bg-background /
+     bg-surface, text-foreground) rather than a raw navy-950/ice-100
+     pairing, so the whole page's light/dark identity lives in one place. */
+  --color-background: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-surface-raised: #eef1f8;
+  --color-foreground: #1b2438;
+  --color-muted: #5b6b85;
+  --color-border: #dfe4ee;
   --color-accent: #fed700;
   --color-accent-foreground: #1b2438;
   --color-cta: #c1282d;
   --color-cta-hover: #a31f24;
-  --color-cta-foreground: #edf1fd;
+  --color-cta-foreground: #ffffff;
   --color-ring: #fed700;
 }
 
@@ -77,8 +78,8 @@
 
 @layer base {
   html {
-    /* The palette is intentionally dark-only; keep form controls in step. */
-    color-scheme: dark;
+    /* The palette is light-only; keep form controls in step. */
+    color-scheme: light;
   }
 
   body {
@@ -183,7 +184,7 @@
   height: 32px;
   margin: -16px 0 0 -16px;
   border-radius: 9999px;
-  border: 1.5px solid color-mix(in oklab, var(--color-ice-100) 60%, transparent);
+  border: 1.5px solid color-mix(in oklab, var(--color-navy-900) 35%, transparent);
   background: transparent;
   transition:
     transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),

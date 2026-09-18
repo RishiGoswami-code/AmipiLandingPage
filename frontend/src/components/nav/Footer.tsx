@@ -28,12 +28,12 @@ const LEGAL_LINKS = [
  * Site footer — sits at the end of every page's content (wired up in
  * layout.tsx, inside the same SmoothScroll flow as {children} rather than
  * fixed, so it scrolls normally and only appears once you reach the
- * bottom). Four-column link grid over navy-950, same "one fair price, no
- * bull" voice as the rest of the site, closed out with a copyright bar.
+ * bottom). Four-column link grid, same "one fair price, no bull" voice
+ * as the rest of the site, closed out with a copyright bar.
  */
 export function Footer() {
   return (
-    <footer className="relative border-t border-ice-100/10 bg-navy-950 px-6 pt-16 pb-8 sm:px-12 sm:pt-20 lg:px-20">
+    <footer className="relative border-t border-border bg-background px-6 pt-[3.2rem] pb-[1.6rem] sm:px-12 sm:pt-16 lg:px-20">
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
@@ -44,7 +44,7 @@ export function Footer() {
               height={201}
               className="h-9 w-auto"
             />
-            <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-ice-100/60">
+            <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-foreground/60">
               Wholesale diamonds and fine jewelry, priced fair and graded
               honest. No bull.
             </p>
@@ -52,19 +52,19 @@ export function Footer() {
             <div className="mt-6 space-y-3">
               <a
                 href="tel:+18005302647"
-                className="flex items-center gap-2.5 text-sm text-ice-100/70 transition-colors hover:text-gold-500"
+                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-gold-500"
               >
                 <Phone className="h-4 w-4 shrink-0 text-gold-500" />
                 (800) 530-2647
               </a>
               <a
                 href="mailto:info@amipi.com"
-                className="flex items-center gap-2.5 text-sm text-ice-100/70 transition-colors hover:text-gold-500"
+                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-gold-500"
               >
                 <Mail className="h-4 w-4 shrink-0 text-gold-500" />
                 info@amipi.com
               </a>
-              <div className="flex items-start gap-2.5 text-sm text-ice-100/70">
+              <div className="flex items-start gap-2.5 text-sm text-foreground/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
                 42 W 48th St, New York, NY
               </div>
@@ -76,11 +76,11 @@ export function Footer() {
           <FooterColumn title="Legal" links={LEGAL_LINKS} />
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-ice-100/10 pt-6 sm:flex-row">
-          <p className="text-xs text-ice-100/40">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
+          <p className="text-xs text-foreground/40">
             &copy; {new Date().getFullYear()} AMIPI. All rights reserved.
           </p>
-          <p className="text-xs tracking-[0.2em] text-ice-100/40 uppercase">
+          <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
             Celebrating 50 Years Of AMIPI
           </p>
         </div>
@@ -106,7 +106,7 @@ function FooterColumn({
           <li key={link.label}>
             <Link
               href={link.href}
-              className="text-sm text-ice-100/60 transition-colors hover:text-ice-100"
+              className="text-sm text-foreground/60 transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>

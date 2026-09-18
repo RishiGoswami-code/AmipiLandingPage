@@ -128,7 +128,7 @@ export function CollectionsShowcase() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-900 px-6 py-20 sm:px-12 sm:py-28 lg:px-20"
+      className="relative bg-surface px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
         {COLLECTIONS.map((collection) => (

@@ -51,7 +51,7 @@ export function OurStory() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 pt-24 pb-20 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20"
+      className="relative bg-background px-6 pt-[4.8rem] pb-16 sm:px-12 sm:pt-[5.6rem] sm:pb-[5.6rem] lg:px-20"
     >
       <div className="mx-auto max-w-3xl text-center">
         <p data-reveal className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
@@ -59,12 +59,12 @@ export function OurStory() {
         </p>
         <h1
           data-reveal
-          className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl md:text-5xl"
+          className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl"
         >
           Fifty Years In The <span className="text-gold-500">Diamond District</span>
         </h1>
 
-        <div data-reveal className="mx-auto mt-8 max-w-2xl space-y-5 text-left text-sm leading-relaxed text-ice-100/70 sm:text-base">
+        <div data-reveal className="mx-auto mt-8 max-w-2xl space-y-5 text-left text-sm leading-relaxed text-foreground/70 sm:text-base">
           <p>
             AMIPI started in 1976 on New York&rsquo;s 47th Street the way most
             diamond businesses did back then - one dealer, a loupe, and a
@@ -99,12 +99,12 @@ export function OurStory() {
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-ice-100/8 bg-navy-900 px-6 py-8"
+              className="rounded-2xl border border-border bg-surface px-6 py-8"
             >
               <p className="font-display text-2xl font-extrabold text-gold-500 sm:text-3xl">
                 {stat.value}
               </p>
-              <p className="mt-2 text-[11px] tracking-[0.18em] text-ice-100/60 uppercase">
+              <p className="mt-2 text-[11px] tracking-[0.18em] text-foreground/60 uppercase">
                 {stat.label}
               </p>
             </div>

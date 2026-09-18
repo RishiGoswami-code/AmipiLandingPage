@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SellYourDiamondsPage() {
   return (
-    <div className="bg-navy-950">
+    <div className="bg-background">
       <SellingProcess />
       <TradeShows />
     </div>

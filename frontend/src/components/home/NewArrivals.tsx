@@ -144,7 +144,7 @@ export function NewArrivals() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 py-20 sm:px-12 sm:py-28 lg:px-20"
+      className="relative bg-background px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
@@ -152,13 +152,13 @@ export function NewArrivals() {
             <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               New Arrivals
             </p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
               This Season&rsquo;s Best Sellers
             </h2>
           </div>
           <Link
             href="/collections"
-            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-ice-100/70 transition-colors hover:text-gold-500 sm:flex"
+            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-foreground/70 transition-colors hover:text-gold-500 sm:flex"
           >
             View All New
             <ArrowRight className="h-4 w-4" />
@@ -176,9 +176,9 @@ export function NewArrivals() {
         </div>
 
         <div className="mt-8 flex items-center justify-between gap-6">
-          <div className="relative h-1 w-full max-w-[220px] rounded-full bg-ice-100/10">
+          <div className="relative h-1 w-full max-w-[220px] rounded-full bg-foreground/10">
             <div
-              className="absolute inset-y-0 rounded-full bg-ice-100/60"
+              className="absolute inset-y-0 rounded-full bg-foreground/50"
               style={{
                 width: `${progress.ratio * 100}%`,
                 left: `${progress.offset * (1 - progress.ratio) * 100}%`,
@@ -191,7 +191,7 @@ export function NewArrivals() {
               onClick={() => scrollByCard(-1)}
               disabled={!canScrollPrev}
               aria-label="Previous piece"
-              className="grid h-10 w-10 place-items-center rounded-full border border-ice-100/15 text-ice-100/70 transition-colors hover:border-ice-100/30 hover:text-ice-100 disabled:opacity-30 disabled:hover:border-ice-100/15 disabled:hover:text-ice-100/70"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border text-foreground/70 transition-colors hover:border-foreground/30 hover:text-foreground disabled:opacity-30 disabled:hover:border-border disabled:hover:text-foreground/70"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>

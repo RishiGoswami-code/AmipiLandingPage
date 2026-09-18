@@ -85,7 +85,7 @@ export function ShopByStyle() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 py-16 sm:px-12 sm:py-20 lg:px-20"
+      className="relative bg-background px-6 py-[3.2rem] sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <p className="text-center text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">

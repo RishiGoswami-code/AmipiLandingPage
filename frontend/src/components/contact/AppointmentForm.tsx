@@ -11,7 +11,7 @@ const CONTACT_DETAILS = [
 ];
 
 const inputClasses =
-  "w-full rounded-xl border border-ice-100/15 bg-navy-950 px-4 py-3 text-sm text-ice-100 placeholder:text-ice-100/35 transition-colors focus:border-gold-500/60 focus:outline-none";
+  "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-foreground/35 transition-colors focus:border-gold-500/60 focus:outline-none";
 
 /**
  * Appointment request form. There is no backend behind this yet - see the
@@ -31,16 +31,16 @@ export function AppointmentForm() {
   };
 
   return (
-    <section className="relative bg-navy-950 px-6 pt-24 pb-20 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20">
+    <section className="relative bg-background px-6 pt-[4.8rem] pb-16 sm:px-12 sm:pt-[5.6rem] sm:pb-[5.6rem] lg:px-20">
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
         <div className="lg:col-span-2">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Get In Touch
           </p>
-          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
             Book a Private <span className="text-gold-500">Appointment</span>
           </h1>
-          <p className="mt-6 text-sm leading-relaxed text-ice-100/60 sm:text-base">
+          <p className="mt-6 text-sm leading-relaxed text-foreground/60 sm:text-base">
             Tell us what you&rsquo;re after - buying, selling, or just want
             to see a piece in person - and our team will follow up within
             one business day.
@@ -55,12 +55,12 @@ export function AppointmentForm() {
                 {href ? (
                   <a
                     href={href}
-                    className="text-sm text-ice-100/80 transition-colors hover:text-gold-500"
+                    className="text-sm text-foreground/80 transition-colors hover:text-gold-500"
                   >
                     {label}
                   </a>
                 ) : (
-                  <span className="text-sm text-ice-100/80">{label}</span>
+                  <span className="text-sm text-foreground/80">{label}</span>
                 )}
               </li>
             ))}
@@ -69,14 +69,14 @@ export function AppointmentForm() {
 
         <div className="lg:col-span-3">
           {submitted ? (
-            <div className="rounded-2xl border border-gold-500/30 bg-navy-900 p-8 text-center sm:p-10">
+            <div className="rounded-2xl border border-gold-500/30 bg-surface p-8 text-center sm:p-10">
               <p className="text-[10px] tracking-[0.3em] text-gold-500 uppercase">
                 Request Received
               </p>
-              <h2 className="mt-3 font-display text-xl font-semibold text-ice-100 sm:text-2xl">
+              <h2 className="mt-3 font-display text-xl font-semibold text-foreground sm:text-2xl">
                 Thank you - we&rsquo;ll be in touch
               </h2>
-              <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-ice-100/60">
+              <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-foreground/60">
                 A member of the AMIPI team will follow up within one
                 business day to confirm your appointment.
               </p>
@@ -84,11 +84,11 @@ export function AppointmentForm() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-2xl border border-ice-100/8 bg-navy-900 p-6 sm:p-8"
+              className="rounded-2xl border border-border bg-surface p-6 sm:p-8"
             >
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <label className="block">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] text-ice-100/60 uppercase">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] text-foreground/60 uppercase">
                     Name
                   </span>
                   <input
@@ -100,7 +100,7 @@ export function AppointmentForm() {
                   />
                 </label>
                 <label className="block">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] text-ice-100/60 uppercase">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] text-foreground/60 uppercase">
                     Email
                   </span>
                   <input
@@ -112,7 +112,7 @@ export function AppointmentForm() {
                   />
                 </label>
                 <label className="block">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] text-ice-100/60 uppercase">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] text-foreground/60 uppercase">
                     Phone
                   </span>
                   <input
@@ -123,7 +123,7 @@ export function AppointmentForm() {
                   />
                 </label>
                 <label className="block">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] text-ice-100/60 uppercase">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] text-foreground/60 uppercase">
                     Preferred Date
                   </span>
                   <input type="date" name="date" className={`mt-2 ${inputClasses}`} />
@@ -131,7 +131,7 @@ export function AppointmentForm() {
               </div>
 
               <label className="mt-5 block">
-                <span className="text-[11px] font-semibold tracking-[0.15em] text-ice-100/60 uppercase">
+                <span className="text-[11px] font-semibold tracking-[0.15em] text-foreground/60 uppercase">
                   What Can We Help With?
                 </span>
                 <textarea

@@ -79,17 +79,17 @@ export function PhilosophyPrinciples() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 pt-24 pb-20 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20"
+      className="relative bg-background px-6 pt-[4.8rem] pb-16 sm:px-12 sm:pt-[5.6rem] sm:pb-[5.6rem] lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Our Philosophy
           </p>
-          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl md:text-5xl">
+          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl">
             The <span className="text-gold-500">No-Bull</span> Standard
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-ice-100/60 sm:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/60 sm:text-base">
             Six rules we hold ourselves to on every single order - not a
             marketing line, the actual operating manual.
           </p>
@@ -100,15 +100,15 @@ export function PhilosophyPrinciples() {
             <article
               key={principle.title}
               data-card
-              className="group relative overflow-hidden rounded-2xl border border-ice-100/8 bg-navy-900 p-6 transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_20px_40px_-12px_rgba(254,215,0,0.18)] sm:p-8"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_20px_40px_-12px_rgba(254,215,0,0.18)] sm:p-8"
             >
               <span className="font-mono text-sm tracking-widest text-gold-500/70">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h2 className="mt-4 font-display text-lg font-semibold text-ice-100 sm:text-xl">
+              <h2 className="mt-4 font-display text-lg font-semibold text-foreground sm:text-xl">
                 {principle.title}
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-ice-100/60">
+              <p className="mt-3 text-sm leading-relaxed text-foreground/60">
                 {principle.body}
               </p>
             </article>

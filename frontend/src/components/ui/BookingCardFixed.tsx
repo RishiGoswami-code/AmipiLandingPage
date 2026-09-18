@@ -13,7 +13,7 @@ export function BookingCardFixed() {
     <Link
       href="/contact"
       aria-label="Book an appointment for private diamond viewing"
-      className="appt-card-fixed group pointer-events-auto fixed right-4 bottom-4 z-50 flex items-center gap-4 rounded-2xl border border-ice-100/15 bg-navy-950/80 p-3 opacity-0 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all duration-300 hover:border-gold-300/40 hover:bg-navy-950/90 hover:shadow-[0_20px_50px_-8px_rgba(212,175,55,0.3)] sm:right-8 sm:bottom-8 sm:p-4"
+      className="appt-card-fixed group pointer-events-auto fixed right-4 bottom-4 z-50 flex items-center gap-4 rounded-2xl border border-border bg-surface/90 p-3 opacity-0 shadow-[0_20px_50px_-12px_rgba(18,25,38,0.25)] backdrop-blur-md transition-all duration-300 hover:border-gold-300/60 hover:bg-surface hover:shadow-[0_20px_50px_-8px_rgba(212,175,55,0.35)] sm:right-8 sm:bottom-8 sm:p-4"
       style={{
         // Fallback: fade in via CSS animation in case GSAP hasn't loaded yet
         animation: "apptCardIn 0.9s cubic-bezier(0.34,1.56,0.64,1) 1.1s forwards",
@@ -32,15 +32,15 @@ export function BookingCardFixed() {
 
       {/* Text */}
       <span className="pr-1">
-        <span className="block text-sm font-bold tracking-wide text-ice-100">
+        <span className="block text-sm font-bold tracking-wide text-foreground">
           Book an Appointment
         </span>
-        <span className="mt-0.5 block text-xs text-ice-100/60">
+        <span className="mt-0.5 block text-xs text-foreground/60">
           Private viewings, by request
         </span>
       </span>
 
-      <ArrowRight className="h-4 w-4 shrink-0 text-ice-100/50 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#dfbf7b]" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-foreground/40 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#dfbf7b]" />
     </Link>
   );
 }
