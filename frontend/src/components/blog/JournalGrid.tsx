@@ -113,17 +113,17 @@ export function JournalGrid() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 pt-24 pb-20 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20"
+      className="relative bg-background px-6 pt-12 pb-12 sm:px-12 sm:pt-16 sm:pb-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             The Journal
           </p>
-          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl md:text-5xl">
+          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl">
             Notes From <span className="text-gold-500">The Trade</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-ice-100/60 sm:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/60 sm:text-base">
             Buying guides, grading explainers, and the occasional look
             behind the counter - written by the people actually sourcing
             the stones.
@@ -135,7 +135,7 @@ export function JournalGrid() {
             <article
               key={post.title}
               data-card
-              className="group overflow-hidden rounded-2xl border border-ice-100/8 bg-navy-900 transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_20px_40px_-12px_rgba(254,215,0,0.18)]"
+              className="group overflow-hidden rounded-2xl border border-border bg-surface transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_20px_40px_-12px_rgba(254,215,0,0.18)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -153,12 +153,12 @@ export function JournalGrid() {
                   <span className="text-[10px] font-semibold tracking-[0.2em] text-gold-500 uppercase">
                     {post.category}
                   </span>
-                  <span className="text-[11px] text-ice-100/40">{post.date}</span>
+                  <span className="text-[11px] text-foreground/40">{post.date}</span>
                 </div>
-                <h2 className="mt-3 font-display text-base leading-snug font-semibold text-ice-100 sm:text-lg">
+                <h2 className="mt-3 font-display text-base leading-snug font-semibold text-foreground sm:text-lg">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-ice-100/60">
+                <p className="mt-2 text-sm leading-relaxed text-foreground/60">
                   {post.excerpt}
                 </p>
               </div>
@@ -167,7 +167,7 @@ export function JournalGrid() {
         </div>
 
         <div className="mt-14 text-center">
-          <p className="text-sm text-ice-100/50">
+          <p className="text-sm text-foreground/50">
             Have a topic you want us to cover?
           </p>
           <div className="mt-5 flex justify-center">

@@ -21,7 +21,7 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   solid:
     "gold-shimmer-gradient border border-white/40 shadow-[0_4px_20px_-4px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_-2px_rgba(212,175,55,0.6)]",
   dark: "bg-navy-900 text-ice-100",
-  outline: "border border-ice-100/25 text-ice-100",
+  outline: "border border-foreground/25 text-foreground",
 };
 
 const SIZE_CLASSES: Record<Size, string> = {

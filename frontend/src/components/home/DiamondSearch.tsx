@@ -414,11 +414,11 @@ function FilterBox({
 }) {
   return (
     <div className="relative">
-      <span className="text-[11px] font-semibold tracking-[0.3em] text-ice-100/60 uppercase">
+      <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
         {label}
       </span>
       <div className="mt-4 border-x-2 border-gold-500/60">
-        <div className="border-y border-ice-100/10 px-4 py-3">{children}</div>
+        <div className="border-y border-border px-4 py-3">{children}</div>
       </div>
     </div>
   );
@@ -440,13 +440,13 @@ export function DiamondSearch() {
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative bg-navy-900 px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
+    <section className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Find Your Stone
           </p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl">
             Start Your <span className="text-gold-500">Diamond Search</span> Here
           </h2>
         </div>
@@ -454,7 +454,7 @@ export function DiamondSearch() {
         {/* Shape */}
         <div className="mt-14">
           <div className="flex items-center border-b-2 border-gold-500/50 pb-2">
-            <span className="text-[11px] font-semibold tracking-[0.3em] text-ice-100/60 uppercase">
+            <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
               Shape
             </span>
           </div>
@@ -469,7 +469,7 @@ export function DiamondSearch() {
                   onClick={() => setShape(s.id)}
                   aria-pressed={active}
                   className={`flex flex-col items-center gap-3 text-center transition-colors ${
-                    active ? "text-gold-500" : "text-ice-100/70 hover:text-ice-100"
+                    active ? "text-gold-500" : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   <Icon className="h-9 w-9" />
@@ -489,7 +489,7 @@ export function DiamondSearch() {
               type="button"
               onClick={() => setWeightOpen((v) => !v)}
               aria-expanded={weightOpen}
-              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-ice-100 uppercase"
+              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
             >
               {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
               <ChevronDown
@@ -508,7 +508,7 @@ export function DiamondSearch() {
                   onClick={() => setWeightOpen(false)}
                   className="fixed inset-0 z-10 cursor-default"
                 />
-                <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-navy-950 p-3 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)]">
                   <div className="grid grid-cols-5 gap-1">
                     {CARAT_BRACKETS.map((bracket, i) => (
                       <button
@@ -522,7 +522,7 @@ export function DiamondSearch() {
                         className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
                           weightIndex === i
                             ? "bg-gold-500 text-navy-950"
-                            : "text-ice-100/70 hover:bg-ice-100/10 hover:text-ice-100"
+                            : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
                         }`}
                       >
                         {caratBracketLabel(bracket)}
@@ -545,8 +545,8 @@ export function DiamondSearch() {
                   className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
                     color === c
                       ? "text-gold-500 underline underline-offset-4"
-                      : "text-ice-100/70 hover:text-ice-100"
-                  } ${i < COLORS.length - 1 ? "border-r border-ice-100/10" : ""}`}
+                      : "text-foreground/70 hover:text-foreground"
+                  } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
                 >
                   {c}
                 </button>
@@ -565,8 +565,8 @@ export function DiamondSearch() {
                   className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
                     clarity === c
                       ? "text-gold-500 underline underline-offset-4"
-                      : "text-ice-100/70 hover:text-ice-100"
-                  } ${i < CLARITIES.length - 1 ? "border-r border-ice-100/10" : ""}`}
+                      : "text-foreground/70 hover:text-foreground"
+                  } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
                 >
                   {c}
                 </button>

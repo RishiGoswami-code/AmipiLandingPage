@@ -52,21 +52,18 @@ export function CategoriesPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-900 px-6 py-20 sm:px-12 sm:py-28 lg:px-20"
+      className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
+            <h2 className="font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
               Shop By Category
-            </p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl">
-              Find Your Perfect Piece
             </h2>
           </div>
           <Link
             href="/categories"
-            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-ice-100/70 transition-colors hover:text-gold-500 sm:flex"
+            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-foreground/70 transition-colors hover:text-gold-500 sm:flex"
           >
             View All Categories
             <ArrowRight className="h-4 w-4" />

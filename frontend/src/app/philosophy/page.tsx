@@ -10,18 +10,18 @@ export const metadata: Metadata = {
 
 export default function PhilosophyPage() {
   return (
-    <div className="bg-navy-950">
+    <div className="bg-background">
       <PhilosophyPrinciples />
 
-      <section className="relative bg-navy-900 px-6 py-20 text-center sm:px-12 sm:py-24 lg:px-20">
+      <section className="relative bg-surface px-6 py-12 text-center sm:px-12 sm:py-16 lg:px-20">
         <div className="mx-auto max-w-2xl">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             See It In Practice
           </p>
-          <h2 className="mt-4 font-display text-2xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-3xl">
+          <h2 className="mt-4 font-display text-2xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-3xl">
             Browse The Collection
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ice-100/60">
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground/60">
             Every piece we list is graded, priced and described the same
             honest way - come see for yourself.
           </p>

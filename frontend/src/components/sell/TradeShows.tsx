@@ -64,14 +64,14 @@ export function TradeShows() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-900 px-6 py-20 sm:px-12 sm:py-24 lg:px-20"
+      className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-4xl">
         <div className="text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Meet Us In Person
           </p>
-          <h2 className="mt-4 font-display text-2xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-3xl">
+          <h2 className="mt-4 font-display text-2xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-3xl">
             Upcoming Trade Shows
           </h2>
         </div>
@@ -81,16 +81,16 @@ export function TradeShows() {
             <div
               key={show.name}
               data-card
-              className="rounded-2xl border border-ice-100/8 bg-navy-950 p-6 transition-colors duration-300 hover:border-gold-500/40 sm:p-8"
+              className="rounded-2xl border border-border bg-background p-6 transition-colors duration-300 hover:border-gold-500/40 sm:p-8"
             >
-              <h3 className="font-display text-lg font-semibold text-ice-100 sm:text-xl">
+              <h3 className="font-display text-lg font-semibold text-foreground sm:text-xl">
                 {show.name}
               </h3>
-              <p className="mt-4 flex items-center gap-2.5 text-sm text-ice-100/70">
+              <p className="mt-4 flex items-center gap-2.5 text-sm text-foreground/70">
                 <Calendar className="h-4 w-4 shrink-0 text-gold-500" />
                 {show.dates}
               </p>
-              <p className="mt-2 flex items-start gap-2.5 text-sm text-ice-100/70">
+              <p className="mt-2 flex items-start gap-2.5 text-sm text-foreground/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
                 {show.location}
               </p>

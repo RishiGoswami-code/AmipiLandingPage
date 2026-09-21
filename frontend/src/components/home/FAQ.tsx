@@ -88,14 +88,14 @@ export function FAQ() {
     <section
       ref={sectionRef}
       id="faq"
-      className="relative scroll-mt-24 bg-navy-900 px-6 py-20 sm:px-12 sm:py-28 lg:px-20"
+      className="relative scroll-mt-24 bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Questions, Answered
           </p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
             Frequently Asked
           </h2>
         </div>
@@ -107,7 +107,7 @@ export function FAQ() {
               <div
                 key={faq.question}
                 data-faq-row
-                className="border-b border-ice-100/10"
+                className="border-b border-border"
               >
                 <button
                   type="button"
@@ -115,7 +115,7 @@ export function FAQ() {
                   aria-expanded={open}
                   className="flex w-full items-center justify-between gap-6 py-6 text-left"
                 >
-                  <span className="font-display text-base font-semibold text-ice-100 sm:text-lg">
+                  <span className="font-display text-base font-semibold text-foreground sm:text-lg">
                     {faq.question}
                   </span>
                   <Plus
@@ -130,7 +130,7 @@ export function FAQ() {
                   style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-6 pr-10 text-sm leading-relaxed text-ice-100/60 sm:text-base">
+                    <p className="pb-6 pr-10 text-sm leading-relaxed text-foreground/60 sm:text-base">
                       {faq.answer}
                     </p>
                   </div>

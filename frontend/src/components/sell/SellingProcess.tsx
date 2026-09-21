@@ -69,17 +69,17 @@ export function SellingProcess() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-navy-950 px-6 pt-24 pb-20 sm:px-12 sm:pt-28 sm:pb-28 lg:px-20"
+      className="relative bg-background px-6 pt-12 pb-12 sm:px-12 sm:pt-16 sm:pb-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Sell Your Diamonds
           </p>
-          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-4xl md:text-5xl">
+          <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl">
             Three Steps. <span className="text-gold-500">One Business Day.</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-ice-100/60 sm:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/60 sm:text-base">
             We buy loose diamonds and fine jewelry direct - no consignment,
             no waiting on a buyer to show up.
           </p>
@@ -94,13 +94,13 @@ export function SellingProcess() {
 
           {SELLING_STEPS.map((s) => (
             <div key={s.step} data-card className="relative text-center">
-              <span className="relative z-10 mx-auto grid h-12 w-12 place-items-center rounded-full border border-gold-500/50 bg-navy-950 font-display text-sm font-bold text-gold-500">
+              <span className="relative z-10 mx-auto grid h-12 w-12 place-items-center rounded-full border border-gold-500/50 bg-background font-display text-sm font-bold text-gold-500">
                 {s.step}
               </span>
-              <h2 className="mt-5 font-display text-lg font-semibold text-ice-100 sm:text-xl">
+              <h2 className="mt-5 font-display text-lg font-semibold text-foreground sm:text-xl">
                 {s.title}
               </h2>
-              <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-ice-100/60">
+              <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-foreground/60">
                 {s.body}
               </p>
             </div>
