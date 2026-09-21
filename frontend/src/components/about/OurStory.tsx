@@ -51,7 +51,7 @@ export function OurStory() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 pt-[4.8rem] pb-16 sm:px-12 sm:pt-[5.6rem] sm:pb-[5.6rem] lg:px-20"
+      className="relative bg-background px-6 pt-12 pb-12 sm:px-12 sm:pt-16 sm:pb-16 lg:px-20"
     >
       <div className="mx-auto max-w-3xl text-center">
         <p data-reveal className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">

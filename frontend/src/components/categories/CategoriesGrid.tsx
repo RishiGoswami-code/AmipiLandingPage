@@ -106,7 +106,7 @@ export function CategoriesGrid() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20"
+      className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       {/* 2 cols up to lg, 4 at lg+ - both divide the 8-card list evenly, so
           the last row never comes up short (a 3-col step left an

@@ -57,15 +57,12 @@ export function CollectionsPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20"
+      className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-              Curated Edits
-            </p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
+            <h2 className="font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
               Our Collections
             </h2>
           </div>

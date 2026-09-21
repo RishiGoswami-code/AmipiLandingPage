@@ -64,7 +64,7 @@ export function TradeShows() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-surface px-6 py-16 sm:px-12 sm:py-[4.8rem] lg:px-20"
+      className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-4xl">
         <div className="text-center">

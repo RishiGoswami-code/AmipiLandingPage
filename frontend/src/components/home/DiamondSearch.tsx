@@ -440,7 +440,7 @@ export function DiamondSearch() {
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative bg-surface px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20">
+    <section className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">

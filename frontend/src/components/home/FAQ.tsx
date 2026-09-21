@@ -88,7 +88,7 @@ export function FAQ() {
     <section
       ref={sectionRef}
       id="faq"
-      className="relative scroll-mt-24 bg-surface px-6 py-16 sm:px-12 sm:py-[5.6rem] lg:px-20"
+      className="relative scroll-mt-24 bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-3xl">
         <div className="text-center">

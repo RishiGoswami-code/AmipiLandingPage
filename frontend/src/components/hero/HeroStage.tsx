@@ -26,8 +26,7 @@ export default function HeroStage() {
         0.25,
       )
       .from(".hero-divider", { scaleX: 0, duration: 0.6 }, 0.75)
-      .from(".hero-sub", { opacity: 0, y: 16, duration: 0.7 }, 0.85)
-      .from(".hero-cta", { opacity: 0, y: 16, duration: 0.6 }, 1)
+      .from(".hero-cta", { opacity: 0, y: 16, duration: 0.6 }, 0.95)
       .from(
         ".hero-appointment",
         { opacity: 0, x: 28, duration: 0.8, ease: "back.out(1.5)" },
@@ -66,15 +65,9 @@ export default function HeroStage() {
             </span>
           </h1>
           <div className="hero-divider mt-6 h-px w-16 origin-left bg-gold-500/60" />
-          <p className="hero-sub mt-6 max-w-md text-sm leading-7 text-ice-100/70 sm:text-base">
-            Natural and lab-grown diamonds, fine jewelry, and transparent wholesale pricing — everything retailers need from a trusted diamond hub.
-          </p>
           <div className="hero-cta pointer-events-auto mt-8 flex flex-wrap items-center gap-4">
             <PillButton href="/collections" variant="solid" icon="dot">
               Start Your Diamond Search
-            </PillButton>
-            <PillButton href="/login" variant="outline-inverse" icon="arrow" className="h-12 sm:h-14">
-              Login
             </PillButton>
           </div>
         </div>

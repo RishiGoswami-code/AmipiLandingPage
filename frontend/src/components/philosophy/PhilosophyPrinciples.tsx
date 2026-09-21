@@ -79,7 +79,7 @@ export function PhilosophyPrinciples() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 pt-[4.8rem] pb-16 sm:px-12 sm:pt-[5.6rem] sm:pb-[5.6rem] lg:px-20"
+      className="relative bg-background px-6 pt-12 pb-12 sm:px-12 sm:pt-16 sm:pb-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
@@ -87,7 +87,7 @@ export function PhilosophyPrinciples() {
             Our Philosophy
           </p>
           <h1 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl md:text-5xl">
-            The <span className="text-gold-500">No-Bull</span> Standard
+            Experience The <span className="text-gold-500">No Bull</span> Philosophy
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/60 sm:text-base">
             Six rules we hold ourselves to on every single order - not a
