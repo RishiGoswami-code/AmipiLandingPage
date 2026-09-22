@@ -381,6 +381,24 @@ const SHAPES: { id: string; label: string }[] = [
   { id: "other", label: "All Others" },
 ];
 
+/**
+ * Real per-shape renders (AMIPI's own asset, generated fresh rather than
+ * cropped from a competitor's product photography) for every cut except
+ * "All Others" - which isn't a real cut, so it keeps the custom line-icon
+ * with its "?" mark instead of a photo that would misrepresent a shape.
+ */
+const SHAPE_PHOTOS: Record<string, string> = {
+  round: "/diamond-shapes/round.png",
+  oval: "/diamond-shapes/oval.png",
+  cushion: "/diamond-shapes/cushion.png",
+  princess: "/diamond-shapes/princess.png",
+  emerald: "/diamond-shapes/emerald.png",
+  marquise: "/diamond-shapes/marquise.png",
+  asscher: "/diamond-shapes/asscher.png",
+  radiant: "/diamond-shapes/radiant.png",
+  pear: "/diamond-shapes/pear.png",
+};
+
 const COLORS = ["D", "E", "F", "G", "H", "I", "J", "K", "L+"];
 const CLARITIES = ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "SI3", "I1+"];
 
@@ -558,6 +576,7 @@ export function DiamondSearch() {
             <ShapeIconDefs />
             <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5">
               {SHAPES.map((s) => {
+                const photo = SHAPE_PHOTOS[s.id];
                 const Icon = ShapeIcons[s.id];
                 const active = shape === s.id;
                 return (
@@ -572,7 +591,13 @@ export function DiamondSearch() {
                         : "border-transparent text-foreground/70 hover:text-foreground"
                     }`}
                   >
-                    <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
+                    {photo ? (
+                      <span className="relative block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]">
+                        <Image src={photo} alt="" fill sizes="44px" className="object-contain" />
+                      </span>
+                    ) : (
+                      <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
+                    )}
                     <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
                       {s.label}
                     </span>
