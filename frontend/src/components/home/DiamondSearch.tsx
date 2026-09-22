@@ -702,12 +702,12 @@ export function DiamondSearch() {
             <div className="mt-2 flex flex-col gap-3 sm:flex-row">
               <div className="sm:flex-1">
                 <PillButton href="/contact" variant="outline" size="md" className="w-full">
-                  Search Earth Mined Diamonds
+                  Earth Mined Diamonds
                 </PillButton>
               </div>
               <div className="sm:flex-1">
                 <PillButton href="/contact" variant="solid" size="md" className="w-full">
-                  Search Lab Grown Diamonds
+                  Lab Grown Diamonds
                 </PillButton>
               </div>
             </div>

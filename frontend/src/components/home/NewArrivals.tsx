@@ -59,6 +59,12 @@ const PIECES: Piece[] = [
     image:
       "https://images.unsplash.com/photo-1600143674013-a690b5d25104?auto=format&fit=crop&w=800&h=1000&q=80",
   },
+  {
+    name: "The Halo Diamond Studs",
+    spec: "18k White Gold",
+    image:
+      "https://images.unsplash.com/photo-1588444650733-d0767b753fc8?auto=format&fit=crop&w=800&h=1000&q=80",
+  },
 ];
 
 /**
@@ -102,15 +108,12 @@ export function NewArrivals() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
+      className="relative bg-background px-6 py-3 sm:px-12 sm:py-4 lg:px-20"
     >
-      <div className="mx-auto max-w-6xl">
+      <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-              New Arrivals
-            </p>
-            <h2 className="mt-4 font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
               New Arrival
             </h2>
             <p className="mt-3 max-w-md text-sm text-foreground/60">
@@ -126,7 +129,7 @@ export function NewArrivals() {
           </Link>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-x-7 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
           {PIECES.map((piece) => (
             <Link key={piece.name} href="/collections" data-card className="group block">
               <div className="relative aspect-[4/5] overflow-hidden bg-surface">
@@ -134,7 +137,7 @@ export function NewArrivals() {
                   src={piece.image}
                   alt={piece.name}
                   fill
-                  sizes="(min-width: 1024px) 19vw, (min-width: 640px) 31vw, 46vw"
+                  sizes="(min-width: 1024px) 17vw, (min-width: 640px) 31vw, 46vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
