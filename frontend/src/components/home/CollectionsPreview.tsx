@@ -16,12 +16,15 @@ const PREVIEW_COLLECTIONS = COLLECTIONS.slice(0, 5);
 
 /**
  * Collections - an editorial serif heading beside a staggered grid of
- * portrait tiles, each one scaling up from ~72% as it scrolls through the
- * viewport. Unlike every other reveal on this site (one-shot `gsap.from`,
- * plays once), this is `scrub: true` per tile: the scale is tied directly
- * to scroll position, so it grows and shrinks in step with the scrollbar
- * rather than firing once and holding. The middle column sits lower than
- * its neighbors for the masonry stagger the effect is built to show off.
+ * portrait tiles. Each tile slides in from the left and scales up from
+ * ~70% as it scrolls through the viewport, so it reads as travelling
+ * left-to-right into its resting spot rather than just fading up in
+ * place. Unlike every other reveal on this site (one-shot `gsap.from`,
+ * plays once), this is `scrub: true` per tile: the motion is tied
+ * directly to scroll position, so it advances and reverses in step with
+ * the scrollbar rather than firing once and holding. The middle column
+ * sits lower than its neighbors for the masonry stagger the effect is
+ * built to show off.
  */
 export function CollectionsPreview() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -39,15 +42,16 @@ export function CollectionsPreview() {
       tiles.forEach((tile) => {
         gsap.fromTo(
           tile,
-          { scale: 0.72, opacity: 0.5 },
+          { x: -140, scale: 0.7, opacity: 0.4 },
           {
+            x: 0,
             scale: 1,
             opacity: 1,
             ease: "none",
             scrollTrigger: {
               trigger: tile,
               start: "top 95%",
-              end: "top 55%",
+              end: "top 45%",
               scrub: true,
             },
           },
@@ -62,7 +66,7 @@ export function CollectionsPreview() {
       ref={sectionRef}
       className="relative overflow-hidden bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
-      <div className="mx-auto max-w-6xl">
+      <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.1] font-semibold text-foreground sm:text-5xl">
             Discover Our
