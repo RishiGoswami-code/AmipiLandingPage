@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "solid" | "dark" | "outline";
+type Variant = "solid" | "dark" | "outline" | "light";
 type Size = "sm" | "md";
 type Icon = "arrow" | "dot" | "none";
 
@@ -22,6 +22,7 @@ const VARIANT_CLASSES: Record<Variant, string> = {
     "gold-shimmer-gradient border border-white/40 shadow-[0_4px_20px_-4px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_-2px_rgba(212,175,55,0.6)]",
   dark: "bg-navy-900 text-ice-100",
   outline: "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
+  light: "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };
 
 const SIZE_CLASSES: Record<Size, string> = {
