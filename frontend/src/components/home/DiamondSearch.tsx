@@ -203,10 +203,34 @@ const OTHER_OUTLINE: Point[] = [
  * polar-geometry helpers above, so it's themeable via `currentColor` and
  * needs no image hosting or third-party license.
  */
+/**
+ * One shared gem-glass gradient, defined once and referenced by every icon
+ * below via `url(#diamondFacetShine)` - a white highlight sliding into a
+ * cool gray shadow, so each outline reads as a faceted, dimensional gem
+ * rather than a flat line drawing. Fixed, neutral stops (not `currentColor`)
+ * so the glass tone stays consistent while the linework on top still
+ * switches to gold on the active shape via `stroke="currentColor"`.
+ */
+function ShapeIconDefs() {
+  return (
+    <svg width="0" height="0" className="absolute" aria-hidden>
+      <defs>
+        <linearGradient id="diamondFacetShine" x1="15%" y1="8%" x2="85%" y2="95%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="55%" stopColor="#c7d2e0" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="#8891a6" stopOpacity="0.5" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+const FACET_FILL = "url(#diamondFacetShine)";
+
 const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> = {
   round: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <circle cx="20" cy="20" r="15" stroke="currentColor" strokeWidth="1.3" />
+      <circle cx="20" cy="20" r="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(ROUND_GIRDLE, ROUND_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
       <path d={spokes(ROUND_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
       <path d={polygon(ROUND_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -214,7 +238,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   oval: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <ellipse cx="20" cy="20" rx="11" ry="15" stroke="currentColor" strokeWidth="1.3" />
+      <ellipse cx="20" cy="20" rx="11" ry="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(OVAL_GIRDLE, OVAL_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
       <path d={spokes(OVAL_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
       <path d={polygon(OVAL_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -222,7 +246,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   cushion: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <rect x="6" y="6" width="28" height="28" rx="11" stroke="currentColor" strokeWidth="1.3" />
+      <rect x="6" y="6" width="28" height="28" rx="11" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path
         d={spokes(CUSHION_TABLE_CORNERS, CUSHION_OUTER_CORNERS)}
         stroke="currentColor"
@@ -240,7 +264,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   princess: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <rect x="7" y="7" width="26" height="26" stroke="currentColor" strokeWidth="1.3" />
+      <rect x="7" y="7" width="26" height="26" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(PRINCESS_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.7" opacity="0.55" />
       <path
         d={spokes(PRINCESS_TABLE, PRINCESS_EDGE_MIDS)}
@@ -253,7 +277,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   emerald: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(EMERALD_OUTER)} stroke="currentColor" strokeWidth="1.3" />
+      <path d={polygon(EMERALD_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={polygon(EMERALD_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
       <path d={polygon(EMERALD_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
     </svg>
@@ -262,6 +286,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path
         d="M20 4C26 11 30 15.5 30 20C30 24.5 26 29 20 36C14 29 10 24.5 10 20C10 15.5 14 11 20 4Z"
+        fill={FACET_FILL}
         stroke="currentColor"
         strokeWidth="1.3"
       />
@@ -276,7 +301,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   asscher: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(ASSCHER_OUTER)} stroke="currentColor" strokeWidth="1.3" />
+      <path d={polygon(ASSCHER_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(ASSCHER_MID, ASSCHER_OUTER)} stroke="currentColor" strokeWidth="0.55" opacity="0.45" />
       <path d={polygon(ASSCHER_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
       <path d={polygon(ASSCHER_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -284,7 +309,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   radiant: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(RADIANT_OUTER)} stroke="currentColor" strokeWidth="1.3" />
+      <path d={polygon(RADIANT_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(RADIANT_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.55" opacity="0.4" />
       <path d={polygon(RADIANT_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
     </svg>
@@ -293,6 +318,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path
         d="M20 5C25.5 12 31 17.5 31 24.5C31 30.5 26 35 20 35C14 35 9 30.5 9 24.5C9 17.5 14.5 12 20 5Z"
+        fill={FACET_FILL}
         stroke="currentColor"
         strokeWidth="1.3"
       />
@@ -312,7 +338,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   ),
   other: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(OTHER_OUTLINE)} stroke="currentColor" strokeWidth="1.3" />
+      <path d={polygon(OTHER_OUTLINE)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
       <path d={spokes(OTHER_OUTLINE, fillCenter(4))} stroke="currentColor" strokeWidth="0.6" opacity="0.35" />
       <circle cx="20" cy="20" r="9" stroke="currentColor" strokeWidth="1" opacity="0.6" />
       <text x="20" y="24.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="currentColor" stroke="none">
@@ -432,17 +458,6 @@ function FilterBox({
   );
 }
 
-function StatItem({ label, caption }: { label: string; caption: string }) {
-  return (
-    <div className="text-center sm:text-left">
-      <p className="text-[11px] font-semibold tracking-[0.25em] text-foreground uppercase">
-        {label}
-      </p>
-      <p className="mt-1 text-xs text-foreground/50">{caption}</p>
-    </div>
-  );
-}
-
 /**
  * "Start Your Diamond Search Here" - full-bleed like the navbar above it
  * rather than inset in the page's usual max-w-6xl column, so it reads as
@@ -462,7 +477,7 @@ export function DiamondSearch() {
   return (
     <section className="relative bg-background">
       {/* Photo + heading, full width */}
-      <div className="relative h-[600px] sm:h-[640px] lg:h-[680px]">
+      <div className="relative h-[460px] sm:h-[500px] lg:h-[540px]">
         <Image
           src="https://images.unsplash.com/photo-1662434923232-0164224dbdb2?auto=format&fit=crop&w=1920&q=80"
           alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
@@ -472,18 +487,21 @@ export function DiamondSearch() {
           sizes="100vw"
           className="object-cover [object-position:78%_30%]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
-        <div className="relative px-6 pt-20 sm:px-12 sm:pt-24 lg:px-20 lg:pt-28">
-          <div className="max-w-xl">
+        <div className="relative px-6 pt-16 sm:px-12 sm:pt-20 lg:px-20 lg:pt-24">
+          <div className="max-w-xl lg:max-w-3xl">
             <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               Find Your Stone
             </p>
-            <h2 className="mt-5 font-display text-4xl leading-[0.95] font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-5xl md:text-6xl lg:text-7xl">
+            <h2 className="mt-5 font-display text-4xl leading-[0.95] font-black tracking-[0.01em] text-foreground uppercase sm:text-5xl lg:text-6xl">
               Start Your
               <br />
-              <span className="text-gold-500">Diamond</span> Search Here
+              <span className="relative inline-block text-gold-500">
+                <span className="absolute inset-x-0 bottom-1 h-[0.4em] -rotate-1 bg-gold-500/20" />
+                <span className="relative">Diamond</span>
+              </span>{" "}
+              Search Here
             </h2>
             <p className="mt-5 text-sm text-foreground/60 sm:text-base">
               Exceptional diamonds. A more beautiful tomorrow.
@@ -492,7 +510,7 @@ export function DiamondSearch() {
           </div>
         </div>
 
-        <div className="absolute top-20 right-6 sm:top-24 sm:right-12 lg:right-20">
+        <div className="absolute top-16 right-6 sm:top-20 sm:right-12 lg:right-20">
           <p className="ml-auto max-w-[10rem] text-right text-[10px] leading-relaxed tracking-[0.2em] text-foreground/50 uppercase sm:max-w-[11rem] sm:text-[11px]">
             More Than A Diamond
             <br />A Brighter Tomorrow
@@ -515,6 +533,7 @@ export function DiamondSearch() {
               Choose the shape that speaks to you
             </span>
           </div>
+          <ShapeIconDefs />
           <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5 lg:grid-cols-10">
             {SHAPES.map((s) => {
               const Icon = ShapeIcons[s.id];
@@ -531,7 +550,7 @@ export function DiamondSearch() {
                       : "border-transparent text-foreground/70 hover:text-foreground"
                   }`}
                 >
-                  <Icon className="h-9 w-9" />
+                  <Icon className="h-10 w-10" />
                   <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
                     {s.label}
                   </span>
@@ -658,32 +677,6 @@ export function DiamondSearch() {
             <ShieldCheck className="h-4 w-4 text-gold-500" />
             Trust &amp; Transparency
           </span>
-        </div>
-
-        {/* Closing stat strip, full width beneath the card content */}
-        <div className="relative mt-10 -mx-6 overflow-hidden border-t border-border px-6 pt-8 sm:-mx-12 sm:px-12 lg:-mx-20 lg:px-20">
-          <Image
-            src="https://images.unsplash.com/photo-1638448937798-f516bc697a0d?auto=format&fit=crop&w=1600&q=80"
-            alt=""
-            aria-hidden
-            fill
-            quality={80}
-            sizes="100vw"
-            className="object-cover opacity-[0.14]"
-          />
-          <div className="relative flex flex-col items-center gap-6 pb-2 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-center sm:text-left">
-              <p className="font-display text-lg font-bold tracking-[0.02em] text-foreground uppercase">
-                A More Brilliant Tomorrow
-              </p>
-              <div className="mt-2 h-px w-10 bg-gold-500/60 mx-auto sm:mx-0" />
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-              <StatItem label="Expert Guidance" caption="From our diamond specialists" />
-              <StatItem label="Curated Selection" caption="Only the exceptional" />
-              <StatItem label="Personalized Experience" caption="In-store or virtual" />
-            </div>
-          </div>
         </div>
       </div>
     </section>
