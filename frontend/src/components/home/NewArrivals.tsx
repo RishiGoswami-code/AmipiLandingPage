@@ -30,19 +30,19 @@ type Piece = {
  */
 const PIECES: Piece[] = [
   {
-    name: "The Diamond Riviera Bracelet",
+    name: "The Riviera Bracelet",
     spec: "18k White Gold",
     image:
       "https://images.unsplash.com/photo-1763029513623-37d488cb97b1?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
-    name: "The Solitaire Diamond Choker",
+    name: "The Solitaire Choker",
     spec: "18k White Gold",
     image:
       "https://images.unsplash.com/photo-1689775703655-6d999e38e64c?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
-    name: "Classic Diamond Hoops",
+    name: "Classic Hoops",
     spec: "14k White Gold",
     image:
       "https://images.unsplash.com/photo-1729101913531-69d0954b191e?auto=format&fit=crop&w=800&h=1000&q=80",
@@ -60,7 +60,7 @@ const PIECES: Piece[] = [
       "https://images.unsplash.com/photo-1600143674013-a690b5d25104?auto=format&fit=crop&w=800&h=1000&q=80",
   },
   {
-    name: "The Halo Diamond Studs",
+    name: "The Halo Studs",
     spec: "18k White Gold",
     image:
       "https://images.unsplash.com/photo-1588444650733-d0767b753fc8?auto=format&fit=crop&w=800&h=1000&q=80",
@@ -135,16 +135,13 @@ export function NewArrivals() {
               <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                 <Image
                   src={piece.image}
-                  alt={piece.name}
+                  alt={`${piece.name}, ${piece.spec}`}
                   fill
                   sizes="(min-width: 1024px) 17vw, (min-width: 640px) 31vw, 46vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
-              <p className="mt-4 text-[11px] tracking-[0.18em] text-gold-500 uppercase">
-                {piece.spec}
-              </p>
-              <h3 className="mt-1 font-display text-sm font-semibold text-foreground">
+              <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
                 {piece.name}
               </h3>
             </Link>
