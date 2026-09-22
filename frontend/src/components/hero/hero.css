@@ -1,0 +1,528 @@
+/* ---------------------------------------------------------------------------
+   Hero stage — styles owned entirely by src/components/hero/.
+
+   This file exists instead of additions to app/globals.css so that the hero
+   rebuild touches no shared file. It is imported by HeroStage.tsx; Next allows
+   a global stylesheet to be imported from any component in the App Router.
+
+   Everything here is namespaced under `hero-` or scoped by the
+   [data-hero-intro] attribute that HeroStage owns, so nothing leaks into the
+   sections below or the other seven routes.
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   The mask primitive.
+
+   Beat 8 must never scale a card up to fill the viewport: magnifying a ~575px
+   card to 1440px blurs the pixels and distorts the aspect. Instead the
+   background image is full-bleed from the first frame and is *masked down* to
+   card dimensions, then the mask opens.
+
+   One registered scalar drives the whole effect:
+
+     -0.08  window tighter than the card  (beat 5 entrance)
+      0     window exactly card-sized     (beats 5-8a)
+      1     full bleed                    (beat 8b)
+
+   Registering it with @property is what makes it animatable at all — an
+   unregistered custom property is an untyped token stream and the browser
+   would step from one value to the next instead of interpolating.
+
+   `inherits: true` is required, not incidental: the clip window lives on
+   .hero-backdrop while the pan lives on its child, and the child has to be
+   able to read the same scalar. The subtree is two elements deep, so the
+   inheritance invalidation is negligible.
+--------------------------------------------------------------------------- */
+@property --hero-mask {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.hero-stage {
+  /* A warm near-black rather than navy-950. The three photographs are graded
+     to a single espresso key; a blue-black stage behind them reads as a colour
+     cast rather than as darkness. */
+  background-color: #0e0b0a;
+
+  /* --- Card geometry. ----------------------------------------------------
+     All three cards follow one rule: a single driving dimension, clamped
+     against *both* axes, with the other dimension derived from the aspect
+     ratio. Two things fall out of that.
+
+     Deriving rather than declaring means the ratio cannot drift. Declaring both
+     axes independently — which is what this used to do — lets the two min()
+     calls resolve on different branches, so a card that is meant to be 16:9
+     silently becomes 1.58:1 on a portrait tablet. Derivation makes that
+     impossible to express.
+
+     Clamping against both vw and svh means no card can overflow, whether the
+     viewport is narrow (portrait phone) or short (landscape phone). A single
+     svh-based size looks correct on a 16:9 desktop and spills off the side of a
+     tall tablet; a single vw-based size does the reverse.
+
+     Mobile-first, and the mobile art is 4:5. */
+  --hero-c1-w: min(52vw, 35.2svh);
+  --hero-c1-h: calc(var(--hero-c1-w) * 1.25);
+
+  --hero-c2-w: min(64vw, 48svh);
+  --hero-c2-h: calc(var(--hero-c2-w) / 1.5);
+
+  --hero-c3-w: min(74vw, 44.8svh);
+  --hero-c3-h: calc(var(--hero-c3-w) * 1.25);
+
+  /* --- Composition centre. -------------------------------------------------
+     Where the card stack, the clip window and the lockup are all centred. Not
+     necessarily the middle of the viewport: the desktop photograph places the
+     model's face in the top half, so its clear throat — the only place the
+     lockup can sit without crossing her mouth — falls below centre. One
+     variable moves all three together, which is what keeps them concentric.
+
+     An svh length rather than a percentage, deliberately. Every other length
+     here is svh and .hero-viewport is exactly 100svh, but more importantly this
+     value feeds --hero-pan-max, which lands in a translate3d() where a
+     percentage would resolve against the element's own box instead.
+
+     Mobile stays at dead centre: the 4:5 art has clear throat at 38-58%, so
+     50svh already sits on it. */
+  --hero-center-y: 50svh;
+
+  /* --- The pan. -----------------------------------------------------------
+     The backdrop's clear throat is where the lockup sits, so a window centred
+     on the composition centre would show a blank rectangle of skin. The image
+     is therefore held translated upward while it is card-sized — framing the
+     necklace — and eases back as the mask opens, which reads as a camera
+     pulling back.
+
+     The pan is derived from --hero-mask rather than tweened alongside it, so
+     the two cannot drift apart and no synchronisation bug is possible.
+
+     INVARIANT: the pan may not exceed the window's *bottom* inset. The image is
+     translated upward, so it is the bottom edge that pulls inside the window and
+     exposes a gap. (While the window was centred, top and bottom insets were
+     equal and either could be named; once --hero-center-y moved off centre only
+     the bottom one binds — at 58svh it is 24svh where the top is 40svh.) Rather
+     than assert this in JS, the min() below enforces it arithmetically at every
+     viewport size, with 2svh of margin. Raise the first term freely; it can
+     never become unsafe.
+
+     16svh frames source rows ~45-87% on the 4:5 mobile art: jaw, throat, the
+     whole necklace and a little chest. */
+  --hero-pan-max: min(
+    16svh,
+    calc(100svh - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
+  );
+
+  /* Corner radius of the card-sized window, straightened as it opens. */
+  --hero-c3-radius: 20px;
+}
+
+@media (min-width: 640px) {
+  .hero-stage {
+    /* Desktop art is 16:9. Card 3 is the widest of the three cards and sits
+       between the other two in height, so the stack reads as a cross rather
+       than as three near-identical rectangles.
+
+       The vw caps only engage on portrait-ish viewports — on a 16:9 desktop the
+       svh term always wins, so these values are identical to the svh-only ones
+       they replace. On a portrait tablet they are what stops the stack running
+       off the sides. */
+    --hero-c1-w: min(35.2svh, 46vw);
+    --hero-c1-h: calc(var(--hero-c1-w) * 1.25);
+
+    --hero-c2-w: min(48svh, 62vw);
+    --hero-c2-h: calc(var(--hero-c2-w) / 1.5);
+
+    --hero-c3-w: min(64svh, 82vw);
+    --hero-c3-h: calc(var(--hero-c3-w) / 1.7778);
+
+    /* No override. The desktop backdrop is pushed in and shifted up so its clear
+       throat lands on the viewport centreline, which means the lockup, the card
+       stack and the mark can all sit at true centre as originally drawn. This
+       previously read 58svh to dodge the model's chin; solving it in the image
+       transform instead let the composition come back to centre. If it ever
+       needs nudging, this is the single knob — everything geometric downstream,
+       including the clip window's split insets, derives from it. */
+
+    /* 20svh, with the backdrop's push-in taken into account, frames source rows
+       ~62-89%: upper throat, the whole necklace, collarbones. That lands the
+       necklace's centre (~77% of the frame) almost exactly on the window's
+       centre. Her face stays out of the card and is revealed by the pull-back,
+       which is a better reveal than showing it the whole time. */
+    --hero-pan-max: min(
+      20svh,
+      calc(100svh - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
+    );
+  }
+}
+
+/* The clip window. Percentages resolve against this element's own box, which is
+   the full stage.
+
+   The horizontal insets are the centring shorthand — half the leftover width on
+   each side — but the vertical pair has to be written out, because the window is
+   centred on --hero-center-y rather than on the box. Top is the distance down to
+   the window's upper edge; bottom is what is left below its lower edge. Both
+   still collapse to 0 at mask 1, which is what makes the end state full bleed,
+   and both derive from the same variable the cards and the mark use, which is
+   what keeps all three concentric.
+
+   A negative --hero-mask makes (1 - mask) exceed 1, growing the insets and
+   pulling the window in tighter than the card. That is the whole trick behind
+   the entrance and the pop. */
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(
+    calc((var(--hero-center-y) - var(--hero-c3-h) / 2) * (1 - var(--hero-mask)))
+      calc((100% - var(--hero-c3-w)) / 2 * (1 - var(--hero-mask)))
+      calc(
+        (100% - var(--hero-center-y) - var(--hero-c3-h) / 2) *
+          (1 - var(--hero-mask))
+      )
+      calc((100% - var(--hero-c3-w)) / 2 * (1 - var(--hero-mask)))
+      round calc(var(--hero-c3-radius) * (1 - var(--hero-mask)))
+  );
+}
+
+/* clip-path on a viewport-sized element repaints rather than composites, so
+   the hint is scoped to the one second it is actually needed and dropped the
+   moment the intro resolves. */
+.hero-stage[data-hero-intro="running"] .hero-backdrop {
+  will-change: clip-path;
+}
+
+.hero-backdrop-pan {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(
+    0,
+    calc(-1 * var(--hero-pan-max) * (1 - var(--hero-mask))),
+    0
+  );
+}
+
+.hero-backdrop-pan > picture,
+.hero-backdrop-pan img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* ---------------------------------------------------------------------
+     Centring the subject.
+
+     The 4:5 mobile art still puts the model's face centre at ~57% of image
+     width, so she reads as sitting right of centre, and the correction has to
+     survive object-fit: cover, which crops by a different amount at every
+     viewport ratio.
+
+     Let r be displayed image width over container width (r >= 1 under cover).
+     Centred by default, a feature at image fraction f lands at container
+     fraction 0.5 + (f - 0.5) * r — so the error grows with how much cover is
+     cropping. On a ~9:19.5 viewport the 4:5 source gives r = 1.43 to 1.74,
+     meaning cover is already discarding 30-43% of the width. That is ample room
+     to slide within, so object-position alone does it, with no zoom and no loss
+     of resolution. Solving 0.5 = p(1 - r) + f*r for the position gives
+     p = (f*r - 0.5) / (r - 1), which is 66.5% at r = 1.74 and 73.4% at
+     r = 1.43. A single 70% holds her within +/-2.6% of centre across every
+     phone in that range.
+  --------------------------------------------------------------------- */
+  object-position: 70% center;
+}
+
+@media (min-width: 640px) {
+  .hero-backdrop-pan img {
+    /* Override the 70% above: the 16:9 art has the subject centred already. */
+    object-position: center;
+
+    /* --- The push-in. ----------------------------------------------------
+       Two problems, one lever. The necklace was small in frame and the
+       backdrop carried dead space on both flanks; and the model's face fills
+       the top half of the photograph, which put her chin on the viewport
+       centreline where the lockup sits.
+
+       Scaling about the centre and shifting upward fixes both. A feature at
+       image fraction f lands at screen fraction
+       0.5 + (f - 0.5) * zoom + shift. Her clear throat runs 52-68% of frame,
+       so targeting its midpoint f = 0.60 and solving for the centreline gives
+       shift = -0.10 * zoom — which is exactly the translate below, expressed
+       as a percentage of the container so it stays correct at any size.
+
+       With that relationship held, the zoom is free to be a taste decision and
+       the composition follows automatically. At 1.32 the visible frame runs
+       f = 0.22 to 0.98: the crown of her head is cut, which is the accepted
+       cost, while the necklace grows about a third larger and the flanks close
+       in. The clamp is coverage — below 1.25 the upward shift would pull the
+       image's bottom edge above the viewport and open a gap.
+
+       Resolution still holds: 1920 * 1.32 = 2534px against a 3344px source, so
+       the image is oversampled rather than stretched.
+
+       Order matters in the transform list. The rightmost function applies
+       first, so this scales and then translates, and the translate percentage
+       resolves against the element's own height rather than the scaled result —
+       which is what keeps the shift/zoom relationship linear. */
+    --hero-bg-zoom: 1.32;
+    transform: translateY(calc(-10% * var(--hero-bg-zoom)))
+      scale(var(--hero-bg-zoom));
+  }
+}
+
+/* Ultrawide already zooms for free. Cover fits a 16:9 source to the width of a
+   wider-than-16:9 viewport, so the image overflows vertically and is cropped
+   before any transform runs — at 21:9 that crop alone is worth a factor of 1.31.
+   Stacking the full push-in on top of it would cut into her eyes. Backing the
+   zoom off here lands roughly the same framing as 1.32 does on 16:9. */
+@media (min-width: 640px) and (min-aspect-ratio: 2/1) {
+  .hero-backdrop-pan img {
+    --hero-bg-zoom: 1.1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The lockup band: ESTABLISHED 1976 | bull mark | AMIPI.
+
+   Centring uses the standalone `translate` property rather than `transform`,
+   which matters: GSAP animates `transform` on all three of these elements, and
+   a -50% offset written into `transform` would simply be overwritten the
+   moment a tween starts. `translate` is applied before `transform` in the
+   individual-transform cascade, so the two compose instead of fighting, and
+   the offsets also survive the pre-hydration paint where no GSAP has run yet.
+
+   Below 768px the three parts stack vertically. Pushed to opposite edges on a
+   narrow screen, "Established 1976" and the wordmark close to within ~20px of
+   the mark, which reads as a collision rather than a band. (This threshold is
+   independent of the 640px art-direction breakpoint above; they answer
+   different questions.)
+--------------------------------------------------------------------------- */
+.hero-lockup {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-mark {
+  position: absolute;
+  left: 50%;
+  top: var(--hero-center-y);
+  translate: -50% -50%;
+}
+
+.hero-est,
+.hero-wordmark {
+  position: absolute;
+  left: 50%;
+  translate: -50% -50%;
+  white-space: nowrap;
+}
+
+.hero-est {
+  top: calc(var(--hero-center-y) - 4.75rem);
+}
+
+.hero-wordmark {
+  top: calc(var(--hero-center-y) + 4.75rem);
+}
+
+@media (min-width: 768px) {
+  .hero-est,
+  .hero-wordmark {
+    /* Both sit on the mark's exact centreline, at 20% and 80%. */
+    top: var(--hero-center-y);
+    translate: 0 -50%;
+  }
+
+  .hero-est {
+    left: 20%;
+  }
+
+  .hero-wordmark {
+    left: auto;
+    right: 20%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The two departing cards.
+
+   Centred by the same `translate` offset as the lockup, and for the same
+   reason: GSAP owns `transform` here (scale on the way in, x/y/rotate on the
+   way out), so the offset has to live on a property GSAP will not overwrite.
+   Because all three layers are centred by construction rather than by
+   hand-tuned coordinates, they are concentric at every viewport size.
+--------------------------------------------------------------------------- */
+.hero-card {
+  position: absolute;
+  left: 50%;
+  top: var(--hero-center-y);
+  translate: -50% -50%;
+}
+
+/* Sizes live here rather than as utilities on the elements so that all three
+   cards are driven by the same ratio-safe variables, and so a breakpoint change
+   is one edit in one place instead of four arbitrary values spread across JSX.
+   GSAP measures these with offsetWidth/offsetHeight at runtime, so the exit
+   vectors follow whatever the viewport resolves them to. */
+.hero-card[data-hero-card="one"] {
+  width: var(--hero-c1-w);
+  height: var(--hero-c1-h);
+}
+
+.hero-card[data-hero-card="two"] {
+  width: var(--hero-c2-w);
+  height: var(--hero-c2-h);
+}
+
+/* ---------------------------------------------------------------------------
+   Scrim.
+
+   Sits above the cards and below the lockup, so photographs sliding beneath the
+   type stay legible, and supplies the overall darkening the concept art shows.
+   Warm-keyed to match the photography rather than the brand navy, and slightly
+   heavier at the bottom where the tagline and CTA land in phase two.
+--------------------------------------------------------------------------- */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 85% at 50% 45%,
+      transparent 35%,
+      rgba(14, 11, 10, 0.55) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(14, 11, 10, 0.78) 0%,
+      rgba(14, 11, 10, 0.12) 45%,
+      rgba(14, 11, 10, 0.4) 100%
+    );
+}
+
+/* ---------------------------------------------------------------------------
+   Frame 0.
+
+   The server-rendered markup is the intro's first frame, not its last. Paint
+   the end state first and the visitor sees the finished hero, then watches it
+   rewind itself the instant hydration completes — which is far more jarring
+   than any flash of empty stage.
+
+   These rules stop matching as soon as HeroStage flips the attribute to
+   "running", at which point GSAP's inline styles own the same properties. The
+   flip and GSAP's initial set() happen in the same pre-paint layout effect, so
+   there is no frame in between where neither is in charge.
+--------------------------------------------------------------------------- */
+.hero-stage[data-hero-intro="pending"] .hero-backdrop,
+.hero-stage[data-hero-intro="pending"] .hero-card,
+.hero-stage[data-hero-intro="pending"] .hero-mark,
+.hero-stage[data-hero-intro="pending"] .hero-est,
+.hero-stage[data-hero-intro="pending"] .hero-wordmark,
+.hero-stage[data-hero-intro="pending"] .hero-copy {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Page chrome during the intro.
+
+   The navbar puts a small AMIPI logo in the top-left corner. Leaving it there
+   while a large one performs at centre reads as a mistake, so both it and the
+   fixed booking card are held back until the intro resolves.
+
+   The selector reaches *up* from the hero rather than down from <html>,
+   because HeroStage cannot put an attribute on <html> in server-rendered
+   markup — and an attribute written after hydration would arrive too late to
+   prevent the flash. `body > header` is a precise handle on the navbar without
+   editing it: app/layout.tsx renders <Navbar /> as a direct child of <body>,
+   and it is the only header there.
+
+   Absence of a .hero-stage makes all of this inert, so the seven other routes
+   are untouched.
+--------------------------------------------------------------------------- */
+body:has(.hero-stage:not([data-hero-intro="done"])) > header,
+body:has(.hero-stage:not([data-hero-intro="done"])) .appt-card-fixed {
+  opacity: 0 !important;
+  pointer-events: none !important;
+
+  /* BookingCardFixed carries its entrance as an inline `animation:` shorthand
+     with a 1.1s delay, self-described as a fallback. An !important declaration
+     in a stylesheet outranks a non-important inline style, which is how it is
+     held back without editing that component. */
+  animation: none !important;
+}
+
+body:has(.hero-stage[data-hero-intro="done"]) > header {
+  animation: heroChromeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Flipping animation-name back off `none` restarts the card's own entrance, so
+   its bespoke back-out curve is reused rather than replaced; only the delay
+   needs neutralising, since the 1.1s it was written for has long since passed. */
+body:has(.hero-stage[data-hero-intro="done"]) .appt-card-fixed {
+  animation-delay: 0s !important;
+}
+
+@keyframes heroChromeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Escape hatches.
+
+   Reduced motion: HeroStage skips the intro and resolves immediately, but the
+   pre-hydration paint would still show frame 0. Render the end state in the
+   markup instead, so a motion-sensitive visitor never sees a dark empty stage.
+
+   No scripting: nothing will ever resolve the intro, so pin the end state and
+   release the chrome permanently. (scripting: none) is the standard query for
+   this; a browser too old to support it but with JS disabled would be left on
+   frame 0, which is an acceptable trade for a combination that essentially
+   does not occur.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  .hero-stage[data-hero-intro="pending"] {
+    --hero-mask: 1;
+  }
+
+  .hero-stage[data-hero-intro="pending"] .hero-backdrop,
+  .hero-stage[data-hero-intro="pending"] .hero-mark,
+  .hero-stage[data-hero-intro="pending"] .hero-est,
+  .hero-stage[data-hero-intro="pending"] .hero-wordmark {
+    opacity: 1;
+  }
+
+  /* The two departing cards have no end state — they are gone by then. */
+  .hero-stage[data-hero-intro="pending"] .hero-card {
+    display: none;
+  }
+}
+
+@media (scripting: none) {
+  /* Without JS the scroll phase never runs, so show the tagline rather than a
+     lockup that can never hand over, and stand the section down to one
+     viewport since there is nothing to scroll through. */
+  .hero-stage[data-hero-intro="pending"] {
+    height: 100svh;
+  }
+
+  .hero-stage[data-hero-intro="pending"] .hero-copy {
+    opacity: 1;
+  }
+
+  .hero-stage[data-hero-intro="pending"] .hero-lockup {
+    display: none;
+  }
+
+  body:has(.hero-stage) > header,
+  body:has(.hero-stage) .appt-card-fixed {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    animation: none !important;
+  }
+}
