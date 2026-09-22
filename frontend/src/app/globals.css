@@ -53,8 +53,8 @@
      bg-surface, text-foreground) rather than a raw navy-950/ice-100
      pairing, so the whole page's light/dark identity lives in one place. */
   --color-background: #f5f7fb;
-  --color-surface: #ffffff;
-  --color-surface-raised: #eef1f8;
+  --color-surface: #f7f3eb;
+  --color-surface-raised: #eee9e0;
   --color-foreground: #1b2438;
   --color-muted: #5b6b85;
   --color-border: #dfe4ee;
