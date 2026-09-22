@@ -515,7 +515,7 @@ export function DiamondSearch() {
   return (
     <section className="relative bg-background">
       {/* Photo + heading, full width */}
-      <div className="relative h-[460px] sm:h-[500px] lg:h-[540px]">
+      <div className="relative h-[420px] sm:h-[460px] lg:h-[500px]">
         <Image
           src="https://images.unsplash.com/photo-1662434923232-0164224dbdb2?auto=format&fit=crop&w=1920&q=80"
           alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
@@ -523,7 +523,7 @@ export function DiamondSearch() {
           priority={false}
           quality={90}
           sizes="100vw"
-          className="object-cover [object-position:78%_30%]"
+          className="object-cover [object-position:78%_58%]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
@@ -562,7 +562,7 @@ export function DiamondSearch() {
           photo above it, rather than a floating inset card. */}
       <div className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20">
         {/* Shapes on the left, filters + CTAs on the right */}
-        <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
+        <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
           {/* Shapes */}
           <div className="rounded-2xl border border-border p-6 sm:p-8">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-5">
@@ -660,14 +660,14 @@ export function DiamondSearch() {
             </FilterBox>
 
             <FilterBox label="3. Color" caption="Find your perfect hue">
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-y-2">
                 {COLORS.map((c, i) => (
                   <button
                     key={c}
                     type="button"
                     onClick={() => setColor(c)}
                     aria-pressed={color === c}
-                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                    className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                       color === c
                         ? "text-gold-500 underline underline-offset-4"
                         : "text-foreground/70 hover:text-foreground"
@@ -680,14 +680,14 @@ export function DiamondSearch() {
             </FilterBox>
 
             <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-y-2">
                 {CLARITIES.map((c, i) => (
                   <button
                     key={c}
                     type="button"
                     onClick={() => setClarity(c)}
                     aria-pressed={clarity === c}
-                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                    className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                       clarity === c
                         ? "text-gold-500 underline underline-offset-4"
                         : "text-foreground/70 hover:text-foreground"
@@ -699,13 +699,17 @@ export function DiamondSearch() {
               </div>
             </FilterBox>
 
-            <div className="mt-2 flex flex-col gap-3">
-              <PillButton href="/contact" variant="outline" size="md" className="w-full">
-                Search Earth Mined Diamonds
-              </PillButton>
-              <PillButton href="/contact" variant="solid" size="md" className="w-full">
-                Search Lab Grown Diamonds
-              </PillButton>
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+              <div className="sm:flex-1">
+                <PillButton href="/contact" variant="outline" size="md" className="w-full">
+                  Search Earth Mined Diamonds
+                </PillButton>
+              </div>
+              <div className="sm:flex-1">
+                <PillButton href="/contact" variant="solid" size="md" className="w-full">
+                  Search Lab Grown Diamonds
+                </PillButton>
+              </div>
             </div>
           </div>
         </div>
