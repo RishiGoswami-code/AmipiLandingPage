@@ -524,20 +524,38 @@ export function DiamondSearch() {
         return;
       }
 
-      const target = sectionRef.current?.querySelector<HTMLElement>("[data-reveal]");
-      if (!target) return;
+      const heading = sectionRef.current?.querySelector<HTMLElement>("[data-reveal]");
+      if (heading) {
+        gsap.from(heading, {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
 
-      gsap.from(target, {
-        opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
+      // The filter card - a basic, minimal fade/rise, same one-shot pattern
+      // as the rest of the site, just on the card as a whole rather than
+      // per-field.
+      const card = sectionRef.current?.querySelector<HTMLElement>("[data-reveal-card]");
+      if (card) {
+        gsap.from(card, {
+          opacity: 0,
+          y: 32,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
     },
     { scope: sectionRef },
   );
@@ -557,12 +575,9 @@ export function DiamondSearch() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
-        <div className="relative px-6 pt-16 sm:px-12 sm:pt-20 lg:px-20 lg:pt-24">
+        <div className="relative px-6 pt-6 sm:px-12 sm:pt-8 lg:px-20 lg:pt-10">
           <div data-reveal className="max-w-xl lg:max-w-3xl">
-            <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-              Find Your Stone
-            </p>
-            <h2 className="mt-5 font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
               Start Your
               <br />
               <span className="relative inline-block text-gold-500">
@@ -582,7 +597,10 @@ export function DiamondSearch() {
       {/* Filter card, full width, overlapping the photo through one
           asymmetric rounded corner - flush to the viewport edges like the
           photo above it, rather than a floating inset card. */}
-      <div className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20">
+      <div
+        data-reveal-card
+        className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20"
+      >
         {/* Shapes on the left, filters + CTAs on the right */}
         <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
           {/* Shapes */}
