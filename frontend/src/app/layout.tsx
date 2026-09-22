@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope } from "next/font/google";
+import { Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
@@ -22,6 +22,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// One-off serif, scoped to spots that explicitly ask for the editorial
+// engagement-ring-site look (see NewArrivals) - the rest of the site stays
+// Manrope end to end per the decision above.
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "AMIPI — The Wholesale Diamond Hub",
   description:
@@ -39,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} ${playfairDisplay.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />

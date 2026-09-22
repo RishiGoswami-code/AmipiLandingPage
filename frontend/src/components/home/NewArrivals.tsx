@@ -53,6 +53,12 @@ const PIECES: Piece[] = [
     image:
       "https://images.unsplash.com/photo-1679156271376-3a69ba96a2dc?auto=format&fit=crop&w=800&h=1000&q=80",
   },
+  {
+    name: "The Emerald-Cut Solitaire Ring",
+    spec: "18k Rose Gold",
+    image:
+      "https://images.unsplash.com/photo-1600143674013-a690b5d25104?auto=format&fit=crop&w=800&h=1000&q=80",
+  },
 ];
 
 /**
@@ -104,8 +110,8 @@ export function NewArrivals() {
             <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               New Arrivals
             </p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
-              This Season&rsquo;s Best Sellers
+            <h2 className="mt-4 font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
+              New Arrival
             </h2>
             <p className="mt-3 max-w-md text-sm text-foreground/60">
               Freshly cut, freshly set - the pieces that just landed in the case.
@@ -120,22 +126,22 @@ export function NewArrivals() {
           </Link>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
           {PIECES.map((piece) => (
             <Link key={piece.name} href="/collections" data-card className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-surface">
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                 <Image
                   src={piece.image}
                   alt={piece.name}
                   fill
-                  sizes="(min-width: 640px) 23vw, 46vw"
+                  sizes="(min-width: 1024px) 19vw, (min-width: 640px) 31vw, 46vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
               <p className="mt-4 text-[11px] tracking-[0.18em] text-gold-500 uppercase">
                 {piece.spec}
               </p>
-              <h3 className="mt-1 font-display text-sm font-semibold text-foreground transition-colors group-hover:text-gold-500">
+              <h3 className="mt-1 font-display text-sm font-semibold text-foreground">
                 {piece.name}
               </h3>
             </Link>
