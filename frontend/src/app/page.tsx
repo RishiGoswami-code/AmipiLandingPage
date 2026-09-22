@@ -3,6 +3,7 @@ import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
 import { CategoriesPreview } from "@/components/home/CategoriesPreview";
 import { CollectionsPreview } from "@/components/home/CollectionsPreview";
+import { TradeShows } from "@/components/sell/TradeShows";
 import { FAQ } from "@/components/home/FAQ";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <DiamondSearch />
       <NewArrivals />
       <CollectionsPreview />
+      <TradeShows />
       <CategoriesPreview />
       <FAQ />
     </div>

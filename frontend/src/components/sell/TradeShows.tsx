@@ -37,12 +37,10 @@ const TRADE_SHOWS: TradeShow[] = [
 ];
 
 /**
- * Where to find AMIPI in person, for sellers who'd rather hand off a piece
- * face to face than ship it. Sits right under the sell process since
- * "meet us at a show" is really just another way to complete step two.
- * Full-bleed photo cards (serif name, white pill CTA) rather than plain
- * bordered text cards - the same photo-overlay language used elsewhere,
- * scaled up to carry the section on its own.
+ * Where to find AMIPI in person. A full-bleed, edge-to-edge horizontal
+ * split - two photo panels flush against each other and the viewport
+ * edges, no gap, no rounding - matching the reference's hero-banner
+ * treatment rather than a padded card grid.
  */
 export function TradeShows() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -75,11 +73,8 @@ export function TradeShows() {
   );
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
-    >
-      <div className="mx-auto max-w-6xl">
+    <section ref={sectionRef} className="relative bg-surface">
+      <div className="px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
         <div className="text-center">
           <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
             Meet Us In Person
@@ -88,44 +83,44 @@ export function TradeShows() {
             Upcoming Trade Shows
           </h2>
         </div>
+      </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {TRADE_SHOWS.map((show) => (
-            <article
-              key={show.name}
-              data-card
-              className="group relative aspect-[4/5] overflow-hidden rounded-2xl sm:aspect-[3/4]"
-            >
-              <Image
-                src={show.image}
-                alt={show.name}
-                fill
-                sizes="(min-width: 640px) 46vw, 92vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/25 to-transparent" />
+      <div className="grid grid-cols-1 sm:grid-cols-2">
+        {TRADE_SHOWS.map((show) => (
+          <article
+            key={show.name}
+            data-card
+            className="group relative aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-[560px]"
+          >
+            <Image
+              src={show.image}
+              alt={show.name}
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/25 to-transparent" />
 
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-ice-100 sm:text-3xl">
-                  {show.name}
-                </h3>
-                <p className="mt-3 flex items-center gap-2.5 text-sm text-ice-100/80">
-                  <Calendar className="h-4 w-4 shrink-0 text-gold-500" />
-                  {show.dates}
-                </p>
-                <p className="mt-2 flex items-start gap-2.5 text-sm text-ice-100/80">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
-                  {show.location}
-                </p>
-                <div className="mt-5">
-                  <PillButton href="/contact" variant="light" size="sm">
-                    Schedule Appointment
-                  </PillButton>
-                </div>
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
+              <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-ice-100 sm:text-3xl">
+                {show.name}
+              </h3>
+              <p className="mt-3 flex items-center gap-2.5 text-sm text-ice-100/80">
+                <Calendar className="h-4 w-4 shrink-0 text-gold-500" />
+                {show.dates}
+              </p>
+              <p className="mt-2 flex items-start gap-2.5 text-sm text-ice-100/80">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                {show.location}
+              </p>
+              <div className="mt-5">
+                <PillButton href="/contact" variant="light" size="sm">
+                  Schedule Appointment
+                </PillButton>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
