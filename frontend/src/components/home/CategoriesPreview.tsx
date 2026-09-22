@@ -1,23 +1,26 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { CATEGORIES, CategoryCard } from "@/components/categories/CategoriesGrid";
+import { CATEGORIES } from "@/components/categories/CategoriesGrid";
 import { PillButton } from "@/components/ui/PillButton";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const PREVIEW_CATEGORIES = CATEGORIES.slice(0, 4);
+const PREVIEW_CATEGORIES = CATEGORIES.slice(0, 6);
 
 /**
- * Homepage teaser for the full /categories page - same kicker/heading/
- * "view all" header New Arrivals uses, four cards (evenly divides both
- * the 2- and 4-column grid steps, so there's never an orphaned row), then
- * a link out to the full catalog.
+ * Homepage teaser for the full /categories page - rebuilt to match New
+ * Arrivals' editorial-catalog treatment (full-bleed, serif heading, plain
+ * tiles with the name sitting below the image rather than overlaid on a
+ * dark scrim) so the two sit together as one visual system. The full
+ * /categories page keeps its own darker CategoryCard styling untouched -
+ * this is a homepage-only look.
  */
 export function CategoriesPreview() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,14 +55,17 @@ export function CategoriesPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
+      className="relative bg-background px-6 py-3 sm:px-12 sm:py-4 lg:px-20"
     >
-      <div className="mx-auto max-w-6xl">
+      <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 className="font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
               Shop By Category
             </h2>
+            <p className="mt-3 max-w-md text-sm text-foreground/60">
+              Every cut, every setting - browse by what you&rsquo;re looking for.
+            </p>
           </div>
           <Link
             href="/categories"
@@ -70,9 +76,22 @@ export function CategoriesPreview() {
           </Link>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {PREVIEW_CATEGORIES.map((category, i) => (
-            <CategoryCard key={category.name} category={category} index={i} />
+        <div className="mt-12 grid grid-cols-2 gap-x-7 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
+          {PREVIEW_CATEGORIES.map((category) => (
+            <Link key={category.name} href="/categories" data-card className="group block">
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+                <Image
+                  src={category.image}
+                  alt={`${category.name}, ${category.spec}`}
+                  fill
+                  sizes="(min-width: 1024px) 17vw, (min-width: 640px) 31vw, 46vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
+              <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
+                {category.name}
+              </h3>
+            </Link>
           ))}
         </div>
 
