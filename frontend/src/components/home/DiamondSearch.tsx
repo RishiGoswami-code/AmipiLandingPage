@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Gem, Leaf, ShieldCheck } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShapeIconProps = { className?: string };
 type Point = [number, number];
@@ -506,14 +511,39 @@ function FilterBox({
  * closing stat strip carrying a faint photographic wash of its own.
  */
 export function DiamondSearch() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [shape, setShape] = useState("round");
   const [color, setColor] = useState<string | null>(null);
   const [clarity, setClarity] = useState<string | null>(null);
   const [weightOpen, setWeightOpen] = useState(false);
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      const target = sectionRef.current?.querySelector<HTMLElement>("[data-reveal]");
+      if (!target) return;
+
+      gsap.from(target, {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section className="relative bg-background">
+    <section ref={sectionRef} className="relative bg-background">
       {/* Photo + heading, full width */}
       <div className="relative h-[420px] sm:h-[460px] lg:h-[500px]">
         <Image
@@ -528,15 +558,15 @@ export function DiamondSearch() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
         <div className="relative px-6 pt-16 sm:px-12 sm:pt-20 lg:px-20 lg:pt-24">
-          <div className="max-w-xl lg:max-w-3xl">
+          <div data-reveal className="max-w-xl lg:max-w-3xl">
             <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               Find Your Stone
             </p>
-            <h2 className="mt-5 font-display text-4xl leading-[0.95] font-black tracking-[0.01em] text-foreground uppercase sm:text-5xl lg:text-6xl">
+            <h2 className="mt-5 font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
               Start Your
               <br />
               <span className="relative inline-block text-gold-500">
-                <span className="absolute inset-x-0 bottom-1 h-[0.4em] -rotate-1 bg-gold-500/20" />
+                <span className="absolute inset-x-0 bottom-1 h-[0.3em] -rotate-1 bg-gold-500/20" />
                 <span className="relative">Diamond</span>
               </span>{" "}
               Search Here
@@ -546,14 +576,6 @@ export function DiamondSearch() {
             </p>
             <div className="mt-5 h-px w-16 bg-gold-500/60" />
           </div>
-        </div>
-
-        <div className="absolute top-16 right-6 sm:top-20 sm:right-12 lg:right-20">
-          <p className="ml-auto max-w-[10rem] text-right text-[10px] leading-relaxed tracking-[0.2em] text-foreground/50 uppercase sm:max-w-[11rem] sm:text-[11px]">
-            More Than A Diamond
-            <br />A Brighter Tomorrow
-          </p>
-          <div className="mt-3 ml-auto h-px w-10 bg-gold-500/60" />
         </div>
       </div>
 
