@@ -404,9 +404,9 @@ function caratBracketLabel({ min, max }: CaratBracket) {
 /**
  * A filter column for the light search card - numbered label, a short
  * caption echoing the reference's "Choose the shape that speaks to you"
- * style copy, then the control itself. Columns sit side by side on desktop
- * with a hairline `divide-x` from the parent grid, so no per-column border
- * is drawn here.
+ * style copy, then the control in its own bordered field (matching the
+ * reference's boxed "WEIGHT RANGE" / letter-row inputs, rather than bare
+ * text floating on the card).
  */
 function FilterBox({
   label,
@@ -427,7 +427,7 @@ function FilterBox({
         </span>
         <span className="text-[11px] text-foreground/40">{caption}</span>
       </div>
-      <div className="mt-4">{children}</div>
+      <div className="mt-4 rounded-xl border border-border px-4 py-3.5">{children}</div>
     </div>
   );
 }
@@ -444,12 +444,13 @@ function StatItem({ label, caption }: { label: string; caption: string }) {
 }
 
 /**
- * "Start Your Diamond Search Here" - a photo banner (kicker, heading,
- * subtext, over a diamonds-on-marble shot) with the filter card overlapping
- * its lower edge, then a closing stat strip. The photo stays dark-graded
- * for text legibility regardless of the page's light theme, same rule as
- * every other photo-overlay card on this site; the card and strip below it
- * are plain page-canvas surfaces.
+ * "Start Your Diamond Search Here" - full-bleed like the navbar above it
+ * rather than inset in the page's usual max-w-6xl column, so it reads as
+ * its own wide banner. A light marble-and-diamond photo (no heavy dark
+ * scrim - the photo itself is light enough for dark-navy text, matching
+ * the reference) carries the heading, with the filter card's boxed inputs
+ * overlapping its lower edge through one asymmetric rounded corner, and a
+ * closing stat strip carrying a faint photographic wash of its own.
  */
 export function DiamondSearch() {
   const [shape, setShape] = useState("round");
@@ -459,205 +460,229 @@ export function DiamondSearch() {
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
-      <div className="mx-auto max-w-6xl">
-        {/* Photo banner */}
-        <div className="relative h-[440px] overflow-hidden rounded-3xl sm:h-[480px]">
-          <Image
-            src="https://images.unsplash.com/photo-1662434923232-0164224dbdb2?auto=format&fit=crop&w=1600&q=80"
-            alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
-            fill
-            quality={90}
-            sizes="(min-width: 1280px) 1152px, 100vw"
-            className="object-cover [object-position:68%_center]"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy-950/85 via-navy-950/40 to-transparent" />
+    <section className="relative bg-background">
+      {/* Photo + heading, full width */}
+      <div className="relative h-[600px] sm:h-[640px] lg:h-[680px]">
+        <Image
+          src="https://images.unsplash.com/photo-1662434923232-0164224dbdb2?auto=format&fit=crop&w=1920&q=80"
+          alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
+          fill
+          priority={false}
+          quality={90}
+          sizes="100vw"
+          className="object-cover [object-position:78%_30%]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
 
-          <div className="relative flex h-full flex-col justify-center px-6 sm:px-12 lg:px-14">
-            <div className="max-w-md">
-              <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-                Find Your Stone
-              </p>
-              <h2 className="mt-5 font-display text-4xl leading-[0.95] font-extrabold tracking-[0.02em] text-ice-100 uppercase sm:text-5xl md:text-6xl">
-                Start Your <span className="text-gold-500">Diamond Search</span> Here
-              </h2>
-              <p className="mt-5 text-sm text-ice-100/70 sm:text-base">
-                Exceptional diamonds. A more beautiful tomorrow.
-              </p>
-            </div>
+        <div className="relative px-6 pt-20 sm:px-12 sm:pt-24 lg:px-20 lg:pt-28">
+          <div className="max-w-xl">
+            <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
+              Find Your Stone
+            </p>
+            <h2 className="mt-5 font-display text-4xl leading-[0.95] font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-5xl md:text-6xl lg:text-7xl">
+              Start Your
+              <br />
+              <span className="text-gold-500">Diamond</span> Search Here
+            </h2>
+            <p className="mt-5 text-sm text-foreground/60 sm:text-base">
+              Exceptional diamonds. A more beautiful tomorrow.
+            </p>
+            <div className="mt-5 h-px w-16 bg-gold-500/60" />
           </div>
+        </div>
 
-          <p className="absolute top-6 right-6 max-w-[9rem] text-right text-[10px] leading-relaxed tracking-[0.2em] text-ice-100/70 uppercase sm:top-10 sm:right-10 sm:max-w-[11rem] sm:text-[11px]">
+        <div className="absolute top-20 right-6 sm:top-24 sm:right-12 lg:right-20">
+          <p className="ml-auto max-w-[10rem] text-right text-[10px] leading-relaxed tracking-[0.2em] text-foreground/50 uppercase sm:max-w-[11rem] sm:text-[11px]">
             More Than A Diamond
             <br />A Brighter Tomorrow
           </p>
+          <div className="mt-3 ml-auto h-px w-10 bg-gold-500/60" />
+        </div>
+      </div>
+
+      {/* Filter card, full width, overlapping the photo through one
+          asymmetric rounded corner - flush to the viewport edges like the
+          photo above it, rather than a floating inset card. */}
+      <div className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20">
+        {/* Shape */}
+        <div>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-5">
+            <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
+              1. Shape
+            </span>
+            <span className="text-[11px] text-foreground/40">
+              Choose the shape that speaks to you
+            </span>
+          </div>
+          <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5 lg:grid-cols-10">
+            {SHAPES.map((s) => {
+              const Icon = ShapeIcons[s.id];
+              const active = shape === s.id;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setShape(s.id)}
+                  aria-pressed={active}
+                  className={`flex flex-col items-center gap-3 rounded-xl border py-3 text-center transition-colors ${
+                    active
+                      ? "border-gold-500/50 bg-gold-500/10 text-gold-500"
+                      : "border-transparent text-foreground/70 hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="h-9 w-9" />
+                  <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
+                    {s.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Filter card, overlapping the banner's lower edge */}
-        <div className="relative z-10 -mt-14 rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-16 sm:p-10">
-          {/* Shape */}
-          <div className="border-b border-border pb-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
-                1. Shape
-              </span>
-              <span className="text-[11px] text-foreground/40">
-                Choose the shape that speaks to you
-              </span>
-            </div>
-            <div className="mt-6 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5 lg:grid-cols-10">
-              {SHAPES.map((s) => {
-                const Icon = ShapeIcons[s.id];
-                const active = shape === s.id;
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setShape(s.id)}
-                    aria-pressed={active}
-                    className={`flex flex-col items-center gap-3 text-center transition-colors ${
-                      active ? "text-gold-500" : "text-foreground/70 hover:text-foreground"
-                    }`}
-                  >
-                    <Icon className="h-9 w-9" />
-                    <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
-                      {s.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+        {/* Carat weight / Color / Clarity */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
+            <button
+              type="button"
+              onClick={() => setWeightOpen((v) => !v)}
+              aria-expanded={weightOpen}
+              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
+            >
+              {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
+              <ChevronDown
+                className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
+              />
+            </button>
 
-          {/* Carat weight / Color / Clarity */}
-          <div className="mt-8 grid gap-8 border-b border-border pb-8 lg:grid-cols-3 lg:gap-10 lg:divide-x lg:divide-border">
-            <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
-              <button
-                type="button"
-                onClick={() => setWeightOpen((v) => !v)}
-                aria-expanded={weightOpen}
-                className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
-              >
-                {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
-                <ChevronDown
-                  className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
+            {weightOpen && (
+              <>
+                {/* Click-outside catcher, sits under the panel and above the
+                    rest of the page. */}
+                <button
+                  type="button"
+                  aria-hidden
+                  tabIndex={-1}
+                  onClick={() => setWeightOpen(false)}
+                  className="fixed inset-0 z-10 cursor-default"
                 />
-              </button>
-
-              {weightOpen && (
-                <>
-                  {/* Click-outside catcher, sits under the panel and above the
-                      rest of the page. */}
-                  <button
-                    type="button"
-                    aria-hidden
-                    tabIndex={-1}
-                    onClick={() => setWeightOpen(false)}
-                    className="fixed inset-0 z-10 cursor-default"
-                  />
-                  <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
-                    <div className="grid grid-cols-5 gap-1">
-                      {CARAT_BRACKETS.map((bracket, i) => (
-                        <button
-                          key={caratBracketLabel(bracket)}
-                          type="button"
-                          onClick={() => {
-                            setWeightIndex(i);
-                            setWeightOpen(false);
-                          }}
-                          aria-pressed={weightIndex === i}
-                          className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
-                            weightIndex === i
-                              ? "bg-gold-500 text-navy-950"
-                              : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
-                          }`}
-                        >
-                          {caratBracketLabel(bracket)}
-                        </button>
-                      ))}
-                    </div>
+                <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
+                  <div className="grid grid-cols-5 gap-1">
+                    {CARAT_BRACKETS.map((bracket, i) => (
+                      <button
+                        key={caratBracketLabel(bracket)}
+                        type="button"
+                        onClick={() => {
+                          setWeightIndex(i);
+                          setWeightOpen(false);
+                        }}
+                        aria-pressed={weightIndex === i}
+                        className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
+                          weightIndex === i
+                            ? "bg-gold-500 text-navy-950"
+                            : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
+                        }`}
+                      >
+                        {caratBracketLabel(bracket)}
+                      </button>
+                    ))}
                   </div>
-                </>
-              )}
-            </FilterBox>
+                </div>
+              </>
+            )}
+          </FilterBox>
 
-            <FilterBox label="3. Color" caption="Find your perfect hue" className="lg:pl-10">
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
-                {COLORS.map((c, i) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setColor(c)}
-                    aria-pressed={color === c}
-                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
-                      color === c
-                        ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/70 hover:text-foreground"
-                    } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </FilterBox>
+          <FilterBox label="3. Color" caption="Find your perfect hue">
+            <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+              {COLORS.map((c, i) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setColor(c)}
+                  aria-pressed={color === c}
+                  className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                    color === c
+                      ? "text-gold-500 underline underline-offset-4"
+                      : "text-foreground/70 hover:text-foreground"
+                  } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </FilterBox>
 
-            <FilterBox label="4. Clarity" caption="Choose the clarity you prefer" className="lg:pl-10">
-              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
-                {CLARITIES.map((c, i) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setClarity(c)}
-                    aria-pressed={clarity === c}
-                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
-                      clarity === c
-                        ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/70 hover:text-foreground"
-                    } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </FilterBox>
-          </div>
-
-          {/* CTAs */}
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 border-b border-border pb-8 sm:flex-row">
-            <PillButton href="/contact" variant="outline" size="md">
-              Search Earth Mined Diamonds
-            </PillButton>
-            <PillButton href="/contact" variant="solid" size="md">
-              Search Lab Grown Diamonds
-            </PillButton>
-          </div>
-
-          {/* Trust badges */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-foreground/50 uppercase">
-            <span className="inline-flex items-center gap-2">
-              <Gem className="h-4 w-4 text-gold-500" />
-              Ethical Sourcing
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Leaf className="h-4 w-4 text-gold-500" />
-              A Brighter Tomorrow
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-gold-500" />
-              Trust &amp; Transparency
-            </span>
-          </div>
+          <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
+            <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+              {CLARITIES.map((c, i) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setClarity(c)}
+                  aria-pressed={clarity === c}
+                  className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                    clarity === c
+                      ? "text-gold-500 underline underline-offset-4"
+                      : "text-foreground/70 hover:text-foreground"
+                  } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </FilterBox>
         </div>
 
-        {/* Closing stat strip */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <p className="font-display text-lg font-bold tracking-[0.02em] text-foreground uppercase">
-            A More Brilliant Tomorrow
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            <StatItem label="Expert Guidance" caption="From our diamond specialists" />
-            <StatItem label="Curated Selection" caption="Only the exceptional" />
-            <StatItem label="Personalized Experience" caption="In-store or virtual" />
+        {/* CTAs */}
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <PillButton href="/contact" variant="outline" size="md">
+            Search Earth Mined Diamonds
+          </PillButton>
+          <PillButton href="/contact" variant="solid" size="md">
+            Search Lab Grown Diamonds
+          </PillButton>
+        </div>
+
+        {/* Trust badges */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-foreground/50 uppercase">
+          <span className="inline-flex items-center gap-2">
+            <Gem className="h-4 w-4 text-gold-500" />
+            Ethical Sourcing
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <Leaf className="h-4 w-4 text-gold-500" />
+            A Brighter Tomorrow
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-gold-500" />
+            Trust &amp; Transparency
+          </span>
+        </div>
+
+        {/* Closing stat strip, full width beneath the card content */}
+        <div className="relative mt-10 -mx-6 overflow-hidden border-t border-border px-6 pt-8 sm:-mx-12 sm:px-12 lg:-mx-20 lg:px-20">
+          <Image
+            src="https://images.unsplash.com/photo-1638448937798-f516bc697a0d?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+            aria-hidden
+            fill
+            quality={80}
+            sizes="100vw"
+            className="object-cover opacity-[0.14]"
+          />
+          <div className="relative flex flex-col items-center gap-6 pb-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="text-center sm:text-left">
+              <p className="font-display text-lg font-bold tracking-[0.02em] text-foreground uppercase">
+                A More Brilliant Tomorrow
+              </p>
+              <div className="mt-2 h-px w-10 bg-gold-500/60 mx-auto sm:mx-0" />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+              <StatItem label="Expert Guidance" caption="From our diamond specialists" />
+              <StatItem label="Curated Selection" caption="Only the exceptional" />
+              <StatItem label="Personalized Experience" caption="In-store or virtual" />
+            </div>
           </div>
         </div>
       </div>
