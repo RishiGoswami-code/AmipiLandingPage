@@ -106,17 +106,18 @@
   backdrop-filter: blur(16px) saturate(140%);
 }
 
-/* Luxury metallic golden yellow with white shades — diamond-grade finish */
+/* Luxury metallic golden yellow with a light-gold shimmer highlight — kept
+   clear of pure white/near-white stops so the button never fades into a
+   light page background (it used to, around the 44-56% stops). */
 .gold-shimmer-gradient {
   background: linear-gradient(
     115deg,
-    #c49c4d 0%,
-    #dfbf7b 20%,
-    #fff8e7 44%,
-    #ffffff 50%,
-    #f3e2b8 56%,
-    #d4ae5c 78%,
-    #b68a38 100%
+    #b8863a 0%,
+    #d4a94f 22%,
+    #eccf85 44%,
+    #d4a94f 56%,
+    #c9973f 78%,
+    #a8762f 100%
   );
   background-size: 200% 100%;
   background-position: 0% 0%;

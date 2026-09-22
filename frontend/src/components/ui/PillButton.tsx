@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "solid" | "dark" | "gold" | "outline";
+type Variant = "solid" | "dark" | "gold" | "outline" | "light";
 type Size = "sm" | "md";
 type Icon = "arrow" | "dot" | "none";
 
@@ -32,7 +32,8 @@ const VARIANT_CLASSES: Record<Variant, string> = {
      photography; the same hue muted to champagne reads as metal. Hover deepens
      to #d4ae5c, another stop from that same gradient. */
   gold: "bg-[#dfbf7b] text-navy-950 hover:bg-[#d4ae5c]",
-  outline: "border border-foreground/25 text-foreground",
+  outline: "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
+  light: "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };
 
 const SIZE_CLASSES: Record<Size, string> = {
