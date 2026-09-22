@@ -7,12 +7,25 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { COLLECTIONS } from "@/components/collections/CollectionsShowcase";
+import { COLLECTIONS, type Collection } from "@/components/collections/CollectionsShowcase";
 import { PillButton } from "@/components/ui/PillButton";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const PREVIEW_COLLECTIONS = COLLECTIONS.slice(0, 5);
+/** Preview-only sixth tile - the full /collections page's bento grid is
+ * fitted exactly to the shared COLLECTIONS array's 5 entries (1 featured
+ * 2x2 + 4 singles = a clean 4x2), so this stays local to the homepage row
+ * rather than growing that array and throwing the bento off. */
+const HOOP_EDIT: Collection = {
+  name: "The Hoop Edit",
+  tagline: "Classic Hoops & Huggies",
+  description:
+    "Polished hoops in every size, from a subtle huggie to a statement circle.",
+  image:
+    "https://images.unsplash.com/photo-1517857399767-a9dc28f5a734?auto=format&fit=crop&w=900&h=1100&q=80",
+};
+
+const PREVIEW_COLLECTIONS = [...COLLECTIONS.slice(0, 5), HOOP_EDIT];
 
 /**
  * Collections - an editorial serif heading beside a staggered grid of
