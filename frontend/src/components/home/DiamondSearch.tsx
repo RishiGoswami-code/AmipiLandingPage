@@ -197,19 +197,23 @@ const OTHER_OUTLINE: Point[] = [
 ];
 
 /**
- * Ten diamond-shape line icons, each drawn as a real top-view facet map -
+ * Ten diamond-shape icons, each drawn as a real top-view facet map -
  * outline, table, and crown spokes or step-cut layers - at the same density
  * as the reference shape row on amipi.com. Original artwork built from the
- * polar-geometry helpers above, so it's themeable via `currentColor` and
- * needs no image hosting or third-party license.
+ * polar-geometry helpers above: a shared glass-gradient fill and a single
+ * catch-light sparkle (see `ShapeIconDefs` / `SPARKLE_D` below) give each
+ * one the dimensional, photographic feel of a real stone, without hosting
+ * or licensing anyone else's product photography.
  */
+
 /**
- * One shared gem-glass gradient, defined once and referenced by every icon
- * below via `url(#diamondFacetShine)` - a white highlight sliding into a
- * cool gray shadow, so each outline reads as a faceted, dimensional gem
- * rather than a flat line drawing. Fixed, neutral stops (not `currentColor`)
- * so the glass tone stays consistent while the linework on top still
- * switches to gold on the active shape via `stroke="currentColor"`.
+ * One shared gem-glass gradient plus one catch-light sparkle, both defined
+ * once and referenced by every icon below via `url(#...)` - a white
+ * highlight sliding into a cool gray shadow for the facet fill, and a tiny
+ * four-point glint for the sparkle a studio photo would catch on a girdle
+ * facet. Fixed, neutral stops (not `currentColor`) so the glass tone stays
+ * consistent while the linework on top still switches to gold on the
+ * active shape via `stroke="currentColor"`.
  */
 function ShapeIconDefs() {
   return (
@@ -217,8 +221,8 @@ function ShapeIconDefs() {
       <defs>
         <linearGradient id="diamondFacetShine" x1="15%" y1="8%" x2="85%" y2="95%">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-          <stop offset="55%" stopColor="#c7d2e0" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#8891a6" stopOpacity="0.5" />
+          <stop offset="45%" stopColor="#c7d2e0" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#6b7690" stopOpacity="0.65" />
         </linearGradient>
       </defs>
     </svg>
@@ -227,10 +231,17 @@ function ShapeIconDefs() {
 
 const FACET_FILL = "url(#diamondFacetShine)";
 
+/** A tiny four-point glint, positioned toward the upper-left crown of every
+ * icon - the one consistent element that reads as "photographed gem" rather
+ * than "line diagram" at a glance. */
+const SPARKLE_D = "M13.5 9.5L14.6 12.4L17.5 13.5L14.6 14.6L13.5 17.5L12.4 14.6L9.5 13.5L12.4 12.4Z";
+const Sparkle = () => <path d={SPARKLE_D} fill="#ffffff" opacity="0.9" />;
+
 const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> = {
   round: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <circle cx="20" cy="20" r="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(ROUND_GIRDLE, ROUND_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
       <path d={spokes(ROUND_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
       <path d={polygon(ROUND_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -239,6 +250,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   oval: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <ellipse cx="20" cy="20" rx="11" ry="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(OVAL_GIRDLE, OVAL_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
       <path d={spokes(OVAL_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
       <path d={polygon(OVAL_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -247,6 +259,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   cushion: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <rect x="6" y="6" width="28" height="28" rx="11" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path
         d={spokes(CUSHION_TABLE_CORNERS, CUSHION_OUTER_CORNERS)}
         stroke="currentColor"
@@ -265,6 +278,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   princess: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <rect x="7" y="7" width="26" height="26" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(PRINCESS_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.7" opacity="0.55" />
       <path
         d={spokes(PRINCESS_TABLE, PRINCESS_EDGE_MIDS)}
@@ -278,6 +292,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   emerald: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path d={polygon(EMERALD_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={polygon(EMERALD_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
       <path d={polygon(EMERALD_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
     </svg>
@@ -290,6 +305,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
         stroke="currentColor"
         strokeWidth="1.3"
       />
+      <Sparkle />
       <path d={spokes(MARQUISE_POINTS, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.55" />
       <path
         d="M20 10C24 15 26.5 17.5 26.5 20C26.5 22.5 24 25 20 30C16 25 13.5 22.5 13.5 20C13.5 17.5 16 15 20 10Z"
@@ -302,6 +318,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   asscher: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path d={polygon(ASSCHER_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(ASSCHER_MID, ASSCHER_OUTER)} stroke="currentColor" strokeWidth="0.55" opacity="0.45" />
       <path d={polygon(ASSCHER_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
       <path d={polygon(ASSCHER_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
@@ -310,6 +327,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   radiant: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path d={polygon(RADIANT_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(RADIANT_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.55" opacity="0.4" />
       <path d={polygon(RADIANT_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
     </svg>
@@ -322,6 +340,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
         stroke="currentColor"
         strokeWidth="1.3"
       />
+      <Sparkle />
       <path
         d={spokes(PEAR_POINTS, PEAR_POINTS.map(() => PEAR_FOCAL))}
         stroke="currentColor"
@@ -339,6 +358,7 @@ const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
   other: ({ className }) => (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path d={polygon(OTHER_OUTLINE)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
+      <Sparkle />
       <path d={spokes(OTHER_OUTLINE, fillCenter(4))} stroke="currentColor" strokeWidth="0.6" opacity="0.35" />
       <circle cx="20" cy="20" r="9" stroke="currentColor" strokeWidth="1" opacity="0.6" />
       <text x="20" y="24.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="currentColor" stroke="none">
@@ -550,7 +570,7 @@ export function DiamondSearch() {
                       : "border-transparent text-foreground/70 hover:text-foreground"
                   }`}
                 >
-                  <Icon className="h-10 w-10" />
+                  <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
                   <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
                     {s.label}
                   </span>
