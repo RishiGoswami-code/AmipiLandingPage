@@ -18,8 +18,8 @@ export default function Home() {
       <HeroStage />
       <DiamondSearch />
       <NewArrivals />
-      <CategoriesPreview />
       <CollectionsPreview />
+      <CategoriesPreview />
       <FAQ />
     </div>
   );

@@ -52,7 +52,7 @@ export function CategoriesPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
+      className="relative bg-background px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
