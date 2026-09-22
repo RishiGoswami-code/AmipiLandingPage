@@ -543,144 +543,146 @@ export function DiamondSearch() {
           asymmetric rounded corner - flush to the viewport edges like the
           photo above it, rather than a floating inset card. */}
       <div className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20">
-        {/* Shape */}
-        <div>
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-5">
-            <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
-              1. Shape
-            </span>
-            <span className="text-[11px] text-foreground/40">
-              Choose the shape that speaks to you
-            </span>
+        {/* Shapes on the left, filters + CTAs on the right */}
+        <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
+          {/* Shapes */}
+          <div className="rounded-2xl border border-border p-6 sm:p-8">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-5">
+              <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
+                1. Shape
+              </span>
+              <span className="text-[11px] text-foreground/40">
+                Choose the shape that speaks to you
+              </span>
+            </div>
+            <ShapeIconDefs />
+            <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5">
+              {SHAPES.map((s) => {
+                const Icon = ShapeIcons[s.id];
+                const active = shape === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setShape(s.id)}
+                    aria-pressed={active}
+                    className={`flex flex-col items-center gap-3 rounded-xl border py-3 text-center transition-colors ${
+                      active
+                        ? "border-gold-500/50 bg-gold-500/10 text-gold-500"
+                        : "border-transparent text-foreground/70 hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
+                    <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
+                      {s.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <ShapeIconDefs />
-          <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5 lg:grid-cols-10">
-            {SHAPES.map((s) => {
-              const Icon = ShapeIcons[s.id];
-              const active = shape === s.id;
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setShape(s.id)}
-                  aria-pressed={active}
-                  className={`flex flex-col items-center gap-3 rounded-xl border py-3 text-center transition-colors ${
-                    active
-                      ? "border-gold-500/50 bg-gold-500/10 text-gold-500"
-                      : "border-transparent text-foreground/70 hover:text-foreground"
-                  }`}
-                >
-                  <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
-                  <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
-                    {s.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Carat weight / Color / Clarity */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
-            <button
-              type="button"
-              onClick={() => setWeightOpen((v) => !v)}
-              aria-expanded={weightOpen}
-              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
-            >
-              {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
-              <ChevronDown
-                className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            {weightOpen && (
-              <>
-                {/* Click-outside catcher, sits under the panel and above the
-                    rest of the page. */}
-                <button
-                  type="button"
-                  aria-hidden
-                  tabIndex={-1}
-                  onClick={() => setWeightOpen(false)}
-                  className="fixed inset-0 z-10 cursor-default"
+          {/* Carat weight / Color / Clarity / CTAs */}
+          <div className="flex flex-col gap-6">
+            <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
+              <button
+                type="button"
+                onClick={() => setWeightOpen((v) => !v)}
+                aria-expanded={weightOpen}
+                className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
+              >
+                {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
+                <ChevronDown
+                  className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
                 />
-                <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
-                  <div className="grid grid-cols-5 gap-1">
-                    {CARAT_BRACKETS.map((bracket, i) => (
-                      <button
-                        key={caratBracketLabel(bracket)}
-                        type="button"
-                        onClick={() => {
-                          setWeightIndex(i);
-                          setWeightOpen(false);
-                        }}
-                        aria-pressed={weightIndex === i}
-                        className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
-                          weightIndex === i
-                            ? "bg-gold-500 text-navy-950"
-                            : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
-                        }`}
-                      >
-                        {caratBracketLabel(bracket)}
-                      </button>
-                    ))}
+              </button>
+
+              {weightOpen && (
+                <>
+                  {/* Click-outside catcher, sits under the panel and above the
+                      rest of the page. */}
+                  <button
+                    type="button"
+                    aria-hidden
+                    tabIndex={-1}
+                    onClick={() => setWeightOpen(false)}
+                    className="fixed inset-0 z-10 cursor-default"
+                  />
+                  <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
+                    <div className="grid grid-cols-5 gap-1">
+                      {CARAT_BRACKETS.map((bracket, i) => (
+                        <button
+                          key={caratBracketLabel(bracket)}
+                          type="button"
+                          onClick={() => {
+                            setWeightIndex(i);
+                            setWeightOpen(false);
+                          }}
+                          aria-pressed={weightIndex === i}
+                          className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
+                            weightIndex === i
+                              ? "bg-gold-500 text-navy-950"
+                              : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
+                          }`}
+                        >
+                          {caratBracketLabel(bracket)}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
-          </FilterBox>
+                </>
+              )}
+            </FilterBox>
 
-          <FilterBox label="3. Color" caption="Find your perfect hue">
-            <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
-              {COLORS.map((c, i) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setColor(c)}
-                  aria-pressed={color === c}
-                  className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
-                    color === c
-                      ? "text-gold-500 underline underline-offset-4"
-                      : "text-foreground/70 hover:text-foreground"
-                  } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
-                >
-                  {c}
-                </button>
-              ))}
+            <FilterBox label="3. Color" caption="Find your perfect hue">
+              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+                {COLORS.map((c, i) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setColor(c)}
+                    aria-pressed={color === c}
+                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                      color === c
+                        ? "text-gold-500 underline underline-offset-4"
+                        : "text-foreground/70 hover:text-foreground"
+                    } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+            </FilterBox>
+
+            <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
+              <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+                {CLARITIES.map((c, i) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setClarity(c)}
+                    aria-pressed={clarity === c}
+                    className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
+                      clarity === c
+                        ? "text-gold-500 underline underline-offset-4"
+                        : "text-foreground/70 hover:text-foreground"
+                    } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+            </FilterBox>
+
+            <div className="mt-2 flex flex-col gap-3">
+              <PillButton href="/contact" variant="outline" size="md" className="w-full">
+                Search Earth Mined Diamonds
+              </PillButton>
+              <PillButton href="/contact" variant="solid" size="md" className="w-full">
+                Search Lab Grown Diamonds
+              </PillButton>
             </div>
-          </FilterBox>
-
-          <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
-            <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
-              {CLARITIES.map((c, i) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setClarity(c)}
-                  aria-pressed={clarity === c}
-                  className={`px-1.5 py-0.5 text-xs font-semibold tracking-wide transition-colors ${
-                    clarity === c
-                      ? "text-gold-500 underline underline-offset-4"
-                      : "text-foreground/70 hover:text-foreground"
-                  } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </FilterBox>
-        </div>
-
-        {/* CTAs */}
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <PillButton href="/contact" variant="outline" size="md">
-            Search Earth Mined Diamonds
-          </PillButton>
-          <PillButton href="/contact" variant="solid" size="md">
-            Search Lab Grown Diamonds
-          </PillButton>
+          </div>
         </div>
 
         {/* Trust badges */}
