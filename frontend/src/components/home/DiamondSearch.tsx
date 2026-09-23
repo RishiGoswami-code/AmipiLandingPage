@@ -491,10 +491,10 @@ function FilterBox({
   return (
     <div className={`relative ${className}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
+        <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
           {label}
         </span>
-        <span className="text-[11px] text-foreground/40">{caption}</span>
+        <span className="text-[11px] text-foreground/55">{caption}</span>
       </div>
       <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">{children}</div>
     </div>
@@ -585,7 +585,7 @@ export function DiamondSearch() {
               </span>{" "}
               Search Here
             </h2>
-            <p className="mt-5 text-sm text-foreground/60 sm:text-base">
+            <p className="mt-5 text-sm text-foreground/75 sm:text-base">
               Exceptional diamonds. A more beautiful tomorrow.
             </p>
             <div className="mt-5 h-px w-16 bg-gold-500/60" />
@@ -607,10 +607,10 @@ export function DiamondSearch() {
           {/* Shapes */}
           <div className="rounded-2xl border border-navy-200 p-6 sm:p-8">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-navy-200 pb-5">
-              <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
+              <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
                 1. Shape
               </span>
-              <span className="text-[11px] text-foreground/40">
+              <span className="text-[11px] text-foreground/55">
                 Choose the shape that speaks to you
               </span>
             </div>
@@ -629,7 +629,7 @@ export function DiamondSearch() {
                     className={`flex flex-col items-center gap-3 rounded-xl border py-3 text-center transition-colors ${
                       active
                         ? "border-gold-500/50 bg-gold-500/10 text-gold-500"
-                        : "border-transparent text-foreground/70 hover:text-foreground"
+                        : "border-transparent text-foreground/80 hover:text-foreground"
                     }`}
                   >
                     {photo ? (
@@ -688,7 +688,7 @@ export function DiamondSearch() {
                           className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
                             weightIndex === i
                               ? "bg-gold-500 text-navy-950"
-                              : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground"
+                              : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                           }`}
                         >
                           {caratBracketLabel(bracket)}
@@ -711,7 +711,7 @@ export function DiamondSearch() {
                     className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                       color === c
                         ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/70 hover:text-foreground"
+                        : "text-foreground/80 hover:text-foreground"
                     } ${i < COLORS.length - 1 ? "border-r border-navy-200" : ""}`}
                   >
                     {c}
@@ -731,7 +731,7 @@ export function DiamondSearch() {
                     className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                       clarity === c
                         ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/70 hover:text-foreground"
+                        : "text-foreground/80 hover:text-foreground"
                     } ${i < CLARITIES.length - 1 ? "border-r border-navy-200" : ""}`}
                   >
                     {c}
@@ -756,7 +756,7 @@ export function DiamondSearch() {
         </div>
 
         {/* Trust badges */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-foreground/50 uppercase">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-foreground/65 uppercase">
           <span className="inline-flex items-center gap-2">
             <Gem className="h-4 w-4 text-gold-500" />
             Ethical Sourcing
