@@ -308,16 +308,29 @@
   translate: -50% -50%;
 }
 
+/* Stacked (mobile): centred as a full-width, text-centred box rather than
+   `left: 50%` + a -50% x offset. GSAP 3.12+ folds an element's CSS
+   `translate` into its own x/y the first time it tweens it, so the split
+   beat's `x: 0` wiped the -50% and left both lines starting at the
+   centreline instead of straddling it. With no horizontal offset to lose,
+   the x slide-in is free to run. Only the vertical -50% remains, and GSAP
+   never tweens y here. */
 .hero-est,
 .hero-wordmark {
   position: absolute;
-  left: 50%;
-  translate: -50% -50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  translate: 0 -50%;
   white-space: nowrap;
 }
 
 .hero-est {
   top: calc(var(--hero-center-y) - 4.75rem);
+  /* Balances the trailing letter-space the 0.42em tracking leaves after the
+     last glyph, so the visible text - not its box - is what's centred. (The
+     wordmark's own -0.5em right margin already does this for it.) */
+  padding-left: 0.42em;
 }
 
 .hero-wordmark {
@@ -334,6 +347,8 @@
 
   .hero-est {
     left: 20%;
+    right: auto;
+    padding-left: 0;
   }
 
   .hero-wordmark {
