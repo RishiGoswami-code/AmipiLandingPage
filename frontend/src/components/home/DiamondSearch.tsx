@@ -574,7 +574,7 @@ export function DiamondSearch() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
-        <div className="relative px-6 pt-6 sm:px-12 sm:pt-8 lg:px-20 lg:pt-10">
+        <div className="relative flex h-full flex-col justify-center px-6 sm:px-12 lg:px-20">
           <div data-reveal className="max-w-xl lg:max-w-3xl">
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
               Start Your
