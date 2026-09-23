@@ -5,7 +5,6 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { BookingCardFixed } from "@/components/ui/BookingCardFixed";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 
 // Manrope end to end - headings and body both - matching the reference
 // (kora.framer.media) rather than pairing a serif display face with a
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </SmoothScroll>
         {/* Always-visible fixed booking card — persists across all scroll depths */}
         <BookingCardFixed />
-        <CustomCursor />
       </body>
     </html>
   );
