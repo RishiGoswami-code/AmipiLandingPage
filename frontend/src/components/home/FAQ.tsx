@@ -92,10 +92,7 @@ export function FAQ() {
     >
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
-          <p className="text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
-            Questions, Answered
-          </p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
+          <h2 className="font-display text-3xl font-extrabold tracking-[0.02em] text-foreground uppercase sm:text-4xl">
             Frequently Asked
           </h2>
         </div>

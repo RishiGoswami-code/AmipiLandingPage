@@ -117,10 +117,7 @@ export function CollectionsPreview() {
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
-              <p className="mt-4 text-[11px] tracking-[0.18em] text-gold-500 uppercase">
-                {collection.tagline}
-              </p>
-              <h3 className="mt-1 font-display text-base font-semibold text-foreground sm:text-lg">
+              <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
                 {collection.name}
               </h3>
             </Link>
