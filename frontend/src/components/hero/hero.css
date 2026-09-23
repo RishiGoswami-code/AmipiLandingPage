@@ -145,10 +145,10 @@
        including the clip window's split insets, derives from it. */
 
     /* 20svh, with the backdrop's push-in taken into account, frames source rows
-       ~62-89%: upper throat, the whole necklace, collarbones. That lands the
-       necklace's centre (~77% of the frame) almost exactly on the window's
-       centre. Her face stays out of the card and is revealed by the pull-back,
-       which is a better reveal than showing it the whole time. */
+       ~61-87%: upper throat, the whole necklace, collarbones. That lands the
+       necklace's centre (~77% of the frame) close to the window's centre. Her
+       face stays out of the card and is revealed by the pull-back, which is a
+       better reveal than showing it the whole time. */
     --hero-pan-max: min(
       20svh,
       calc(100svh - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
@@ -250,20 +250,21 @@
        as a percentage of the container so it stays correct at any size.
 
        With that relationship held, the zoom is free to be a taste decision and
-       the composition follows automatically. At 1.32 the visible frame runs
-       f = 0.22 to 0.98: the crown of her head is cut, which is the accepted
-       cost, while the necklace grows about a third larger and the flanks close
+       the composition follows automatically. At 1.40 the visible frame runs
+       f = 0.24 to 0.96, which puts the top edge at about her brow: the crown and
+       forehead are cut, which is the accepted cost, while the necklace grows
+       roughly 40% larger than unzoomed and the dead space on both flanks closes
        in. The clamp is coverage — below 1.25 the upward shift would pull the
        image's bottom edge above the viewport and open a gap.
 
-       Resolution still holds: 1920 * 1.32 = 2534px against a 3344px source, so
+       Resolution still holds: 1920 * 1.40 = 2688px against a 3344px source, so
        the image is oversampled rather than stretched.
 
        Order matters in the transform list. The rightmost function applies
        first, so this scales and then translates, and the translate percentage
        resolves against the element's own height rather than the scaled result —
        which is what keeps the shift/zoom relationship linear. */
-    --hero-bg-zoom: 1.32;
+    --hero-bg-zoom: 1.4;
     transform: translateY(calc(-10% * var(--hero-bg-zoom)))
       scale(var(--hero-bg-zoom));
   }
@@ -273,10 +274,12 @@
    wider-than-16:9 viewport, so the image overflows vertically and is cropped
    before any transform runs — at 21:9 that crop alone is worth a factor of 1.31.
    Stacking the full push-in on top of it would cut into her eyes. Backing the
-   zoom off here lands roughly the same framing as 1.32 does on 16:9. */
+   zoom off here lands roughly the same framing as 1.40 does on 16:9. Kept
+   proportional to the value above, and an approximation by nature: the free
+   crop varies continuously with aspect ratio while this is a single step. */
 @media (min-width: 640px) and (min-aspect-ratio: 2/1) {
   .hero-backdrop-pan img {
-    --hero-bg-zoom: 1.1;
+    --hero-bg-zoom: 1.16;
   }
 }
 

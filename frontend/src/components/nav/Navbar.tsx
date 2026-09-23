@@ -71,11 +71,17 @@ export function Navbar() {
 
   /* Letterspaced uppercase at 11px, which is the same typographic vocabulary as
      the hero's "ESTABLISHED 1976" band. Sentence-case 13px semibold read as
-     generic application chrome against cinematic photography. */
+     generic application chrome against cinematic photography.
+
+     Held at 90% rather than 70% over the hero. Letterspacing thins a word's
+     apparent weight — the glyphs stay the same but the whitespace between them
+     grows — so type that reads comfortably at 70% when set tight goes faint once
+     it is tracked out this far, and it has to survive a photographic backdrop
+     rather than a flat panel. Hover goes to pure white for a clear step up. */
   const linkClasses = [
     "group/link relative text-[11px] font-medium tracking-[0.14em] uppercase transition-colors",
     onDark
-      ? "text-ice-100/70 hover:text-ice-100"
+      ? "text-ice-100/90 hover:text-white"
       : "text-navy-700/80 hover:text-navy-900",
   ].join(" ");
 
@@ -170,9 +176,14 @@ export function Navbar() {
         className="nav-bar relative z-10 flex h-16 items-center justify-between sm:h-20"
         style={{ paddingInline: EDGE_GUTTER }}
       >
+        {/* Centred on mobile, flush left from lg. Centring it also does the work
+            of moving the hamburger: with the logo out of flow and both the centre
+            nav and the right cluster hidden, the button is the only remaining
+            flex child, so justify-between drops it at the start edge. No order
+            utilities needed. */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 sm:gap-3"
+          className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2.5 sm:gap-3 lg:static lg:translate-x-0"
           onClick={() => setOpen(false)}
         >
           {/* Decorative: the adjacent text is the link's accessible name.
@@ -203,7 +214,7 @@ export function Navbar() {
               designed for mixed-case fitting from looking tight. */}
           <span
             className={`${italiana.className} text-xl tracking-[0.06em] uppercase sm:text-2xl ${
-              lightChrome ? "text-gold-100/85" : "text-navy-900"
+              lightChrome ? "text-ice-100" : "text-navy-900"
             }`}
           >
             Amipi
@@ -260,7 +271,7 @@ export function Navbar() {
           aria-expanded={open}
           aria-controls="nav-overlay"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 grid h-11 w-11 place-items-center lg:hidden"
+          className="-ml-2 grid h-11 w-11 place-items-center lg:hidden"
         >
           <span className="relative block h-3 w-6">
             <span
