@@ -496,7 +496,7 @@ function FilterBox({
         </span>
         <span className="text-[11px] text-foreground/40">{caption}</span>
       </div>
-      <div className="mt-4 rounded-xl border border-border px-4 py-3.5">{children}</div>
+      <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">{children}</div>
     </div>
   );
 }
@@ -605,8 +605,8 @@ export function DiamondSearch() {
         {/* Shapes on the left, filters + CTAs on the right */}
         <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
           {/* Shapes */}
-          <div className="rounded-2xl border border-border p-6 sm:p-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-5">
+          <div className="rounded-2xl border border-navy-200 p-6 sm:p-8">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-navy-200 pb-5">
               <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/60 uppercase">
                 1. Shape
               </span>
@@ -712,7 +712,7 @@ export function DiamondSearch() {
                       color === c
                         ? "text-gold-500 underline underline-offset-4"
                         : "text-foreground/70 hover:text-foreground"
-                    } ${i < COLORS.length - 1 ? "border-r border-border" : ""}`}
+                    } ${i < COLORS.length - 1 ? "border-r border-navy-200" : ""}`}
                   >
                     {c}
                   </button>
@@ -732,7 +732,7 @@ export function DiamondSearch() {
                       clarity === c
                         ? "text-gold-500 underline underline-offset-4"
                         : "text-foreground/70 hover:text-foreground"
-                    } ${i < CLARITIES.length - 1 ? "border-r border-border" : ""}`}
+                    } ${i < CLARITIES.length - 1 ? "border-r border-navy-200" : ""}`}
                   >
                     {c}
                   </button>
