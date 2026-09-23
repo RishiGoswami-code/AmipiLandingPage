@@ -54,16 +54,27 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* The bar is fixed (see the header below), so once the page scrolls even a
-     little, real content passes behind it - it needs a surface of its own
-     from that point on, which is also the natural moment to drop the
-     dark-route styling and match every other route's light-on-light chrome,
-     since the hero photo is gone from under it by then regardless. */
+  /* The bar is fixed (see the header below) and stays fully transparent - no
+     surface of its own, even once scrolled - so the home route's
+     light-on-hero styling can only drop once the hero photo has actually
+     scrolled out from under it. Doing this on a small scroll-position
+     threshold instead (as most sticky navs do) would flip the text to navy
+     the instant the page moves at all, while still deep in the dark hero -
+     illegible with no surface behind it. Tracked against the hero section
+     itself rather than a hardcoded scroll distance, since the hero's height
+     is 190svh and varies with viewport height. */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const hero = document.querySelector(".hero-stage");
+      setScrolled(hero ? hero.getBoundingClientRect().bottom <= 0 : window.scrollY > 8);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   /* The hero is the only dark canvas in the app; everywhere else is the light
@@ -106,13 +117,7 @@ export function Navbar() {
   const barColour = lightChrome ? "bg-ice-100" : "bg-navy-900";
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ${
-        scrolled && !open
-          ? "bg-background/90 shadow-[0_1px_0_0_rgba(15,23,42,0.08)] backdrop-blur-md"
-          : ""
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       {/* Rendered before the bar so the bar's own stacking wins and the close
           button stays clickable while the menu is open.
 
