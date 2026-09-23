@@ -565,11 +565,10 @@ export function DiamondSearch() {
       {/* Photo + heading, full width */}
       <div className="relative h-[420px] sm:h-[460px] lg:h-[500px]">
         <Image
-          src="https://images.unsplash.com/photo-1662434923232-0164224dbdb2?auto=format&fit=crop&w=1920&q=80"
+          src="/diamond-search-banner.svg"
           alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
           fill
           priority={false}
-          quality={90}
           sizes="100vw"
           className="object-cover [object-position:78%_58%]"
         />
