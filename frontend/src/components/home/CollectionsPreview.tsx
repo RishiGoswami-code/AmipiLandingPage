@@ -33,9 +33,13 @@ const PREVIEW_COLLECTIONS = [...COLLECTIONS.slice(0, 5), HOOP_EDIT];
  * ~70% as it scrolls through the viewport, so it reads as travelling
  * left-to-right into its resting spot rather than just fading up in
  * place. Unlike every other reveal on this site (one-shot `gsap.from`,
- * plays once), this is `scrub: true` per tile: the motion is tied
- * directly to scroll position, so it advances and reverses in step with
- * the scrollbar rather than firing once and holding. The middle column
+ * plays once), this is `scrub: 1` per tile: the motion is tied to
+ * scroll position with a one-second catch-up, so it advances and
+ * reverses in step with the scrollbar rather than firing once and
+ * holding. The catch-up (rather than `scrub: true`) is deliberate:
+ * an unsmoothed scrub re-reads Lenis's own momentum on every tick,
+ * and the two smoothers fighting is a documented source of visible
+ * jitter in GSAP+Lenis setups. The middle column
  * sits lower than its neighbors for the masonry stagger the effect is
  * built to show off.
  */
@@ -65,7 +69,7 @@ export function CollectionsPreview() {
               trigger: tile,
               start: "top 95%",
               end: "top 45%",
-              scrub: true,
+              scrub: 1,
             },
           },
         );
