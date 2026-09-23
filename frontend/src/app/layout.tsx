@@ -1,34 +1,13 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { BookingCardFixed } from "@/components/ui/BookingCardFixed";
-
-// Manrope end to end - headings and body both - matching the reference
-// (kora.framer.media) rather than pairing a serif display face with a
-// separate UI sans. One variable family, weighted 300-800 for the range
-// from body copy up to the hero.
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// One-off serif, scoped to spots that explicitly ask for the editorial
-// engagement-ring-site look (see NewArrivals) - the rest of the site stays
-// Manrope end to end per the decision above.
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
+// Every face the site uses is declared in one place - see the note in
+// styles/fonts.ts on why a font loader must not be called twice for the
+// same family.
+import { geistMono, manrope, playfairDisplay } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: "AMIPI — The Wholesale Diamond Hub",
