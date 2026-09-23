@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { SellingProcess } from "@/components/sell/SellingProcess";
-import { TradeShows } from "@/components/sell/TradeShows";
 
 export const metadata: Metadata = {
   title: "Sell Your Diamonds — AMIPI",
@@ -8,11 +6,9 @@ export const metadata: Metadata = {
     "Sell your diamonds or fine jewelry direct to AMIPI - a fair quote, prepaid insured shipping, and payment within one business day of receipt.",
 };
 
+/** Content intentionally cleared for now - the page stays routable so the
+ * nav/footer links keep working. The section components still live in
+ * src/components and can be dropped back in here. */
 export default function SellYourDiamondsPage() {
-  return (
-    <div className="bg-background">
-      <SellingProcess />
-      <TradeShows />
-    </div>
-  );
+  return <div className="min-h-[70svh] bg-background" />;
 }
