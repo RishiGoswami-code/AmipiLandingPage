@@ -393,15 +393,15 @@ const SHAPES: { id: string; label: string }[] = [
  * with its "?" mark instead of a photo that would misrepresent a shape.
  */
 const SHAPE_PHOTOS: Record<string, string> = {
-  round: "/diamond-shapes/round.png",
-  oval: "/diamond-shapes/oval.png",
-  cushion: "/diamond-shapes/cushion.png",
-  princess: "/diamond-shapes/princess.png",
-  emerald: "/diamond-shapes/emerald.png",
-  marquise: "/diamond-shapes/marquise.png",
-  asscher: "/diamond-shapes/asscher.png",
-  radiant: "/diamond-shapes/radiant.png",
-  pear: "/diamond-shapes/pear.png",
+  round: "/diamond-shapes/round.svg",
+  oval: "/diamond-shapes/oval.svg",
+  cushion: "/diamond-shapes/cushion.svg",
+  princess: "/diamond-shapes/princess.svg",
+  emerald: "/diamond-shapes/emerald.svg",
+  marquise: "/diamond-shapes/marquise.svg",
+  asscher: "/diamond-shapes/asscher.svg",
+  radiant: "/diamond-shapes/radiant.svg",
+  pear: "/diamond-shapes/pear.svg",
 };
 
 const COLORS = ["D", "E", "F", "G", "H", "I", "J", "K", "L+"];
