@@ -1,14 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Gem, Leaf, ShieldCheck } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShapeIconProps = { className?: string };
 type Point = [number, number];
@@ -511,57 +506,14 @@ function FilterBox({
  * closing stat strip carrying a faint photographic wash of its own.
  */
 export function DiamondSearch() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [shape, setShape] = useState("round");
   const [color, setColor] = useState<string | null>(null);
   const [clarity, setClarity] = useState<string | null>(null);
   const [weightOpen, setWeightOpen] = useState(false);
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
-  useGSAP(
-    () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
-
-      const heading = sectionRef.current?.querySelector<HTMLElement>("[data-reveal]");
-      if (heading) {
-        gsap.from(heading, {
-          opacity: 0,
-          y: 40,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-
-      // The filter card - a basic, minimal fade/rise, same one-shot pattern
-      // as the rest of the site, just on the card as a whole rather than
-      // per-field.
-      const card = sectionRef.current?.querySelector<HTMLElement>("[data-reveal-card]");
-      if (card) {
-        gsap.from(card, {
-          opacity: 0,
-          y: 32,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-    },
-    { scope: sectionRef },
-  );
-
   return (
-    <section ref={sectionRef} className="relative bg-background">
+    <section className="relative bg-background">
       {/* Photo + heading, full width */}
       <div className="relative h-[300px] sm:h-[330px] lg:h-[360px]">
         <Image
@@ -575,7 +527,7 @@ export function DiamondSearch() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
 
         <div className="relative flex h-full flex-col justify-center px-6 sm:px-12 lg:px-20">
-          <div data-reveal className="max-w-xl lg:max-w-3xl">
+          <div className="max-w-xl lg:max-w-3xl">
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
               Start Your
               <br />
@@ -599,7 +551,6 @@ export function DiamondSearch() {
           (rather than the page's warm bg-surface) sets it apart from the
           banner's warm tones above. */}
       <div
-        data-reveal-card
         className="relative z-10 -mt-10 rounded-t-[3rem] bg-ice-100 px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-14 sm:rounded-t-[5rem] sm:px-12 sm:pt-12 lg:px-20"
       >
         {/* Shapes on the left, filters + CTAs on the right */}
