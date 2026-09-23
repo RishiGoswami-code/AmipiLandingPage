@@ -450,7 +450,15 @@ body:has(.hero-stage:not([data-hero-intro="done"])) .appt-card-fixed {
   animation: none !important;
 }
 
-body:has(.hero-stage[data-hero-intro="done"]) > header {
+/* Targets .nav-bar rather than header itself: header is the containing block
+   for the mobile menu overlay (a `position: fixed` child), and a CSS
+   animation that touches `transform` - even animating in to `transform:
+   none` - leaves the computed value as an identity matrix rather than the
+   keyword `none` for as long as the `animation` shorthand is still applied.
+   An identity matrix is still a transform per spec, so it traps the fixed
+   overlay to header's own box instead of the viewport. Animating the bar
+   row instead keeps header itself transform-free permanently. */
+body:has(.hero-stage[data-hero-intro="done"]) > header > .nav-bar {
   animation: heroChromeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

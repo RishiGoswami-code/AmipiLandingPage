@@ -168,7 +168,7 @@ export function Navbar() {
       </div>
 
       <div
-        className="relative z-10 flex h-16 items-center justify-between sm:h-20"
+        className="nav-bar relative z-10 flex h-16 items-center justify-between sm:h-20"
         style={{ paddingInline: EDGE_GUTTER }}
       >
         <Link
@@ -249,7 +249,12 @@ export function Navbar() {
             lower rule is short when closed and grows to full width as it rotates,
             so the gesture resolves into a symmetrical cross instead of a stack
             that merely tilts. Both rules animate `top` and `rotate` only, so the
-            morph composites rather than triggering layout. */}
+            morph composites rather than triggering layout.
+
+            1.5px rather than a true 1px hairline - a single device pixel reads
+            as barely-there against a photograph, especially the hero's, so the
+            icon needs a hair more weight to still register as a tappable
+            control rather than a stray mark. */}
         <button
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -260,12 +265,12 @@ export function Navbar() {
         >
           <span className="relative block h-3 w-6">
             <span
-              className={`absolute left-0 block h-px w-full origin-center transition-all duration-300 ease-out ${barColour} ${
+              className={`absolute left-0 block h-[1.5px] w-full origin-center rounded-full transition-all duration-300 ease-out ${barColour} ${
                 open ? "top-1/2 rotate-45" : "top-0 rotate-0"
               }`}
             />
             <span
-              className={`absolute left-0 block h-px origin-center transition-all duration-300 ease-out ${barColour} ${
+              className={`absolute left-0 block h-[1.5px] origin-center rounded-full transition-all duration-300 ease-out ${barColour} ${
                 open ? "top-1/2 w-full -rotate-45" : "top-full w-2/3 rotate-0"
               }`}
             />
