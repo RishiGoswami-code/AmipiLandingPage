@@ -3,29 +3,27 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { COLLECTIONS, type Collection } from "@/components/collections/CollectionsShowcase";
-import { PillButton } from "@/components/ui/PillButton";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-/** Preview-only sixth tile - the full /collections page's bento grid is
- * fitted exactly to the shared COLLECTIONS array's 5 entries (1 featured
- * 2x2 + 4 singles = a clean 4x2), so this stays local to the homepage row
- * rather than growing that array and throwing the bento off. */
-const HOOP_EDIT: Collection = {
-  name: "The Hoop Edit",
-  tagline: "Classic Hoops & Huggies",
-  description:
-    "Polished hoops in every size, from a subtle huggie to a statement circle.",
-  image:
-    "https://images.unsplash.com/photo-1517857399767-a9dc28f5a734?auto=format&fit=crop&w=900&h=1100&q=80",
+type Collection = {
+  name: string;
+  image: string;
 };
 
-const PREVIEW_COLLECTIONS = [...COLLECTIONS.slice(0, 5), HOOP_EDIT];
+/** Top row is the three signature lines; the bottom row is the
+ * shop-by-style edits (bezel, colored stones, stackable bands). */
+const PREVIEW_COLLECTIONS: Collection[] = [
+  { name: "The Riviera Collection", image: "/Collections/riviera-collection.webp" },
+  { name: "The Aurora Bridal Edit", image: "/Collections/aurora-bridal-edit.webp" },
+  { name: "Lab-Grown Brilliance", image: "/Collections/lab-grown-brilliance.webp" },
+  { name: "The Bezel-Set Collection", image: "/Collections/bezel.webp" },
+  { name: "The Color Collection", image: "/Collections/color.webp" },
+  { name: "The Stackable Collection", image: "/Collections/stack.webp" },
+];
 
 /**
  * Collections - an editorial serif heading beside a staggered grid of
@@ -90,20 +88,13 @@ export function CollectionsPreview() {
             <br />
             Signature Collections
           </h2>
-          <Link
-            href="/collections"
-            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-foreground/70 transition-colors hover:text-gold-500 sm:flex"
-          >
-            View All Collections
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
           {PREVIEW_COLLECTIONS.map((collection, i) => (
             <Link
               key={collection.name}
-              href="/collections"
+              href="/categories"
               data-tile
               className={`group block ${i % 3 === 1 ? "sm:mt-16" : ""}`}
               style={{ transformOrigin: "50% 100%" }}
@@ -122,12 +113,6 @@ export function CollectionsPreview() {
               </h3>
             </Link>
           ))}
-        </div>
-
-        <div className="mt-10 flex justify-center sm:hidden">
-          <PillButton href="/collections" variant="outline" icon="arrow">
-            View All Collections
-          </PillButton>
         </div>
       </div>
     </section>

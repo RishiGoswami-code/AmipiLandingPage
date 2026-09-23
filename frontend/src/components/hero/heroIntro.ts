@@ -141,7 +141,7 @@ export const HERO_COPY = {
   kicker: "Celebrating 50 Years of AMIPI",
   headline: ["No Bull.", "Just Diamonds."],
   ctaLabel: "Start Your Diamond Search",
-  ctaHref: "/collections",
+  ctaHref: "/categories",
   alt: {
     backdrop:
       "Model wearing a graduated round-brilliant diamond tennis necklace, lit against a dark espresso backdrop",

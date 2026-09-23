@@ -4,7 +4,6 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 const SHOP_LINKS = [
   { label: "Categories", href: "/categories" },
-  { label: "Collections", href: "/collections" },
   { label: "Diamond Search", href: "/#collection" },
   { label: "New Arrivals", href: "/#collection" },
 ];

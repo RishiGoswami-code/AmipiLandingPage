@@ -9,7 +9,6 @@ import { italiana } from "@/styles/fonts";
 
 const LINKS = [
   { label: "Categories", href: "/categories" },
-  { label: "Collections", href: "/collections" },
   { label: "Our Philosophy", href: "/philosophy" },
   { label: "Sell Your Diamonds", href: "/sell-your-diamonds" },
   { label: "Visit Us", href: "/contact" },
