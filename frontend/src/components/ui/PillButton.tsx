@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "solid" | "dark" | "outline" | "light";
+type Variant = "solid" | "dark" | "gold" | "outline" | "light";
 type Size = "sm" | "md";
 type Icon = "arrow" | "dot" | "none";
 
@@ -21,6 +21,17 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   solid:
     "gold-shimmer-gradient border border-white/40 shadow-[0_4px_20px_-4px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_-2px_rgba(212,175,55,0.6)]",
   dark: "bg-navy-900 text-ice-100",
+  /* Champagne rather than the brand gold-500 (#fed700). Flat, with no gradient,
+     border or glow, so it holds its shape against photography instead of
+     dissolving into it, and it needs no hairline to separate from a dark
+     backdrop because the value jump does that on its own.
+
+     #dfbf7b is not an arbitrary pick: it is the opening stop of the existing
+     gold-shimmer-gradient in globals.css, so it is already part of the palette.
+     Brand gold at full saturation reads as neon against warm espresso
+     photography; the same hue muted to champagne reads as metal. Hover deepens
+     to #d4ae5c, another stop from that same gradient. */
+  gold: "bg-[#dfbf7b] text-navy-950 hover:bg-[#d4ae5c]",
   outline: "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
   light: "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };
