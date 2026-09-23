@@ -565,7 +565,7 @@ export function DiamondSearch() {
       {/* Photo + heading, full width */}
       <div className="relative h-[420px] sm:h-[460px] lg:h-[500px]">
         <Image
-          src="/diamond-search-banner.svg"
+          src="/diamond-search-banner.webp"
           alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
           fill
           priority={false}
@@ -593,12 +593,14 @@ export function DiamondSearch() {
         </div>
       </div>
 
-      {/* Filter card, full width, overlapping the photo through one
-          asymmetric rounded corner - flush to the viewport edges like the
-          photo above it, rather than a floating inset card. */}
+      {/* Filter card, full width, overlapping the photo through matching
+          rounded top corners - flush to the viewport edges like the photo
+          above it, rather than a floating inset card. A pale ice-blue tint
+          (rather than the page's warm bg-surface) sets it apart from the
+          banner's warm tones above. */}
       <div
         data-reveal-card
-        className="relative z-10 -mt-24 rounded-tl-[3rem] bg-surface px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-tl-[5rem] sm:px-12 sm:pt-12 lg:px-20"
+        className="relative z-10 -mt-24 rounded-t-[3rem] bg-ice-100 px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-28 sm:rounded-t-[5rem] sm:px-12 sm:pt-12 lg:px-20"
       >
         {/* Shapes on the left, filters + CTAs on the right */}
         <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
