@@ -500,7 +500,7 @@ function FilterBox({
  * "Start Your Diamond Search Here" - laid out after amipi.com's own search
  * panel: a centred heading, a full-width row of shapes, then carat weight /
  * color / clarity side by side, and the two search buttons centred
- * underneath. The whole panel sits on the ice-blue card with no banner
+ * underneath. The whole panel sits on a white card with no banner
  * photo behind the heading.
  */
 export function DiamondSearch() {
@@ -512,9 +512,9 @@ export function DiamondSearch() {
 
   return (
     <section className="relative bg-background">
-      {/* One ice-blue panel carrying everything - heading, shapes, filters,
+      {/* One white panel carrying everything - heading, shapes, filters,
           buttons - top to bottom. */}
-      <div className="relative rounded-t-[3rem] bg-ice-100 px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
+      <div className="relative rounded-t-[3rem] bg-white px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
         {/* Heading, centred */}
         <div className="text-center">
           <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
