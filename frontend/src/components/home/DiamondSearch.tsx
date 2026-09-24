@@ -497,16 +497,14 @@ function FilterBox({
 }
 
 /**
- * "Start Your Diamond Search Here" - full-bleed like the navbar above it
- * rather than inset in the page's usual max-w-6xl column, so it reads as
- * its own wide banner. A light marble-and-diamond photo (no heavy dark
- * scrim - the photo itself is light enough for dark-navy text, matching
- * the reference) carries the heading, with the filter card's boxed inputs
- * overlapping its lower edge through one asymmetric rounded corner, and a
- * closing stat strip carrying a faint photographic wash of its own.
+ * "Start Your Diamond Search Here" - laid out after amipi.com's own search
+ * panel: a centred heading, a full-width row of shapes, then carat weight /
+ * color / clarity side by side, and the two search buttons centred
+ * underneath. The whole panel sits on the ice-blue card with no banner
+ * photo behind the heading.
  */
 export function DiamondSearch() {
-  const [shape, setShape] = useState("round");
+  const [shape, setShape] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
   const [clarity, setClarity] = useState<string | null>(null);
   const [weightOpen, setWeightOpen] = useState(false);
@@ -514,48 +512,26 @@ export function DiamondSearch() {
 
   return (
     <section className="relative bg-background">
-      {/* Photo + heading, full width */}
-      <div className="relative h-[300px] sm:h-[330px] lg:h-[360px]">
-        <Image
-          src="/diamond-search-banner.webp"
-          alt="A diamond ring and a loose brilliant-cut diamond resting on marble"
-          fill
-          priority={false}
-          sizes="100vw"
-          className="object-cover [object-position:78%_58%]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
-
-        <div className="relative flex h-full flex-col justify-center px-6 sm:px-12 lg:px-20">
-          <div className="max-w-xl lg:max-w-3xl">
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
-              Start Your
-              <br />
-              <span className="relative inline-block text-gold-500">
-                <span className="absolute inset-x-0 bottom-1 h-[0.3em] -rotate-1 bg-gold-500/20" />
-                <span className="relative">Diamond</span>
-              </span>{" "}
-              Search Here
-            </h2>
-            <p className="mt-5 text-sm text-foreground/75 sm:text-base">
-              Exceptional diamonds. A more beautiful tomorrow.
-            </p>
-            <div className="mt-5 h-px w-16 bg-gold-500/60" />
-          </div>
+      {/* One ice-blue panel carrying everything - heading, shapes, filters,
+          buttons - top to bottom. */}
+      <div className="relative rounded-t-[3rem] bg-ice-100 px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
+        {/* Heading, centred */}
+        <div className="text-center">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
+            Start Your{" "}
+            <span className="relative inline-block text-gold-500">
+              <span className="absolute inset-x-0 bottom-1 h-[0.3em] -rotate-1 bg-gold-500/20" />
+              <span className="relative">Diamond</span>
+            </span>{" "}
+            Search Here
+          </h2>
+          <p className="mt-5 text-sm text-foreground/75 sm:text-base">
+            Exceptional diamonds. A more beautiful tomorrow.
+          </p>
+          <div className="mx-auto mt-5 h-px w-16 bg-gold-500/60" />
         </div>
-      </div>
 
-      {/* Filter card, full width, overlapping the photo through matching
-          rounded top corners - flush to the viewport edges like the photo
-          above it, rather than a floating inset card. A pale ice-blue tint
-          (rather than the page's warm bg-surface) sets it apart from the
-          banner's warm tones above. */}
-      <div
-        className="relative z-10 -mt-10 rounded-t-[3rem] bg-ice-100 px-6 pt-10 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:-mt-14 sm:rounded-t-[5rem] sm:px-12 sm:pt-12 lg:px-20"
-      >
-        {/* Shapes on the left, filters + CTAs on the right */}
-        <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
-          {/* Shapes */}
+        <div className="mt-10">
           <div className="rounded-2xl border border-navy-200 p-6 sm:p-8">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-navy-200 pb-5">
               <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
@@ -566,7 +542,7 @@ export function DiamondSearch() {
               </span>
             </div>
             <ShapeIconDefs />
-            <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5">
+            <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-8 sm:grid-cols-5 lg:grid-cols-10">
               {SHAPES.map((s) => {
                 const photo = SHAPE_PHOTOS[s.id];
                 const Icon = ShapeIcons[s.id];
@@ -577,20 +553,29 @@ export function DiamondSearch() {
                     type="button"
                     onClick={() => setShape(s.id)}
                     aria-pressed={active}
-                    className={`flex flex-col items-center gap-3 rounded-xl border py-3 text-center transition-colors ${
+                    className={`group flex flex-col items-center overflow-hidden rounded-xl border pt-3 text-center transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none ${
                       active
-                        ? "border-gold-500/50 bg-gold-500/10 text-gold-500"
-                        : "border-transparent text-foreground/80 hover:text-foreground"
+                        ? "border-navy-700 bg-white text-foreground shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
+                        : "border-transparent text-foreground/80 hover:border-navy-700 hover:bg-white hover:text-foreground hover:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)] focus-visible:border-navy-700 focus-visible:bg-white focus-visible:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
                     }`}
                   >
                     {photo ? (
-                      <span className="relative block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]">
+                      <span className="relative mb-3 block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]">
                         <Image src={photo} alt="" fill sizes="44px" className="object-contain" />
                       </span>
                     ) : (
-                      <Icon className="h-10 w-10 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
+                      <Icon className="mb-3 block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
                     )}
-                    <span className="text-[10px] font-semibold tracking-[0.15em] uppercase">
+                    {/* Fills navy under the icon - like a caption tab on the
+                        lifted card - on hover/focus, and stays filled on the
+                        selected shape. */}
+                    <span
+                      className={`mt-auto block w-full py-2 text-[10px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 ${
+                        active
+                          ? "bg-navy-700 text-white"
+                          : "group-hover:bg-navy-700 group-hover:text-white group-focus-visible:bg-navy-700 group-focus-visible:text-white"
+                      }`}
+                    >
                       {s.label}
                     </span>
                   </button>
@@ -598,111 +583,112 @@ export function DiamondSearch() {
               })}
             </div>
           </div>
+        </div>
 
-          {/* Carat weight / Color / Clarity / CTAs */}
-          <div className="flex flex-col gap-6">
-            <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
-              <button
-                type="button"
-                onClick={() => setWeightOpen((v) => !v)}
-                aria-expanded={weightOpen}
-                className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
-              >
-                {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
-                <ChevronDown
-                  className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
+        {/* Carat weight / Color / Clarity, side by side */}
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
+            <button
+              type="button"
+              onClick={() => setWeightOpen((v) => !v)}
+              aria-expanded={weightOpen}
+              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
+            >
+              {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
+              <ChevronDown
+                className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {weightOpen && (
+              <>
+                {/* Click-outside catcher, sits under the panel and above the
+                    rest of the page. */}
+                <button
+                  type="button"
+                  aria-hidden
+                  tabIndex={-1}
+                  onClick={() => setWeightOpen(false)}
+                  className="fixed inset-0 z-10 cursor-default"
                 />
-              </button>
-
-              {weightOpen && (
-                <>
-                  {/* Click-outside catcher, sits under the panel and above the
-                      rest of the page. */}
-                  <button
-                    type="button"
-                    aria-hidden
-                    tabIndex={-1}
-                    onClick={() => setWeightOpen(false)}
-                    className="fixed inset-0 z-10 cursor-default"
-                  />
-                  <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
-                    <div className="grid grid-cols-5 gap-1">
-                      {CARAT_BRACKETS.map((bracket, i) => (
-                        <button
-                          key={caratBracketLabel(bracket)}
-                          type="button"
-                          onClick={() => {
-                            setWeightIndex(i);
-                            setWeightOpen(false);
-                          }}
-                          aria-pressed={weightIndex === i}
-                          className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
-                            weightIndex === i
-                              ? "bg-gold-500 text-navy-950"
-                              : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
-                          }`}
-                        >
-                          {caratBracketLabel(bracket)}
-                        </button>
-                      ))}
-                    </div>
+                <div className="absolute top-full left-0 z-20 mt-2 w-[280px] rounded-lg border border-gold-500/30 bg-background p-3 shadow-[0_20px_40px_-12px_rgba(15,23,42,0.16)]">
+                  <div className="grid grid-cols-5 gap-1">
+                    {CARAT_BRACKETS.map((bracket, i) => (
+                      <button
+                        key={caratBracketLabel(bracket)}
+                        type="button"
+                        onClick={() => {
+                          setWeightIndex(i);
+                          setWeightOpen(false);
+                        }}
+                        aria-pressed={weightIndex === i}
+                        className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
+                          weightIndex === i
+                            ? "bg-gold-500 text-navy-950"
+                            : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                        }`}
+                      >
+                        {caratBracketLabel(bracket)}
+                      </button>
+                    ))}
                   </div>
-                </>
-              )}
-            </FilterBox>
+                </div>
+              </>
+            )}
+          </FilterBox>
 
-            <FilterBox label="3. Color" caption="Find your perfect hue">
-              <div className="flex flex-wrap items-center justify-between gap-y-2">
-                {COLORS.map((c, i) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setColor(c)}
-                    aria-pressed={color === c}
-                    className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
-                      color === c
-                        ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/80 hover:text-foreground"
-                    } ${i < COLORS.length - 1 ? "border-r border-navy-200" : ""}`}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </FilterBox>
-
-            <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
-              <div className="flex flex-wrap items-center justify-between gap-y-2">
-                {CLARITIES.map((c, i) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setClarity(c)}
-                    aria-pressed={clarity === c}
-                    className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
-                      clarity === c
-                        ? "text-gold-500 underline underline-offset-4"
-                        : "text-foreground/80 hover:text-foreground"
-                    } ${i < CLARITIES.length - 1 ? "border-r border-navy-200" : ""}`}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </FilterBox>
-
-            <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-              <div className="sm:flex-1">
-                <PillButton href="/contact" variant="outline" size="md" className="w-full">
-                  Earth Mined Diamonds
-                </PillButton>
-              </div>
-              <div className="sm:flex-1">
-                <PillButton href="/contact" variant="solid" size="md" className="w-full">
-                  Lab Grown Diamonds
-                </PillButton>
-              </div>
+          <FilterBox label="3. Color" caption="Find your perfect hue">
+            <div className="flex flex-wrap items-center justify-between gap-y-2">
+              {COLORS.map((c, i) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setColor(c)}
+                  aria-pressed={color === c}
+                  className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
+                    color === c
+                      ? "text-gold-500 underline underline-offset-4"
+                      : "text-foreground/80 hover:text-foreground"
+                  } ${i < COLORS.length - 1 ? "border-r border-navy-200" : ""}`}
+                >
+                  {c}
+                </button>
+              ))}
             </div>
+          </FilterBox>
+
+          <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
+            <div className="flex flex-wrap items-center justify-between gap-y-2">
+              {CLARITIES.map((c, i) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setClarity(c)}
+                  aria-pressed={clarity === c}
+                  className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
+                    clarity === c
+                      ? "text-gold-500 underline underline-offset-4"
+                      : "text-foreground/80 hover:text-foreground"
+                  } ${i < CLARITIES.length - 1 ? "border-r border-navy-200" : ""}`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </FilterBox>
+        </div>
+
+        {/* Search buttons, centred */}
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="sm:w-72">
+            <PillButton href="/contact" variant="outline" size="md" className="w-full">
+              Earth Mined Diamonds
+            </PillButton>
+          </div>
+          <div className="sm:w-72">
+            <PillButton href="/contact" variant="solid" size="md" className="w-full">
+              Lab Grown Diamonds
+            </PillButton>
           </div>
         </div>
 
