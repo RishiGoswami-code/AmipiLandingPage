@@ -16,13 +16,6 @@ const LINKS = [
 
 const PHONE = "(800) 530-2647";
 
-/** Horizontal breathing room between the viewport edge and the outermost
- *  elements. Deliberately a viewport fraction rather than a fixed inset, so the
- *  logo and the login button stay proportionally placed from 1024px to
- *  ultrawide instead of drifting toward the centre. The max() floor only
- *  engages below ~364px, where 5.5vw would start to crowd the logo. */
-const EDGE_GUTTER = "max(1.25rem,5.5vw)";
-
 /**
  * Full-width transparent navbar: logo hard left, links centred on the viewport,
  * login hard right, and a full-screen overlay menu below 1024px.
@@ -122,8 +115,7 @@ export function Navbar() {
         <div className="absolute inset-0 bg-[#0e0b0a]/95 backdrop-blur-xl" />
 
         <nav
-          className="relative flex h-full flex-col justify-center"
-          style={{ paddingInline: EDGE_GUTTER }}
+          className="relative flex h-full flex-col justify-center px-edge"
           aria-label="Primary"
         >
           {LINKS.map((link, index) => (
@@ -172,9 +164,11 @@ export function Navbar() {
         </nav>
       </div>
 
+      {/* `px-edge` is the shared gutter token from globals.css, not a local
+          choice: the hero's tagline lines up with the logo below it, so both
+          sides have to read the same value. */}
       <div
-        className="nav-bar relative z-10 flex h-16 items-center justify-between sm:h-20"
-        style={{ paddingInline: EDGE_GUTTER }}
+        className="nav-bar relative z-10 flex h-16 items-center justify-between px-edge sm:h-20"
       >
         {/* Centred on mobile, flush left from lg. Centring it also does the work
             of moving the hamburger: with the logo out of flow and both the centre

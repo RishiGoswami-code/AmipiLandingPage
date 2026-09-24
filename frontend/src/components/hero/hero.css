@@ -397,7 +397,7 @@
    Sits above the cards and below the lockup, so photographs sliding beneath the
    type stay legible, and supplies the overall darkening the concept art shows.
    Warm-keyed to match the photography rather than the brand navy, and slightly
-   heavier at the bottom where the tagline and CTA land in phase two.
+   heavier at the bottom where the tagline and CTA land once the intro resolves.
 --------------------------------------------------------------------------- */
 .hero-scrim {
   position: absolute;
@@ -501,9 +501,15 @@ body:has(.hero-stage[data-hero-intro="done"]) .appt-card-fixed {
 /* ---------------------------------------------------------------------------
    Escape hatches.
 
-   Reduced motion: HeroStage skips the intro and resolves immediately, but the
-   pre-hydration paint would still show frame 0. Render the end state in the
-   markup instead, so a motion-sensitive visitor never sees a dark empty stage.
+   Both land on the same picture: the tagline, on a full-bleed backdrop, with no
+   lockup. That is the hero's end state, and neither visitor is going to be shown
+   the hand-off that gets there — one asked not to see motion, the other has no
+   script to run it.
+
+   Reduced motion: HeroStage resolves immediately and sets this state inline, but
+   the pre-hydration paint would still show frame 0. Rendering it here as well
+   means the two agree, so a motion-sensitive visitor never sees a dark empty
+   stage and never sees a lockup appear only to be taken away.
 
    No scripting: nothing will ever resolve the intro, so pin the end state and
    release the chrome permanently. (scripting: none) is the standard query for
@@ -517,34 +523,21 @@ body:has(.hero-stage[data-hero-intro="done"]) .appt-card-fixed {
   }
 
   .hero-stage[data-hero-intro="pending"] .hero-backdrop,
-  .hero-stage[data-hero-intro="pending"] .hero-mark,
-  .hero-stage[data-hero-intro="pending"] .hero-est,
-  .hero-stage[data-hero-intro="pending"] .hero-wordmark {
+  .hero-stage[data-hero-intro="pending"] .hero-copy {
     opacity: 1;
   }
 
-  /* The two departing cards have no end state — they are gone by then. */
-  .hero-stage[data-hero-intro="pending"] .hero-card {
+  /* The two departing cards have no end state — they are gone by then, and so
+     is the lockup, which has handed the centre of the stage to the tagline. */
+  .hero-stage[data-hero-intro="pending"] .hero-card,
+  .hero-stage[data-hero-intro="pending"] .hero-lockup {
     display: none;
   }
 }
 
 @media (scripting: none) {
-  /* Without JS the scroll phase never runs, so show the tagline rather than a
-     lockup that can never hand over, and stand the section down to one
-     viewport since there is nothing to scroll through. */
-  .hero-stage[data-hero-intro="pending"] {
-    height: 100svh;
-  }
-
-  .hero-stage[data-hero-intro="pending"] .hero-copy {
-    opacity: 1;
-  }
-
-  .hero-stage[data-hero-intro="pending"] .hero-lockup {
-    display: none;
-  }
-
+  /* The intro never runs, so nothing will ever flip the attribute to "done" and
+     release the chrome. Do it here instead. */
   body:has(.hero-stage) > header,
   body:has(.hero-stage) .appt-card-fixed {
     opacity: 1 !important;

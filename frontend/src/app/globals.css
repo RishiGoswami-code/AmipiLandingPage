@@ -64,6 +64,25 @@
   --color-cta-hover: #a31f24;
   --color-cta-foreground: #ffffff;
   --color-ring: #fed700;
+
+  /* ---------------------------------------------------------------------
+     Edge gutter — the horizontal breathing room between the viewport edge
+     and the outermost elements of the page chrome.
+
+     Deliberately a viewport fraction rather than a fixed inset, so the
+     navbar's logo and login button stay proportionally placed from 1024px
+     to ultrawide instead of drifting toward the centre. The max() floor
+     only engages below ~364px, where 5.5vw would start to crowd the logo.
+
+     Shared rather than per-component because two things have to agree on
+     it: the navbar's logo and the hero's tagline sit on the same vertical
+     line, and that alignment is visible — both are on screen at once. A
+     fixed lg:px-20 on the hero side matched only around 1454px, where
+     5.5vw happens to equal 80px, and sat left of the logo on anything
+     wider. Exposed through the spacing namespace, so it reads as
+     `px-edge` in markup.
+  --------------------------------------------------------------------- */
+  --spacing-edge: max(1.25rem, 5.5vw);
 }
 
 @theme inline {

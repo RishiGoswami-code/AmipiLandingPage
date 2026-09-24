@@ -1,5 +1,6 @@
 /**
- * Choreography data for the hero's on-load intro.
+ * Choreography data for the hero's on-load sequence — the intro (`BEATS`) and
+ * the tagline hand-off that follows it (`REVEAL`).
  *
  * Deliberately pure: no GSAP import, no DOM access, no React. Everything here
  * is a number, a string or a function of its arguments, which keeps the whole
@@ -13,7 +14,10 @@
  */
 
 export interface Beat {
-  /** Absolute position on the timeline, in seconds. */
+  /**
+   * Position on the owning timeline, in seconds. `BEATS` is measured from page
+   * load; `REVEAL` is measured from its own start (see that table's note).
+   */
   readonly at: number;
   /** Tween duration, in seconds. */
   readonly dur: number;
@@ -49,12 +53,122 @@ export const BEATS = {
   pop: { at: 2.55, dur: 0.18 },
   /** 8b. …then engulfs the viewport and becomes the page background. */
   engulf: { at: 2.73, dur: 0.85 },
-  /** Hand-off: navbar and booking card fade in, scroll is released. */
-  chromeIn: { at: 3.35, dur: 0.6 },
+  /**
+   * Hand-off: navbar and booking card fade in, scroll is released, and the
+   * tagline reveal below begins.
+   *
+   * Descriptive rather than driving — there is no tween here. The engulf is the
+   * intro's last tween, so its end is where the timeline completes, the
+   * `data-hero-intro` attribute flips to "done" and hero.css runs the chrome's
+   * own `dur`-long fade. Listed anyway so the table still accounts for what is
+   * on screen at that moment; `at` must therefore equal the engulf's end, which
+   * the guard below enforces. (It previously read 3.35, which described an
+   * intent the code never implemented.)
+   */
+  chromeIn: { at: 3.58, dur: 0.6 },
 } as const satisfies Record<string, Beat>;
 
-/** Wall-clock length of the whole intro, in seconds. */
-export const INTRO_TOTAL = BEATS.chromeIn.at + BEATS.chromeIn.dur;
+/**
+ * Wall-clock length of the intro, in seconds — and the origin `REVEAL`'s
+ * positions are measured from.
+ *
+ * Derived from the engulf rather than from `chromeIn` because the engulf is the
+ * last actual tween, and the timeline's own duration is what triggers the
+ * hand-off. Rounded to 2dp so a future retiming cannot fail the guard below on
+ * float error alone — 2.7 + 0.85 is 3.5499999999999998, not 3.55.
+ */
+export const INTRO_TOTAL =
+  Math.round((BEATS.engulf.at + BEATS.engulf.dur) * 100) / 100;
+
+/* Keeps the documented hand-off in step with the tween that actually causes it.
+   Same dev-time-only guard pattern as the carat brackets in DiamondSearch: a
+   hand-typed number that has to agree with a derived one, checked where it is
+   declared rather than discovered later as a timing bug. */
+if (process.env.NODE_ENV !== "production") {
+  if (BEATS.chromeIn.at !== INTRO_TOTAL) {
+    throw new Error(
+      `BEATS.chromeIn.at (${BEATS.chromeIn.at}s) must equal the end of the engulf (${INTRO_TOTAL}s) — the intro completes there, and that completion is what releases the chrome.`,
+    );
+  }
+}
+
+/**
+ * The tagline hand-off: the centre lockup dissolves and the hero's copy —
+ * kicker, headline, divider, CTA — takes its place.
+ *
+ * Positions here are relative to the *reveal's own* start, not to page load.
+ * Add `INTRO_TOTAL` for wall-clock time. The reveal is a separate timeline
+ * played from the intro's `onComplete` rather than more beats on the intro's
+ * clock, which is what makes the hand-off causal: skip the intro at 0.5s and
+ * the reveal starts at 0.5s too, instead of a timer leaving a three-second dead
+ * pause on a hero that has already resolved.
+ *
+ * The lockup leaves by reversing its own entrance rather than by doing
+ * something new — the two text lines drift back out along the axis they
+ * converged on, and the mark dissolves back into the blur it arrived from. The
+ * mark goes last: the frame releases, then the centrepiece, so the eye stays
+ * anchored at centre while the incoming type establishes itself.
+ */
+export const REVEAL = {
+  /** 9. "ESTABLISHED 1976" and the AMIPI wordmark fade back outward. */
+  lockupOut: { at: 0.0, dur: 0.68 },
+  /** 10. The bull mark dissolves — scales up into a blur. */
+  markOut: { at: 0.12, dur: 0.68 },
+  /** 11. Kicker fades up, overlapping the tail of the dissolve. */
+  kicker: { at: 0.22, dur: 0.5 },
+  /** 12. Headline lines roll up out of their clip boxes, one after the other. */
+  headline: { at: 0.52, dur: 0.7 },
+  /** 13. The gold hairline draws itself out from the left. */
+  divider: { at: 1.15, dur: 0.55 },
+  /** 14. CTA fades up last. */
+  cta: { at: 1.3, dur: 0.45 },
+} as const satisfies Record<string, Beat>;
+
+/* ---------------------------------------------------------------------------
+   Why the headline waits until 0.52 rather than following the kicker straight
+   in.
+
+   On desktop "Established 1976" sits at left: 20%, on the composition
+   centreline — which is the same row the headline's second line occupies. The
+   two genuinely overlap in space, so they cannot also overlap in time: an
+   earlier cut had "JUST DIAMONDS." rolling into a box that still had legible
+   letterspaced caps sitting in it, which read as stray text rather than as a
+   crossfade.
+
+   The kicker is exempt and stays at 0.22, because it sits at the top of the
+   copy column in clear space, well above the lockup's band. It is what keeps
+   the pause from reading as a stall while the dissolve finishes.
+--------------------------------------------------------------------------- */
+
+/**
+ * Gap between the two headline lines, in seconds.
+ *
+ * Wider than the 0.08s the scroll-driven version used, and each line is slower
+ * with it. Scrubbed motion had to resolve inside whatever scroll distance the
+ * visitor gave it; played on a clock it can take its time, and separating the
+ * lines is what makes the roll read as deliberate rather than as a flick.
+ */
+export const HEADLINE_STAGGER = 0.12;
+
+/**
+ * How far "Established 1976" and the wordmark drift as they leave, in pixels.
+ *
+ * Mirrored: the wordmark takes the positive value. Half the 48px they entered
+ * from — an exit only has to register as an exit, and the fade is doing most of
+ * the work, so matching the entrance distance would read as a retreat.
+ */
+export const LOCKUP_DRIFT_PX = 24;
+
+/**
+ * The mark's dissolve.
+ *
+ * Beat 1 brought it in from `scale: 0.92, blur(6px)`, so leaving through a blur
+ * is the same grammar read backwards. It scales *up* rather than back down,
+ * though: growing into the blur reads as dissolving into light, where shrinking
+ * would read as being withdrawn. Slightly past the blur radius it arrived with,
+ * so the exit is unmistakably an exit and not a rewind.
+ */
+export const MARK_EXIT = { scale: 1.06, blur: 8 } as const;
 
 /**
  * Values for `--hero-mask`, the single scalar that drives the background's

@@ -3,7 +3,6 @@
 import { useRef, type ComponentProps } from "react";
 import Image, { getImageProps } from "next/image";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
 import { cormorant } from "@/styles/fonts";
@@ -12,8 +11,12 @@ import {
   BEATS,
   EXIT_FADE,
   EXIT_ROTATION_DEG,
+  HEADLINE_STAGGER,
   HERO_COPY,
+  LOCKUP_DRIFT_PX,
+  MARK_EXIT,
   MASK,
+  REVEAL,
   exitVector,
 } from "./heroIntro";
 import "./hero.css";
@@ -28,19 +31,21 @@ import backdropPortrait from "../../../Hero-Images/Necklace-mobile.png";
 import cardEarrings from "../../../Hero-Images/earrings-Photoroom.png";
 import cardBracelet from "../../../Hero-Images/Hand.png";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 /**
- * The hero, in two phases.
+ * The hero: one self-contained sequence that plays on load and answers to
+ * nothing else.
  *
- * Phase 1 runs on load, is not scroll-driven and is not pinned. The bull mark
- * resolves at centre, "Established 1976" and the AMIPI wordmark split to the
- * edges, three concentric jewelry cards stack up, two are thrown off
- * diagonally, and the third engulfs the viewport to become the page
- * background. Roughly 3.95s; any input fast-forwards it.
+ * The intro runs first. The bull mark resolves at centre, "Established 1976"
+ * and the AMIPI wordmark split to the edges, three concentric jewelry cards
+ * stack up, two are thrown off diagonally, and the third engulfs the viewport
+ * to become the page background. Roughly 3.6s; any input fast-forwards it.
  *
- * Phase 2 is scroll-driven. The lockup hands over to the tagline, then the
- * section ends and normal page flow resumes.
+ * The moment it resolves, the reveal hands the stage over: the lockup dissolves
+ * and the tagline — kicker, headline, divider, CTA — takes its place. Driven by
+ * the intro's own completion rather than by scroll, so the whole hero is a
+ * single viewport tall and the first scroll goes straight into the next section.
  *
  * Deliberately self-contained: every style it needs lives in hero.css and every
  * timing constant in heroIntro.ts, so the whole feature is three files plus
@@ -65,7 +70,6 @@ export default function HeroStage() {
       const mark = pick(".hero-mark");
       const est = pick(".hero-est");
       const wordmark = pick(".hero-wordmark");
-      const lockup = pick(".hero-lockup");
       const copy = pick(".hero-copy");
       const kicker = pick(".hero-kicker");
       const divider = pick(".hero-divider");
@@ -82,7 +86,6 @@ export default function HeroStage() {
         !mark ||
         !est ||
         !wordmark ||
-        !lockup ||
         !copy ||
         !kicker ||
         !divider ||
@@ -97,20 +100,32 @@ export default function HeroStage() {
       ).matches;
 
       /* ------------------------------------------------------------------
-         Phase 2.
+         Reduced motion: no intro and no hand-off, just the finished hero.
+
+         The lockup is hidden rather than dissolved. A crossfade someone asked
+         not to see is still a crossfade, and hero.css paints this same end state
+         pre-hydration — so JS and CSS agree, and there is no frame where the
+         lockup appears only to be taken away again.
+      ------------------------------------------------------------------ */
+      if (reduced) {
+        gsap.set(backdrop, { opacity: 1, "--hero-mask": MASK.full });
+        gsap.set([cardOne, cardTwo], { display: "none" });
+        gsap.set([mark, est, wordmark], { display: "none" });
+        gsap.set(copy, { opacity: 1 });
+        stage.dataset.heroIntro = "done";
+        return;
+      }
+
+      /* ------------------------------------------------------------------
+         The reveal: the lockup dissolves, the tagline takes the stage.
 
          Built synchronously, even though it must not run until the intro has
          finished, because gsap.context() only auto-collects animations created
          during this function's own execution. Anything created later from a
-         callback would leak past unmount. So the timeline and its ScrollTrigger
-         are created now and simply gated on a flag.
-
-         Progress is mapped straight from scroll rather than using
-         ScrollTrigger's own `scrub` smoothing, because Lenis is already
-         smoothing the scroll input; layering a second smoother on top reads as
-         lag rather than as polish.
+         callback would leak past unmount. So the timeline is created here and
+         simply left paused for the intro's onComplete to play.
       ------------------------------------------------------------------ */
-      const phaseTwo = gsap.timeline({
+      const reveal = gsap.timeline({
         paused: true,
         defaults: { ease: "power2.out" },
       });
@@ -121,69 +136,91 @@ export default function HeroStage() {
          intro, the instant CSS let go of it. */
       gsap.set(copy, { opacity: 0 });
 
-      phaseTwo
-        .to(lockup, { opacity: 0, y: -28, duration: 0.4 }, 0)
-        .set(copy, { opacity: 1 }, 0.28);
+      reveal
+        /* The lockup leaves the way it came: "Established 1976" and the wordmark
+           drift back out along the axis they converged on, and the mark
+           dissolves into the blur it arrived from a beat later, so the frame
+           releases before the centrepiece.
 
-      if (reduced) {
-        /* No travel, no clipped roll — just the crossfade. */
-        phaseTwo.from(
-          [kicker, ...lineInners, divider, cta],
-          { opacity: 0, duration: 0.3 },
-          0.3,
+           These inherit the timeline's power2.out rather than easing in and out,
+           and the difference is not cosmetic. An inOut curve barely moves in its
+           first third, which left all three parts sitting at near-full opacity
+           for ~0.3s after the reveal had already started — it read as a stall,
+           not a hand-off. Front-loading the fade clears the stage early and
+           leaves only a ghost behind, which is what a dissolve should look like
+           and what lets the headline take the same rows a beat later. */
+        .to(
+          est,
+          {
+            opacity: 0,
+            x: -LOCKUP_DRIFT_PX,
+            duration: REVEAL.lockupOut.dur,
+          },
+          REVEAL.lockupOut.at,
+        )
+        .to(
+          wordmark,
+          {
+            opacity: 0,
+            x: LOCKUP_DRIFT_PX,
+            duration: REVEAL.lockupOut.dur,
+          },
+          REVEAL.lockupOut.at,
+        )
+        .to(
+          mark,
+          {
+            opacity: 0,
+            scale: MARK_EXIT.scale,
+            filter: `blur(${MARK_EXIT.blur}px)`,
+            duration: REVEAL.markOut.dur,
+          },
+          REVEAL.markOut.at,
+        )
+        /* The copy container carries no motion of its own — it is only released
+           from the hidden state set above. Each child's own from() keeps it
+           invisible until its beat arrives, so nothing shows early. */
+        .set(copy, { opacity: 1 }, REVEAL.kicker.at)
+        .from(
+          kicker,
+          { opacity: 0, y: 12, duration: REVEAL.kicker.dur },
+          REVEAL.kicker.at,
+        )
+        /* The clipped vertical roll is this site's signature move (see
+           PillButton's label swap). No rotation is added to it: rotating a
+           short wide bar about its centre lifts the far ends above the clip
+           line and smears the hidden duplicate into view — see PillButton's
+           docstring, where that was deliberately removed.
+
+           expo.out, and slower than the scroll-driven version could afford: the
+           long tail is the whole point, because type that decelerates over a
+           distance reads as settling into position rather than snapping to it. */
+        .from(
+          lineInners,
+          {
+            yPercent: 115,
+            duration: REVEAL.headline.dur,
+            stagger: HEADLINE_STAGGER,
+            ease: "expo.out",
+          },
+          REVEAL.headline.at,
+        )
+        /* Given its own beat after the headline lands rather than being folded
+           into it. A gold hairline drawing itself is the most jewelry-specific
+           gesture in the sequence, and it was previously over in 0.2s. */
+        .from(
+          divider,
+          { scaleX: 0, duration: REVEAL.divider.dur, ease: "power2.inOut" },
+          REVEAL.divider.at,
+        )
+        .from(
+          cta,
+          { opacity: 0, y: 10, duration: REVEAL.cta.dur },
+          REVEAL.cta.at,
         );
-      } else {        phaseTwo
-          .from(kicker, { opacity: 0, y: 16, duration: 0.22 }, 0.32)
-          /* The clipped vertical roll is this site's signature move (see
-             PillButton's label swap). No rotation is added to it: rotating a
-             short wide bar about its centre lifts the far ends above the clip
-             line and smears the hidden duplicate into view — see PillButton's
-             docstring, where that was deliberately removed. */
-          .from(
-            lineInners,
-            { yPercent: 115, duration: 0.34, stagger: 0.08 },
-            0.38,
-          )
-          .from(divider, { scaleX: 0, duration: 0.2 }, 0.62)
-          .from(cta, { opacity: 0, y: 16, duration: 0.22 }, 0.7);
-      }
-
-      let introResolved = false;
-
-      ScrollTrigger.create({
-        trigger: stage,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: (self) => {
-          if (!introResolved) return;
-
-          if (reduced) {
-            /* Equivalent to toggleActions "play none none none", which every
-               scroll reveal on this site uses deliberately: the GSAP default
-               replays in reverse when Lenis momentum overshoots back above the
-               trigger line, stranding elements mid-reveal. */
-            if (self.progress > 0.04) phaseTwo.play();
-            return;
-          }
-
-          phaseTwo.progress(self.progress);
-        },
-      });
 
       /* ------------------------------------------------------------------
-         Reduced motion: skip phase 1 entirely and render its end state.
-      ------------------------------------------------------------------ */
-      if (reduced) {
-        gsap.set(backdrop, { opacity: 1, "--hero-mask": MASK.full });
-        gsap.set([mark, est, wordmark], { opacity: 1 });
-        gsap.set([cardOne, cardTwo], { display: "none" });
-        stage.dataset.heroIntro = "done";
-        introResolved = true;
-        return;
-      }
-
-      /* ------------------------------------------------------------------
-         Phase 1.
+         The intro.
       ------------------------------------------------------------------ */
 
       /* A reload halfway down the page must not play a centre-of-screen intro
@@ -229,8 +266,15 @@ export default function HeroStage() {
         defaults: { ease: "power3.out" },
         onComplete: () => {
           stage.dataset.heroIntro = "done";
-          introResolved = true;
           releaseInput();
+          /* Causal hand-off rather than a timer. Skip the intro two seconds in
+             and the reveal starts two seconds in with it, instead of a
+             delayedCall leaving a dead pause on a hero that has already
+             resolved. A skip fast-forwards the intro, not the tagline: the
+             gesture asked for the intro to stop, not for the message to be
+             thrown away, and the visitor is free to scroll past it either way
+             since input is released on the same line above. */
+          reveal.play();
         },
       });
 
@@ -401,12 +445,14 @@ export default function HeroStage() {
     <section
       ref={sectionRef}
       data-hero-intro="pending"
-      className="hero-stage relative h-[190svh] w-full"
+      className="hero-stage relative h-svh w-full"
     >
-      {/* Sticky rather than pinned. page.tsx documents that ScrollTrigger's pin
-          spacer grows when its wrapper is a flex column; that hazard is dormant
-          today (nothing in src pins anything) and sticky avoids waking it. */}
-      <div className="hero-viewport sticky top-0 h-svh w-full overflow-hidden">
+      {/* Exactly one viewport, so this is a plain box rather than the sticky
+          one it used to be: with nothing below it inside the section, there is
+          no scroll distance for a sticky child to hold against. (It was never a
+          ScrollTrigger pin either — page.tsx documents why that spacer is a
+          hazard here, and sticky sidestepped it.) */}
+      <div className="hero-viewport relative h-svh w-full overflow-hidden">
         <div className="hero-backdrop z-0">
           <div className="hero-backdrop-pan">
             <HeroBackdrop />
@@ -432,10 +478,17 @@ export default function HeroStage() {
 
         <div className="hero-scrim z-30" />
 
-        {/* Phase 2's payload. Held at opacity 0 by hero.css until the scroll
-            phase reveals it — but present in the markup from the first byte, so
-            the h1 is always there for crawlers and assistive technology. */}
-        <div className="hero-copy pointer-events-none absolute inset-0 z-40 flex flex-col items-start justify-center px-6 sm:px-12 lg:px-20">
+        {/* The reveal's payload. Held at opacity 0 by hero.css until the intro
+            resolves and the hand-off runs — but present in the markup from the
+            first byte, so the h1 is always there for crawlers and assistive
+            technology.
+
+            `px-edge` rather than the px-6/sm:px-12/lg:px-20 ramp the sections
+            below use: this column has to start on the same vertical line as the
+            navbar's logo, which is directly above it, and that means reading the
+            same shared gutter token rather than a fixed inset that only agreed
+            with it near 1454px. */}
+        <div className="hero-copy pointer-events-none absolute inset-0 z-40 flex flex-col items-start justify-center px-edge">
           {/* Narrower than a full-width column on purpose. Recentring the subject
               moved her left, which pulled the clear backdrop band in from ~33% of
               the viewport to ~21.6%, and the copy has to stay inside it rather
@@ -485,14 +538,30 @@ export default function HeroStage() {
             </h1>
             <div className="hero-divider mt-6 h-px w-16 origin-left bg-gold-500/60" />
             <div className="hero-cta pointer-events-auto mt-8 flex flex-wrap items-center gap-4">
-              {/* Back to the pill. The `solid` variant it used to carry is a gold
-                  gradient inside a white border under a coloured glow, and those
-                  three effects together read as plastic on photography — but
-                  `solid` is used in nine other places, so refining it here would
-                  have restyled buttons across the whole site. The champagne
-                  variant gets the elegance instead: same pill, same clipped label
-                  roll, just a flat warm fill with no border and no glow. */}
-              <PillButton href={HERO_COPY.ctaHref} variant="gold" icon="dot">
+              {/* The `jewel` variant, which exists for this one button: the
+                  metallic ramp the rest of the site uses, minus the white
+                  hairline and gold glow that made `solid` read as plastic over
+                  photography, plus a bevel and a grounding shadow. `solid` is
+                  used in nine other places and is left alone.
+
+                  A gem in place of the bullet dot. The dot was a neutral marker
+                  that could have terminated any label on the site; this is the
+                  hero's one CTA and the word it ends is "diamond", so the mark
+                  may as well be one. Sized a touch larger than the arrow icon
+                  because a faceted glyph needs the extra pixels to stay legible
+                  as a stone rather than a blob.
+
+                  `size="hero"` rather than `md`: a gem is 10px wider than the
+                  dot it replaces, and at md this label already filled the copy
+                  column on a 360px phone. The hero size scales the whole pill
+                  with the viewport instead, so it stays inside the column at
+                  320px and keeps the md geometry on anything from ~620px up. */}
+              <PillButton
+                href={HERO_COPY.ctaHref}
+                variant="jewel"
+                size="hero"
+                icon="gem"
+              >
                 {HERO_COPY.ctaLabel}
               </PillButton>
             </div>
