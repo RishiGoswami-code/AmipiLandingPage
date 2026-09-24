@@ -14,15 +14,15 @@ type Collection = {
   image: string;
 };
 
-/** Top row is the three signature lines; the bottom row is the
- * shop-by-style edits (bezel, colored stones, stackable bands). */
+/** Two rows of three, in display order: bezel, bridal and drops across the
+ * top; multi-shape, stackable bands and colored stones underneath. */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "The Riviera Collection", image: "/Collections/riviera-collection.webp" },
-  { name: "The Aurora Bridal Edit", image: "/Collections/aurora-bridal-edit.webp" },
-  { name: "Lab-Grown Brilliance", image: "/Collections/lab-grown-brilliance.webp" },
-  { name: "The Bezel-Set Collection", image: "/Collections/bezel.webp" },
-  { name: "The Color Collection", image: "/Collections/color.webp" },
+  { name: "The Bezel-Set Collection", image: "/Collections/bezel-set-collection.webp" },
+  { name: "The Ever After Bridal Edit", image: "/Collections/ever-after-bridal-edit.webp" },
+  { name: "The Cascade Drop Collection", image: "/Collections/cascade-collection.webp" },
+  { name: "The Multi-Shape Mosaic Collection", image: "/Collections/mosaic-collection.webp" },
   { name: "The Stackable Collection", image: "/Collections/stack.webp" },
+  { name: "The Color Collection", image: "/Collections/color.webp" },
 ];
 
 /**
