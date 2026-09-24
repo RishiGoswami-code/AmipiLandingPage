@@ -111,7 +111,7 @@ export function TradeShows() {
                 {show.location}
               </p>
               <div className="mt-5">
-                <PillButton href="/contact" variant="light" size="sm">
+                <PillButton href="/contact" variant="gold" icon="dot">
                   Schedule Appointment
                 </PillButton>
               </div>

@@ -681,12 +681,17 @@ export function DiamondSearch() {
         {/* Search buttons, centred */}
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <div className="sm:w-72">
-            <PillButton href="/contact" variant="outline" size="md" className="w-full">
+            <PillButton
+              href="/contact"
+              variant="light"
+              icon="dot"
+              className="w-full border border-[#dfbf7b]"
+            >
               Earth Mined Diamonds
             </PillButton>
           </div>
           <div className="sm:w-72">
-            <PillButton href="/contact" variant="solid" size="md" className="w-full">
+            <PillButton href="/contact" variant="gold" icon="dot" className="w-full">
               Lab Grown Diamonds
             </PillButton>
           </div>
