@@ -4,7 +4,6 @@ import { NewArrivals } from "@/components/home/NewArrivals";
 import { ShopByCategory } from "@/components/home/ShopByCategory";
 import { CollectionsPreview } from "@/components/home/CollectionsPreview";
 import { TradeShows } from "@/components/sell/TradeShows";
-import { FAQ } from "@/components/home/FAQ";
 
 export default function Home() {
   // The wrapper below is deliberately NOT a flex column. ScrollTrigger pins
@@ -22,7 +21,6 @@ export default function Home() {
       <ShopByCategory />
       <CollectionsPreview />
       <TradeShows />
-      <FAQ />
     </div>
   );
 }

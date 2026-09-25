@@ -14,7 +14,6 @@ const COMPANY_LINKS = [
   { label: "Sell Your Diamonds", href: "/sell-your-diamonds" },
   { label: "The Journal", href: "/blog" },
   { label: "Visit Us", href: "/contact" },
-  { label: "FAQs", href: "/#faq" },
 ];
 
 const LEGAL_LINKS = [
