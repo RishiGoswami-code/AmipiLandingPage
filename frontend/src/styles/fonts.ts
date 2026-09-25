@@ -65,7 +65,7 @@ export const geistMono = localFont({
 /**
  * One-off serif, scoped to the section headings that explicitly ask for the
  * editorial engagement-ring-site look (NewArrivals, CollectionsPreview,
- * CategoriesPreview, DiamondSearch, TradeShows, all via
+ * ShopByCategory, DiamondSearch, TradeShows, all via
  * `font-[family-name:var(--font-playfair)]`) - the rest of the site stays
  * Manrope per the decision above.
  */

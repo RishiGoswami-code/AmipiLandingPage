@@ -59,7 +59,14 @@ export default function SmoothScroll({
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
     if (isTouch) {
-      ScrollTrigger.normalizeScroll(true);
+      /* allowNestedScroll lets a gesture that starts inside a scrollable child
+         scroll that child natively instead of being normalised into page
+         scroll. Without it the horizontal category row on the home page
+         (ShopByCategory) cannot be swiped at all on a phone — which is the only
+         input it has there, since its arrows are desktop-only. Passing an object
+         rather than `true` leaves everything else as it was: `type` defaults to
+         "wheel,touch" inside normalizeScroll. */
+      ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
       return () => {
         window.removeEventListener("load", refresh);
         ScrollTrigger.normalizeScroll(false);

@@ -1,7 +1,7 @@
 import HeroStage from "@/components/hero/HeroStage";
 import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
-import { CategoriesPreview } from "@/components/home/CategoriesPreview";
+import { ShopByCategory } from "@/components/home/ShopByCategory";
 import { CollectionsPreview } from "@/components/home/CollectionsPreview";
 import { TradeShows } from "@/components/sell/TradeShows";
 import { FAQ } from "@/components/home/FAQ";
@@ -19,9 +19,9 @@ export default function Home() {
       <HeroStage />
       <DiamondSearch />
       <NewArrivals />
+      <ShopByCategory />
       <CollectionsPreview />
       <TradeShows />
-      <CategoriesPreview />
       <FAQ />
     </div>
   );
