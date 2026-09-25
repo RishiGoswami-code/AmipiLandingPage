@@ -17,12 +17,12 @@ type Collection = {
 /** Two rows of three, in display order: bezel, bridal and drops across the
  * top; multi-shape, stackable bands and colored stones underneath. */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "The Bezel-Set Collection", image: "/Collections/bezel-set-collection.webp" },
-  { name: "The Ever After Bridal Edit", image: "/Collections/ever-after-bridal-edit.webp" },
-  { name: "The Cascade Drop Collection", image: "/Collections/cascade-collection.webp" },
-  { name: "The Multi-Shape Mosaic Collection", image: "/Collections/mosaic-collection.webp" },
-  { name: "The Stackable Collection", image: "/Collections/stack.webp" },
-  { name: "The Color Collection", image: "/Collections/color.webp" },
+  { name: "Bezel Collection", image: "/Collections/bezel-set-collection.webp" },
+  { name: "Bridal Collection", image: "/Collections/ever-after-bridal-edit.webp" },
+  { name: "Drop Collection", image: "/Collections/cascade-collection.webp" },
+  { name: "Multi Shape Collection", image: "/Collections/mosaic-collection.webp" },
+  { name: "Stack Collection", image: "/Collections/Stack.png" },
+  { name: "Color Collection", image: "/Collections/Color.png" },
 ];
 
 /**
