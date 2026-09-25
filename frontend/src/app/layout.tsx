@@ -3,7 +3,8 @@ import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
-import { BookingCardFixed } from "@/components/ui/BookingCardFixed";
+import { HideOnRoutes } from "@/components/nav/HideOnRoutes";
+import { AssistantButtonFixed } from "@/components/ui/AssistantButtonFixed";
 // Every face the site uses is declared in one place - see the note in
 // styles/fonts.ts on why a font loader must not be called twice for the
 // same family.
@@ -32,10 +33,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar />
         <SmoothScroll>
           {children}
-          <Footer />
+          {/* About is a single full-screen section with no footer beneath it */}
+          <HideOnRoutes routes={["/about"]}>
+            <Footer />
+          </HideOnRoutes>
         </SmoothScroll>
-        {/* Always-visible fixed booking card — persists across all scroll depths */}
-        <BookingCardFixed />
+        {/* AI assistant launcher + chat drawer - persists across all scroll depths */}
+        <AssistantButtonFixed />
       </body>
     </html>
   );
