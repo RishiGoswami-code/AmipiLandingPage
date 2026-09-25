@@ -3,7 +3,7 @@ import { ArrowRight, Gem } from "lucide-react";
 import type { ReactNode } from "react";
 
 type Variant = "solid" | "dark" | "gold" | "jewel" | "outline" | "light";
-type Size = "sm" | "md" | "hero";
+type Size = "xs" | "sm" | "md" | "hero";
 type Icon = "arrow" | "dot" | "gem" | "none";
 
 type PillButtonProps = {
@@ -20,7 +20,15 @@ type PillButtonProps = {
 const VARIANT_CLASSES: Record<Variant, string> = {
   solid:
     "gold-shimmer-gradient border border-white/40 shadow-[0_4px_20px_-4px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_-2px_rgba(212,175,55,0.6)]",
-  dark: "bg-navy-900 text-ice-100",
+  /* Navy is the palette's anchor - the ramp note calls it the backdrop carrying
+     ~60% of the surface - and navy against champagne gold is the pairing the
+     whole site already runs on, dark grounds under gold type. Hover deepens
+     rather than lightens, so the button settles under the cursor instead of
+     jumping forward.
+
+     No treatment here for sitting on photography: that is the caller's problem,
+     because it is only a problem in the navbar. See the bevel passed in there. */
+  dark: "bg-navy-900 text-ice-100 hover:bg-navy-800",
   /* Champagne rather than the brand gold-500 (#fed700). Flat, with no gradient,
      border or glow, so it holds its shape against photography instead of
      dissolving into it, and it needs no hairline to separate from a dark
@@ -61,13 +69,26 @@ const VARIANT_CLASSES: Record<Variant, string> = {
      in force here, not the base `transition-[...]` below. */
   jewel:
     "gold-shimmer-gradient shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_14px_34px_-14px_rgba(14,11,10,0.9)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_18px_40px_-14px_rgba(14,11,10,0.95)]",
-  outline: "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
-  light: "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
+  outline:
+    "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
+  light:
+    "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };
 
+/* Letterspacing lives here rather than in the shared base string above, so a
+   size can set its own. Two `tracking-*` utilities of equal specificity would
+   otherwise race on stylesheet order, which is not something a call site should
+   have to reason about. 0.14em is the site's standard for caps at these sizes;
+   only `xs` departs from it, and only because it has to. */
 const SIZE_CLASSES: Record<Size, string> = {
-  sm: "h-10 px-5 text-[11px] gap-1.5",
-  md: "h-12 px-7 text-xs gap-2 sm:h-14",
+  /* The navbar's compact CTA, and the only size tuned to a width budget rather
+     than to a rhythm. With the link row centred on the viewport, the space left
+     between the row's right edge and the gutter is ~186px at 1280 - so a 26
+     character label has to fit in that, which 11px at 0.14em (242px) does not.
+     10px at 0.04em brings it to ~170px and leaves the row centred. */
+  xs: "h-9 px-4 text-[10px] tracking-[0.04em] gap-1.5",
+  sm: "h-10 px-5 text-[11px] tracking-[0.14em] gap-1.5",
+  md: "h-12 px-7 text-xs tracking-[0.14em] gap-2 sm:h-14",
   /* The primary-CTA size: fluid rather than stepped, because it is the one
      button whose label is long enough to run out of room.
 
@@ -82,8 +103,7 @@ const SIZE_CLASSES: Record<Size, string> = {
      nothing changes from ~620px upward. Height leads and the padding follows a
      shallower curve, since padding that shrank as fast as the box would crowd
      the label against the edge. */
-  hero:
-    "h-[clamp(2.75rem,9vw,3.5rem)] px-[clamp(1.25rem,4.5vw,2.25rem)] text-[clamp(0.6875rem,2.2vw,0.75rem)] gap-2",
+  hero: "h-[clamp(2.75rem,9vw,3.5rem)] px-[clamp(1.25rem,4.5vw,2.25rem)] text-[clamp(0.6875rem,2.2vw,0.75rem)] tracking-[0.14em] gap-2",
 };
 
 /**
@@ -114,7 +134,7 @@ export function PillButton({
 }: PillButtonProps) {
   const classes = [
     "group relative inline-flex shrink-0 items-center justify-center rounded-full",
-    "font-semibold tracking-[0.14em] uppercase transition-[background-color,border-color,box-shadow] duration-300",
+    "font-semibold uppercase transition-[background-color,border-color,box-shadow] duration-300",
     VARIANT_CLASSES[variant],
     SIZE_CLASSES[size],
     className,

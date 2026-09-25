@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { PillButton } from "@/components/ui/PillButton";
 import { NavMenu } from "@/components/nav/NavMenu";
 import { NavOverlay } from "@/components/nav/NavOverlay";
-import { CONTACT } from "@/components/nav/navigation";
 import { italiana } from "@/styles/fonts";
 
 /** Routes whose top section is a dark canvas. LINKS and the phone number used to
@@ -73,13 +72,18 @@ export function Navbar() {
      it is tracked out this far, and it has to survive a photographic backdrop
      rather than a flat panel. Hover goes to pure white for a clear step up.
 
-     Tracking is 0.08em until xl, where it opens back up to 0.14em. Five labels
+     Tracking is 0.08em until 2xl, where it opens back up to 0.14em. Five labels
      with dropdown chevrons are about 90px wider than the four plain links this
      replaced, which overflowed into the logo at 1024px; tightening the tracking
      and the row's gap buys that back, so laptops keep the full link row instead
-     of dropping to a hamburger. */
+     of dropping to a hamburger.
+
+     It holds to 2xl rather than xl because the row is centred, so its width is
+     spent twice: every pixel it grows takes one from each side, and the Schedule
+     button takes its full label at xl. Both expanding at 1280 left 16px between
+     the row and the cluster; staggering them leaves ~69px. */
   const linkClasses = [
-    "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors xl:tracking-[0.14em]",
+    "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
     onDark
       ? "text-ice-100/90 hover:text-white"
       : "text-navy-700/80 hover:text-navy-900",
@@ -161,18 +165,51 @@ export function Navbar() {
           underlineClassName={underlineClasses}
         />
 
-        <div className="relative z-10 ml-auto hidden items-center gap-4 lg:flex">
-          {/* Letterspacing widens the centred link row by roughly 80px, which
-              overflows at 1024px. Holding the phone number back to xl frees the
-              ~140px that closes the gap, so laptops keep the links from 1024px
-              instead of dropping to a hamburger. */}
-          <a
-            href={CONTACT.phone.href}
-            className={`${linkClasses} hidden xl:block`}
+        <div className="relative z-10 ml-auto hidden items-center gap-3 lg:flex">
+          {/* The bar's primary business action, and the reason the phone number
+              that used to sit here is gone: two competing ways to start a
+              conversation, and the one that books a slot beats the one that
+              hopes someone picks up. The number is still a tap away in the
+              Contact Us panel, in the mobile menu and in the footer.
+
+              Neither href nor onClick, so this renders as a real button that
+              does nothing yet - the scheduling flow is UNBUILT like the rest of
+              the menu (see navigation.ts). It is focusable and hoverable
+              meanwhile, which is what a design pass needs. */}
+          {/* Navy against the champagne Login, which is the pairing the rest of
+              the site runs on - no new colour enters the palette for this.
+
+              The two shadows are what let a dark fill sit on the hero
+              photograph, and they are lifted straight from the `jewel` variant's
+              reasoning: a warm near-black drop shadow grounds the pill on the
+              photo instead of haloing it off the surface, and a 1px inset
+              highlight on the top edge alone is a bevel rather than a border, so
+              it catches light along one edge instead of drawing a rectangle.
+              That is the specific fix for what the Login comment below records -
+              a navy shape on espresso whose edge dissolves into it. Passed here
+              rather than baked into the variant because it is only the navbar
+              that sits on photography. */}
+          <PillButton
+            variant="dark"
+            size="xs"
+            className="shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_26px_-12px_rgba(14,11,10,0.85)]"
           >
-            {CONTACT.phone.label}
-            <span aria-hidden className={underlineClasses} />
-          </a>
+            {/* Two labels, because the link row is centred on the viewport and
+                that fixes how much room this button has: the gap between the
+                centred row and the gutter is ~125px at 1024, ~186px at 1280 and
+                ~330px at 1600, and Login takes ~96px of it first. The full
+                26-character label is ~170px even at this size, so it only fits
+                from 1280 up. Below that it would push the row off centre, which
+                is the one thing the bar is not allowed to do, so a shorter label
+                carries the same action.
+
+                Both copies render in both of PillButton's text layers - it keeps
+                a duplicate of the label parked below for the roll-up hover - so
+                the visible one has to be chosen by CSS rather than by picking a
+                string, or the hover would swap between two different words. */}
+            <span className="xl:hidden">Book a meeting</span>
+            <span className="hidden xl:inline">Schedule a virtual meeting</span>
+          </PillButton>
           {/* Brand gold rather than navy. Navy-on-espresso was a dark shape on a
               dark photograph whose edge dissolved into it, needing a hairline to
               stay visible at all; gold separates on value alone and ties the

@@ -25,19 +25,27 @@ const panelId = (label: string) =>
  * The whole thing is a full-width layer (`absolute inset-0`) laid over the bar,
  * with the link row centred inside it at `w-max`. That is what lets the
  * Fine Jewelry panel span the viewport - it positions against this layer, so
- * `inset-x-0` is exactly the viewport's width. The obvious alternative, a
- * `100vw` panel, is wrong on any desktop with a classic scrollbar: 100vw counts
- * the scrollbar gutter, so the panel would overhang by ~15px and put a
- * horizontal scrollbar on the page.
+ * `inset-x-0` is exactly the viewport's width. The obvious alternative, a `100vw`
+ * panel, is wrong on any desktop with a classic scrollbar: 100vw counts the
+ * scrollbar gutter, so the panel would overhang by ~15px and put a horizontal
+ * scrollbar on the page.
  *
- * It also keeps each panel a DOM child of the trigger that opens it, which is
- * what makes Tab work: the panel's links come immediately after their trigger in
- * source order, so tabbing off the trigger walks into the panel rather than
- * skipping to the next one. Hoisting the wide panel out to a sibling of the row
- * would have read the same on screen and been unreachable by keyboard.
+ * The row is centred on the viewport rather than laid out in flow, and that is a
+ * requirement rather than a detail: in flow, between a 118px logo and a
+ * two-button cluster, the free space splits evenly and the row settles ~110px
+ * left of centre at every width. Centring instead means the space either side of
+ * the row must match, so the cluster is capped at what fits beside a centred row
+ * - which is what the Schedule button's size and its two labels are sized
+ * against. See the note on it in Navbar.
  *
  * The layer is `pointer-events-none` with the row and panels re-enabling
- * pointers, so the logo and Login button underneath it stay clickable.
+ * pointers, so the logo and the buttons underneath it stay clickable.
+ *
+ * Each panel is a DOM child of the trigger that opens it, which is what makes Tab
+ * work: the panel's links come immediately after their trigger in source order,
+ * so tabbing off the trigger walks into the panel rather than skipping to the
+ * next one. Hoisting the wide panel out to a sibling of the row would have read
+ * the same on screen and been unreachable by keyboard.
  *
  * Every item fills the bar's full height, which is how the panels sit flush
  * against the bar's bottom edge with no dead gap for the pointer to cross on its
@@ -138,7 +146,7 @@ export function NavMenu({
       className="pointer-events-none absolute inset-0 hidden lg:block"
     >
       <nav
-        className="pointer-events-auto mx-auto flex h-full w-max items-center gap-3 xl:gap-7"
+        className="pointer-events-auto mx-auto flex h-full w-max items-center gap-2 2xl:gap-7"
         aria-label="Primary"
       >
         {NAV_ITEMS.map((item) => {
