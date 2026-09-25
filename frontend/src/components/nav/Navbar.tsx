@@ -16,16 +16,18 @@ const LINKS = [
 
 const PHONE = "(800) 530-2647";
 
+const DARK_ROUTES = ["/", "/about"];
+
 /**
  * Full-width transparent navbar: logo hard left, links centred on the viewport,
  * login hard right, and a full-screen overlay menu below 1024px.
  *
  * It carries no surface of its own, so it has nothing to sit on and must borrow
  * contrast from whatever is beneath it. On the home route that is the hero
- * photograph, which is warm espresso, so the nav paints light. Every other route
- * renders on `--color-background` (#f5f7fb), where light-on-light would be
- * invisible, so the nav paints dark there instead. One boolean, because there is
- * exactly one dark route.
+ * photograph, which is warm espresso, so the nav paints light - as it does on
+ * the About page, which opens on the same espresso. Every other route renders on
+ * `--color-background` (#f5f7fb), where light-on-light would be invisible, so
+ * the nav paints dark there instead.
  *
  * The centre nav is absolutely positioned rather than being the middle cell of a
  * three-column grid: equal thirds would force the five links to fit inside a
@@ -45,9 +47,9 @@ const PHONE = "(800) 530-2647";
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
-  /* The hero is the only dark canvas in the app; everywhere else is the light
-     theme. If a second dark route ever appears this wants to become a list. */
-  const onDark = usePathname() === "/";
+  /* Routes whose top section is a dark canvas - the home hero and the About
+     story; everywhere else is the light theme. */
+  const onDark = DARK_ROUTES.includes(usePathname());
 
   /* The overlay is espresso on every route, so once it is open the button has to
      read against the overlay rather than against the page underneath it. */
