@@ -179,8 +179,16 @@ export function ShopByCategory() {
       /* One tile width, declared once. The arrows centre themselves on the
          image band with it (`top: calc(var(--cat-tile) / 2)`), which they
          cannot do from the row's own box — that box includes the captions, and
-         centring on it would drop both arrows ~20px low. */
-      className="relative bg-background py-3 sm:py-4 [--cat-tile:42vw] sm:[--cat-tile:26vw] lg:[--cat-tile:15.5vw]"
+         centring on it would drop both arrows ~20px low.
+
+         15.5vw puts six tiles plus the clipped seventh across a ~1600px
+         viewport, which is the reference proportion. The 11rem floor is for the
+         bottom of the lg range: at 1024px the bare vw value resolves to 159px,
+         which is too narrow for "Engagement Rings" to sit on one line, so the
+         caption band goes ragged while every other label stays single-line.
+         Below the floor the row simply shows fewer tiles, which a scroller can
+         afford. */
+      className="relative bg-background py-3 sm:py-4 [--cat-tile:42vw] sm:[--cat-tile:26vw] lg:[--cat-tile:max(11rem,15.5vw)]"
     >
       <div className="px-6 sm:px-12 lg:px-20">
         <h2
