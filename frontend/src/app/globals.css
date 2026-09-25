@@ -159,8 +159,8 @@
   );
 }
 
-/* Entrance animation for the fixed booking card */
-@keyframes apptCardIn {
+/* Entrance animation for the fixed AI assistant button */
+@keyframes assistantIn {
   from {
     opacity: 0;
     transform: translateX(28px);
