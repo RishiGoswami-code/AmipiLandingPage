@@ -466,31 +466,25 @@ function caratBracketLabel({ min, max }: CaratBracket) {
 }
 
 /**
- * A filter column for the light search card - numbered label, a short
- * caption echoing the reference's "Choose the shape that speaks to you"
- * style copy, then the control in its own bordered field (matching the
- * reference's boxed "WEIGHT RANGE" / letter-row inputs, rather than bare
- * text floating on the card).
+ * A filter column for the light search card - numbered label, then the
+ * control in its own bordered field (matching the reference's boxed
+ * "WEIGHT RANGE" / letter-row inputs, rather than bare text floating on
+ * the card).
  */
 function FilterBox({
   label,
-  caption,
   children,
   className = "",
 }: {
   label: string;
-  caption: string;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
     <div className={`relative ${className}`}>
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
-          {label}
-        </span>
-        <span className="text-[11px] text-foreground/55">{caption}</span>
-      </div>
+      <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
+        {label}
+      </span>
       <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">{children}</div>
     </div>
   );
@@ -525,20 +519,14 @@ export function DiamondSearch() {
             </span>{" "}
             Search Here
           </h2>
-          <p className="mt-5 text-sm text-foreground/75 sm:text-base">
-            Exceptional diamonds. A more beautiful tomorrow.
-          </p>
           <div className="mx-auto mt-5 h-px w-16 bg-gold-500/60" />
         </div>
 
         <div className="mt-10">
           <div className="rounded-2xl border border-navy-200 p-6 sm:p-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-navy-200 pb-5">
+            <div className="border-b border-navy-200 pb-5">
               <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
                 1. Shape
-              </span>
-              <span className="text-[11px] text-foreground/55">
-                Choose the shape that speaks to you
               </span>
             </div>
             <ShapeIconDefs />
@@ -587,7 +575,7 @@ export function DiamondSearch() {
 
         {/* Carat weight / Color / Clarity, side by side */}
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
-          <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
+          <FilterBox label="2. Carat Weight">
             <button
               type="button"
               onClick={() => setWeightOpen((v) => !v)}
@@ -637,7 +625,7 @@ export function DiamondSearch() {
             )}
           </FilterBox>
 
-          <FilterBox label="3. Color" caption="Find your perfect hue">
+          <FilterBox label="3. Color">
             <div className="flex flex-wrap items-center justify-between gap-y-2">
               {COLORS.map((c, i) => (
                 <button
@@ -657,7 +645,7 @@ export function DiamondSearch() {
             </div>
           </FilterBox>
 
-          <FilterBox label="4. Clarity" caption="Choose the clarity you prefer">
+          <FilterBox label="4. Clarity">
             <div className="flex flex-wrap items-center justify-between gap-y-2">
               {CLARITIES.map((c, i) => (
                 <button

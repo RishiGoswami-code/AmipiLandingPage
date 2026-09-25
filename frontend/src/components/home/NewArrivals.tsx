@@ -119,9 +119,6 @@ export function NewArrivals() {
             <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
               New Arrival
             </h2>
-            <p className="mt-3 max-w-md text-sm text-foreground/60">
-              Freshly cut, freshly set - the pieces that just landed in the case.
-            </p>
           </div>
           <Link
             href="/categories"

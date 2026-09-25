@@ -203,10 +203,6 @@ export function ShopByCategory() {
         >
           Shop Jewelry by Category
         </h2>
-        <p className="mt-3 max-w-md text-sm text-foreground/60">
-          From bridal to everyday - browse the case by the piece you&rsquo;re
-          looking for.
-        </p>
       </div>
 
       <div className="relative mt-12">
