@@ -5,13 +5,11 @@ import Image, { getImageProps } from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
-import { cormorant } from "@/styles/fonts";
 import { HeroLockup } from "./HeroLockup";
 import {
   BEATS,
   EXIT_FADE,
   EXIT_ROTATION_DEG,
-  HEADLINE_STAGGER,
   HERO_COPY,
   LOCKUP_DRIFT_PX,
   MARK_EXIT,
@@ -43,9 +41,10 @@ gsap.registerPlugin(useGSAP);
  * to become the page background. Roughly 3.6s; any input fast-forwards it.
  *
  * The moment it resolves, the reveal hands the stage over: the lockup dissolves
- * and the tagline — kicker, headline, divider, CTA — takes its place. Driven by
- * the intro's own completion rather than by scroll, so the whole hero is a
- * single viewport tall and the first scroll goes straight into the next section.
+ * and the hero's copy — the anniversary line and the CTA — takes its place.
+ * Driven by the intro's own completion rather than by scroll, so the whole hero
+ * is a single viewport tall and the first scroll goes straight into the next
+ * section.
  *
  * Deliberately self-contained: every style it needs lives in hero.css and every
  * timing constant in heroIntro.ts, so the whole feature is three files plus
@@ -72,11 +71,7 @@ export default function HeroStage() {
       const wordmark = pick(".hero-wordmark");
       const copy = pick(".hero-copy");
       const kicker = pick(".hero-kicker");
-      const divider = pick(".hero-divider");
       const cta = pick(".hero-cta");
-      const lineInners = gsap.utils.toArray<HTMLElement>(
-        stage.querySelectorAll(".hero-line-inner"),
-      );
 
       if (
         !viewport ||
@@ -88,9 +83,7 @@ export default function HeroStage() {
         !wordmark ||
         !copy ||
         !kicker ||
-        !divider ||
-        !cta ||
-        lineInners.length === 0
+        !cta
       ) {
         return;
       }
@@ -117,7 +110,7 @@ export default function HeroStage() {
       }
 
       /* ------------------------------------------------------------------
-         The reveal: the lockup dissolves, the tagline takes the stage.
+         The reveal: the lockup dissolves, the copy takes the stage.
 
          Built synchronously, even though it must not run until the intro has
          finished, because gsap.context() only auto-collects animations created
@@ -131,7 +124,7 @@ export default function HeroStage() {
       });
 
       /* The frame-0 rules in hero.css stop matching the moment the attribute
-         flips off "pending", so the tagline's hidden state has to be handed to
+         flips off "pending", so the copy's hidden state has to be handed to
          GSAP explicitly — otherwise it would pop into view halfway through the
          intro, the instant CSS let go of it. */
       gsap.set(copy, { opacity: 0 });
@@ -148,7 +141,8 @@ export default function HeroStage() {
            for ~0.3s after the reveal had already started — it read as a stall,
            not a hand-off. Front-loading the fade clears the stage early and
            leaves only a ghost behind, which is what a dissolve should look like
-           and what lets the headline take the same rows a beat later. */
+           and what keeps the incoming copy from arriving over legible
+           letterspaced caps. */
         .to(
           est,
           {
@@ -185,33 +179,6 @@ export default function HeroStage() {
           kicker,
           { opacity: 0, y: 12, duration: REVEAL.kicker.dur },
           REVEAL.kicker.at,
-        )
-        /* The clipped vertical roll is this site's signature move (see
-           PillButton's label swap). No rotation is added to it: rotating a
-           short wide bar about its centre lifts the far ends above the clip
-           line and smears the hidden duplicate into view — see PillButton's
-           docstring, where that was deliberately removed.
-
-           expo.out, and slower than the scroll-driven version could afford: the
-           long tail is the whole point, because type that decelerates over a
-           distance reads as settling into position rather than snapping to it. */
-        .from(
-          lineInners,
-          {
-            yPercent: 115,
-            duration: REVEAL.headline.dur,
-            stagger: HEADLINE_STAGGER,
-            ease: "expo.out",
-          },
-          REVEAL.headline.at,
-        )
-        /* Given its own beat after the headline lands rather than being folded
-           into it. A gold hairline drawing itself is the most jewelry-specific
-           gesture in the sequence, and it was previously over in 0.2s. */
-        .from(
-          divider,
-          { scaleX: 0, duration: REVEAL.divider.dur, ease: "power2.inOut" },
-          REVEAL.divider.at,
         )
         .from(
           cta,
@@ -270,7 +237,7 @@ export default function HeroStage() {
           /* Causal hand-off rather than a timer. Skip the intro two seconds in
              and the reveal starts two seconds in with it, instead of a
              delayedCall leaving a dead pause on a hero that has already
-             resolved. A skip fast-forwards the intro, not the tagline: the
+             resolved. A skip fast-forwards the intro, not the copy: the
              gesture asked for the intro to stop, not for the message to be
              thrown away, and the visitor is free to scroll past it either way
              since input is released on the same line above. */
@@ -494,50 +461,19 @@ export default function HeroStage() {
               the viewport to ~21.6%, and the copy has to stay inside it rather
               than run across her hair. */}
           <div className="max-w-xl">
-            <p className="hero-kicker text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
+            {/* The h1, now that the display headline is parked. The page needs
+                one and this is the only copy left in the hero, so the level is
+                carried here rather than pushed down into the first section
+                below. Nothing changes visually — the styling was never coming
+                from the element. */}
+            <h1 className="hero-kicker text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               {HERO_COPY.kicker}
-            </p>
-            {/* Cormorant Garamond, not the theme's `font-display`. The font's own
-                className sets the family, so `font-display` is removed rather
-                than left to fight it — both resolve to font-family and Tailwind
-                settles that by stylesheet order, not class order.
-
-                Set to match the specimen this font was chosen from: all-caps at
-                300. Weight is the whole point — Cormorant's character is its
-                thick-to-thin contrast, and that contrast is widest at light.
-                Anything heavier thickens the hairlines and the face stops looking
-                like itself.
-
-                Sized fluidly rather than in breakpoint steps, and the inner
-                min(6.2vw, 11svh) is the part that matters responsively: a purely
-                width-based display size looks right on a desktop and then fills a
-                landscape phone from top to bottom, because that viewport is wide
-                and short. Taking the smaller of the two axes means the headline
-                answers to whichever one is actually scarce. The clamp floors it at
-                30px so it stays readable on a 320px phone, and caps it at 60px —
-                caps are materially wider than mixed case, and past 60px "JUST
-                DIAMONDS." starts crowding both the column and the model's hair.
-
-                The pb/-mb pair on each clipped line is insurance, not spacing.
-                The roll animation hides each line by clipping it to its own box,
-                and Cormorant's cap "J" drops below the baseline — visible in the
-                specimen's "JUMPED". Tight leading shrinks that box, so the
-                padding buys the descender room and the negative margin takes the
-                visual gap back out. */}
-            <h1
-              className={`${cormorant.className} mt-5 text-[clamp(1.9rem,min(6.2vw,11svh),3.75rem)] leading-[1.0] font-light tracking-[0.01em] text-ice-100 uppercase`}
-            >
-              {HERO_COPY.headline.map((line) => (
-                <span
-                  key={line}
-                  className="-mb-[0.16em] block overflow-hidden pb-[0.16em]"
-                >
-                  <span className="hero-line-inner block">{line}</span>
-                </span>
-              ))}
             </h1>
-            <div className="hero-divider mt-6 h-px w-16 origin-left bg-gold-500/60" />
-            <div className="hero-cta pointer-events-auto mt-8 flex flex-wrap items-center gap-4">
+            {/* mt-7 rather than the mt-8 this carried under the hairline: with
+                the headline and divider gone, the button is answering directly
+                to the line above it and a full 32px reads as a gap rather than
+                as a pair. */}
+            <div className="hero-cta pointer-events-auto mt-7 flex flex-wrap items-center gap-4">
               {/* The `jewel` variant, which exists for this one button: the
                   metallic ramp the rest of the site uses, minus the white
                   hairline and gold glow that made `solid` read as plastic over
@@ -546,16 +482,17 @@ export default function HeroStage() {
 
                   A gem in place of the bullet dot. The dot was a neutral marker
                   that could have terminated any label on the site; this is the
-                  hero's one CTA and the word it ends is "diamond", so the mark
-                  may as well be one. Sized a touch larger than the arrow icon
-                  because a faceted glyph needs the extra pixels to stay legible
-                  as a stone rather than a blob.
+                  hero's one CTA on a diamond house's landing page, so the mark
+                  may as well be a stone. Sized a touch larger than the arrow
+                  icon because a faceted glyph needs the extra pixels to stay
+                  legible as a gem rather than a blob.
 
-                  `size="hero"` rather than `md`: a gem is 10px wider than the
-                  dot it replaces, and at md this label already filled the copy
-                  column on a 360px phone. The hero size scales the whole pill
-                  with the viewport instead, so it stays inside the column at
-                  320px and keeps the md geometry on anything from ~620px up. */}
+                  `size="hero"` is kept even though "Explore Amipi" is less than
+                  half the length of the label it replaced. It is still the one
+                  CTA standing over photography at the top of the page, and a
+                  fluid size ties its geometry to the viewport instead of
+                  stepping at a single width; from ~620px up it resolves to the
+                  same box `md` would have given it anyway. */}
               <PillButton
                 href={HERO_COPY.ctaHref}
                 variant="jewel"

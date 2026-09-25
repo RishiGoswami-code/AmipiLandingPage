@@ -83,8 +83,17 @@ export const playfairDisplay = localFont({
  * theme token - `--font-display` is referenced by eighteen files, so remapping
  * it would turn every heading on the site serif.
  *
- * Weight is the whole point of the face at hero size: HeroStage takes it to
+ * Weight is the whole point of the face at hero size: the headline took it to
  * `font-light` (300), which the 300-700 axis reaches without a second file.
+ *
+ * Currently unimported: the hero tagline it was chosen for is parked (see
+ * heroIntro.ts), and nothing else on the site is serif-by-Cormorant. Kept
+ * declared, since the definition is the restore point - but with `preload:
+ * false`, for the same reason geistMono carries it above. Preloading is decided
+ * per font-definitions module, not per component, so layout.tsx importing this
+ * file was enough to put a <link rel="preload"> for this woff2 on every route
+ * even with no element left to paint it. Restoring the headline means dropping
+ * this line again.
  */
 export const cormorant = localFont({
   src: "./fonts/cormorant-garamond-latin.woff2",
@@ -92,6 +101,7 @@ export const cormorant = localFont({
   weight: "300 700",
   style: "normal",
   display: "swap",
+  preload: false,
   adjustFontFallback: "Times New Roman",
 });
 

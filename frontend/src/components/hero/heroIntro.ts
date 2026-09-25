@@ -1,6 +1,6 @@
 /**
  * Choreography data for the hero's on-load sequence — the intro (`BEATS`) and
- * the tagline hand-off that follows it (`REVEAL`).
+ * the copy hand-off that follows it (`REVEAL`).
  *
  * Deliberately pure: no GSAP import, no DOM access, no React. Everything here
  * is a number, a string or a function of its arguments, which keeps the whole
@@ -55,7 +55,7 @@ export const BEATS = {
   engulf: { at: 2.73, dur: 0.85 },
   /**
    * Hand-off: navbar and booking card fade in, scroll is released, and the
-   * tagline reveal below begins.
+   * copy reveal below begins.
    *
    * Descriptive rather than driving — there is no tween here. The engulf is the
    * intro's last tween, so its end is where the timeline completes, the
@@ -93,8 +93,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 /**
- * The tagline hand-off: the centre lockup dissolves and the hero's copy —
- * kicker, headline, divider, CTA — takes its place.
+ * The copy hand-off: the centre lockup dissolves and the hero's copy —
+ * anniversary line, then CTA — takes its place.
  *
  * Positions here are relative to the *reveal's own* start, not to page load.
  * Add `INTRO_TOTAL` for wall-clock time. The reveal is a separate timeline
@@ -116,39 +116,38 @@ export const REVEAL = {
   markOut: { at: 0.12, dur: 0.68 },
   /** 11. Kicker fades up, overlapping the tail of the dissolve. */
   kicker: { at: 0.22, dur: 0.5 },
-  /** 12. Headline lines roll up out of their clip boxes, one after the other. */
-  headline: { at: 0.52, dur: 0.7 },
-  /** 13. The gold hairline draws itself out from the left. */
-  divider: { at: 1.15, dur: 0.55 },
-  /** 14. CTA fades up last. */
-  cta: { at: 1.3, dur: 0.45 },
+  /** 12. CTA fades up behind it. */
+  cta: { at: 0.58, dur: 0.45 },
 } as const satisfies Record<string, Beat>;
 
 /* ---------------------------------------------------------------------------
-   Why the headline waits until 0.52 rather than following the kicker straight
-   in.
+   Parked: the tagline beats.
 
-   On desktop "Established 1976" sits at left: 20%, on the composition
-   centreline — which is the same row the headline's second line occupies. The
-   two genuinely overlap in space, so they cannot also overlap in time: an
-   earlier cut had "JUST DIAMONDS." rolling into a box that still had legible
-   letterspaced caps sitting in it, which read as stray text rather than as a
-   crossfade.
+   The headline ("No Bull." / "Just Diamonds.") and the gold hairline that
+   separated it from the CTA are out of the hero for now, so their beats are out
+   of this table — a beat nothing tweens is a timing document that lies. Their
+   values are recorded here instead, because the copy is expected back:
 
-   The kicker is exempt and stays at 0.22, because it sits at the top of the
-   copy column in clear space, well above the lockup's band. It is what keeps
-   the pause from reading as a stall while the dissolve finishes.
+     headline: { at: 0.52, dur: 0.7 }   // lines rolled up out of clip boxes,
+                                        //   ease expo.out, stagger 0.12s
+     divider:  { at: 1.15, dur: 0.55 }  // hairline drew itself from the left,
+                                        //   ease power2.inOut
+     cta:      { at: 1.3,  dur: 0.45 }  // followed the hairline
+
+   The headline waited until 0.52 rather than following the kicker in because on
+   desktop "Established 1976" sits at left: 20%, on the composition centreline —
+   the same row the headline's second line occupied. The two genuinely overlapped
+   in space, so they could not also overlap in time: an earlier cut had "JUST
+   DIAMONDS." rolling into a box that still had legible letterspaced caps in it,
+   which read as stray text rather than as a crossfade. Restoring the headline
+   means restoring that 0.3s gap with it.
+
+   With the headline gone the CTA is the only thing left to follow the kicker,
+   and holding it until 1.3s would leave a second of a near-empty stage after the
+   dissolve has finished. It now trails the kicker by the same ~0.36s the kicker
+   trails the lockup's exit, so the two lines read as one pair arriving rather
+   than as two separate events.
 --------------------------------------------------------------------------- */
-
-/**
- * Gap between the two headline lines, in seconds.
- *
- * Wider than the 0.08s the scroll-driven version used, and each line is slower
- * with it. Scrubbed motion had to resolve inside whatever scroll distance the
- * visitor gave it; played on a clock it can take its time, and separating the
- * lines is what makes the roll read as deliberate rather than as a flick.
- */
-export const HEADLINE_STAGGER = 0.12;
 
 /**
  * How far "Established 1976" and the wordmark drift as they leave, in pixels.
@@ -253,8 +252,14 @@ export const HERO_COPY = {
   established: "Established 1976",
   wordmark: "Amipi",
   kicker: "Celebrating 50 Years of AMIPI",
+  /**
+   * Out of the hero for now — the anniversary line carries the message on its
+   * own and the CTA follows it directly. Kept here, unused, because the tagline
+   * is expected back; see the parked beats above for the motion that went with
+   * it.
+   */
   headline: ["No Bull.", "Just Diamonds."],
-  ctaLabel: "Start Your Diamond Search",
+  ctaLabel: "Explore Amipi",
   ctaHref: "/categories",
   alt: {
     backdrop:

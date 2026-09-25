@@ -397,7 +397,7 @@
    Sits above the cards and below the lockup, so photographs sliding beneath the
    type stay legible, and supplies the overall darkening the concept art shows.
    Warm-keyed to match the photography rather than the brand navy, and slightly
-   heavier at the bottom where the tagline and CTA land once the intro resolves.
+   heavier at the bottom where the copy and CTA land once the intro resolves.
 --------------------------------------------------------------------------- */
 .hero-scrim {
   position: absolute;
@@ -501,10 +501,10 @@ body:has(.hero-stage[data-hero-intro="done"]) .appt-card-fixed {
 /* ---------------------------------------------------------------------------
    Escape hatches.
 
-   Both land on the same picture: the tagline, on a full-bleed backdrop, with no
-   lockup. That is the hero's end state, and neither visitor is going to be shown
-   the hand-off that gets there — one asked not to see motion, the other has no
-   script to run it.
+   Both land on the same picture: the hero's copy, on a full-bleed backdrop, with
+   no lockup. That is the hero's end state, and neither visitor is going to be
+   shown the hand-off that gets there — one asked not to see motion, the other has
+   no script to run it.
 
    Reduced motion: HeroStage resolves immediately and sets this state inline, but
    the pre-hydration paint would still show frame 0. Rendering it here as well
@@ -528,7 +528,7 @@ body:has(.hero-stage[data-hero-intro="done"]) .appt-card-fixed {
   }
 
   /* The two departing cards have no end state — they are gone by then, and so
-     is the lockup, which has handed the centre of the stage to the tagline. */
+     is the lockup, which has handed the centre of the stage to the copy. */
   .hero-stage[data-hero-intro="pending"] .hero-card,
   .hero-stage[data-hero-intro="pending"] .hero-lockup {
     display: none;
