@@ -59,14 +59,15 @@ export default function SmoothScroll({
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
     if (isTouch) {
-      /* allowNestedScroll lets a gesture that starts inside a scrollable child
-         scroll that child natively instead of being normalised into page
-         scroll. Without it the horizontal category row on the home page
-         (ShopByCategory) cannot be swiped at all on a phone — which is the only
-         input it has there, since its arrows are desktop-only. Passing an object
-         rather than `true` leaves everything else as it was: `type` defaults to
-         "wheel,touch" inside normalizeScroll. */
-      ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
+      /* Plain `true`, not `{ allowNestedScroll: true }`. That flag was added so
+         the home page's category row could be swiped while it scrolled
+         horizontally on phones - but letting a gesture through to a nested
+         scroller also gives normalizeScroll a second path into the touchend
+         click synthesis it does internally (it sets `allowClicks: true`), and
+         taps were firing on whatever sat under a finger that was only
+         scrolling. That row is a plain grid below lg now, so no touch device
+         has a nested scroller that would need it. */
+      ScrollTrigger.normalizeScroll(true);
       return () => {
         window.removeEventListener("load", refresh);
         ScrollTrigger.normalizeScroll(false);

@@ -81,6 +81,9 @@ const SHOP_CATEGORIES: ShopCategory[] = [
  * right one — so the next tile is always visibly cut off. That clipped tile is
  * the affordance; an arrow alone does not tell the eye there is more to see.
  *
+ * All of that applies at lg and up. Below lg the same tiles lay out as a
+ * plain grid instead - see the note on the row itself for why.
+ *
  * Replaces the old CategoriesPreview, which showed the same idea further down
  * the page off the /categories data (two of its six tiles were still Unsplash
  * placeholders). The /categories page itself is untouched.
@@ -187,8 +190,11 @@ export function ShopByCategory() {
          which is too narrow for "Engagement Rings" to sit on one line, so the
          caption band goes ragged while every other label stays single-line.
          Below the floor the row simply shows fewer tiles, which a scroller can
-         afford. */
-      className="relative bg-background py-3 sm:py-4 [--cat-tile:42vw] sm:[--cat-tile:26vw] lg:[--cat-tile:max(11rem,15.5vw)]"
+         afford.
+
+         Declared at lg only, because that is the only breakpoint that reads
+         it: below lg the tiles are grid cells and size themselves. */
+      className="relative bg-background py-3 sm:py-4 lg:[--cat-tile:max(11rem,15.5vw)]"
     >
       <div className="px-6 sm:px-12 lg:px-20">
         <h2
@@ -207,33 +213,34 @@ export function ShopByCategory() {
         <div
           ref={rowRef}
           onScroll={syncArrows}
-          /* Lenis swallows any gesture it reads as horizontal and scrolls the
-             page with it instead, which would leave this row unable to move
-             under a trackpad swipe. The attribute makes it pass horizontal
-             gestures through to the browser here only; vertical ones are not
-             consulted against it, so page scrolling over the row is unchanged.
-             Touch devices run ScrollTrigger.normalizeScroll rather than Lenis
-             and need the matching allowNestedScroll flag — see
-             SmoothScroll.tsx. */
+          /* Two layouts, one set of markup. Below lg this is an ordinary
+             two-then-three column grid, because a horizontal scroller on a phone
+             is the wrong control: it competes with the page's own vertical
+             scroll, shows an overlay scrollbar mid-swipe, and - through
+             ScrollTrigger.normalizeScroll, which owns touch gestures - was
+             firing stray taps on the tiles it was being swiped across. At lg and
+             up it becomes the scroll-snap row the design asks for, driven by the
+             arrows.
+
+             At lg: left gutter only, so the next tile is always visibly clipped;
+             that clipped tile is the affordance. pb-12 is load-bearing rather
+             than spacing - overflow clips at the padding edge, so the 48px the
+             reveal translates each tile down has to exist inside this box or the
+             captions animate in cut off. The scrollbar is hidden because a
+             permanent grey trough under a row of photographs reads as a browser
+             artifact rather than as part of the page.
+
+             data-lenis-prevent-horizontal is inert below lg, where nothing
+             scrolls horizontally. Above it, it stops Lenis from reading a
+             trackpad swipe as page scroll and swallowing it. */
           data-lenis-prevent-horizontal
-          /* Scrollbar hidden rather than styled: this is a six-across row of
-             photographs with an arrow control, and a permanent grey trough
-             under it reads as a browser artifact.
-
-             pb-12 is load-bearing, not spacing. Overflow clips at the padding
-             edge, so the 48px the reveal above translates each tile down has to
-             exist inside this box or the captions animate in cut off.
-
-             Left gutter only, matching the heading; the trailing spacer at the
-             end of the row supplies the right one so the last tile does not end
-             up flush against the viewport edge. */
-          className="flex snap-x gap-4 overflow-x-auto overflow-y-hidden pb-12 pl-6 scroll-pl-6 [scrollbar-width:none] sm:gap-5 sm:pl-12 sm:scroll-pl-12 lg:pl-20 lg:scroll-pl-20 [&::-webkit-scrollbar]:hidden"
+          className="grid grid-cols-2 gap-x-7 gap-y-10 px-6 sm:grid-cols-3 sm:px-12 lg:flex lg:snap-x lg:gap-x-5 lg:gap-y-0 lg:overflow-x-auto lg:overflow-y-hidden lg:pr-0 lg:pb-12 lg:pl-20 lg:scroll-pl-20 lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
         >
           {SHOP_CATEGORIES.map((category) => (
             <Link
               key={category.name}
               href="/categories"
-              className="group block w-[var(--cat-tile)] shrink-0 snap-start"
+              className="group block lg:w-[var(--cat-tile)] lg:shrink-0 lg:snap-start"
             >
               {/* The reveal is animated on this wrapper rather than on the
                   <Link> itself, and that is a correctness fix, not a style
@@ -250,7 +257,7 @@ export function ShopByCategory() {
                     src={category.image}
                     alt={category.alt}
                     fill
-                    sizes="(min-width: 1024px) 16vw, (min-width: 640px) 26vw, 42vw"
+                    sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
@@ -261,11 +268,13 @@ export function ShopByCategory() {
             </Link>
           ))}
 
-          {/* The right gutter, as a flex child. As padding-right it would be
-              ignored: browsers do not include the end padding of a horizontal
-              flex scroll container in its scrollable area, so the last tile
-              would sit hard against the viewport edge at full scroll. */}
-          <div aria-hidden className="w-6 shrink-0 sm:w-12 lg:w-20" />
+          {/* The scroller's right gutter, as a flex child. As padding-right it
+              would be ignored: browsers do not include the end padding of a
+              horizontal flex scroll container in its scrollable area, so the
+              last tile would sit hard against the viewport edge at full
+              scroll. Absent below lg, where the grid's own px-6/sm:px-12
+              supplies both gutters. */}
+          <div aria-hidden className="hidden lg:block lg:w-20 lg:shrink-0" />
         </div>
 
         <ScrollArrow
@@ -290,9 +299,8 @@ export function ShopByCategory() {
  * can vanish from under a cursor mid-click. `disabled` also takes it out of the
  * tab order, which `opacity-0` alone would not.
  *
- * Hidden below `sm`, where the row is swiped instead. A 40px control over a
- * 42vw tile would cover most of the photograph it sits on, and the clipped
- * tile at the edge already advertises that the row scrolls.
+ * Hidden below `lg`, where the tiles lay out as a grid and there is nothing
+ * to scroll.
  */
 function ScrollArrow({
   direction,
@@ -312,7 +320,7 @@ function ScrollArrow({
       onClick={onClick}
       disabled={!enabled}
       aria-label={isBack ? "Previous categories" : "Next categories"}
-      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white text-navy-950 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-ice-100 sm:grid ${
+      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white text-navy-950 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-ice-100 lg:grid ${
         isBack ? "left-4 lg:left-6" : "right-4 lg:right-6"
       } ${enabled ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >
