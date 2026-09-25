@@ -18,9 +18,15 @@ type Collection = {
  * top; multi-shape, stackable bands and colored stones underneath. */
 const PREVIEW_COLLECTIONS: Collection[] = [
   { name: "Bezel Collection", image: "/Collections/bezel-set-collection.webp" },
-  { name: "Bridal Collection", image: "/Collections/ever-after-bridal-edit.webp" },
+  {
+    name: "Bridal Collection",
+    image: "/Collections/ever-after-bridal-edit.webp",
+  },
   { name: "Drop Collection", image: "/Collections/cascade-collection.webp" },
-  { name: "Multi Shape Collection", image: "/Collections/mosaic-collection.webp" },
+  {
+    name: "Multi Shape Collection",
+    image: "/Collections/mosaic-collection.webp",
+  },
   { name: "Stack Collection", image: "/Collections/Stack.png" },
   { name: "Color Collection", image: "/Collections/Color.png" },
 ];
@@ -83,7 +89,7 @@ export function CollectionsPreview() {
     >
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.1] font-semibold text-foreground sm:text-5xl">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-5xl leading-[1.1] font-normal tracking-tight text-foreground sm:text-6xl">
             Discover Our
             <br />
             Signature Collections

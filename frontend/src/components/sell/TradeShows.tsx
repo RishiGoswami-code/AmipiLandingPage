@@ -76,7 +76,7 @@ export function TradeShows() {
     <section ref={sectionRef} className="relative bg-surface">
       <div className="px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
         <div className="text-center">
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
             Upcoming Trade Shows
           </h2>
         </div>
@@ -99,7 +99,10 @@ export function TradeShows() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/25 to-transparent" />
 
             <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
-              <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-semibold text-ice-100 sm:text-3xl">
+              {/* font-medium, not the font-normal the light-ground headings
+                  take: reversed out of the navy gradient, a 400-weight serif
+                  optically thins and the hairlines start to break up. */}
+              <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-medium tracking-tight text-ice-100 sm:text-4xl">
                 {show.name}
               </h3>
               <p className="mt-3 flex items-center gap-2.5 text-sm text-ice-100/80">

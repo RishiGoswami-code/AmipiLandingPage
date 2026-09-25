@@ -77,9 +77,11 @@ const SHOP_CATEGORIES: ShopCategory[] = [
  * are a thin `scrollBy` wrapper on top of it. So it works before hydration and
  * with JS off, where a transform-based carousel would show one frozen frame.
  *
- * It also deliberately runs to the viewport's right edge — left gutter only, no
- * right one — so the next tile is always visibly cut off. That clipped tile is
- * the affordance; an arrow alone does not tell the eye there is more to see.
+ * It also deliberately runs to the viewport's right edge - a left gutter, no
+ * right one - so the next tile is always visibly cut off. That clipped tile is
+ * the affordance; an arrow alone does not tell the eye there is more to see. The
+ * left gutter is a margin, so the scroll box begins on the headline's left edge
+ * and tiles leaving the row are clipped there rather than trailing into it.
  *
  * All of that applies at lg and up. Below lg the same tiles lay out as a
  * plain grid instead - see the note on the row itself for why.
@@ -193,13 +195,21 @@ export function ShopByCategory() {
          afford.
 
          Declared at lg only, because that is the only breakpoint that reads
-         it: below lg the tiles are grid cells and size themselves. */
-      className="relative bg-background py-3 sm:py-4 lg:[--cat-tile:max(11rem,15.5vw)]"
+         it: below lg the tiles are grid cells and size themselves.
+
+         Top padding is asymmetric on purpose. New Arrivals above is the same
+         bg-background with the same py-3/sm:py-4, so the two sections met with
+         24-32px between a row of captions and this headline and no colour
+         change to mark the seam - the headline read as a label on the row above
+         it. The bottom stays tight because CollectionsPreview below is
+         bg-surface and brings its own py-12/sm:py-16, so that seam is already
+         both spaced and visible. */
+      className="relative bg-background pt-12 pb-3 sm:pt-16 sm:pb-4 lg:pt-20 lg:[--cat-tile:max(11rem,15.5vw)]"
     >
       <div className="px-6 sm:px-12 lg:px-20">
         <h2
           id="shop-by-category-heading"
-          className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl"
+          className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl"
         >
           Shop Jewelry by Category
         </h2>
@@ -222,19 +232,30 @@ export function ShopByCategory() {
              up it becomes the scroll-snap row the design asks for, driven by the
              arrows.
 
-             At lg: left gutter only, so the next tile is always visibly clipped;
-             that clipped tile is the affordance. pb-12 is load-bearing rather
-             than spacing - overflow clips at the padding edge, so the 48px the
-             reveal translates each tile down has to exist inside this box or the
-             captions animate in cut off. The scrollbar is hidden because a
-             permanent grey trough under a row of photographs reads as a browser
-             artifact rather than as part of the page.
+             At lg: the left gutter is a *margin*, not padding, and that is the
+             difference between a clipped tile and a stray one. Padding is inside
+             the scroll box, so content scrolled into it stays painted - a tile
+             leaving the row kept going across the full 80px and sat in the
+             gutter as a sliver, level with the headline's own left edge but with
+             nothing to explain it. As a margin, the scroll box itself starts on
+             that line, so an outgoing tile is cut off exactly where the headline
+             begins. scroll-pl went with it: snap-start now aligns to the content
+             edge, which is already where the gutter ends.
+
+             There is still no right gutter - the row runs to the viewport edge
+             so the next tile is always visibly clipped, and that clipped tile is
+             the affordance. pb-12 is load-bearing rather than spacing: overflow
+             clips at the padding edge, so the 48px the reveal translates each
+             tile down has to exist inside this box or the captions animate in
+             cut off. The scrollbar is hidden because a permanent grey trough
+             under a row of photographs reads as a browser artifact rather than
+             as part of the page.
 
              data-lenis-prevent-horizontal is inert below lg, where nothing
              scrolls horizontally. Above it, it stops Lenis from reading a
              trackpad swipe as page scroll and swallowing it. */
           data-lenis-prevent-horizontal
-          className="grid grid-cols-2 gap-x-7 gap-y-10 px-6 sm:grid-cols-3 sm:px-12 lg:flex lg:snap-x lg:gap-x-5 lg:gap-y-0 lg:overflow-x-auto lg:overflow-y-hidden lg:pr-0 lg:pb-12 lg:pl-20 lg:scroll-pl-20 lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
+          className="grid grid-cols-2 gap-x-7 gap-y-10 px-6 sm:grid-cols-3 sm:px-12 lg:ml-20 lg:flex lg:snap-x lg:gap-x-5 lg:gap-y-0 lg:overflow-x-auto lg:overflow-y-hidden lg:px-0 lg:pb-12 lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
         >
           {SHOP_CATEGORIES.map((category) => (
             <Link

@@ -25,7 +25,13 @@ function polar(cx: number, cy: number, radius: number, deg: number): Point {
 }
 
 /** Same as `polar` but for an ellipse (independent x/y radii). */
-function polarEllipse(cx: number, cy: number, rx: number, ry: number, deg: number): Point {
+function polarEllipse(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  deg: number,
+): Point {
   const rad = ((deg - 90) * Math.PI) / 180;
   return [r2(cx + rx * Math.cos(rad)), r2(cy + ry * Math.sin(rad))];
 }
@@ -37,19 +43,31 @@ function fan(count: number, offset = 0): number[] {
 
 /** One `M..L..` segment per pair, connecting each anchor to its point. */
 function spokes(points: Point[], anchors: Point[]): string {
-  return points.map(([x, y], i) => `M${anchors[i][0]} ${anchors[i][1]}L${x} ${y}`).join(" ");
+  return points
+    .map(([x, y], i) => `M${anchors[i][0]} ${anchors[i][1]}L${x} ${y}`)
+    .join(" ");
 }
 
 /** A closed polygon through the given points. */
 function polygon(points: Point[]): string {
-  return points.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`).join(" ") + "Z";
+  return (
+    points.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`).join(" ") + "Z"
+  );
 }
 
 /** Scales a hand-specified outline toward (cx, cy) - draws the nested
  * step-cut layers on emerald/asscher/radiant without retyping coordinates
  * for every layer. */
-function inset(points: Point[], cx: number, cy: number, scale: number): Point[] {
-  return points.map(([x, y]) => [r2(cx + (x - cx) * scale), r2(cy + (y - cy) * scale)]);
+function inset(
+  points: Point[],
+  cx: number,
+  cy: number,
+  scale: number,
+): Point[] {
+  return points.map(([x, y]) => [
+    r2(cx + (x - cx) * scale),
+    r2(cy + (y - cy) * scale),
+  ]);
 }
 
 const CENTER: Point = [20, 20];
@@ -219,7 +237,13 @@ function ShapeIconDefs() {
   return (
     <svg width="0" height="0" className="absolute" aria-hidden>
       <defs>
-        <linearGradient id="diamondFacetShine" x1="15%" y1="8%" x2="85%" y2="95%">
+        <linearGradient
+          id="diamondFacetShine"
+          x1="15%"
+          y1="8%"
+          x2="85%"
+          y2="95%"
+        >
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
           <stop offset="45%" stopColor="#c7d2e0" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#6b7690" stopOpacity="0.65" />
@@ -234,139 +258,305 @@ const FACET_FILL = "url(#diamondFacetShine)";
 /** A tiny four-point glint, positioned toward the upper-left crown of every
  * icon - the one consistent element that reads as "photographed gem" rather
  * than "line diagram" at a glance. */
-const SPARKLE_D = "M13.5 9.5L14.6 12.4L17.5 13.5L14.6 14.6L13.5 17.5L12.4 14.6L9.5 13.5L12.4 12.4Z";
+const SPARKLE_D =
+  "M13.5 9.5L14.6 12.4L17.5 13.5L14.6 14.6L13.5 17.5L12.4 14.6L9.5 13.5L12.4 12.4Z";
 const Sparkle = () => <path d={SPARKLE_D} fill="#ffffff" opacity="0.9" />;
 
-const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> = {
-  round: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <circle cx="20" cy="20" r="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(ROUND_GIRDLE, ROUND_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
-      <path d={spokes(ROUND_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
-      <path d={polygon(ROUND_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  oval: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <ellipse cx="20" cy="20" rx="11" ry="15" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(OVAL_GIRDLE, OVAL_TABLE)} stroke="currentColor" strokeWidth="0.7" opacity="0.65" />
-      <path d={spokes(OVAL_MID, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.4" />
-      <path d={polygon(OVAL_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  cushion: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <rect x="6" y="6" width="28" height="28" rx="11" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path
-        d={spokes(CUSHION_TABLE_CORNERS, CUSHION_OUTER_CORNERS)}
-        stroke="currentColor"
-        strokeWidth="0.7"
-        opacity="0.6"
-      />
-      <path
-        d={spokes(CUSHION_TABLE_MIDS, CUSHION_OUTER_MIDS)}
-        stroke="currentColor"
-        strokeWidth="0.6"
-        opacity="0.45"
-      />
-      <rect x="15" y="15" width="10" height="10" rx="4" stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  princess: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <rect x="7" y="7" width="26" height="26" fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(PRINCESS_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.7" opacity="0.55" />
-      <path
-        d={spokes(PRINCESS_TABLE, PRINCESS_EDGE_MIDS)}
-        stroke="currentColor"
-        strokeWidth="0.7"
-        opacity="0.6"
-      />
-      <path d={polygon(PRINCESS_TABLE)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  emerald: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(EMERALD_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={polygon(EMERALD_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
-      <path d={polygon(EMERALD_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  marquise: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path
-        d="M20 4C26 11 30 15.5 30 20C30 24.5 26 29 20 36C14 29 10 24.5 10 20C10 15.5 14 11 20 4Z"
-        fill={FACET_FILL}
-        stroke="currentColor"
-        strokeWidth="1.3"
-      />
-      <Sparkle />
-      <path d={spokes(MARQUISE_POINTS, fillCenter(8))} stroke="currentColor" strokeWidth="0.6" opacity="0.55" />
-      <path
-        d="M20 10C24 15 26.5 17.5 26.5 20C26.5 22.5 24 25 20 30C16 25 13.5 22.5 13.5 20C13.5 17.5 16 15 20 10Z"
-        stroke="currentColor"
-        strokeWidth="1"
-        opacity="0.85"
-      />
-    </svg>
-  ),
-  asscher: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(ASSCHER_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(ASSCHER_MID, ASSCHER_OUTER)} stroke="currentColor" strokeWidth="0.55" opacity="0.45" />
-      <path d={polygon(ASSCHER_MID)} stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
-      <path d={polygon(ASSCHER_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  radiant: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(RADIANT_OUTER)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(RADIANT_CORNERS, fillCenter(4))} stroke="currentColor" strokeWidth="0.55" opacity="0.4" />
-      <path d={polygon(RADIANT_INNER)} stroke="currentColor" strokeWidth="1" opacity="0.85" />
-    </svg>
-  ),
-  pear: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path
-        d="M20 5C25.5 12 31 17.5 31 24.5C31 30.5 26 35 20 35C14 35 9 30.5 9 24.5C9 17.5 14.5 12 20 5Z"
-        fill={FACET_FILL}
-        stroke="currentColor"
-        strokeWidth="1.3"
-      />
-      <Sparkle />
-      <path
-        d={spokes(PEAR_POINTS, PEAR_POINTS.map(() => PEAR_FOCAL))}
-        stroke="currentColor"
-        strokeWidth="0.6"
-        opacity="0.55"
-      />
-      <path
-        d="M20 11C23.5 15.5 27 19 27 24C27 27.8 24 31 20 31C16 31 13 27.8 13 24C13 19 16.5 15.5 20 11Z"
-        stroke="currentColor"
-        strokeWidth="1"
-        opacity="0.85"
-      />
-    </svg>
-  ),
-  other: ({ className }) => (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path d={polygon(OTHER_OUTLINE)} fill={FACET_FILL} stroke="currentColor" strokeWidth="1.3" />
-      <Sparkle />
-      <path d={spokes(OTHER_OUTLINE, fillCenter(4))} stroke="currentColor" strokeWidth="0.6" opacity="0.35" />
-      <circle cx="20" cy="20" r="9" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-      <text x="20" y="24.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="currentColor" stroke="none">
-        ?
-      </text>
-    </svg>
-  ),
-};
+const ShapeIcons: Record<string, (props: ShapeIconProps) => React.JSX.Element> =
+  {
+    round: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <circle
+          cx="20"
+          cy="20"
+          r="15"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(ROUND_GIRDLE, ROUND_TABLE)}
+          stroke="currentColor"
+          strokeWidth="0.7"
+          opacity="0.65"
+        />
+        <path
+          d={spokes(ROUND_MID, fillCenter(8))}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.4"
+        />
+        <path
+          d={polygon(ROUND_TABLE)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    oval: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <ellipse
+          cx="20"
+          cy="20"
+          rx="11"
+          ry="15"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(OVAL_GIRDLE, OVAL_TABLE)}
+          stroke="currentColor"
+          strokeWidth="0.7"
+          opacity="0.65"
+        />
+        <path
+          d={spokes(OVAL_MID, fillCenter(8))}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.4"
+        />
+        <path
+          d={polygon(OVAL_TABLE)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    cushion: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <rect
+          x="6"
+          y="6"
+          width="28"
+          height="28"
+          rx="11"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(CUSHION_TABLE_CORNERS, CUSHION_OUTER_CORNERS)}
+          stroke="currentColor"
+          strokeWidth="0.7"
+          opacity="0.6"
+        />
+        <path
+          d={spokes(CUSHION_TABLE_MIDS, CUSHION_OUTER_MIDS)}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.45"
+        />
+        <rect
+          x="15"
+          y="15"
+          width="10"
+          height="10"
+          rx="4"
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    princess: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <rect
+          x="7"
+          y="7"
+          width="26"
+          height="26"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(PRINCESS_CORNERS, fillCenter(4))}
+          stroke="currentColor"
+          strokeWidth="0.7"
+          opacity="0.55"
+        />
+        <path
+          d={spokes(PRINCESS_TABLE, PRINCESS_EDGE_MIDS)}
+          stroke="currentColor"
+          strokeWidth="0.7"
+          opacity="0.6"
+        />
+        <path
+          d={polygon(PRINCESS_TABLE)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    emerald: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d={polygon(EMERALD_OUTER)}
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={polygon(EMERALD_MID)}
+          stroke="currentColor"
+          strokeWidth="0.75"
+          opacity="0.55"
+        />
+        <path
+          d={polygon(EMERALD_INNER)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    marquise: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d="M20 4C26 11 30 15.5 30 20C30 24.5 26 29 20 36C14 29 10 24.5 10 20C10 15.5 14 11 20 4Z"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(MARQUISE_POINTS, fillCenter(8))}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.55"
+        />
+        <path
+          d="M20 10C24 15 26.5 17.5 26.5 20C26.5 22.5 24 25 20 30C16 25 13.5 22.5 13.5 20C13.5 17.5 16 15 20 10Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    asscher: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d={polygon(ASSCHER_OUTER)}
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(ASSCHER_MID, ASSCHER_OUTER)}
+          stroke="currentColor"
+          strokeWidth="0.55"
+          opacity="0.45"
+        />
+        <path
+          d={polygon(ASSCHER_MID)}
+          stroke="currentColor"
+          strokeWidth="0.75"
+          opacity="0.55"
+        />
+        <path
+          d={polygon(ASSCHER_INNER)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    radiant: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d={polygon(RADIANT_OUTER)}
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(RADIANT_CORNERS, fillCenter(4))}
+          stroke="currentColor"
+          strokeWidth="0.55"
+          opacity="0.4"
+        />
+        <path
+          d={polygon(RADIANT_INNER)}
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    pear: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d="M20 5C25.5 12 31 17.5 31 24.5C31 30.5 26 35 20 35C14 35 9 30.5 9 24.5C9 17.5 14.5 12 20 5Z"
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(
+            PEAR_POINTS,
+            PEAR_POINTS.map(() => PEAR_FOCAL),
+          )}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.55"
+        />
+        <path
+          d="M20 11C23.5 15.5 27 19 27 24C27 27.8 24 31 20 31C16 31 13 27.8 13 24C13 19 16.5 15.5 20 11Z"
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+    other: ({ className }) => (
+      <svg viewBox="0 0 40 40" fill="none" className={className}>
+        <path
+          d={polygon(OTHER_OUTLINE)}
+          fill={FACET_FILL}
+          stroke="currentColor"
+          strokeWidth="1.3"
+        />
+        <Sparkle />
+        <path
+          d={spokes(OTHER_OUTLINE, fillCenter(4))}
+          stroke="currentColor"
+          strokeWidth="0.6"
+          opacity="0.35"
+        />
+        <circle
+          cx="20"
+          cy="20"
+          r="9"
+          stroke="currentColor"
+          strokeWidth="1"
+          opacity="0.6"
+        />
+        <text
+          x="20"
+          y="24.5"
+          textAnchor="middle"
+          fontSize="12"
+          fontWeight="700"
+          fill="currentColor"
+          stroke="none"
+        >
+          ?
+        </text>
+      </svg>
+    ),
+  };
 
 const SHAPES: { id: string; label: string }[] = [
   { id: "round", label: "Round" },
@@ -400,7 +590,18 @@ const SHAPE_PHOTOS: Record<string, string> = {
 };
 
 const COLORS = ["D", "E", "F", "G", "H", "I", "J", "K", "L+"];
-const CLARITIES = ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "SI3", "I1+"];
+const CLARITIES = [
+  "FL",
+  "IF",
+  "VVS1",
+  "VVS2",
+  "VS1",
+  "VS2",
+  "SI1",
+  "SI2",
+  "SI3",
+  "I1+",
+];
 
 /**
  * Carat-weight brackets as numeric bounds, not typed-out strings - the label
@@ -439,7 +640,10 @@ const CARAT_BOUNDS: [number, number | null][] = [
   [5.5, null],
 ];
 
-const CARAT_BRACKETS: CaratBracket[] = CARAT_BOUNDS.map(([min, max]) => ({ min, max }));
+const CARAT_BRACKETS: CaratBracket[] = CARAT_BOUNDS.map(([min, max]) => ({
+  min,
+  max,
+}));
 
 // Guards the hand-typed bounds above at module load: every bracket must
 // pick up exactly where the previous one left off, so the grid can never
@@ -462,7 +666,9 @@ function formatCarat(value: number) {
 }
 
 function caratBracketLabel({ min, max }: CaratBracket) {
-  return max === null ? `${formatCarat(min)}+` : `${formatCarat(min)}-${formatCarat(max)}`;
+  return max === null
+    ? `${formatCarat(min)}+`
+    : `${formatCarat(min)}-${formatCarat(max)}`;
 }
 
 /**
@@ -491,7 +697,9 @@ function FilterBox({
         </span>
         <span className="text-[11px] text-foreground/55">{caption}</span>
       </div>
-      <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">{children}</div>
+      <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">
+        {children}
+      </div>
     </div>
   );
 }
@@ -517,7 +725,11 @@ export function DiamondSearch() {
       <div className="relative rounded-t-[3rem] bg-white px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
         {/* Heading, centred */}
         <div className="text-center">
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl leading-[1.05] font-semibold text-foreground sm:text-5xl lg:text-6xl">
+          {/* Cormorant sets optically smaller than the Playfair this replaced,
+              so the scale went up a step - but only from sm. At 390px a 48px
+              step broke this into three lines and left "Here" alone on the
+              last one, so the phone size stays where it was. */}
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl leading-[1.05] font-normal tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Start Your{" "}
             <span className="relative inline-block text-gold-500">
               <span className="absolute inset-x-0 bottom-1 h-[0.3em] -rotate-1 bg-gold-500/20" />
@@ -561,7 +773,13 @@ export function DiamondSearch() {
                   >
                     {photo ? (
                       <span className="relative mb-3 block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]">
-                        <Image src={photo} alt="" fill sizes="44px" className="object-contain" />
+                        <Image
+                          src={photo}
+                          alt=""
+                          fill
+                          sizes="44px"
+                          className="object-contain"
+                        />
                       </span>
                     ) : (
                       <Icon className="mb-3 block h-11 w-11 drop-shadow-[0_2px_3px_rgba(15,23,42,0.15)]" />
@@ -587,14 +805,19 @@ export function DiamondSearch() {
 
         {/* Carat weight / Color / Clarity, side by side */}
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
-          <FilterBox label="2. Carat Weight" caption="Select your ideal carat range">
+          <FilterBox
+            label="2. Carat Weight"
+            caption="Select your ideal carat range"
+          >
             <button
               type="button"
               onClick={() => setWeightOpen((v) => !v)}
               aria-expanded={weightOpen}
               className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
             >
-              {weightIndex === null ? "Weight Range" : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
+              {weightIndex === null
+                ? "Weight Range"
+                : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
               <ChevronDown
                 className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
               />
@@ -691,7 +914,12 @@ export function DiamondSearch() {
             </PillButton>
           </div>
           <div className="sm:w-72">
-            <PillButton href="/contact" variant="gold" icon="dot" className="w-full">
+            <PillButton
+              href="/contact"
+              variant="gold"
+              icon="dot"
+              className="w-full"
+            >
               Lab Grown Diamonds
             </PillButton>
           </div>
@@ -704,8 +932,7 @@ export function DiamondSearch() {
             Ethical Sourcing
           </span>
           <span className="inline-flex items-center gap-2">
-            <Leaf className="h-4 w-4 text-gold-500" />
-            A Brighter Tomorrow
+            <Leaf className="h-4 w-4 text-gold-500" />A Brighter Tomorrow
           </span>
           <span className="inline-flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-gold-500" />

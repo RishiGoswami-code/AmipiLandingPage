@@ -63,11 +63,18 @@ export const geistMono = localFont({
 });
 
 /**
- * One-off serif, scoped to the section headings that explicitly ask for the
- * editorial engagement-ring-site look (NewArrivals, CollectionsPreview,
- * ShopByCategory, DiamondSearch, TradeShows, all via
- * `font-[family-name:var(--font-playfair)]`) - the rest of the site stays
- * Manrope per the decision above.
+ * The previous section-heading serif, replaced by Cormorant Garamond below.
+ *
+ * Playfair is a transitional-to-Didone face whose appeal is the contrast between
+ * hairline and stem, and every heading here was setting it at `font-semibold`,
+ * which thickens the hairlines until the contrast is gone and what is left reads
+ * as a default serif. Rather than re-tune weight and size on a face nobody
+ * chose, the headings moved to Cormorant, which is built for this.
+ *
+ * Kept declared as the restore point, `preload: false` for the reason described
+ * on geistMono: no element paints it now, and preloading is settled per
+ * font-definitions module, so leaving the flag off would put a
+ * <link rel="preload"> for this woff2 on every route regardless.
  */
 export const playfairDisplay = localFont({
   src: "./fonts/playfair-display-latin.woff2",
@@ -75,25 +82,30 @@ export const playfairDisplay = localFont({
   weight: "400 900",
   style: "normal",
   display: "swap",
+  preload: false,
   adjustFontFallback: "Times New Roman",
 });
 
 /**
- * The hero headline, applied as `cormorant.className` rather than through a
- * theme token - `--font-display` is referenced by eighteen files, so remapping
- * it would turn every heading on the site serif.
+ * The section-heading serif: NewArrivals, ShopByCategory, CollectionsPreview,
+ * DiamondSearch and TradeShows, all through
+ * `font-[family-name:var(--font-cormorant)]`. The rest of the site stays Manrope
+ * per the decision above.
  *
- * Weight is the whole point of the face at hero size: the headline took it to
- * `font-light` (300), which the 300-700 axis reaches without a second file.
+ * Applied through the CSS variable rather than `--font-display`, which eighteen
+ * files reference - remapping that token would turn every heading on the site
+ * serif, including card titles and nav labels.
  *
- * Currently unimported: the hero tagline it was chosen for is parked (see
- * heroIntro.ts), and nothing else on the site is serif-by-Cormorant. Kept
- * declared, since the definition is the restore point - but with `preload:
- * false`, for the same reason geistMono carries it above. Preloading is decided
- * per font-definitions module, not per component, so layout.tsx importing this
- * file was enough to put a <link rel="preload"> for this woff2 on every route
- * even with no element left to paint it. Restoring the headline means dropping
- * this line again.
+ * Two things to know when setting it. It has a small x-height for its em, so at
+ * an identical `font-size` it reads noticeably smaller than Playfair did; every
+ * heading that moved over went up one step on the type scale to compensate. And
+ * the weight is the point of the face: 400 keeps the hairlines that make it look
+ * like jewelry copy, where 600 would flatten them into the same mush Playfair
+ * was in. Headings on dark grounds are the exception - optical thinning eats a
+ * light serif reversed out of navy, so those take 500.
+ *
+ * It was originally vendored for the hero headline, which is parked (see
+ * heroIntro.ts). Preloaded now that there are five painted headings per page.
  */
 export const cormorant = localFont({
   src: "./fonts/cormorant-garamond-latin.woff2",
@@ -101,7 +113,6 @@ export const cormorant = localFont({
   weight: "300 700",
   style: "normal",
   display: "swap",
-  preload: false,
   adjustFontFallback: "Times New Roman",
 });
 

@@ -116,11 +116,12 @@ export function NewArrivals() {
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-foreground sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
               New Arrival
             </h2>
             <p className="mt-3 max-w-md text-sm text-foreground/60">
-              Freshly cut, freshly set - the pieces that just landed in the case.
+              Freshly cut, freshly set - the pieces that just landed in the
+              case.
             </p>
           </div>
           <Link
@@ -134,7 +135,12 @@ export function NewArrivals() {
 
         <div className="mt-12 grid grid-cols-2 gap-x-7 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
           {PIECES.map((piece) => (
-            <Link key={piece.name} href="/categories" data-card className="group block">
+            <Link
+              key={piece.name}
+              href="/categories"
+              data-card
+              className="group block"
+            >
               <div className="relative aspect-[4/5] overflow-hidden bg-white">
                 <Image
                   src={piece.modelImage}

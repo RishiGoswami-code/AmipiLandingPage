@@ -7,7 +7,7 @@ import { BookingCardFixed } from "@/components/ui/BookingCardFixed";
 // Every face the site uses is declared in one place - see the note in
 // styles/fonts.ts on why a font loader must not be called twice for the
 // same family.
-import { geistMono, manrope, playfairDisplay } from "@/styles/fonts";
+import { cormorant, geistMono, manrope } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: "AMIPI — The Wholesale Diamond Hub",
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${geistMono.variable} ${playfairDisplay.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />
