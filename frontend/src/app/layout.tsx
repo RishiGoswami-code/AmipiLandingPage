@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { HideOnRoutes } from "@/components/nav/HideOnRoutes";
+import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
 import { AssistantButtonFixed } from "@/components/ui/AssistantButtonFixed";
 // Every face the site uses is declared in one place - see the note in
 // styles/fonts.ts on why a font loader must not be called twice for the
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           {/* About is a single full-screen section with no footer beneath it */}
           <HideOnRoutes routes={["/about"]}>
+            <PartnerMarquee />
             <Footer />
           </HideOnRoutes>
         </SmoothScroll>

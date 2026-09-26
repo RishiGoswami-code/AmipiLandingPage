@@ -170,3 +170,21 @@
     transform: translateX(0);
   }
 }
+
+/* Partner logo strip above the footer (PartnerMarquee). The track holds the
+   logo list twice, so sliding it by half its width loops seamlessly. */
+@keyframes partnerMarquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.partner-marquee {
+  animation: partnerMarquee 45s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee {
+    animation: none;
+  }
+}
