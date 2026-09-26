@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { SendHorizontal } from "lucide-react";
+import { SendHorizontal, X } from "lucide-react";
 
 type Message = {
   id: number;
@@ -114,7 +114,15 @@ export function ChatDrawer({
           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white shadow-sm">
             <Image src="/icon.png" alt="" width={64} height={64} className="h-8 w-8" />
           </span>
-          <p className="text-base font-bold">AMIPI AI Assistant</p>
+          <p className="flex-1 text-base font-bold">AMIPI AI Assistant</p>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close chat"
+            className="grid h-8 w-8 cursor-pointer place-items-center rounded-full transition-colors hover:bg-black/10"
+          >
+            <X className="h-5 w-5" strokeWidth={2.25} />
+          </button>
         </header>
 
         {/* Intro strip */}
