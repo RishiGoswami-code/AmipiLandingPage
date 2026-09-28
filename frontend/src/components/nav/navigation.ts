@@ -185,16 +185,16 @@ export const NAV_ITEMS: NavItem[] = [
  *
  * Phone and email are live - they are the same values the footer already
  * publishes, and tel:/mailto: work without a route existing. The four social
- * links are UNBUILT because nobody has handed over the account URLs yet; they
- * are the one thing here that needs real data rather than a new page.
+ * links are AMIPI's own accounts, as linked from amipi.com; they open in a new
+ * tab where they are rendered.
  */
 export const CONTACT = {
   phone: { label: "(800) 530-2647", href: "tel:+18005302647" },
   email: { label: "info@amipi.com", href: "mailto:info@amipi.com" },
   socials: [
-    { label: "WhatsApp", href: UNBUILT, Icon: WhatsAppIcon as BrandIcon },
-    { label: "Facebook", href: UNBUILT, Icon: FacebookIcon as BrandIcon },
-    { label: "Instagram", href: UNBUILT, Icon: InstagramIcon as BrandIcon },
-    { label: "LinkedIn", href: UNBUILT, Icon: LinkedInIcon as BrandIcon },
+    { label: "WhatsApp", href: "https://wa.me/13324568743", Icon: WhatsAppIcon as BrandIcon },
+    { label: "Facebook", href: "https://www.facebook.com/Amipi-Diamonds-166389680059646/", Icon: FacebookIcon as BrandIcon },
+    { label: "Instagram", href: "https://www.instagram.com/amipiinc/", Icon: InstagramIcon as BrandIcon },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/amipi-inc-", Icon: LinkedInIcon as BrandIcon },
   ],
 };
