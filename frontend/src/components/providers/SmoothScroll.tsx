@@ -82,11 +82,23 @@ export default function SmoothScroll({
 
     lenis.on("scroll", ScrollTrigger.update);
 
+    /* Lenis measures its scroll limit when it sees a resize, and for window
+       scrolling it watches <html> - but <html> is `h-full`, pinned to the
+       viewport height, so it never resizes when the content does. After a
+       client-side navigation from a short page (the account pages are exactly
+       one screen tall) to a long one, Lenis kept the short page's limit and the
+       wheel stopped a few pixels down. <body> grows with its content, so
+       watching it re-measures on every route change and every late layout
+       shift (images decoding, sections expanding). */
+    const bodyObserver = new ResizeObserver(() => lenis.resize());
+    bodyObserver.observe(document.body);
+
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      bodyObserver.disconnect();
       window.removeEventListener("load", refresh);
       gsap.ticker.remove(raf);
       gsap.ticker.lagSmoothing(500, 33);
