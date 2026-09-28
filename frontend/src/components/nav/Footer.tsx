@@ -78,9 +78,6 @@ export function Footer() {
           <p className="text-xs text-foreground/40">
             &copy; {new Date().getFullYear()} AMIPI. All rights reserved.
           </p>
-          <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-            Celebrating 50 Years Of AMIPI
-          </p>
         </div>
       </div>
     </footer>
