@@ -26,13 +26,13 @@ const TRADE_SHOWS: TradeShow[] = [
     name: "RJO Liberty Tour",
     dates: "Sept 29 - Oct 2, 2026",
     location: "42 W 48th St, 15th Floor, New York, NY",
-    image: "/trade-shows/rjo-liberty-tour.webp",
+    image: "/trade-shows/rjo-liberty-nyc.webp",
   },
   {
     name: "JIS Miami",
     dates: "Oct 16 - 19, 2026",
     location: "Booth #1335, Miami Beach Convention Center",
-    image: "/trade-shows/jis-miami.webp",
+    image: "/trade-shows/jis-fall-miami.webp",
   },
 ];
 
