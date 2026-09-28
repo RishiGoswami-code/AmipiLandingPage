@@ -41,9 +41,9 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     alt: "White gold diamond tennis bracelet on a marble surface",
   },
   {
-    name: "Wedding Bands",
+    name: "Anniversary Bands",
     image: "/categories/wedding-bands.webp",
-    alt: "White gold half-eternity diamond wedding band in an ivory ring box",
+    alt: "White gold half-eternity diamond anniversary band in an ivory ring box",
   },
   {
     name: "Diamond Studs",
