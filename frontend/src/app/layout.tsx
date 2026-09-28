@@ -36,8 +36,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           {/* About is a single full-screen section with no footer beneath it */}
           <HideOnRoutes routes={["/about"]}>
-            <PartnerMarquee />
             <Footer />
+            <PartnerMarquee />
           </HideOnRoutes>
         </SmoothScroll>
         {/* AI assistant launcher + chat drawer - persists across all scroll depths */}

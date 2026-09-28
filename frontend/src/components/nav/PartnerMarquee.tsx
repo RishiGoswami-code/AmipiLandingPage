@@ -1,8 +1,9 @@
 import Image from "next/image";
 
 /** Partner, platform and trade-body logos, in the order amipi.com lists them.
- * Traced to SVG from amipi.com's footer PNGs; width/height are the source
- * files' own proportions, and `h` evens out their optical size in the row. */
+ * Traced to SVG from amipi.com's footer PNGs and filled navy; width/height
+ * are the source files' own proportions, and `h` evens out their optical
+ * size in the row. */
 const LOGOS = [
   { src: "/partners/polygon.svg", alt: "Polygon", width: 489, height: 150, h: "h-10" },
   { src: "/partners/thinkspace.svg", alt: "thinkspace", width: 455, height: 150, h: "h-10" },
@@ -36,8 +37,9 @@ const LOGOS = [
 ];
 
 /**
- * Endless logo strip above the footer, on warm brown, with the same soft
- * drop shadow as the partner row in amipi.com's footer.
+ * Endless logo strip at the very bottom of the page, below the footer, on
+ * the brand yellow (gold-500, #fed700). The logos are filled navy to read
+ * on it.
  *
  * The list is rendered twice back to back and the track slides left by
  * exactly half its width, so the second copy lands where the first started
@@ -47,7 +49,10 @@ const LOGOS = [
  */
 export function PartnerMarquee() {
   return (
-    <section aria-label="Our partners and memberships" className="overflow-hidden bg-[#3a2a1c] py-8">
+    <section
+      aria-label="Our partners and memberships"
+      className="overflow-hidden bg-gold-500 py-8"
+    >
       <div className="partner-marquee flex w-max items-center hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center">
         {[0, 1].map((copy) => (
           <ul
@@ -65,7 +70,7 @@ export function PartnerMarquee() {
                   width={logo.width}
                   height={logo.height}
                   unoptimized
-                  className={`${logo.h} w-auto drop-shadow-[2px_4px_6px_rgba(0,0,0,0.5)]`}
+                  className={`${logo.h} w-auto opacity-85`}
                 />
               </li>
             ))}
