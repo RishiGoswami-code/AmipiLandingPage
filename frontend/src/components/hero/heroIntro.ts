@@ -250,7 +250,7 @@ export function exitVector(
  */
 export const HERO_COPY = {
   established: "Established 1976",
-  wordmark: "Amipi",
+  wordmark: "50 Years of Amipi",
   kicker: "Celebrating 50 Years of AMIPI",
   /**
    * Out of the hero for now — the anniversary line carries the message on its

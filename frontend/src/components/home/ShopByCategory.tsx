@@ -20,8 +20,8 @@ type ShopCategory = {
 };
 
 /**
- * Seven categories, in browse order: bridal first, then the two earring
- * shapes, then neck and wrist.
+ * Seven categories, in browse order: necklace, bracelet, bands, studs, hoops,
+ * engagement rings, bangles.
  *
  * Photography is the `categoryImages` set, converted to WebP and filed under
  * /public/categories (1200px, ~120KB each, down from ~2MB PNGs). Every tile
@@ -31,9 +31,14 @@ type ShopCategory = {
  */
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
-    name: "Engagement Rings",
-    image: "/categories/engagement-rings.webp",
-    alt: "Round brilliant halo engagement ring in white gold, set in an ivory ring box",
+    name: "Tennis Necklaces",
+    image: "/categories/tennis-necklaces.webp",
+    alt: "White gold diamond tennis necklace laid in an ivory presentation box",
+  },
+  {
+    name: "Tennis Bracelets",
+    image: "/categories/tennis-bracelets.webp",
+    alt: "White gold diamond tennis bracelet on a marble surface",
   },
   {
     name: "Wedding Bands",
@@ -51,14 +56,9 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     alt: "Oval diamond inside-out hoop earrings in white gold, on a stone ledge",
   },
   {
-    name: "Tennis Necklaces",
-    image: "/categories/tennis-necklaces.webp",
-    alt: "White gold diamond tennis necklace laid in an ivory presentation box",
-  },
-  {
-    name: "Tennis Bracelets",
-    image: "/categories/tennis-bracelets.webp",
-    alt: "White gold diamond tennis bracelet on a marble surface",
+    name: "Engagement Rings",
+    image: "/categories/engagement-rings.webp",
+    alt: "Round brilliant halo engagement ring in white gold, set in an ivory ring box",
   },
   {
     name: "Bangles",
