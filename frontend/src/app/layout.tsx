@@ -34,8 +34,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar />
         <SmoothScroll>
           {children}
-          {/* About is a single full-screen section with no footer beneath it */}
-          <HideOnRoutes routes={["/about"]}>
+          {/* About is a single full-screen section, and the account pages keep their
+              form buttons in view, so none of them get the footer or logo strip */}
+          <HideOnRoutes routes={["/about", "/login", "/create-account", "/forgot-password"]}>
             <Footer />
             <PartnerMarquee />
           </HideOnRoutes>
