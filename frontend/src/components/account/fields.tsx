@@ -266,3 +266,66 @@ export function NotConnectedNote({ children }: { children: React.ReactNode }) {
 
 export const checkboxClasses =
   "mt-0.5 h-3.5 w-3.5 shrink-0 cursor-pointer rounded border-border accent-[#a8762f]";
+
+/** Multi-line version of Field, in the same box. */
+export function TextArea({
+  label,
+  icon: Icon,
+  className = "",
+  ...props
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; icon?: LucideIcon }) {
+  const id = useId();
+  return (
+    <div className={`${boxClasses} items-start py-2 ${className}`}>
+      {Icon && <Icon className="mt-4 h-3.5 w-3.5 shrink-0 text-foreground/45" />}
+      <div className="min-w-0 flex-1">
+        <label htmlFor={id} className={labelClasses}>
+          {label}
+        </label>
+        <textarea id={id} rows={4} {...props} className={`${controlClasses} resize-y`} />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A single-choice row of pills (shape, colour grade, metal...) - faster to
+ * scan and tap than a dropdown when the options are short. Real radio inputs
+ * underneath, so the group submits under `name` and works with the keyboard.
+ */
+export function ChipGroup({
+  label,
+  name,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  options: string[];
+  value?: string;
+  onChange?: (value: string) => void;
+}) {
+  return (
+    <fieldset>
+      <legend className="text-[11px] font-semibold text-foreground/75">{label}</legend>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {options.map((option) => (
+          <label key={option} className="cursor-pointer">
+            <input
+              type="radio"
+              name={name}
+              value={option}
+              checked={value === undefined ? undefined : value === option}
+              onChange={() => onChange?.(option)}
+              className="peer sr-only"
+            />
+            <span className="block rounded-full border border-black/10 bg-white px-3 py-1.5 text-[12px] text-foreground/75 transition-colors peer-checked:border-navy-900 peer-checked:bg-navy-900 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#d4ae5c] hover:border-[#d4ae5c]">
+              {option}
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
