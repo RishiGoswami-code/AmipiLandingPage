@@ -16,11 +16,10 @@ import {
  */
 
 /**
- * Every destination in this file. The routes these want do not exist yet -
- * there are no per-category pages, and nothing has been built for Amipi Cares,
- * Testimonials, Registration, Make a Payment, Remote Assistance or Schedule
- * Appointment - so the whole menu is deliberately inert for this pass, which is
- * about the design.
+ * Most destinations in this file do not exist yet - there are no per-category
+ * pages, and nothing has been built for Registration, Make a Payment, Remote
+ * Assistance or Schedule Appointment - so those entries stay inert. Why Amipi?,
+ * Amipi Cares and Testimonials are live.
  *
  * A named constant rather than a bare "#" at nineteen call sites so that
  * (a) the rows can suppress the navigation instead of jumping to the top of the
@@ -159,9 +158,9 @@ export const NAV_ITEMS: NavItem[] = [
     menu: {
       kind: "list",
       children: [
-        { label: "Why Amipi?", href: UNBUILT },
-        { label: "Amipi Cares", href: UNBUILT },
-        { label: "Testimonials", href: UNBUILT },
+        { label: "Why Amipi?", href: "/about-us" },
+        { label: "Amipi Cares", href: "/amipi-cares" },
+        { label: "Testimonials", href: "/testimonials" },
       ],
     },
   },
