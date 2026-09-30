@@ -31,18 +31,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Navbar />
+        <HideOnRoutes prefixes={["/studio"]}>
+          <Navbar />
+        </HideOnRoutes>
         <SmoothScroll>
           {children}
           {/* About is a single full-screen section, and the account pages keep their
               form buttons in view, so none of them get the footer or logo strip */}
-          <HideOnRoutes routes={["/about", "/login", "/create-account", "/forgot-password"]}>
+          <HideOnRoutes
+            routes={["/about", "/login", "/create-account", "/forgot-password"]}
+            prefixes={["/studio"]}
+          >
             <Footer />
             <PartnerMarquee />
           </HideOnRoutes>
         </SmoothScroll>
         {/* AI assistant launcher + chat drawer - persists across all scroll depths */}
-        <AssistantButtonFixed />
+        <HideOnRoutes prefixes={["/studio"]}>
+          <AssistantButtonFixed />
+        </HideOnRoutes>
       </body>
     </html>
   );

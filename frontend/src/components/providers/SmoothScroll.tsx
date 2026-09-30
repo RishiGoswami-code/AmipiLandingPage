@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -33,7 +34,12 @@ export default function SmoothScroll({
 }: {
   children: React.ReactNode;
 }) {
+  /* The Sanity Studio (/studio) runs its own scroll panes; Lenis on the window
+     would swallow their wheel events, so it stays off there. */
+  const inStudio = usePathname().startsWith("/studio");
+
   useEffect(() => {
+    if (inStudio) return;
     // Someone who asked for less motion should get the native scroll, not a
     // smoothed one - momentum scrolling is itself a motion effect.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -104,7 +110,7 @@ export default function SmoothScroll({
       gsap.ticker.lagSmoothing(500, 33);
       lenis.destroy();
     };
-  }, []);
+  }, [inStudio]);
 
   return <>{children}</>;
 }

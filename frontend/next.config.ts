@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
     // real product photography exists.
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      // Journal post images uploaded in the Sanity Studio.
+      { protocol: "https", hostname: "cdn.sanity.io" },
     ],
   },
 };
