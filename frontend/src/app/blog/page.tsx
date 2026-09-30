@@ -37,7 +37,7 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
           </div>
         ) : (
           <p className="mt-16 text-center text-foreground/60">
-            No posts in {categoryLabel(category)} yet.
+            {category ? `No posts in ${categoryLabel(category)} yet.` : "No posts yet."}
           </p>
         )}
       </div>
