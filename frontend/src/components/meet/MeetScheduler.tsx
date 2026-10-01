@@ -39,21 +39,13 @@ type Details = {
 };
 
 /**
- * Prefilled Calendly embed. Calendly fills name and email itself; everything
- * else goes into the event's first question (a1) as one line per detail, so
- * it reaches the team with Calendly's default "anything that will help
- * prepare" question and no extra setup on the Calendly side.
+ * Prefilled Calendly embed. Calendly fills name and email itself; a1..a5 are
+ * the event's questions by position, which must stay in this order on the
+ * Calendly side: Company name, Phone number, Address, Add any special
+ * requests, SELECT STAFF(OPTIONAL). The staff question is a dropdown, so its
+ * choices have to match STAFF above exactly.
  */
 function calendlySrc(d: Details) {
-  const summary = [
-    `Company: ${d.company}`,
-    d.phone && `Phone: ${d.phone}`,
-    d.address && `Address: ${d.address}`,
-    `Preferred team member: ${d.staff}`,
-    d.notes && `Special requests: ${d.notes}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
   const params = new URLSearchParams({
     embed_domain: window.location.host,
     embed_type: "Inline",
@@ -61,7 +53,12 @@ function calendlySrc(d: Details) {
     primary_color: "1b2438",
     name: d.name,
     email: d.email,
-    a1: summary,
+    a1: d.company,
+    // Calendly's phone field wants digits, with a leading + for the country code.
+    a2: d.phone.replace(/[^\d+]/g, ""),
+    a3: d.address,
+    a4: d.notes,
+    a5: d.staff,
   });
   return `${CALENDLY_URL}?${params}`;
 }

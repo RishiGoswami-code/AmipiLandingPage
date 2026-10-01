@@ -20,15 +20,15 @@ const FACTS = [
 export default function MeetPage() {
   return (
     <div className="bg-background px-6 pt-32 pb-20 sm:px-12 sm:pt-36 lg:px-20">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-3xl text-center">
         <p className={KICKER}>Virtual Meeting</p>
         <h1 className={`${SERIF} mt-3 text-4xl tracking-tight text-foreground sm:text-6xl`}>
           Let&rsquo;s Meet!
         </h1>
-        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/70">
+        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/70">
           Set up an appointment to virtually meet with any of our eager team members.
         </p>
-        <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-foreground/65">
+        <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-foreground/65">
           {FACTS.map(({ icon: Icon, text }) => (
             <li key={text} className="flex items-center gap-2">
               <Icon className="h-4 w-4 text-[#a47a35]" strokeWidth={1.8} />
@@ -37,7 +37,7 @@ export default function MeetPage() {
           ))}
         </ul>
 
-        <div className="mt-10 max-w-3xl">
+        <div className="mt-10 text-left">
           <MeetScheduler />
         </div>
       </div>
