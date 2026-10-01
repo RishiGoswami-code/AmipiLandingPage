@@ -190,6 +190,7 @@ export function Navbar() {
               rather than baked into the variant because it is only the navbar
               that sits on photography. */}
           <PillButton
+            href="/meet"
             variant="dark"
             size="xs"
             className="shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_26px_-12px_rgba(14,11,10,0.85)]"

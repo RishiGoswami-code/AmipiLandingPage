@@ -173,7 +173,7 @@ export const NAV_ITEMS: NavItem[] = [
         { label: "Registration", href: UNBUILT },
         { label: "Make a Payment", href: UNBUILT },
         { label: "Remote Assistance", href: UNBUILT },
-        { label: "Schedule Appointment", href: UNBUILT },
+        { label: "Schedule Appointment", href: "/meet" },
       ],
     },
   },
