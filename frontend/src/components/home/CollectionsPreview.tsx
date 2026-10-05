@@ -14,21 +14,21 @@ type Collection = {
   image: string;
 };
 
-/** Two rows of three, in display order: bezel, bridal and drops across the
- * top; multi-shape, stackable bands and colored stones underneath. */
+/** Two rows of three, in display order: color, bezel and stack across the
+ * top; drop, bridal and multi-shape underneath. */
 const PREVIEW_COLLECTIONS: Collection[] = [
+  { name: "Color Collection", image: "/Collections/Color.png" },
   { name: "Bezel Collection", image: "/Collections/bezel-set-collection.webp" },
+  { name: "Stack Collection", image: "/Collections/Stack.png" },
+  { name: "Drop Collection", image: "/Collections/cascade-collection.webp" },
   {
     name: "Bridal Collection",
     image: "/Collections/ever-after-bridal-edit.webp",
   },
-  { name: "Drop Collection", image: "/Collections/cascade-collection.webp" },
   {
     name: "Multi Shape Collection",
     image: "/Collections/mosaic-collection.webp",
   },
-  { name: "Stack Collection", image: "/Collections/Stack.png" },
-  { name: "Color Collection", image: "/Collections/Color.png" },
 ];
 
 /**

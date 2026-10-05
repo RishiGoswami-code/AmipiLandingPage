@@ -289,7 +289,9 @@ function OverlayContact({ onNavigate }: { onNavigate: () => void }) {
             key={label}
             href={href}
             onNavigate={onNavigate}
-            aria-label={label}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${label} (opens in a new tab)`}
             className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-ice-100 transition-colors hover:bg-white/20"
           >
             <Icon className="h-4 w-4" />

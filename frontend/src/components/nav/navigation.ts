@@ -16,11 +16,10 @@ import {
  */
 
 /**
- * Every destination in this file. The routes these want do not exist yet -
- * there are no per-category pages, and nothing has been built for Amipi Cares,
- * Testimonials, Registration, Make a Payment, Remote Assistance or Schedule
- * Appointment - so the whole menu is deliberately inert for this pass, which is
- * about the design.
+ * Most destinations in this file do not exist yet - there are no per-category
+ * pages, and nothing has been built for Registration, Make a Payment, Remote
+ * Assistance or Schedule Appointment - so those entries stay inert. Why Amipi?,
+ * Amipi Cares and Testimonials are live.
  *
  * A named constant rather than a bare "#" at nineteen call sites so that
  * (a) the rows can suppress the navigation instead of jumping to the top of the
@@ -159,9 +158,9 @@ export const NAV_ITEMS: NavItem[] = [
     menu: {
       kind: "list",
       children: [
-        { label: "Why Amipi?", href: UNBUILT },
-        { label: "Amipi Cares", href: UNBUILT },
-        { label: "Testimonials", href: UNBUILT },
+        { label: "Why Amipi?", href: "/about-us" },
+        { label: "Amipi Cares", href: "/amipi-cares" },
+        { label: "Testimonials", href: "/testimonials" },
       ],
     },
   },
@@ -174,7 +173,7 @@ export const NAV_ITEMS: NavItem[] = [
         { label: "Registration", href: UNBUILT },
         { label: "Make a Payment", href: UNBUILT },
         { label: "Remote Assistance", href: UNBUILT },
-        { label: "Schedule Appointment", href: UNBUILT },
+        { label: "Schedule Appointment", href: "/meet" },
       ],
     },
   },
@@ -185,16 +184,16 @@ export const NAV_ITEMS: NavItem[] = [
  *
  * Phone and email are live - they are the same values the footer already
  * publishes, and tel:/mailto: work without a route existing. The four social
- * links are UNBUILT because nobody has handed over the account URLs yet; they
- * are the one thing here that needs real data rather than a new page.
+ * links are AMIPI's own accounts, as linked from amipi.com; they open in a new
+ * tab where they are rendered.
  */
 export const CONTACT = {
   phone: { label: "(800) 530-2647", href: "tel:+18005302647" },
   email: { label: "info@amipi.com", href: "mailto:info@amipi.com" },
   socials: [
-    { label: "WhatsApp", href: UNBUILT, Icon: WhatsAppIcon as BrandIcon },
-    { label: "Facebook", href: UNBUILT, Icon: FacebookIcon as BrandIcon },
-    { label: "Instagram", href: UNBUILT, Icon: InstagramIcon as BrandIcon },
-    { label: "LinkedIn", href: UNBUILT, Icon: LinkedInIcon as BrandIcon },
+    { label: "WhatsApp", href: "https://wa.me/13324568743", Icon: WhatsAppIcon as BrandIcon },
+    { label: "Facebook", href: "https://www.facebook.com/Amipi-Diamonds-166389680059646/", Icon: FacebookIcon as BrandIcon },
+    { label: "Instagram", href: "https://www.instagram.com/amipiinc/", Icon: InstagramIcon as BrandIcon },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/amipi-inc-", Icon: LinkedInIcon as BrandIcon },
   ],
 };

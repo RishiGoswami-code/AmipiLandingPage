@@ -14,10 +14,7 @@ type TradeShow = {
   name: string;
   dates: string;
   location: string;
-  /** On-model shot set in the show's city (Manhattan skyline for RJO,
-   * Miami waterfront for JIS) rather than a literal booth/expo-hall
-   * photo - matches the magazine-style photo-overlay cards used across
-   * the site. */
+  /** Event photo for the show (the JIS card shows the JIS show floor). */
   image: string;
 };
 
@@ -26,13 +23,13 @@ const TRADE_SHOWS: TradeShow[] = [
     name: "RJO Liberty Tour",
     dates: "Sept 29 - Oct 2, 2026",
     location: "42 W 48th St, 15th Floor, New York, NY",
-    image: "/trade-shows/rjo-liberty-tour.webp",
+    image: "/trade-shows/rjo-liberty-nyc.webp",
   },
   {
     name: "JIS Miami",
     dates: "Oct 16 - 19, 2026",
     location: "Booth #1335, Miami Beach Convention Center",
-    image: "/trade-shows/jis-miami.webp",
+    image: "/trade-shows/jis-miami-show-floor.webp",
   },
 ];
 

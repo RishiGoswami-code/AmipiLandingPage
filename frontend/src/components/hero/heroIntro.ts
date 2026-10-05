@@ -243,10 +243,9 @@ export function exitVector(
  * Every string the hero renders, in one place.
  *
  * The founding year and the anniversary agree: 2026 − 1976 = 50, which matches
- * both `kicker` here and the footer's "Celebrating 50 Years Of AMIPI". Worth
- * keeping in step — the two strings appear within about four seconds of each
- * other, so a visitor can see both at once. (This previously read 1956, which
- * implied 70 years and contradicted both.)
+ * `kicker` here. Worth keeping in step — the two strings appear within about
+ * four seconds of each other, so a visitor can see both at once. (This
+ * previously read 1956, which implied 70 years and contradicted both.)
  */
 export const HERO_COPY = {
   established: "Established 1976",

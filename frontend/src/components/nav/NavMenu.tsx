@@ -375,7 +375,9 @@ function ContactPanel() {
           <InertAwareLink
             key={label}
             href={href}
-            aria-label={label}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${label} (opens in a new tab)`}
             className="grid h-9 w-9 place-items-center rounded-full bg-navy-50 text-navy-700 transition-colors hover:bg-navy-900 hover:text-white"
           >
             <Icon className="h-4 w-4" />

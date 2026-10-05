@@ -32,19 +32,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         {/* The gift guide is a standalone trial page - no site chrome at all */}
-        <HideOnRoutes routes={["/gift-guide"]}>
+        <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
           <Navbar />
         </HideOnRoutes>
         <SmoothScroll>
           {children}
-          {/* About is a single full-screen section with no footer beneath it */}
-          <HideOnRoutes routes={["/about", "/gift-guide"]}>
-            <PartnerMarquee />
+          {/* About is a single full-screen section, the account pages keep their
+              form buttons in view, and the gift guide is standalone, so none of
+              them get the footer or logo strip */}
+          <HideOnRoutes
+            routes={["/about", "/login", "/create-account", "/forgot-password", "/gift-guide"]}
+            prefixes={["/studio"]}
+          >
             <Footer />
+            <PartnerMarquee />
           </HideOnRoutes>
         </SmoothScroll>
         {/* AI assistant launcher + chat drawer - persists across all scroll depths */}
-        <HideOnRoutes routes={["/gift-guide"]}>
+        <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
           <AssistantButtonFixed />
         </HideOnRoutes>
       </body>

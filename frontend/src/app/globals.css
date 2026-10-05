@@ -188,3 +188,20 @@
     animation: none;
   }
 }
+
+/* Testimonial rows (TestimonialMarquee). Same doubled-track loop as the
+   partner strip; the second row runs the other way. */
+.testimonial-marquee {
+  animation: partnerMarquee 70s linear infinite;
+}
+
+.testimonial-marquee-reverse {
+  animation: partnerMarquee 70s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee,
+  .testimonial-marquee-reverse {
+    animation: none;
+  }
+}

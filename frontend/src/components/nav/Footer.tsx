@@ -18,8 +18,8 @@ const COMPANY_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Privacy Policy", href: "#" },
+  { label: "Terms & Conditions", href: "/terms-of-use" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Shipping & Returns", href: "#" },
 ];
 
@@ -78,9 +78,6 @@ export function Footer() {
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
           <p className="text-xs text-foreground/40">
             &copy; {new Date().getFullYear()} AMIPI. All rights reserved.
-          </p>
-          <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-            Celebrating 50 Years Of AMIPI
           </p>
         </div>
       </div>
