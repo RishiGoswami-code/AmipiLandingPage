@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Clock, Globe, Video } from "lucide-react";
-import { MeetScheduler } from "@/components/meet/MeetScheduler";
+import { Clock, Users, Video } from "lucide-react";
+import { BookingsEmbed } from "@/components/meet/BookingsEmbed";
 
 export const metadata: Metadata = {
   title: "Schedule a Virtual Meeting — AMIPI",
@@ -13,8 +13,8 @@ const KICKER = "text-[11px] font-medium tracking-[0.3em] text-[#a47a35] uppercas
 
 const FACTS = [
   { icon: Clock, text: "30 minutes" },
-  { icon: Video, text: "Video call - link sent on booking" },
-  { icon: Globe, text: "Shown in your own time zone" },
+  { icon: Video, text: "Online meeting - details emailed to you" },
+  { icon: Users, text: "Choose who you meet, or anyone" },
 ];
 
 export default function MeetPage() {
@@ -38,7 +38,7 @@ export default function MeetPage() {
         </ul>
 
         <div className="mt-10 text-left">
-          <MeetScheduler />
+          <BookingsEmbed />
         </div>
       </div>
     </div>
