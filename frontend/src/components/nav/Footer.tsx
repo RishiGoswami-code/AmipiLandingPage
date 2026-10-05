@@ -6,6 +6,7 @@ const SHOP_LINKS = [
   { label: "Categories", href: "/categories" },
   { label: "Diamond Search", href: "/#collection" },
   { label: "New Arrivals", href: "/#collection" },
+  { label: "Holiday Gift Guide", href: "/gift-guide" },
 ];
 
 const COMPANY_LINKS = [

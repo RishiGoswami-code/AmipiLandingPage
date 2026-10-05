@@ -31,17 +31,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Navbar />
+        {/* The gift guide is a standalone trial page - no site chrome at all */}
+        <HideOnRoutes routes={["/gift-guide"]}>
+          <Navbar />
+        </HideOnRoutes>
         <SmoothScroll>
           {children}
           {/* About is a single full-screen section with no footer beneath it */}
-          <HideOnRoutes routes={["/about"]}>
+          <HideOnRoutes routes={["/about", "/gift-guide"]}>
             <PartnerMarquee />
             <Footer />
           </HideOnRoutes>
         </SmoothScroll>
         {/* AI assistant launcher + chat drawer - persists across all scroll depths */}
-        <AssistantButtonFixed />
+        <HideOnRoutes routes={["/gift-guide"]}>
+          <AssistantButtonFixed />
+        </HideOnRoutes>
       </body>
     </html>
   );
