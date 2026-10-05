@@ -58,7 +58,7 @@ export function ForgotPasswordForm() {
           <PillButton href="/login" variant="gold" size="sm">
             Re-Login
           </PillButton>
-          <PillButton href="/create-account" variant="gold" size="sm">
+          <PillButton href="/register" variant="gold" size="sm">
             Registration
           </PillButton>
         </div>

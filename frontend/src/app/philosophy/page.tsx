@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Our Philosophy — AMIPI",
   description:
     "Experience the No Bull philosophy: transparent fixed pricing, no surprise grading, actual weights and clear terms.",
+  alternates: { canonical: "/philosophy" },
 };
 
 const SERIF = "font-[family-name:var(--font-cormorant)]";
@@ -56,7 +57,7 @@ export default function PhilosophyPage() {
           <PillButton href="/about-us" variant="dark" size="sm" icon="arrow">
             Why Amipi?
           </PillButton>
-          <PillButton href="/sell-your-diamonds" variant="gold" size="sm" icon="arrow">
+          <PillButton href="/sell" variant="gold" size="sm" icon="arrow">
             Sell Your Diamonds
           </PillButton>
         </div>

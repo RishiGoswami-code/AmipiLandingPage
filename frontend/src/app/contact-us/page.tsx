@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact Us — AMIPI",
   description:
     "Get in touch with AMIPI: 42 W 48th St, 15th Flr, New York, NY 10036. +1 (800) 530-2647, info@amipi.com.",
+  alternates: { canonical: "/contact-us" },
 };
 
 const SERIF = "font-[family-name:var(--font-cormorant)]";

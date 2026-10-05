@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Shop by Category — AMIPI",
   description:
     "Browse AMIPI's fine jewelry by category — rings, necklaces, bracelets, earrings, bridal, men's and loose diamonds, all backed by transparent fixed pricing.",
+  alternates: { canonical: "/categories" },
 };
 
 /** Content intentionally cleared for now - the page stays routable so the

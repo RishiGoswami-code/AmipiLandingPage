@@ -890,7 +890,7 @@ export function DiamondSearch() {
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <div className="sm:w-72">
             <PillButton
-              href="/contact"
+              href="/contact-us"
               variant="light"
               icon="dot"
               className="w-full border border-[#dfbf7b]"
@@ -900,7 +900,7 @@ export function DiamondSearch() {
           </div>
           <div className="sm:w-72">
             <PillButton
-              href="/contact"
+              href="/contact-us"
               variant="gold"
               icon="dot"
               className="w-full"

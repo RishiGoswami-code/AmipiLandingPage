@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy — AMIPI",
   description:
     "What information Amipi Inc collects, why we collect it, how we use it, and your rights and choices.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

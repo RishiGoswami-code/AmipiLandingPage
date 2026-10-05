@@ -79,7 +79,7 @@ export function LoginForm() {
 
           <div className="mt-3 flex items-center justify-between text-[13px]">
             <Link
-              href="/create-account"
+              href="/register"
               className="font-semibold text-foreground/75 transition-colors hover:text-gold-600"
             >
               New User

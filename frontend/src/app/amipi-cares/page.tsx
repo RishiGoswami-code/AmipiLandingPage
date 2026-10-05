@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Amipi Cares — AMIPI",
   description:
     "Amipi Cares is our philanthropic branch dedicated to helping those in need, with local and international organizations each year.",
+  alternates: { canonical: "/amipi-cares" },
 };
 
 const SERIF = "font-[family-name:var(--font-cormorant)]";

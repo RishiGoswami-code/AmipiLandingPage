@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Why Amipi? — AMIPI",
   description:
     "AMIPI Inc, established since 1976. Transparent fixed pricing, GIA standard grading, actual weights and the No Bull philosophy.",
+  alternates: { canonical: "/about-us" },
 };
 
 const SERIF = "font-[family-name:var(--font-cormorant)]";

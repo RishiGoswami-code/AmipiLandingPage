@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Schedule a Virtual Meeting — AMIPI",
   description:
     "Book a 30-minute virtual meeting with AMIPI's B2B diamond experts at a time that suits you.",
+  alternates: { canonical: "/meet" },
 };
 
 /* Team members are read live from Microsoft Bookings (getSetup keeps them for

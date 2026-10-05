@@ -10,8 +10,18 @@ import { AssistantButtonFixed } from "@/components/ui/AssistantButtonFixed";
 // styles/fonts.ts on why a font loader must not be called twice for the
 // same family.
 import { cormorant, geistMono, manrope } from "@/styles/fonts";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { SITE_URL } from "@/lib/site";
 
+/* Site-wide defaults. Every page sets its own title, description and
+   canonical link on top of these; metadataBase turns those relative links
+   (and social-share images) into full addresses. */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  openGraph: { siteName: "AMIPI", type: "website", locale: "en_US" },
+  twitter: { card: "summary_large_image" },
+  // Google Search Console's "HTML tag" verification code, when set.
+  verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined },
   title: "AMIPI — The Wholesale Diamond Hub",
   description:
     "Discover wholesale natural and lab-grown diamonds, fine jewelry, and transparent fixed pricing from AMIPI. Your diamond source, without the bull.",
@@ -31,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <GoogleAnalytics />
         {/* The gift guide is a standalone trial page - no site chrome at all */}
         <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
           <Navbar />
@@ -41,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               form buttons in view, and the gift guide is standalone, so none of
               them get the footer or logo strip */}
           <HideOnRoutes
-            routes={["/about", "/login", "/create-account", "/forgot-password", "/gift-guide"]}
+            routes={["/about", "/login", "/register", "/forgot-password", "/gift-guide"]}
             prefixes={["/studio"]}
           >
             <Footer />

@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  /* Addresses that must keep working once this site takes over amipi.com.
+     Pages live at amipi.com's own paths (/contact-us, /sell, /register, ...),
+     so most old links need nothing; these cover the rest. All permanent (308),
+     so search engines move their listing to the destination. */
+  async redirects() {
+    return [
+      // amipi.com variants of pages this site has
+      { source: "/sell.php", destination: "/sell", permanent: true },
+      { source: "/schedule-appointment", destination: "/meet", permanent: true },
+      // Paths this site used before it matched amipi.com's
+      { source: "/contact", destination: "/contact-us", permanent: true },
+      { source: "/sell-your-diamonds", destination: "/sell", permanent: true },
+      { source: "/create-account", destination: "/register", permanent: true },
+    ];
+  },
   images: {
     // Unsplash-hosted placeholder photography for New Arrivals (see
     // NewArrivals.tsx) - freely licensed for this use, standing in until

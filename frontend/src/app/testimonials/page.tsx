@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Testimonials — AMIPI",
   description:
     "Jewelers love No Bull! But don't take our word for it - read what AMIPI's customers say.",
+  alternates: { canonical: "/testimonials" },
 };
 
 

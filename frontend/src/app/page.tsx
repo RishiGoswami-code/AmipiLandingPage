@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import HeroStage from "@/components/hero/HeroStage";
 import { DiamondSearch } from "@/components/home/DiamondSearch";
 import { NewArrivals } from "@/components/home/NewArrivals";
 import { ShopByCategory } from "@/components/home/ShopByCategory";
 import { CollectionsPreview } from "@/components/home/CollectionsPreview";
 import { TradeShows } from "@/components/sell/TradeShows";
+
+export const metadata: Metadata = {
+  title: "AMIPI — The Wholesale Diamond Hub",
+  description:
+    "Wholesale natural and lab-grown diamonds, fine jewelry and transparent fixed pricing for retailers. Search certified stones, browse new arrivals and shop by category.",
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   // The wrapper below is deliberately NOT a flex column. ScrollTrigger pins

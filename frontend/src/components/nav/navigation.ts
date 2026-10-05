@@ -170,7 +170,7 @@ export const NAV_ITEMS: NavItem[] = [
     menu: {
       kind: "list",
       children: [
-        { label: "Registration", href: UNBUILT },
+        { label: "Registration", href: "/register" },
         { label: "Make a Payment", href: UNBUILT },
         { label: "Remote Assistance", href: UNBUILT },
         { label: "Schedule Appointment", href: "/meet" },

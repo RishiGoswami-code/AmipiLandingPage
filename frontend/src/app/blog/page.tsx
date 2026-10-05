@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "The Journal — AMIPI",
   description:
     "Press, AI, marketing and Retailer Therapy - news and notes from the AMIPI team.",
+  alternates: { canonical: "/blog" },
 };
 
 export default async function BlogPage({ searchParams }: PageProps<"/blog">) {

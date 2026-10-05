@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Terms of Use — AMIPI",
   description:
     "The terms of service on which AMIPI offers access to and use of its website, mobile app and services.",
+  alternates: { canonical: "/terms-of-use" },
 };
 
 export default function TermsOfUsePage() {

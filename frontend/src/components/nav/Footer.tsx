@@ -12,9 +12,9 @@ const SHOP_LINKS = [
 const COMPANY_LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Our Philosophy", href: "/philosophy" },
-  { label: "Sell Your Diamonds", href: "/sell-your-diamonds" },
+  { label: "Sell Your Diamonds", href: "/sell" },
   { label: "The Journal", href: "/blog" },
-  { label: "Visit Us", href: "/contact" },
+  { label: "Visit Us", href: "/contact-us" },
 ];
 
 const LEGAL_LINKS = [

@@ -19,7 +19,15 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   return {
     title: `${post.title} — AMIPI`,
     description: post.excerpt,
-    openGraph: { images: [imageUrl(post.mainImage, 1200, 630)] },
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+      images: [imageUrl(post.mainImage, 1200, 630)],
+    },
   };
 }
 

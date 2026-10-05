@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Sell Your Diamonds — AMIPI",
   description:
     "Sell your diamonds and jewelry to AMIPI: top dollar, prompt payment, and a quick, easy, no haggle No Bull experience.",
+  alternates: { canonical: "/sell" },
 };
 
 const SERIF = "font-[family-name:var(--font-cormorant)]";

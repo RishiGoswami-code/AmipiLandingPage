@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 import { Field, FieldAlert, Select, TextArea } from "@/components/account/fields";
+import { track } from "@/lib/analytics";
 import type { Staff } from "@/lib/bookings";
 
 const ANYONE = "Anyone";
@@ -173,7 +174,11 @@ export function MeetScheduler({ staff, bookingPage }: { staff: Staff[]; bookingP
       <TimePicker
         details={details}
         bookingPage={bookingPage}
-        onBooked={(start, staffName) => setBooked({ start, staffName })}
+        onBooked={(start, staffName) => {
+          // GA4's standard lead event; mark it as a key event (conversion) in Analytics.
+          track("generate_lead", { form: "meeting", team_member: details.staffId ? "chosen" : "anyone" });
+          setBooked({ start, staffName });
+        }}
       />
     </div>
   );

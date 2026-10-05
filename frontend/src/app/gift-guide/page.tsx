@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   title: "Holiday Gift Guide — AMIPI",
   description:
     "AMIPI's holiday gift guide - diamond essentials, holiday trends and new collections for Christmas, New Year and the winter season.",
+  alternates: { canonical: "/gift-guide" },
 };
 
 export default function GiftGuidePage() {
