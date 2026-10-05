@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Clock, Globe, Video } from "lucide-react";
+import { Clock, Users, Video } from "lucide-react";
 import { MeetScheduler } from "@/components/meet/MeetScheduler";
+import { BOOKING_PAGE, getSetup, type Staff } from "@/lib/bookings";
 
 export const metadata: Metadata = {
   title: "Schedule a Virtual Meeting — AMIPI",
@@ -8,16 +9,29 @@ export const metadata: Metadata = {
     "Book a 30-minute virtual meeting with AMIPI's B2B diamond experts at a time that suits you.",
 };
 
+/* Team members are read live from Microsoft Bookings (getSetup keeps them for
+   ten minutes), so the page renders per request rather than at build time. */
+export const dynamic = "force-dynamic";
+
 const SERIF = "font-[family-name:var(--font-cormorant)]";
 const KICKER = "text-[11px] font-medium tracking-[0.3em] text-[#a47a35] uppercase";
 
 const FACTS = [
   { icon: Clock, text: "30 minutes" },
-  { icon: Video, text: "Video call - link sent on booking" },
-  { icon: Globe, text: "Shown in your own time zone" },
+  { icon: Video, text: "Online meeting - details emailed to you" },
+  { icon: Users, text: "Choose who you meet, or anyone" },
 ];
 
-export default function MeetPage() {
+export default async function MeetPage() {
+  // If Bookings can't be reached the form still renders with "Anyone"; the
+  // time step then points visitors at Microsoft's own booking page.
+  let staff: Staff[] = [];
+  try {
+    staff = (await getSetup()).staff;
+  } catch (e) {
+    console.error(e);
+  }
+
   return (
     <div className="bg-background px-6 pt-32 pb-20 sm:px-12 sm:pt-36 lg:px-20">
       <div className="mx-auto max-w-3xl text-center">
@@ -38,7 +52,7 @@ export default function MeetPage() {
         </ul>
 
         <div className="mt-10 text-left">
-          <MeetScheduler />
+          <MeetScheduler staff={staff} bookingPage={BOOKING_PAGE} />
         </div>
       </div>
     </div>
