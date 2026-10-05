@@ -3,15 +3,17 @@ import localFont from "next/font/local";
 import { GiftGuideHero } from "@/components/gift-guide/GiftGuideHero";
 
 /*
- * Catalog faces for the gift guide only, vendored as latin-subset variable
- * woff2s in src/styles/fonts for the same reason as fonts.ts (no
- * fonts.googleapis.com fetch at build time). Neither family is declared
- * anywhere else, so the one-loader-call-per-family rule still holds.
+ * Catalog display face for the gift guide only, vendored as latin-subset
+ * variable woff2s in src/styles/fonts for the same reason as fonts.ts (no
+ * fonts.googleapis.com fetch at build time). It is not declared anywhere else,
+ * so the one-loader-call-per-family rule still holds. The small print on the
+ * catalog mockups is the site's Manrope - a second sans at 9-10px was
+ * indistinguishable from it and not worth the download.
  *
- * `preload: false` on both: in this Next/Turbopack build, preloaded fonts get
+ * `preload: false`: in this Next/Turbopack build, preloaded fonts get
  * a <link rel="preload"> on every route no matter where they are declared
  * (checked in the built index.html and about.html), which would make the main
- * site download ~126 KB of type it never paints. The cost is a brief
+ * site download ~100 KB of type it never paints. The cost is a brief
  * fallback-to-Bodoni swap on first paint here, narrowed by adjustFontFallback.
  */
 
@@ -33,17 +35,6 @@ const bodoniModa = localFont({
   adjustFontFallback: "Times New Roman",
 });
 
-/** Jost - geometric sans for the small print on the catalog mockups. */
-const jost = localFont({
-  src: "../../styles/fonts/jost-latin.woff2",
-  variable: "--font-jost",
-  weight: "100 900",
-  style: "normal",
-  display: "swap",
-  preload: false,
-  adjustFontFallback: "Arial",
-});
-
 export const metadata: Metadata = {
   title: "Holiday Gift Guide — AMIPI",
   description:
@@ -52,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${jost.variable}`}>
+    <div className={bodoniModa.variable}>
       <GiftGuideHero />
     </div>
   );

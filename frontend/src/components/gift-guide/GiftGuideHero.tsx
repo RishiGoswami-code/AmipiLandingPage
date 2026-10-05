@@ -70,7 +70,7 @@ export function GiftGuideHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-svh flex-col overflow-hidden bg-[#f5f2ec] px-edge pt-6 pb-8 text-[#141414]"
+      className="relative flex min-h-svh flex-col overflow-hidden bg-surface px-edge pt-6 pb-8 text-[#141414]"
     >
       {/* Soft paper glow behind the catalog, with a faint warm wash bottom-left */}
       <div
@@ -87,27 +87,31 @@ export function GiftGuideHero() {
         data-reveal
         className="relative flex items-center justify-between border-b border-[#141414]/15 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
       >
-        <Link
-          href="/"
-          className={`${italiana.className} text-2xl tracking-[0.2em] text-[#141414] transition-colors hover:text-[#a8803f]`}
-        >
-          AMIPI
+        {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
+            this page hides the site chrome and the wordmark is the way home. */}
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
+          <Image src="/icon.png" alt="" aria-hidden width={512} height={512} className="h-8 w-8 sm:h-9 sm:w-9" />
+          <span
+            className={`${italiana.className} text-xl tracking-[0.06em] text-[#141414] uppercase transition-colors hover:text-[#a8803f] sm:text-2xl`}
+          >
+            Amipi
+          </span>
         </Link>
         <span className="hidden sm:block">Holiday 2026 · Winter Edition</span>
         <span>Vol. 01</span>
       </header>
 
-      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
+      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 py-[clamp(1.5rem,4vh,2.5rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
         {/* Copy */}
         <div className="max-w-xl">
-          <p data-reveal className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] text-[#9a7438] uppercase">
+          <p data-reveal className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] text-[#8a6630] uppercase">
             The Gift Guide
-            <span className="h-px w-20 bg-[#9a7438]/50 sm:w-32" />
+            <span className="h-px w-20 bg-[#8a6630]/50 sm:w-32" />
           </p>
 
           <h1
             data-reveal
-            className="mt-5 font-[family-name:var(--font-bodoni)] text-[clamp(3rem,7.5vw,6.5rem)] leading-[0.95] font-normal tracking-[0.02em] uppercase"
+            className="mt-5 font-[family-name:var(--font-bodoni)] text-[clamp(3rem,min(7.5vw,11vh),6.5rem)] leading-[0.95] font-normal uppercase"
           >
             Holiday
             <span className={`block italic normal-case tracking-normal ${GOLD_TEXT}`}>
@@ -129,11 +133,11 @@ export function GiftGuideHero() {
           </p>
 
           <div data-reveal className="mt-8 flex flex-wrap items-center gap-6">
-            <PillButton href="/categories" variant="jewel" icon="gem">
+            <PillButton href="/categories" variant="gold" icon="gem">
               Explore The Guide
             </PillButton>
             <Link
-              href="/#collection"
+              href="/categories"
               className="border-b border-[#141414]/30 pb-1 text-xs tracking-[0.3em] text-[#141414]/80 uppercase transition-colors hover:border-[#a8803f] hover:text-[#a8803f]"
             >
               New Arrivals
@@ -141,15 +145,18 @@ export function GiftGuideHero() {
           </div>
         </div>
 
-        {/* Catalog collage: a cover and an open "Collection" spread */}
-        <div className="relative mx-auto aspect-[5/4] w-full max-w-[38rem]">
+        {/* Catalog collage: a cover and an open "Collection" spread. A size
+            container so the cover masthead scales with the collage rather than
+            the viewport, and 10:9 so the tilted cover stays inside the box
+            instead of running into the contents row on short screens. */}
+        <div className="@container relative mx-auto aspect-[10/9] w-[calc(100%-1rem)] max-w-[min(38rem,62vh)] sm:w-full">
           {/* Cover */}
           <figure
             data-page
             className="group absolute top-0 left-0 w-[56%] -rotate-3 bg-white p-[4%] shadow-[0_30px_60px_-24px_rgba(20,20,20,0.35)]"
           >
-            <p className="text-center font-[family-name:var(--font-bodoni)] text-[clamp(1.25rem,3vw,2.25rem)] leading-none tracking-[0.12em] text-[#111] uppercase">
-              Holiday
+            <p className="text-center font-[family-name:var(--font-bodoni)] text-[5.5cqw] leading-none tracking-[0.12em] whitespace-nowrap text-[#111] uppercase">
+              Gift Guide
             </p>
             <div className="mx-auto mt-2 mb-3 h-px w-2/3 bg-[#111]/30" />
             <div className="relative aspect-[4/5] overflow-hidden">
@@ -162,7 +169,7 @@ export function GiftGuideHero() {
                 className="object-cover grayscale contrast-125 transition duration-700 group-hover:grayscale-0"
               />
             </div>
-            <figcaption className="mt-3 flex justify-between font-[family-name:var(--font-jost)] text-[9px] tracking-[0.25em] text-[#111]/60 uppercase">
+            <figcaption className="mt-3 flex justify-between text-[10px] tracking-[0.25em] text-[#111]/60 uppercase">
               <span>The Gift Edit</span>
               <span>AMIPI</span>
             </figcaption>
@@ -186,7 +193,7 @@ export function GiftGuideHero() {
                     sizes="(min-width: 1024px) 11rem, 28vw"
                     className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
                   />
-                  <span className="absolute bottom-1.5 left-1.5 bg-white/85 px-1.5 py-0.5 font-[family-name:var(--font-jost)] text-[8px] tracking-[0.2em] text-[#111] uppercase">
+                  <span className="absolute bottom-1.5 left-1.5 bg-white/85 px-1.5 py-0.5 text-[9px] tracking-[0.2em] text-[#111] uppercase">
                     {item.label}
                   </span>
                 </div>
@@ -197,21 +204,21 @@ export function GiftGuideHero() {
       </div>
 
       {/* Contents: the themed edits */}
-      <nav
+      <ol
         data-reveal
         aria-label="Gift guide edits"
         className="relative mx-auto grid w-full max-w-7xl grid-cols-1 border-t border-[#141414]/15 sm:grid-cols-2 lg:grid-cols-5"
       >
         {EDITS.map((edit, i) => (
-          <div key={edit.title} className="border-[#141414]/10 py-4 sm:px-4 lg:border-l lg:first:border-l-0 lg:first:pl-0">
+          <li key={edit.title} className="border-[#141414]/10 py-4 sm:pr-6 lg:border-l lg:px-4 lg:first:border-l-0 lg:first:pl-0">
             <p className={`font-[family-name:var(--font-bodoni)] text-lg leading-none [font-variant-numeric:lining-nums] ${GOLD_TEXT}`}>
               {String(i + 1).padStart(2, "0")}
             </p>
-            <p className="mt-2 text-xs font-medium tracking-[0.2em] text-[#141414] uppercase">{edit.title}</p>
-            <p className="mt-1 text-xs text-[#141414]/55">{edit.pieces}</p>
-          </div>
+            <p className="mt-2 text-xs font-medium tracking-[0.14em] text-[#141414] uppercase">{edit.title}</p>
+            <p className="mt-1 text-xs text-[#141414]/65">{edit.pieces}</p>
+          </li>
         ))}
-      </nav>
+      </ol>
     </section>
   );
 }
