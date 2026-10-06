@@ -79,13 +79,14 @@ Set these in `frontend/.env.local` for local work and in the Vercel project's En
         │   ├── account/        Login / create account forms and the shared form fields
         │   ├── analytics/      Google Analytics loader
         │   ├── providers/      Smooth-scroll provider
-        │   ├── ui/             Shared primitives (PillButton, icons, ChatLauncher)
+        │   ├── ui/             Shared primitives (PillButton, icons, chat launcher and drawer)
         │   └── about, categories, contact, gift-guide, legal, philosophy, sell, testimonials
         ├── proxy.ts            Lower-cases page addresses (old amipi.com links use capitals)
         ├── content/            Long-form copy kept out of components
         ├── lib/                Non-UI logic
         │   ├── bookings.ts     Microsoft Bookings client (staff, availability, booking)
         │   ├── windowsTimeZones.ts
+        │   ├── salesiq.ts      Zoho SalesIQ loader and chat hand-off
         │   ├── analytics.ts    GA4 id and the track() helper
         │   └── site.ts         The site's public URL
         ├── sanity/             Blog data layer
@@ -148,7 +149,9 @@ Not built here yet, and returning 404 until they are: the store and catalogue (`
 
 ## Live chat
 
-The chat button on every page opens AMIPI's Zoho SalesIQ widget, the same live chat amipi.com uses, so conversations reach the sales team and Zoho CRM. `src/components/ui/ChatLauncher.tsx` keeps the site's own launcher button, hides Zoho's stock bubble, and loads Zoho's script a few seconds after the page (or immediately on a click). Departments, operators, business hours and the offline form are configured in SalesIQ, not in this code. If the widget can't load (ad blockers often stop chat widgets), the button sends the visitor to `/contact-us`.
+The chat button on every page opens the site's own chat drawer (`src/components/ui/ChatDrawer.tsx`). The visitor writes what they need, then gives a name and email; `src/lib/salesiq.ts` hands those to AMIPI's Zoho SalesIQ (the live chat amipi.com uses), which creates the chat for the sales team and Zoho CRM. The drawer's own replies are two fixed prompts, not generated answers.
+
+SalesIQ's public API can start a chat but cannot send later messages from another interface, so once started, the live conversation continues in SalesIQ's own window; its colours, operators, hours and offline form are configured in SalesIQ, not in this code. SalesIQ's stock bubble stays hidden, and its script loads a few seconds after the page (or at once when the drawer opens). If it can't load (ad blockers often stop chat widgets), the drawer shows phone, email and the contact form instead.
 
 ## SEO and analytics
 
