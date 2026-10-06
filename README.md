@@ -46,6 +46,7 @@ Set these in `frontend/.env.local` for local work and in the Vercel project's En
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | For the blog | Sanity project that holds Journal posts. Empty shows built-in sample posts. |
 | `NEXT_PUBLIC_SANITY_DATASET` | For the blog | Sanity dataset, normally `production`. |
 | `NEXT_PUBLIC_SITE_URL` | Once the final domain is live | Public address used for canonical links, the sitemap and `robots.txt`. On Vercel it falls back to the project's production address. |
+| `NEXT_PUBLIC_ZOHO_SALESIQ_WIDGET_CODE` | Optional | Use a different Zoho SalesIQ brand for the chat button. Defaults to AMIPI's. |
 | `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics 4 Measurement ID (`G-XXXXXXXXXX`). Empty turns analytics off. |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional | Google Search Console "HTML tag" verification code. |
 
@@ -78,7 +79,7 @@ Set these in `frontend/.env.local` for local work and in the Vercel project's En
         │   ├── account/        Login / create account forms and the shared form fields
         │   ├── analytics/      Google Analytics loader
         │   ├── providers/      Smooth-scroll provider
-        │   ├── ui/             Shared primitives (PillButton, icons, assistant button)
+        │   ├── ui/             Shared primitives (PillButton, icons, ChatLauncher)
         │   └── about, categories, contact, gift-guide, legal, philosophy, sell, testimonials
         ├── proxy.ts            Lower-cases page addresses (old amipi.com links use capitals)
         ├── content/            Long-form copy kept out of components
@@ -144,6 +145,10 @@ Not built here yet, and returning 404 until they are: the store and catalogue (`
 - If a call fails, the page shows a link to Microsoft's booking page so visitors can still book.
 - Staff, service hours, lead time and the custom question are read from Bookings, so changes made there show up on the site.
 - The officially supported alternative is Microsoft Graph, which needs an app registration approved by a Microsoft 365 administrator.
+
+## Live chat
+
+The chat button on every page opens AMIPI's Zoho SalesIQ widget, the same live chat amipi.com uses, so conversations reach the sales team and Zoho CRM. `src/components/ui/ChatLauncher.tsx` keeps the site's own launcher button, hides Zoho's stock bubble, and loads Zoho's script a few seconds after the page (or immediately on a click). Departments, operators, business hours and the offline form are configured in SalesIQ, not in this code. If the widget can't load (ad blockers often stop chat widgets), the button sends the visitor to `/contact-us`.
 
 ## SEO and analytics
 

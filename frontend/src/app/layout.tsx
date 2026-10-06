@@ -5,7 +5,7 @@ import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { HideOnRoutes } from "@/components/nav/HideOnRoutes";
 import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
-import { AssistantButtonFixed } from "@/components/ui/AssistantButtonFixed";
+import { ChatLauncher } from "@/components/ui/ChatLauncher";
 // Every face the site uses is declared in one place - see the note in
 // styles/fonts.ts on why a font loader must not be called twice for the
 // same family.
@@ -59,9 +59,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <PartnerMarquee />
           </HideOnRoutes>
         </SmoothScroll>
-        {/* AI assistant launcher + chat drawer - persists across all scroll depths */}
+        {/* Live chat (Zoho SalesIQ) launcher - persists across all scroll depths */}
         <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
-          <AssistantButtonFixed />
+          <ChatLauncher />
         </HideOnRoutes>
       </body>
     </html>

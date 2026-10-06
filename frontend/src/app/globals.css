@@ -159,7 +159,7 @@
   );
 }
 
-/* Entrance animation for the fixed AI assistant button */
+/* Entrance animation for the fixed chat button (ChatLauncher) */
 @keyframes assistantIn {
   from {
     opacity: 0;

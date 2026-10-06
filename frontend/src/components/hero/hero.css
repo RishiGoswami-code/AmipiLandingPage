@@ -461,7 +461,7 @@ body:has(.hero-stage:not([data-hero-intro="done"])) .assistant-fixed {
   opacity: 0 !important;
   pointer-events: none !important;
 
-  /* AssistantButtonFixed carries its entrance as an inline `animation:` shorthand
+  /* ChatLauncher carries its entrance as an inline `animation:` shorthand
      with a 1.1s delay, self-described as a fallback. An !important declaration
      in a stylesheet outranks a non-important inline style, which is how it is
      held back without editing that component. */
