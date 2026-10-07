@@ -1,0 +1,60 @@
+/*
+ * Falling snow inside the gift guide's snow globes. Each layer is a few
+ * repeating radial-gradient flakes, each gradient with its own tile size so
+ * the pattern doesn't read as a grid. The fall animates background-position
+ * by exactly one tile per gradient (one tile down, one tile across for the
+ * drift), so every loop is seamless. Cheap: no elements per flake, no JS.
+ */
+
+.snow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/*
+ * The glass is pale, so a white flake alone would vanish into it: each flake
+ * carries a faint blue-grey edge that gives it a shape against the sky.
+ */
+
+/* Far layer: fine, dense, slow - the haze of snow behind the piece */
+.far {
+  background-image:
+    radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.9) 0 0.8px, rgb(110 140 180 / 0.25) 1.2px, transparent 1.7px),
+    radial-gradient(circle at 75% 55%, rgb(255 255 255 / 0.85) 0 0.7px, rgb(110 140 180 / 0.22) 1.1px, transparent 1.6px),
+    radial-gradient(circle at 50% 80%, rgb(255 255 255 / 0.9) 0 0.9px, rgb(110 140 180 / 0.25) 1.3px, transparent 1.8px),
+    radial-gradient(circle at 10% 60%, rgb(255 255 255 / 0.8) 0 0.6px, rgb(110 140 180 / 0.2) 1px, transparent 1.5px);
+  background-size: 23px 29px, 31px 37px, 41px 43px, 17px 19px;
+}
+
+/* Near layer: larger, brighter, quicker */
+.near {
+  background-image:
+    radial-gradient(circle at 20% 35%, #fff 0 1.7px, rgb(100 130 170 / 0.35) 2.2px, transparent 2.9px),
+    radial-gradient(circle at 65% 70%, #fff 0 1.4px, rgb(100 130 170 / 0.35) 1.9px, transparent 2.6px),
+    radial-gradient(circle at 85% 15%, #fff 0 2px, rgb(100 130 170 / 0.35) 2.5px, transparent 3.2px);
+  background-size: 61px 67px, 73px 79px, 97px 103px;
+}
+
+/* Visitors who turn animations off get still snow */
+@media (prefers-reduced-motion: no-preference) {
+  .far {
+    animation: fall-far 14s linear infinite;
+  }
+
+  .near {
+    animation: fall-near 8s linear infinite;
+  }
+}
+
+@keyframes fall-far {
+  to {
+    background-position: 23px 29px, -31px 37px, 0 43px, 17px 19px;
+  }
+}
+
+@keyframes fall-near {
+  to {
+    background-position: -61px 67px, 0 79px, 97px 103px;
+  }
+}

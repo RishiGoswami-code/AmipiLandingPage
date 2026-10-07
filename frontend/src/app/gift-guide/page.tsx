@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GiftGuideHero } from "@/components/gift-guide/GiftGuideHero";
+import { GiftGuideTrends } from "@/components/gift-guide/GiftGuideTrends";
+import { GiftGuideJewelryTypes } from "@/components/gift-guide/GiftGuideJewelryTypes";
 
 /*
  * Catalog display face for the gift guide only, vendored as latin-subset
@@ -35,6 +37,25 @@ const bodoniModa = localFont({
   adjustFontFallback: "Times New Roman",
 });
 
+/**
+ * Cormorant Garamond Italic - the "Holiday" line of the headline. The upright
+ * Cormorant in fonts.ts has no italic file, so `italic` there would be a
+ * synthesised slant; this is the real calligraphic italic. Declared here
+ * rather than added to fonts.ts so it loads on /gift-guide only (fonts.ts is
+ * imported by the root layout). A separate file from the upright face, so the
+ * one-loader-call-per-family rule's concern - the same file downloading
+ * twice - does not arise.
+ */
+const cormorantItalic = localFont({
+  src: "../../styles/fonts/cormorant-garamond-italic-latin.woff2",
+  variable: "--font-cormorant-italic",
+  weight: "300 700",
+  style: "italic",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: "Times New Roman",
+});
+
 export const metadata: Metadata = {
   title: "Holiday Gift Guide — AMIPI",
   description:
@@ -44,8 +65,10 @@ export const metadata: Metadata = {
 
 export default function GiftGuidePage() {
   return (
-    <div className={bodoniModa.variable}>
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#fbfaf7]`}>
       <GiftGuideHero />
+      <GiftGuideTrends />
+      <GiftGuideJewelryTypes />
     </div>
   );
 }

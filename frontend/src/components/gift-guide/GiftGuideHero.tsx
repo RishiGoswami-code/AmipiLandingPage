@@ -5,87 +5,86 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { PillButton } from "@/components/ui/PillButton";
 import { italiana } from "@/styles/fonts";
 
 gsap.registerPlugin(useGSAP);
 
-/** Antique-gold ramp - a deeper cut of the champagne used on OurStory, since
- * the light champagne washes out on the paper background. The only colour on
- * an otherwise monochrome page: rules, index numbers, the title accent. */
+/** The page ground around the banner: the masthead above it and the page below. */
+const GROUND = "bg-[#fbfaf7]";
+
+/** The navy velvet-and-ribbon banner. 3:1, with the ribbons at both ends and
+ * plain navy through the middle-left, where the copy sits. */
+const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
+
+/** Ivory for the copy on the navy banner. */
+const IVORY = "#f5efe4";
+
+/** Champagne gold for "Catalog". Light enough to hold up on the navy; the
+ * darker antique gold used on the cream ground disappears against it. */
 const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#c9a25e_0%,#a8803f_45%,#7d5c2a_100%)] bg-clip-text text-transparent";
+  "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
 
-/** Komal's themed edits from the ideas sheet, listed like a catalog's contents. */
-const EDITS = [
-  { title: "The Holiday Gift Edit", pieces: "Diamond Earrings · Tennis Bracelets" },
-  { title: "Holiday Party", pieces: "Statement Earrings · Cocktail Rings" },
-  { title: "New Year's Eve Sparkle", pieces: "Tennis Necklaces · Drop Earrings" },
-  { title: "Meaningful Gifts", pieces: "Birthstone Pendants · Custom Pieces" },
-  { title: "Last-Minute Gifts", pieces: "Diamond Studs · Hoops" },
-];
+/** The banner photo, filling whichever box it is placed in. */
+function BannerImage({ position = "50% 50%" }: { position?: string }) {
+  return (
+    <Image
+      src={BANNER_SRC}
+      alt=""
+      fill
+      priority
+      sizes="100vw"
+      style={{ objectPosition: position }}
+      className="object-cover"
+    />
+  );
+}
 
-/** The four tiles on the "Collection" spread. */
+/** The four tiles on the spread mockup, from GiftPageImages. All four are
+ * portrait shots cropped to square tiles, so each sets the focal point the
+ * crop keeps. Shown in colour - the photos were picked for it (the sapphire,
+ * the red gloves), unlike the cover, which stays black-and-white. */
 const SPREAD = [
-  { src: "/categories/diamond-studs.webp", alt: "Diamond stud earrings in a gift box", label: "Studs" },
-  { src: "/categories/tennis-bracelets.webp", alt: "Diamond tennis bracelet on marble", label: "Tennis" },
-  { src: "/nav-jewelry/halo-ring.webp", alt: "Halo diamond ring", label: "Halo" },
-  { src: "/Collections/Stack.png", alt: "Stacked diamond eternity bands", label: "Stack" },
+  { src: "/gift-guide/rings.jpeg", position: "50% 55%" },
+  { src: "/gift-guide/champagne-bracelet.jpeg", position: "50% 40%" },
+  { src: "/gift-guide/sapphire-ring.jpeg", position: "50% 45%" },
+  { src: "/gift-guide/pendant-gloves.jpeg", position: "50% 50%" },
 ];
 
 /**
- * Holiday Gift Guide hero - trial design modelled on landingPageTheme.jpeg, a
- * black-and-white printed catalog, set on a warm paper-white ground.
- * Photography is desaturated to match it and regains its colour on hover;
- * antique gold is kept for accents only.
+ * Holiday Gift Guide hero - trial design. The headline is laid out like the
+ * banner on Stuller's holiday page: a large display word on the first line
+ * and a serif capital word on the second, pushed right so the two lines stagger
+ * rather than share a left edge. The collage on the right borrows the printed
+ * catalog from landingPageTheme.jpeg; each page carries a single cover line.
  *
- * Standalone: the root layout hides the navbar, footer, marquee and assistant
- * on /gift-guide, so the AMIPI wordmark top-left is the only way back home.
+ * The banner is held to 60-70% of the viewport height on desktop (on phones
+ * it stacks and takes its natural height). The masthead sits above it,
+ * outside that height, the way Stuller's site header sits above its banner.
+ *
+ * Standalone: the root layout hides the site chrome on /gift-guide, so the
+ * masthead wordmark is the way back home.
  */
 export function GiftGuideHero() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const reveal = sectionRef.current?.querySelectorAll("[data-reveal]");
-      if (reveal?.length) {
-        gsap.from(reveal, { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", stagger: 0.08 });
-      }
+      gsap.from("[data-reveal]", { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", stagger: 0.08 });
       // The catalog pages drop in one after the other. Their tilt is the CSS
       // `rotate` property, which GSAP's transform tween leaves alone.
-      gsap.from("[data-page]", {
-        opacity: 0,
-        y: 60,
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.15,
-        delay: 0.2,
-      });
+      gsap.from("[data-page]", { opacity: 0, y: 60, duration: 1.2, ease: "power3.out", stagger: 0.15, delay: 0.2 });
     },
-    { scope: sectionRef },
+    { scope: rootRef },
   );
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative flex min-h-svh flex-col overflow-hidden bg-surface px-edge pt-6 pb-8 text-[#141414]"
-    >
-      {/* Soft paper glow behind the catalog, with a faint warm wash bottom-left */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 50% 60% at 72% 40%, rgba(255,255,255,0.9), transparent 70%), radial-gradient(ellipse 35% 40% at 15% 80%, rgba(168,128,63,0.08), transparent 70%)",
-        }}
-      />
-
-      {/* Masthead strip */}
+    <div ref={rootRef} className={`${GROUND} text-[#141414]`}>
+      {/* Masthead strip, on the cream above the banner */}
       <header
         data-reveal
-        className="relative flex items-center justify-between border-b border-[#141414]/15 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
+        className="mx-edge flex items-center justify-between border-b border-[#141414]/15 pt-6 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
       >
         {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
             this page hides the site chrome and the wordmark is the way home. */}
@@ -101,124 +100,125 @@ export function GiftGuideHero() {
         <span>Vol. 01</span>
       </header>
 
-      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 py-[clamp(1.5rem,4vh,2.5rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
-        {/* Copy */}
-        <div className="max-w-xl">
-          <p data-reveal className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] text-[#8a6630] uppercase">
-            The Gift Guide
-            <span className="h-px w-20 bg-[#8a6630]/50 sm:w-32" />
-          </p>
+      {/* Hero: 65% of the viewport on desktop. The navy band runs edge to edge
+          but is shorter than the hero, so the catalog pages break out above
+          and below it the way the products do on Stuller's banner. On phones,
+          where the hero stacks, the band sits behind the copy only and the
+          collage follows on the cream. */}
+      <section className="relative isolate mt-6 grid items-center gap-10 pb-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:py-[clamp(1rem,3vh,2rem)]">
+        <div aria-hidden className="absolute inset-x-0 top-[13%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block">
+          <BannerImage />
+          {/* Soft navy pool behind the copy, so the left ribbon's sheen
+              doesn't run through the paragraph */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_75%_at_24%_55%,rgba(5,13,35,0.7),transparent)]" />
+        </div>
 
-          <h1
-            data-reveal
-            className="mt-5 font-[family-name:var(--font-bodoni)] text-[clamp(3rem,min(7.5vw,11vh),6.5rem)] leading-[0.95] font-normal uppercase"
-          >
-            Holiday
-            <span className={`block italic normal-case tracking-normal ${GOLD_TEXT}`}>
+        {/* Copy - inset from the masthead edge so it sits nearer the collage */}
+        <div
+          className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-14 sm:py-16 lg:overflow-visible lg:bg-transparent lg:px-0 lg:py-0"
+          style={{ color: IVORY }}
+        >
+          {/* Phone-only copy of the band, anchored left so the satin ribbon shows */}
+          <div aria-hidden className="absolute inset-0 -z-10 lg:hidden">
+            <BannerImage position="0% 50%" />
+            <div className="absolute inset-0 bg-[#050d23]/50" />
+          </div>
+          <div className="max-w-2xl lg:pl-4 xl:pl-[clamp(1.5rem,6vw,7rem)]">
+          <h1 data-reveal className="leading-none">
+            {/* Cormorant Garamond Italic (the real italic, loaded in the route's
+                page.tsx) at 500 - heavy enough that its hairlines survive on
+                the velvet, calligraphic without turning into a script. */}
+            <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.2] font-medium italic">
+              Holiday
+            </span>
+            {/* Second line pushed right - the stagger on Stuller's "Magic /
+                MOMENT" - so the two lines don't share a left edge. */}
+            <span
+              className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+            >
               Catalog
             </span>
           </h1>
 
-          <div data-reveal className="mt-6 flex items-center gap-4">
-            <span className="h-px w-12 bg-[#141414]/30" />
-            <span className="text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase">
+          <div data-reveal className="mt-[clamp(1rem,3vh,1.75rem)] flex items-center gap-4">
+            <span className="h-px w-12 bg-[#dcbc7e]/60" />
+            <span className="text-xs tracking-[0.25em] whitespace-nowrap text-[#f5efe4]/75 uppercase sm:tracking-[0.35em]">
               Christmas · New Year · Winter
             </span>
           </div>
 
-          <p data-reveal className="mt-6 max-w-[42ch] text-[0.9375rem] leading-relaxed text-[#141414]/70">
+          <p data-reveal className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80">
             One page, every gift your customers will ask for this season - the
             essentials that sell themselves, the trends worth stocking, and the
             new collections ready for the holiday counter.
           </p>
-
-          <div data-reveal className="mt-8 flex flex-wrap items-center gap-6">
-            <PillButton href="/categories" variant="gold" icon="gem">
-              Explore The Guide
-            </PillButton>
-            <Link
-              href="/categories"
-              className="border-b border-[#141414]/30 pb-1 text-xs tracking-[0.3em] text-[#141414]/80 uppercase transition-colors hover:border-[#a8803f] hover:text-[#a8803f]"
-            >
-              New Arrivals
-            </Link>
           </div>
         </div>
 
-        {/* Catalog collage: a cover and an open "Collection" spread. A size
-            container so the cover masthead scales with the collage rather than
-            the viewport, and 10:9 so the tilted cover stays inside the box
-            instead of running into the contents row on short screens. */}
-        <div className="@container relative mx-auto aspect-[10/9] w-[calc(100%-1rem)] max-w-[min(38rem,62vh)] sm:w-full">
+        {/* Catalog collage: a cover and an open spread, each carrying one
+            cover line. 4:3, capped by the banner's height so it never
+            overflows it, and held slightly in from the right edge. A size
+            container, so the cover lines scale with the collage (cqw) rather
+            than the viewport. The photos stay decorative (alt=""). */}
+        <div
+          className="@container relative mx-auto aspect-[4/3] w-[calc(100%-2*var(--spacing-edge)-1rem)] max-w-[min(50rem,calc(58svh*4/3))] sm:w-[calc(100%-2*var(--spacing-edge))] lg:mr-[clamp(1rem,3vw,3.5rem)] lg:w-full"
+        >
           {/* Cover */}
-          <figure
+          <div
             data-page
-            className="group absolute top-0 left-0 w-[56%] -rotate-3 bg-white p-[4%] shadow-[0_30px_60px_-24px_rgba(20,20,20,0.35)]"
+            className="group absolute top-[2%] left-[1%] w-[54%] -rotate-3 bg-white p-[4%] shadow-[0_30px_60px_-20px_rgba(5,12,30,0.55)]"
           >
-            <p className="text-center font-[family-name:var(--font-bodoni)] text-[5.5cqw] leading-none tracking-[0.12em] whitespace-nowrap text-[#111] uppercase">
-              Gift Guide
-            </p>
-            <div className="mx-auto mt-2 mb-3 h-px w-2/3 bg-[#111]/30" />
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
                 src="/new-arrival/tennis-necklace-model.webp"
-                alt="Model wearing a diamond tennis necklace"
+                alt=""
                 fill
                 priority
-                sizes="(min-width: 1024px) 22rem, 55vw"
+                sizes="(min-width: 1024px) 24rem, 55vw"
                 className="object-cover grayscale contrast-125 transition duration-700 group-hover:grayscale-0"
               />
+              {/* Cover line, magazine style: a dark fade up from the bottom
+                  keeps white type readable over any part of the photo. */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-[7%] pt-[30%] pb-[7%] text-white">
+                <p className="text-[max(8px,1.6cqw)] font-medium tracking-[0.14em] sm:tracking-[0.3em] text-white/80 uppercase">
+                  The Holiday Edit
+                </p>
+                <p className="mt-[0.4em] font-[family-name:var(--font-bodoni)] text-[4.4cqw] leading-[1.05] italic">
+                  Made to Be
+                  <br />
+                  Unwrapped
+                </p>
+              </div>
             </div>
-            <figcaption className="mt-3 flex justify-between text-[10px] tracking-[0.25em] text-[#111]/60 uppercase">
-              <span>The Gift Edit</span>
-              <span>AMIPI</span>
-            </figcaption>
-          </figure>
+          </div>
 
-          {/* Collection spread */}
+          {/* Spread */}
           <div
             data-page
-            className="absolute right-0 bottom-0 w-[60%] rotate-2 bg-[#ebe7df] p-[4%] shadow-[0_30px_60px_-24px_rgba(20,20,20,0.35)]"
+            className="absolute right-[1%] bottom-[2%] w-[60%] rotate-2 bg-[#ebe7df] p-[4%] shadow-[0_30px_60px_-20px_rgba(5,12,30,0.55)]"
           >
-            <p className="font-[family-name:var(--font-bodoni)] text-[clamp(1rem,2.2vw,1.6rem)] tracking-[0.18em] text-[#111] uppercase">
-              Collection
+            {/* Ribbon tag across the spread's top edge */}
+            <p className="absolute top-0 left-[6%] -translate-y-1/2 bg-[linear-gradient(180deg,#ecd3a0,#c9a35c)] px-[0.9em] py-[0.55em] text-[max(8px,1.5cqw)] font-medium tracking-[0.18em] whitespace-nowrap sm:tracking-[0.28em] text-[#0b1a3d] uppercase shadow-[0_8px_20px_-8px_rgba(5,12,30,0.6)]">
+              Little Boxes · <span className="font-semibold">Big Sparkle</span>
             </p>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              {SPREAD.map((item) => (
-                <div key={item.label} className="group relative aspect-square overflow-hidden bg-white">
+            <div className="grid grid-cols-2 gap-2">
+              {SPREAD.map((tile) => (
+                <div key={tile.src} className="group relative aspect-square overflow-hidden bg-white">
                   <Image
-                    src={item.src}
-                    alt={item.alt}
+                    src={tile.src}
+                    alt=""
                     fill
-                    sizes="(min-width: 1024px) 11rem, 28vw"
-                    className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                    sizes="(min-width: 1024px) 13rem, 28vw"
+                    style={{ objectPosition: tile.position }}
+                    className="object-cover transition duration-700 group-hover:scale-105"
                   />
-                  <span className="absolute bottom-1.5 left-1.5 bg-white/85 px-1.5 py-0.5 text-[9px] tracking-[0.2em] text-[#111] uppercase">
-                    {item.label}
-                  </span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Contents: the themed edits */}
-      <ol
-        data-reveal
-        aria-label="Gift guide edits"
-        className="relative mx-auto grid w-full max-w-7xl grid-cols-1 border-t border-[#141414]/15 sm:grid-cols-2 lg:grid-cols-5"
-      >
-        {EDITS.map((edit, i) => (
-          <li key={edit.title} className="border-[#141414]/10 py-4 sm:pr-6 lg:border-l lg:px-4 lg:first:border-l-0 lg:first:pl-0">
-            <p className={`font-[family-name:var(--font-bodoni)] text-lg leading-none [font-variant-numeric:lining-nums] ${GOLD_TEXT}`}>
-              {String(i + 1).padStart(2, "0")}
-            </p>
-            <p className="mt-2 text-xs font-medium tracking-[0.14em] text-[#141414] uppercase">{edit.title}</p>
-            <p className="mt-1 text-xs text-[#141414]/65">{edit.pieces}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
+    </div>
   );
 }
