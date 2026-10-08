@@ -46,7 +46,7 @@ export function GiftGuideTrends() {
             {TRENDS.map((trend, i) => (
               <li
                 key={trend.title}
-                className="group @container relative aspect-[4/5] overflow-hidden rounded-xl bg-[#ebe7df]"
+                className="@container relative aspect-[4/5] overflow-hidden rounded-xl bg-[#ebe7df]"
               >
                 <Image
                   src={trend.src}
@@ -54,7 +54,7 @@ export function GiftGuideTrends() {
                   fill
                   sizes="(min-width: 1024px) 15rem, 45vw"
                   style={{ objectPosition: trend.position }}
-                  className="object-cover transition duration-700 group-hover:scale-105"
+                  className="object-cover"
                 />
                 {/* Dark fade from the top for the numeral and from the bottom
                     for the label; the placeholder photos are mostly pale. */}

@@ -203,14 +203,14 @@ export function GiftGuideHero() {
             </p>
             <div className="grid grid-cols-2 gap-2">
               {SPREAD.map((tile) => (
-                <div key={tile.src} className="group relative aspect-square overflow-hidden bg-white">
+                <div key={tile.src} className="relative aspect-square overflow-hidden bg-white">
                   <Image
                     src={tile.src}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 13rem, 28vw"
                     style={{ objectPosition: tile.position }}
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="object-cover"
                   />
                 </div>
               ))}

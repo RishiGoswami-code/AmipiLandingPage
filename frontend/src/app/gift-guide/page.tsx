@@ -3,6 +3,14 @@ import localFont from "next/font/local";
 import { GiftGuideHero } from "@/components/gift-guide/GiftGuideHero";
 import { GiftGuideTrends } from "@/components/gift-guide/GiftGuideTrends";
 import { GiftGuideJewelryTypes } from "@/components/gift-guide/GiftGuideJewelryTypes";
+import { GiftGuideBrilliance } from "@/components/gift-guide/GiftGuideBrilliance";
+import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
+import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestsellers";
+import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
+import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
+import { GiftGuideColorOfYear } from "@/components/gift-guide/GiftGuideColorOfYear";
+import { GiftGuideShopJewelry } from "@/components/gift-guide/GiftGuideShopJewelry";
+import { GiftGuideStockingStuffers } from "@/components/gift-guide/GiftGuideStockingStuffers";
 
 /*
  * Catalog display face for the gift guide only, vendored as latin-subset
@@ -69,6 +77,14 @@ export default function GiftGuidePage() {
       <GiftGuideHero />
       <GiftGuideTrends />
       <GiftGuideJewelryTypes />
+      <GiftGuideBrilliance />
+      <GiftGuideBridal />
+      <GiftGuideBestsellers />
+      <GiftGuideCustom />
+      <GiftGuideBezel />
+      <GiftGuideColorOfYear />
+      <GiftGuideShopJewelry />
+      <GiftGuideStockingStuffers />
     </div>
   );
 }
