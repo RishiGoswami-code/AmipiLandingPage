@@ -404,9 +404,13 @@ export default function HeroStage() {
     <section
       ref={sectionRef}
       data-hero-intro="pending"
-      className="hero-stage relative h-svh w-full"
+      className="hero-stage relative isolate h-svh w-full"
     >
-      {/* Exactly one viewport, so this is a plain box rather than the sticky
+      {/* `isolate` on the section keeps the stage's own z-layers (scrim z-30,
+          copy z-40) inside the hero, so the Diamond Search card that overlaps
+          its foot paints above all of them with a plain z-10.
+
+          Exactly one viewport, so this is a plain box rather than the sticky
           one it used to be: with nothing below it inside the section, there is
           no scroll distance for a sticky child to hold against. (It was never a
           ScrollTrigger pin either — page.tsx documents why that spacer is a
