@@ -52,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               form buttons in view, and the gift guide is standalone, so none of
               them get the footer or logo strip */}
           <HideOnRoutes
-            routes={["/about", "/login", "/register", "/forgot-password", "/gift-guide"]}
+            routes={["/about", "/login", "/register", "/forgot-password", "/gift-guide", "/custom"]}
             prefixes={["/studio"]}
           >
             <Footer />

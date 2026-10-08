@@ -25,7 +25,9 @@ type SalesIQ = {
     minimize: Callback;
   };
   chat?: { start: () => void };
-  visitor?: { name: Setter; email: Setter; contactnumber: Setter; question: Setter };
+  visitor?: { name: Setter; email: Setter; question: Setter };
+  /** SalesIQ's live record of what it knows about the visitor. */
+  values?: Record<string, string | undefined>;
 };
 
 declare global {
@@ -99,10 +101,27 @@ export function loadSalesIQ() {
 
 export type ChatStart = { name: string; email: string; phone: string; question: string };
 
+/** How long, and how often, the details are re-applied while SalesIQ's window loads. */
+const SETTLE_FOR = 8000;
+const SETTLE_EVERY = 400;
+
 /**
  * Starts a SalesIQ chat with the visitor's details and first message, and
  * shows SalesIQ's window for the live conversation. Resolves false if SalesIQ
  * hasn't loaded within `timeout` (ad blockers commonly stop chat widgets).
+ *
+ * Two things otherwise make SalesIQ show its own details form instead of
+ * starting the chat:
+ *
+ * - When its window loads for the first time it re-applies whatever it already
+ *   had on record for this visitor (it remembers details from earlier visits,
+ *   and picks them up from other forms on the site), overwriting the name and
+ *   email just given. So they are applied again, and the chat started again,
+ *   until they have stuck.
+ * - Its phone field needs a country code picked from a dropdown, which no
+ *   number passed through the API satisfies; a number sitting in that field
+ *   is marked invalid and blocks the start. So the phone is never sent to that
+ *   field - it goes at the end of the message, where the team still sees it.
  */
 export function startChat(details: ChatStart, timeout = 10_000): Promise<boolean> {
   loadSalesIQ();
@@ -111,13 +130,37 @@ export function startChat(details: ChatStart, timeout = 10_000): Promise<boolean
     const run = () => {
       if (settled) return;
       settled = true;
-      const api = siq();
-      api?.visitor?.name(details.name);
-      api?.visitor?.email(details.email);
-      if (details.phone) api?.visitor?.contactnumber(details.phone);
-      api?.visitor?.question(details.question);
-      api?.chat?.start();
-      api?.floatwindow?.visible("show");
+      const question = details.phone
+        ? `${details.question}
+
+Phone: ${details.phone}`
+        : details.question;
+      // SalesIQ reports ready before it has built its window, and its start()
+      // throws until then - so a failed start is simply tried again below.
+      let started = false;
+      const apply = () => {
+        const api = siq();
+        if (api?.values) delete api.values.phone;
+        api?.visitor?.name(details.name);
+        api?.visitor?.email(details.email);
+        api?.visitor?.question(question);
+        try {
+          api?.chat?.start();
+          started = true;
+        } catch {
+          started = false;
+        }
+      };
+      siq()?.floatwindow?.visible("show");
+      apply();
+
+      // Re-apply whenever SalesIQ has put its remembered details back.
+      const until = Date.now() + SETTLE_FOR;
+      const settle = window.setInterval(() => {
+        const values = siq()?.values;
+        if (Date.now() > until || !values) return window.clearInterval(settle);
+        if (!started || values.name !== details.name || values.email !== details.email || values.phone) apply();
+      }, SETTLE_EVERY);
       resolve(true);
     };
     if (state.ready) run();
