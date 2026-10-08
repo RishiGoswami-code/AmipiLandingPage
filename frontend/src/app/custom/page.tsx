@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Gem, HeartHandshake, Lightbulb, UserRound, type LucideIcon } from "lucide-react";
 import { CustomDesignForm } from "@/components/custom/CustomDesignForm";
 import { PillButton } from "@/components/ui/PillButton";
@@ -68,19 +67,13 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
 ];
 
 /**
- * amipi.com/custom in this site's own look. It is a standalone landing page:
- * the site navbar and footer are switched off for it in layout.tsx, and the
- * only chrome is the logo, centred at the top.
+ * amipi.com/custom in this site's own look. It keeps the site navbar; the
+ * full footer is switched off for it in layout.tsx in favour of the one-line
+ * contact strip at the bottom.
  */
 export default function CustomDesignPage() {
   return (
-    <div className="flex-1 bg-background">
-      <header className="flex justify-center px-6 py-5">
-        <Link href="/" aria-label="AMIPI home">
-          <Image src="/amipi-logo.png" alt="AMIPI" width={596} height={201} priority className="h-12 w-auto sm:h-14" />
-        </Link>
-      </header>
-
+    <div className="flex-1 bg-background pt-24 sm:pt-28">
       {/* Hero */}
       <section className="px-4 sm:px-8">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-navy-900 px-6 py-20 text-center sm:py-28">

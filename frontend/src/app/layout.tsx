@@ -43,8 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <GoogleAnalytics />
         {/* The gift guide is a standalone trial page - no site chrome at all */}
-        {/* /custom is a standalone landing page with only a centred logo */}
-        <HideOnRoutes routes={["/gift-guide", "/custom"]} prefixes={["/studio"]}>
+        <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
           <Navbar />
         </HideOnRoutes>
         <SmoothScroll>

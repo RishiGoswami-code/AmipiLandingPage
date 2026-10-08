@@ -108,7 +108,7 @@ Set these in `frontend/.env.local` for local work and in the Vercel project's En
 | `/meet` | Schedule a virtual meeting |
 | `/sell` | Sell your diamonds |
 | `/contact-us` | Contact |
-| `/custom` | Custom Design Studio (standalone landing page: logo only, no site menu) |
+| `/custom` | Custom Design Studio |
 | `/gift-guide` | Holiday gift guide |
 | `/about`, `/about-us`, `/philosophy`, `/amipi-cares`, `/testimonials` | Company pages |
 | `/privacy-policy`, `/terms-of-use` | Legal |
