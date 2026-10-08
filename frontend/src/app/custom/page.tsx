@@ -15,6 +15,11 @@ export const metadata: Metadata = {
 const SERIF = "font-[family-name:var(--font-cormorant)]";
 const KICKER = "text-[11px] font-medium tracking-[0.3em] text-[#a47a35] uppercase";
 
+/* Unsplash placeholder (a finished piece over its design sketches), like the
+   site's other stand-in photography - swap for AMIPI's own workshop photo. */
+const HERO_PHOTO =
+  "https://images.unsplash.com/photo-1777126413547-10124c595c84?auto=format&fit=crop&w=1800&h=1000&q=75";
+
 /** The five steps and four reasons, verbatim from amipi.com/custom. */
 const STEPS = [
   {
@@ -79,9 +84,11 @@ export default function CustomDesignPage() {
       {/* Hero */}
       <section className="px-4 sm:px-8">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-navy-900 px-6 py-20 text-center sm:py-28">
-          {/* Two soft gold glows stand in for a photograph */}
-          <div aria-hidden className="pointer-events-none absolute -top-32 -left-24 h-80 w-80 rounded-full bg-[#d4ae5c]/20 blur-3xl" />
-          <div aria-hidden className="pointer-events-none absolute -right-24 -bottom-36 h-96 w-96 rounded-full bg-[#d4ae5c]/15 blur-3xl" />
+          {/* The photo fills the card; the navy wash over it keeps the white
+              and gold text readable whatever the photo is. */}
+          <Image src={HERO_PHOTO} alt="" fill priority sizes="(min-width: 1152px) 1152px, 100vw" className="object-cover" />
+          <div aria-hidden className="absolute inset-0 bg-navy-900/80" />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-navy-950/40" />
           <div className="relative">
             <p className="text-[11px] font-medium tracking-[0.3em] text-[#dfbf7b] uppercase">
               AMIPI Fine Jewels
