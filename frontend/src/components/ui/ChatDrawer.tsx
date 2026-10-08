@@ -63,6 +63,7 @@ export function ChatDrawer({
   const [detailsError, setDetailsError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(0);
 
@@ -98,10 +99,10 @@ export function ChatDrawer({
     window.setTimeout(() => nameRef.current?.focus(), 100);
   }
 
-  async function connect(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const get = (k: string) => String(data.get(k) ?? "").trim();
+  async function connect() {
+    const box = detailsRef.current;
+    const get = (k: string) =>
+      (box?.querySelector<HTMLInputElement>(`[name="${k}"]`)?.value ?? "").trim();
     const name = get("name");
     const email = get("email");
     if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -267,9 +268,19 @@ export function ChatDrawer({
             </button>
           </form>
         ) : (
-          <form
-            onSubmit={connect}
-            noValidate
+          /* Deliberately not a <form>: SalesIQ reads name, email and phone out
+             of any form submitted on the page, and a phone it picks up that
+             way is what blocks its chat from starting (see lib/salesiq.ts). */
+          <div
+            ref={detailsRef}
+            role="group"
+            aria-label="Your details"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                connect();
+              }
+            }}
             className={`shrink-0 space-y-2 border-t border-black/10 px-4 py-3 ${
               stage === "details" ? "" : "pointer-events-none opacity-50"
             }`}
@@ -285,13 +296,14 @@ export function ChatDrawer({
               </p>
             )}
             <button
-              type="submit"
+              type="button"
+              onClick={connect}
               className="w-full cursor-pointer rounded-full py-2.5 text-[13px] font-semibold tracking-[0.08em] text-navy-950 uppercase transition-opacity hover:opacity-90"
               style={{ background: GOLD_BAR }}
             >
               Start chat
             </button>
-          </form>
+          </div>
         )}
       </aside>
     </div>
