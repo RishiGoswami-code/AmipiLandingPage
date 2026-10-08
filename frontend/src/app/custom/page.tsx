@@ -107,6 +107,22 @@ export default function CustomDesignPage() {
         </div>
       </section>
 
+      {/* Form - straight after the hero, where Get started lands */}
+      <section id="design-form" className="scroll-mt-24 px-6 pt-20 sm:px-12">
+        <div className="mx-auto max-w-3xl">
+          <p className={`${KICKER} text-center`}>Get started</p>
+          <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
+            Send us your design
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-foreground/70">
+            Share a photo or sketch and a few details, and our team will be in touch.
+          </p>
+          <div className="mt-10">
+            <CustomDesignForm />
+          </div>
+        </div>
+      </section>
+
       {/* Five steps */}
       <section className="px-6 pt-20 sm:px-12">
         <div className="mx-auto max-w-6xl">
@@ -129,7 +145,7 @@ export default function CustomDesignPage() {
       </section>
 
       {/* Why custom jewelry */}
-      <section className="px-6 pt-20 sm:px-12">
+      <section className="px-6 py-20 sm:px-12">
         <div className="mx-auto max-w-6xl">
           <p className={`${KICKER} text-center`}>Made for you</p>
           <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
@@ -150,22 +166,6 @@ export default function CustomDesignPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Form */}
-      <section id="design-form" className="scroll-mt-8 px-6 py-20 sm:px-12">
-        <div className="mx-auto max-w-3xl">
-          <p className={`${KICKER} text-center`}>Get started</p>
-          <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
-            Send us your design
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-foreground/70">
-            Share a photo or sketch and a few details, and our team will be in touch.
-          </p>
-          <div className="mt-10">
-            <CustomDesignForm />
           </div>
         </div>
       </section>
