@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Mail, Phone } from "lucide-react";
+import { CalendarDays, ChevronDown, Mail, Phone } from "lucide-react";
 import {
   CONTACT,
   NAV_ITEMS,
@@ -34,9 +34,8 @@ const panelId = (label: string) =>
  * requirement rather than a detail: in flow, between a 118px logo and a
  * two-button cluster, the free space splits evenly and the row settles ~110px
  * left of centre at every width. Centring instead means the space either side of
- * the row must match, so the cluster is capped at what fits beside a centred row
- * - which is what the Schedule button's size and its two labels are sized
- * against. See the note on it in Navbar.
+ * the row must match, so the logo and the socials-and-Login cluster are capped
+ * at what fits beside a centred row. See the notes on them in Navbar.
  *
  * The layer is `pointer-events-none` with the row and panels re-enabling
  * pointers, so the logo and the buttons underneath it stay clickable.
@@ -342,15 +341,12 @@ function ListPanel({ items }: { items: NavChild[] }) {
 }
 
 /**
- * Phone, email, then the four social marks, in that order.
+ * Phone, email, then the virtual-meeting booking, in that order - the three ways
+ * to start a conversation. Booking sits under a divider because it is the one
+ * that goes to a page rather than opening the phone or the mail client.
  *
- * The marks are a row of circular buttons rather than four more stacked rows:
- * a logo with no label beside it does not read as a list item, and four of them
- * one under another read as a broken list. Each carries an aria-label, so the
- * name is there for anyone not going by the glyph.
- *
- * Phone and email are the only live destinations in this navbar - tel: and
- * mailto: need no route to exist.
+ * The social marks used to close this panel; they sit in the bar itself now,
+ * where the Schedule button was.
  */
 function ContactPanel() {
   return (
@@ -370,19 +366,14 @@ function ContactPanel() {
         {CONTACT.email.label}
       </a>
 
-      <div className="mt-3 flex items-center gap-2 border-t border-navy-100 pt-3">
-        {CONTACT.socials.map(({ label, href, Icon }) => (
-          <InertAwareLink
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${label} (opens in a new tab)`}
-            className="grid h-9 w-9 place-items-center rounded-full bg-navy-50 text-navy-700 transition-colors hover:bg-navy-900 hover:text-white"
-          >
-            <Icon className="h-4 w-4" />
-          </InertAwareLink>
-        ))}
+      <div className="mt-3 border-t border-navy-100 pt-3">
+        <Link
+          href="/meet"
+          className="flex items-center gap-2.5 py-1.5 text-sm text-navy-800 transition-colors hover:text-navy-950"
+        >
+          <CalendarDays aria-hidden className="h-4 w-4 shrink-0 text-gold-600" />
+          Schedule a virtual meeting
+        </Link>
       </div>
     </div>
   );

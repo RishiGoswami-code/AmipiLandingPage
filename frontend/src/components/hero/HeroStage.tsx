@@ -4,7 +4,6 @@ import { useRef, type ComponentProps } from "react";
 import Image, { getImageProps } from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { PillButton } from "@/components/ui/PillButton";
 import { HeroLockup } from "./HeroLockup";
 import {
   BEATS,
@@ -24,7 +23,7 @@ import "./hero.css";
    art-directed <picture> below be built without hardcoding pixel sizes that
    would silently go stale — including when the 16:9 backdrop is swapped for its
    upscaled version. */
-import backdropWide from "../../../Hero-Images/necklace_final.png";
+import backdropWide from "../../../Hero-Images/Necklace-NavyBlue.png";
 import backdropPortrait from "../../../Hero-Images/Necklace-mobile.png";
 import cardEarrings from "../../../Hero-Images/earrings-Photoroom.png";
 import cardBracelet from "../../../Hero-Images/Hand.png";
@@ -41,7 +40,7 @@ gsap.registerPlugin(useGSAP);
  * to become the page background. Roughly 3.6s; any input fast-forwards it.
  *
  * The moment it resolves, the reveal hands the stage over: the lockup dissolves
- * and the hero's copy — the anniversary line and the CTA — takes its place.
+ * and the hero's copy — the anniversary line — takes its place.
  * Driven by the intro's own completion rather than by scroll, so the whole hero
  * is a single viewport tall and the first scroll goes straight into the next
  * section.
@@ -71,7 +70,6 @@ export default function HeroStage() {
       const wordmark = pick(".hero-wordmark");
       const copy = pick(".hero-copy");
       const kicker = pick(".hero-kicker");
-      const cta = pick(".hero-cta");
 
       if (
         !viewport ||
@@ -82,8 +80,7 @@ export default function HeroStage() {
         !est ||
         !wordmark ||
         !copy ||
-        !kicker ||
-        !cta
+        !kicker
       ) {
         return;
       }
@@ -179,11 +176,6 @@ export default function HeroStage() {
           kicker,
           { opacity: 0, y: 12, duration: REVEAL.kicker.dur },
           REVEAL.kicker.at,
-        )
-        .from(
-          cta,
-          { opacity: 0, y: 10, duration: REVEAL.cta.dur },
-          REVEAL.cta.at,
         );
 
       /* ------------------------------------------------------------------
@@ -469,39 +461,6 @@ export default function HeroStage() {
             <h1 className="hero-kicker text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               {HERO_COPY.kicker}
             </h1>
-            {/* mt-7 rather than the mt-8 this carried under the hairline: with
-                the headline and divider gone, the button is answering directly
-                to the line above it and a full 32px reads as a gap rather than
-                as a pair. */}
-            <div className="hero-cta pointer-events-auto mt-7 flex flex-wrap items-center gap-4">
-              {/* The `jewel` variant, which exists for this one button: the
-                  metallic ramp the rest of the site uses, minus the white
-                  hairline and gold glow that made `solid` read as plastic over
-                  photography, plus a bevel and a grounding shadow. `solid` is
-                  used in nine other places and is left alone.
-
-                  A gem in place of the bullet dot. The dot was a neutral marker
-                  that could have terminated any label on the site; this is the
-                  hero's one CTA on a diamond house's landing page, so the mark
-                  may as well be a stone. Sized a touch larger than the arrow
-                  icon because a faceted glyph needs the extra pixels to stay
-                  legible as a gem rather than a blob.
-
-                  `size="hero"` is kept even though "Explore Amipi" is less than
-                  half the length of the label it replaced. It is still the one
-                  CTA standing over photography at the top of the page, and a
-                  fluid size ties its geometry to the viewport instead of
-                  stepping at a single width; from ~620px up it resolves to the
-                  same box `md` would have given it anyway. */}
-              <PillButton
-                href={HERO_COPY.ctaHref}
-                variant="jewel"
-                size="hero"
-                icon="gem"
-              >
-                {HERO_COPY.ctaLabel}
-              </PillButton>
-            </div>
           </div>
         </div>
 

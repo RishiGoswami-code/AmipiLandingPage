@@ -51,8 +51,8 @@ export type NavMenu =
   | { kind: "mega"; groups: NavGroup[] }
   /** Compact panel, one link per row. */
   | { kind: "list"; children: NavChild[] }
-  /** Phone, email and the four social marks. Contents live in CONTACT below
-   *  rather than in the item, since the footer needs the same two values. */
+  /** Phone, email and the virtual-meeting booking. Contents live in CONTACT
+   *  below rather than in the item, since the footer needs the same two values. */
   | { kind: "contact" };
 
 /**
@@ -183,9 +183,10 @@ export const NAV_ITEMS: NavItem[] = [
  * The Contact Us panel's contents.
  *
  * Phone and email are live - they are the same values the footer already
- * publishes, and tel:/mailto: work without a route existing. The four social
- * links are AMIPI's own accounts, as linked from amipi.com; they open in a new
- * tab where they are rendered.
+ * publishes, and tel:/mailto: work without a route existing. They fill the
+ * Contact Us panel. The four social links are AMIPI's own accounts, as linked
+ * from amipi.com; they sit in the bar beside Login (and beside it in the mobile
+ * menu) and open in a new tab.
  */
 export const CONTACT = {
   phone: { label: "(800) 530-2647", href: "tel:+18005302647" },

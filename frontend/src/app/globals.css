@@ -99,6 +99,9 @@
   html {
     /* The palette is light-only; keep form controls in step. */
     color-scheme: light;
+    /* The navbar is fixed, so in-page anchors stop below it rather than under
+       it. Its scrolled height is 4rem; the extra 1rem is breathing room. */
+    scroll-padding-top: 5rem;
   }
 
   body {

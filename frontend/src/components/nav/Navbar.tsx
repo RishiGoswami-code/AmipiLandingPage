@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PillButton } from "@/components/ui/PillButton";
+import { CONTACT } from "@/components/nav/navigation";
 import { NavMenu } from "@/components/nav/NavMenu";
 import { NavOverlay } from "@/components/nav/NavOverlay";
 import { italiana } from "@/styles/fonts";
@@ -26,12 +27,15 @@ const DARK_ROUTES = ["/", "/about"];
  * the mobile accordion are three separate concerns, and holding all of them here
  * put the file past 700 lines.
  *
- * It carries no surface of its own, so it has nothing to sit on and must borrow
- * contrast from whatever is beneath it. On the home route that is the hero
+ * It is fixed to the top of the viewport so it stays in reach on a long page.
+ * At the top of a page it carries no surface of its own, so it has nothing to
+ * sit on and must borrow contrast from whatever is beneath it. On the home route that is the hero
  * photograph, which is warm espresso, so the nav paints light - as it does on
  * the About page, which opens on the same espresso. Every other route renders on
  * `--color-background` (#f5f7fb), where light-on-light would be invisible, so
- * the nav paints dark there instead.
+ * the nav paints dark there instead. Once the page scrolls, whatever is beneath
+ * it is content rather than a hero, so the bar takes a frosted white surface and
+ * paints dark on every route.
  *
  * The mark is assembled here from the roundel plus live text rather than using
  * the composite amipi-logo.png. That asset's wordmark is navy and its tagline
@@ -44,10 +48,26 @@ const DARK_ROUTES = ["/", "/about"];
  */
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* Read once on mount too, so a reload partway down a page starts on the white
+     bar instead of flashing the clear one over content. 20px is enough to tell
+     a scroll from a stray trackpad nudge. */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   /* Routes whose top section is a dark canvas - the home hero and the About
-     story; everywhere else is the light theme. */
-  const onDark = DARK_ROUTES.includes(usePathname());
+     story; everywhere else is the light theme. Scrolled, the bar is white, so
+     it paints dark on those routes too. */
+  const onDark = DARK_ROUTES.includes(usePathname()) && !scrolled;
+
+  /* The white surface steps aside while the overlay is open, so the light
+     close button reads against the overlay's espresso rather than a white bar. */
+  const surfaced = scrolled && !open;
 
   /* The overlay is espresso on every route, so once it is open the button has to
      read against the overlay rather than against the page underneath it. */
@@ -79,9 +99,8 @@ export function Navbar() {
      of dropping to a hamburger.
 
      It holds to 2xl rather than xl because the row is centred, so its width is
-     spent twice: every pixel it grows takes one from each side, and the Schedule
-     button takes its full label at xl. Both expanding at 1280 left 16px between
-     the row and the cluster; staggering them leaves ~69px. */
+     spent twice: every pixel it grows takes one from each side, and the logo
+     and the socials-and-Login cluster already take most of what is left at 1280. */
   const linkClasses = [
     "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
     onDark
@@ -102,7 +121,7 @@ export function Navbar() {
   const barColour = lightChrome ? "bg-ice-100" : "bg-navy-900";
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50">
       {/* Rendered before the bar so the bar's own stacking wins and the close
           button stays clickable while the menu is open. */}
       <NavOverlay open={open} onClose={() => setOpen(false)} />
@@ -113,8 +132,17 @@ export function Navbar() {
 
           `relative` is what NavMenu's dropdowns position against - the panels
           hang off the bottom edge of this box, and the wide one spans its full
-          width. */}
-      <div className="nav-bar relative z-10 flex h-16 items-center justify-between px-edge sm:h-20">
+          width.
+
+          The surface goes on this row rather than on header: a backdrop-filter
+          on header would make it the containing block for the fixed overlay. */}
+      <div
+        className={`nav-bar relative z-10 flex items-center justify-between px-edge transition-[background-color,box-shadow,height] duration-300 ease-out motion-reduce:transition-none ${
+          surfaced
+            ? "h-16 bg-white/90 shadow-[0_8px_24px_-16px_rgba(15,23,42,0.35)] backdrop-blur-md"
+            : "h-16 sm:h-20"
+        }`}
+      >
         {/* Centred on mobile, flush left from lg. Centring it also does the work
             of moving the hamburger: with the logo out of flow and both the centre
             nav and the right cluster hidden, the button is the only remaining
@@ -122,7 +150,7 @@ export function Navbar() {
             utilities needed. */}
         <Link
           href="/"
-          className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5 sm:gap-3 lg:static lg:translate-x-0"
+          className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 lg:static lg:translate-x-0"
           onClick={() => setOpen(false)}
         >
           {/* Decorative: the adjacent text is the link's accessible name.
@@ -137,9 +165,9 @@ export function Navbar() {
             width={512}
             height={512}
             priority
-            className={`h-8 w-8 sm:h-9 sm:w-9 ${
-              lightChrome ? "opacity-75" : ""
-            }`}
+            className={`h-10 w-10 transition-[width,height] duration-300 motion-reduce:transition-none ${
+              surfaced ? "sm:h-11 sm:w-11" : "sm:h-12 sm:w-12"
+            } ${lightChrome ? "opacity-75" : ""}`}
           />
           {/* Italiana, with no weight class. The face ships only at 400, so a
               bold utility here would have the browser synthesise one and thicken
@@ -152,7 +180,7 @@ export function Navbar() {
               letters apart instead of setting them off. Just enough to stop caps
               designed for mixed-case fitting from looking tight. */}
           <span
-            className={`${italiana.className} text-xl tracking-[0.06em] uppercase sm:text-2xl ${
+            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl ${
               lightChrome ? "text-ice-100" : "text-navy-900"
             }`}
           >
@@ -166,51 +194,31 @@ export function Navbar() {
         />
 
         <div className="relative z-10 ml-auto hidden items-center gap-3 lg:flex">
-          {/* The bar's primary business action, and the reason the phone number
-              that used to sit here is gone: two competing ways to start a
-              conversation, and the one that books a slot beats the one that
-              hopes someone picks up. The number is still a tap away in the
-              Contact Us panel, in the mobile menu and in the footer.
-
-              Neither href nor onClick, so this renders as a real button that
-              does nothing yet - the scheduling flow is UNBUILT like the rest of
-              the menu (see navigation.ts). It is focusable and hoverable
-              meanwhile, which is what a design pass needs. */}
-          {/* Navy against the champagne Login, which is the pairing the rest of
-              the site runs on - no new colour enters the palette for this.
-
-              The two shadows are what let a dark fill sit on the hero
-              photograph, and they are lifted straight from the `jewel` variant's
-              reasoning: a warm near-black drop shadow grounds the pill on the
-              photo instead of haloing it off the surface, and a 1px inset
-              highlight on the top edge alone is a bevel rather than a border, so
-              it catches light along one edge instead of drawing a rectangle.
-              That is the specific fix for what the Login comment below records -
-              a navy shape on espresso whose edge dissolves into it. Passed here
-              rather than baked into the variant because it is only the navbar
-              that sits on photography. */}
-          <PillButton
-            href="/meet"
-            variant="dark"
-            size="xs"
-            className="shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_26px_-12px_rgba(14,11,10,0.85)]"
-          >
-            {/* Two labels, because the link row is centred on the viewport and
-                that fixes how much room this button has: the gap between the
-                centred row and the gutter is ~125px at 1024, ~186px at 1280 and
-                ~330px at 1600, and Login takes ~96px of it first. The full
-                26-character label is ~170px even at this size, so it only fits
-                from 1280 up. Below that it would push the row off centre, which
-                is the one thing the bar is not allowed to do, so a shorter label
-                carries the same action.
-
-                Both copies render in both of PillButton's text layers - it keeps
-                a duplicate of the label parked below for the roll-up hover - so
-                the visible one has to be chosen by CSS rather than by picking a
-                string, or the hover would swap between two different words. */}
-            <span className="xl:hidden">Book a meeting</span>
-            <span className="hidden xl:inline">Schedule a virtual meeting</span>
-          </PillButton>
+          {/* AMIPI's social accounts, where the Schedule button used to sit -
+              scheduling moved into the Contact Us panel. Plain glyphs rather
+              than the circled buttons the panel had: four circles beside a pill
+              read as a second button row, and the bare marks are narrow enough
+              to fit beside the centred link row from 1024px. Each carries an
+              aria-label, so the name is there for anyone not going by the mark. */}
+          <ul className="flex items-center">
+            {CONTACT.socials.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${label} (opens in a new tab)`}
+                  className={`grid h-8 w-8 place-items-center transition-colors ${
+                    onDark
+                      ? "text-ice-100/80 hover:text-white"
+                      : "text-navy-700/80 hover:text-navy-900"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              </li>
+            ))}
+          </ul>
           {/* Brand gold rather than navy. Navy-on-espresso was a dark shape on a
               dark photograph whose edge dissolved into it, needing a hairline to
               stay visible at all; gold separates on value alone and ties the

@@ -417,6 +417,32 @@
     );
 }
 
+/* From 640px up the backdrop is the navy-velvet shot (Necklace-NavyBlue), so
+   the stage and the scrim follow it into a blue-black key - the espresso values
+   above would read as a brown cast over the navy. #000a1e is the photograph's
+   own edge colour, sampled from its corners. Phones keep the espresso portrait
+   and the espresso values with it. */
+@media (min-width: 640px) {
+  .hero-stage {
+    background-color: #000a1e;
+  }
+
+  .hero-scrim {
+    background:
+      radial-gradient(
+        120% 85% at 50% 45%,
+        transparent 35%,
+        rgba(0, 10, 30, 0.55) 100%
+      ),
+      linear-gradient(
+        to top,
+        rgba(0, 10, 30, 0.78) 0%,
+        rgba(0, 10, 30, 0.12) 45%,
+        rgba(0, 10, 30, 0.4) 100%
+      );
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Frame 0.
 

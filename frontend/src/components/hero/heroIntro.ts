@@ -94,7 +94,7 @@ if (process.env.NODE_ENV !== "production") {
 
 /**
  * The copy hand-off: the centre lockup dissolves and the hero's copy —
- * anniversary line, then CTA — takes its place.
+ * the anniversary line — takes its place.
  *
  * Positions here are relative to the *reveal's own* start, not to page load.
  * Add `INTRO_TOTAL` for wall-clock time. The reveal is a separate timeline
@@ -116,8 +116,6 @@ export const REVEAL = {
   markOut: { at: 0.12, dur: 0.68 },
   /** 11. Kicker fades up, overlapping the tail of the dissolve. */
   kicker: { at: 0.22, dur: 0.5 },
-  /** 12. CTA fades up behind it. */
-  cta: { at: 0.58, dur: 0.45 },
 } as const satisfies Record<string, Beat>;
 
 /* ---------------------------------------------------------------------------
@@ -142,11 +140,9 @@ export const REVEAL = {
    which read as stray text rather than as a crossfade. Restoring the headline
    means restoring that 0.3s gap with it.
 
-   With the headline gone the CTA is the only thing left to follow the kicker,
-   and holding it until 1.3s would leave a second of a near-empty stage after the
-   dissolve has finished. It now trails the kicker by the same ~0.36s the kicker
-   trails the lockup's exit, so the two lines read as one pair arriving rather
-   than as two separate events.
+   The "Explore Amipi" CTA that followed the kicker has been removed too, so the
+   kicker is now the reveal's last beat. It trailed the kicker by ~0.36s
+   ({ at: 0.58, dur: 0.45 }) if a button comes back.
 --------------------------------------------------------------------------- */
 
 /**
@@ -253,16 +249,14 @@ export const HERO_COPY = {
   kicker: "Celebrating 50 Years of AMIPI",
   /**
    * Out of the hero for now — the anniversary line carries the message on its
-   * own and the CTA follows it directly. Kept here, unused, because the tagline
+   * own. Kept here, unused, because the tagline
    * is expected back; see the parked beats above for the motion that went with
    * it.
    */
   headline: ["No Bull.", "Just Diamonds."],
-  ctaLabel: "Explore Amipi",
-  ctaHref: "/categories",
   alt: {
     backdrop:
-      "Model wearing a graduated round-brilliant diamond tennis necklace, lit against a dark espresso backdrop",
+      "Model wearing a round-brilliant diamond tennis necklace, lit against a dark studio backdrop",
     earrings: "Diamond drop earrings worn against a dark espresso backdrop",
     bracelet: "Diamond tennis bracelet worn on the wrist, hand relaxed",
   },

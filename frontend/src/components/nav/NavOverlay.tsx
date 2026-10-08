@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Mail, Phone } from "lucide-react";
+import { CalendarDays, ChevronDown, Mail, Phone } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 import {
   CONTACT,
@@ -136,6 +136,24 @@ export function NavOverlay({
             >
               Login
             </PillButton>
+            {/* The socials sit with Login here, as they do beside it in the
+                desktop bar; the Contact Us group holds phone, email and
+                booking. */}
+            <div className="flex items-center gap-3">
+              {CONTACT.socials.map(({ label, href, Icon }) => (
+                <OverlayLink
+                  key={label}
+                  href={href}
+                  onNavigate={onClose}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${label} (opens in a new tab)`}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-ice-100 transition-colors hover:bg-white/20"
+                >
+                  <Icon className="h-4 w-4" />
+                </OverlayLink>
+              ))}
+            </div>
           </div>
         </nav>
       </div>
@@ -283,21 +301,14 @@ function OverlayContact({ onNavigate }: { onNavigate: () => void }) {
         <Mail aria-hidden className="h-4 w-4 shrink-0 text-gold-500" />
         {CONTACT.email.label}
       </a>
-      <div className="mt-3 flex items-center gap-3">
-        {CONTACT.socials.map(({ label, href, Icon }) => (
-          <OverlayLink
-            key={label}
-            href={href}
-            onNavigate={onNavigate}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${label} (opens in a new tab)`}
-            className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-ice-100 transition-colors hover:bg-white/20"
-          >
-            <Icon className="h-4 w-4" />
-          </OverlayLink>
-        ))}
-      </div>
+      <OverlayLink
+        href="/meet"
+        onNavigate={onNavigate}
+        className="flex items-center gap-3 py-2 text-base text-ice-100/70 transition-colors hover:text-ice-100"
+      >
+        <CalendarDays aria-hidden className="h-4 w-4 shrink-0 text-gold-500" />
+        Schedule a virtual meeting
+      </OverlayLink>
     </div>
   );
 }
