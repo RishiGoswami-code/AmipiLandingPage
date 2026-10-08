@@ -713,17 +713,10 @@ export function DiamondSearch() {
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative z-10 -mt-12 sm:-mt-20">
+    <section className="relative bg-background">
       {/* One white panel carrying everything - heading, shapes, filters,
-          buttons - top to bottom.
-
-          Pulled up over the foot of the hero by exactly its corner radius, so
-          the rounded top corners are framed by the hero's navy rather than by
-          the pale page background - without the overlap the photograph ended
-          in a hard line with two pale notches under it. The section is
-          transparent for the same reason: anything it painted would show in
-          those corners. The upward shadow lifts the card off the photograph. */}
-      <div className="relative rounded-t-[3rem] bg-white px-6 pt-12 pb-10 shadow-[0_-18px_40px_-22px_rgba(0,10,30,0.55),0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
+          buttons - top to bottom. */}
+      <div className="relative rounded-t-[3rem] bg-white px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">
         {/* Heading, centred */}
         <div className="text-center">
           {/* Cormorant sets optically smaller than the Playfair this replaced,
