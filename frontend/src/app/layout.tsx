@@ -43,7 +43,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <GoogleAnalytics />
         {/* The gift guide is a standalone trial page - no site chrome at all */}
-        <HideOnRoutes routes={["/gift-guide"]} prefixes={["/studio"]}>
+        {/* /custom is a standalone landing page with only a centred logo */}
+        <HideOnRoutes routes={["/gift-guide", "/custom"]} prefixes={["/studio"]}>
           <Navbar />
         </HideOnRoutes>
         <SmoothScroll>
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               form buttons in view, and the gift guide is standalone, so none of
               them get the footer or logo strip */}
           <HideOnRoutes
-            routes={["/about", "/login", "/register", "/forgot-password", "/gift-guide"]}
+            routes={["/about", "/login", "/register", "/forgot-password", "/gift-guide", "/custom"]}
             prefixes={["/studio"]}
           >
             <Footer />

@@ -108,6 +108,7 @@ Set these in `frontend/.env.local` for local work and in the Vercel project's En
 | `/meet` | Schedule a virtual meeting |
 | `/sell` | Sell your diamonds |
 | `/contact-us` | Contact |
+| `/custom` | Custom Design Studio (standalone landing page: logo only, no site menu) |
 | `/gift-guide` | Holiday gift guide |
 | `/about`, `/about-us`, `/philosophy`, `/amipi-cares`, `/testimonials` | Company pages |
 | `/privacy-policy`, `/terms-of-use` | Legal |
@@ -120,7 +121,7 @@ Pages use the same paths as the existing amipi.com site, so links and search res
 
 | amipi.com address | Here |
 |---|---|
-| `/about-us/`, `/amipi-cares/`, `/testimonials/`, `/contact-us/`, `/sell/`, `/meet`, `/register/`, `/privacy-policy/`, `/terms-of-use/` | Same path |
+| `/about-us/`, `/amipi-cares/`, `/testimonials/`, `/contact-us/`, `/sell/`, `/meet`, `/custom`, `/register/`, `/privacy-policy/`, `/terms-of-use/` | Same path |
 | `/sell.php` | Redirects to `/sell` |
 | `/schedule-appointment/` | Redirects to `/meet` |
 | Capitalised forms such as `/Privacy-Policy/` | Redirect to lower-case (`src/proxy.ts`) |
