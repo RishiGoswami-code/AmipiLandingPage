@@ -12,16 +12,18 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShopCategory = {
   name: string;
-  image: string;
-  /** Written out per tile rather than derived from the name: these are seven
-   * near-identical cream-and-white-gold studio shots, so "Hoop Earrings" alone
+  /** Optional while a category is still waiting on photography; the tile then
+   * shows its empty surface square, so the row keeps its rhythm. */
+  image?: string;
+  /** Written out per tile rather than derived from the name: these are
+   * near-identical cream-and-white-gold studio shots, so "Earrings" alone
    * would leave a screen reader unable to tell any of them apart. */
-  alt: string;
+  alt?: string;
 };
 
 /**
- * Seven categories, in browse order: necklace, bracelet, bands, studs, hoops,
- * engagement rings, bangles.
+ * Eight categories, in browse order: necklaces, bracelets, bands, studs,
+ * earrings, rings, bangles, pendants. Pendants has no photograph yet.
  *
  * Photography is the `categoryImages` set, converted to WebP and filed under
  * /public/categories (1200px, ~120KB each, down from ~2MB PNGs). Every tile
@@ -31,32 +33,32 @@ type ShopCategory = {
  */
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
-    name: "Tennis Necklaces",
+    name: "Necklaces",
     image: "/categories/tennis-necklaces.webp",
     alt: "White gold diamond tennis necklace laid in an ivory presentation box",
   },
   {
-    name: "Tennis Bracelets",
+    name: "Bracelets",
     image: "/categories/tennis-bracelets.webp",
     alt: "White gold diamond tennis bracelet on a marble surface",
   },
   {
-    name: "Anniversary Bands",
+    name: "Anniversary Bands & Eternity",
     image: "/categories/wedding-bands.webp",
     alt: "White gold half-eternity diamond anniversary band in an ivory ring box",
   },
   {
-    name: "Diamond Studs",
+    name: "Studs & Jackets",
     image: "/categories/diamond-studs.webp",
     alt: "Pair of round brilliant diamond stud earrings in white gold",
   },
   {
-    name: "Hoop Earrings",
+    name: "Earrings",
     image: "/categories/hoop-earrings.webp",
     alt: "Oval diamond inside-out hoop earrings in white gold, on a stone ledge",
   },
   {
-    name: "Engagement Rings",
+    name: "Rings",
     image: "/categories/engagement-rings.webp",
     alt: "Round brilliant halo engagement ring in white gold, set in an ivory ring box",
   },
@@ -64,6 +66,9 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     name: "Bangles",
     image: "/categories/bangles.webp",
     alt: "Flexible white gold diamond bangle resting on travertine",
+  },
+  {
+    name: "Pendants",
   },
 ];
 
@@ -189,8 +194,9 @@ export function ShopByCategory() {
          15.5vw puts six tiles plus the clipped seventh across a ~1600px
          viewport, which is the reference proportion. The 11rem floor is for the
          bottom of the lg range: at 1024px the bare vw value resolves to 159px,
-         which is too narrow for "Engagement Rings" to sit on one line, so the
-         caption band goes ragged while every other label stays single-line.
+         which leaves the mid-length labels ("Studs & Jackets") one word from
+         wrapping. "Anniversary Bands & Eternity" wraps to two lines at every
+         width; captions are top-aligned, so that only deepens its own tile.
          Below the floor the row simply shows fewer tiles, which a scroller can
          afford.
 
@@ -270,13 +276,15 @@ export function ShopByCategory() {
                   was. */}
               <div data-card>
                 <div className="relative aspect-square overflow-hidden bg-surface">
-                  <Image
-                    src={category.image}
-                    alt={category.alt}
-                    fill
-                    sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+                  {category.image && (
+                    <Image
+                      src={category.image}
+                      alt={category.alt ?? ""}
+                      fill
+                      sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  )}
                 </div>
                 <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
                   {category.name}
