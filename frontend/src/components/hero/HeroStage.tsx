@@ -442,12 +442,18 @@ export default function HeroStage() {
             first byte, so the h1 is always there for crawlers and assistive
             technology.
 
+            It sits just under the navbar's logo rather than at the left
+            centre, so the anniversary line reads as a caption to the AMIPI
+            lockup. The top padding clears the bar's top-of-page height (h-16,
+            sm:h-20) with the logo's own breathing room below it. Below lg the
+            navbar centres its logo, so the line centres with it there.
+
             `px-edge` rather than the px-6/sm:px-12/lg:px-20 ramp the sections
             below use: this column has to start on the same vertical line as the
             navbar's logo, which is directly above it, and that means reading the
             same shared gutter token rather than a fixed inset that only agreed
             with it near 1454px. */}
-        <div className="hero-copy pointer-events-none absolute inset-0 z-40 flex flex-col items-start justify-center px-edge">
+        <div className="hero-copy pointer-events-none absolute inset-0 z-40 flex flex-col items-center justify-start px-edge pt-[4.5rem] text-center sm:pt-[5.25rem] lg:items-start lg:text-left">
           {/* Narrower than a full-width column on purpose. Recentring the subject
               moved her left, which pulled the clear backdrop band in from ~33% of
               the viewport to ~21.6%, and the copy has to stay inside it rather

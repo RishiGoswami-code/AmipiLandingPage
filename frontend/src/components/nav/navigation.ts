@@ -17,9 +17,9 @@ import {
 
 /**
  * Most destinations in this file do not exist yet - there are no per-category
- * pages, and nothing has been built for Registration, Make a Payment, Remote
- * Assistance or Schedule Appointment - so those entries stay inert. Why Amipi?,
- * Amipi Cares and Testimonials are live.
+ * pages, no Deal page, and nothing has been built for Make a Payment or Remote
+ * Assistance - so those entries stay inert. Why Amipi?, Amipi Cares,
+ * Testimonials, Registration and Schedule Appointment are live.
  *
  * A named constant rather than a bare "#" at nineteen call sites so that
  * (a) the rows can suppress the navigation instead of jumping to the top of the
@@ -151,8 +151,9 @@ const FINE_JEWELRY: NavGroup[] = [
 ];
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Diamonds", href: UNBUILT },
   { label: "Fine Jewelry", menu: { kind: "mega", groups: FINE_JEWELRY } },
+  { label: "Diamonds", href: UNBUILT },
+  { label: "Deal", href: UNBUILT },
   {
     label: "About Us",
     menu: {

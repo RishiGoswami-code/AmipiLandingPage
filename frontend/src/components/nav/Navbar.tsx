@@ -193,13 +193,16 @@ export function Navbar() {
           underlineClassName={underlineClasses}
         />
 
-        <div className="relative z-10 ml-auto hidden items-center gap-3 lg:flex">
+        <div className="relative z-10 ml-auto hidden items-center gap-2 lg:flex xl:gap-3">
           {/* AMIPI's social accounts, where the Schedule button used to sit -
               scheduling moved into the Contact Us panel. Plain glyphs rather
               than the circled buttons the panel had: four circles beside a pill
               read as a second button row, and the bare marks are narrow enough
-              to fit beside the centred link row from 1024px. Each carries an
-              aria-label, so the name is there for anyone not going by the mark. */}
+              to fit beside the centred link row from 1024px. Below xl the hit
+              areas and the gap before Login narrow by a few pixels, which is
+              what keeps the cluster clear of the six-item link row at 1024px.
+              Each carries an aria-label, so the name is there for anyone not
+              going by the mark. */}
           <ul className="flex items-center">
             {CONTACT.socials.map(({ label, href, Icon }) => (
               <li key={label}>
@@ -208,7 +211,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} (opens in a new tab)`}
-                  className={`grid h-8 w-8 place-items-center transition-colors ${
+                  className={`grid h-8 w-7 place-items-center xl:w-8 transition-colors ${
                     onDark
                       ? "text-ice-100/80 hover:text-white"
                       : "text-navy-700/80 hover:text-navy-900"
