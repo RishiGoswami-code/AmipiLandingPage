@@ -7,7 +7,7 @@ import { PillButton } from "@/components/ui/PillButton";
 export const metadata: Metadata = {
   title: "Custom Design Studio — AMIPI",
   description:
-    "Custom Design Studio by AMIPI Fine Jewels: one-of-a-kind jewelry made to your idea, in five steps from sketch to delivery. Send us your design to get started.",
+    "Custom Design Studio by AMIPI Fine Jewels: one-of-a-kind jewelry made to your idea. Send us your design to get started.",
   alternates: { canonical: "/custom" },
 };
 
@@ -19,30 +19,7 @@ const KICKER = "text-[11px] font-medium tracking-[0.3em] text-[#a47a35] uppercas
 const HERO_PHOTO =
   "https://images.unsplash.com/photo-1777126413547-10124c595c84?auto=format&fit=crop&w=1800&h=1000&q=75";
 
-/** The five steps and four reasons, verbatim from amipi.com/custom. */
-const STEPS = [
-  {
-    title: "Idea",
-    body: "An heirloom piece re-imagined. A specially designed engagement ring. A creative logo. A symbol of your favorite style. An expression of your love. Every custom design begins with an idea. You dream it. We make it.",
-  },
-  {
-    title: "Design",
-    body: "From tangible sketches and 2-D designs that ensure aesthetic appearance, structural strength, endurance and budget compliance to 2-3 initial concepts curated based on your feedback, we walk you through it all.",
-  },
-  {
-    title: "Creation",
-    body: "A 3D CAD model of your design is crafted, providing digital rendering from all angles. The 3D concept is further transformed into an exact wax model replica.",
-  },
-  {
-    title: "Manufacturing",
-    body: "Your custom jewelry is then casted in the metal and gemstones of your choice.",
-  },
-  {
-    title: "Delivery",
-    body: "Your vision comes to life and a beautiful piece of jewelry is ready for you. One that is truly unique and truly by you.",
-  },
-];
-
+/** The four reasons, verbatim from amipi.com/custom. */
 const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: UserRound,
@@ -107,45 +84,8 @@ export default function CustomDesignPage() {
         </div>
       </section>
 
-      {/* Form - straight after the hero, where Get started lands */}
-      <section id="design-form" className="scroll-mt-24 px-6 pt-20 sm:px-12">
-        <div className="mx-auto max-w-3xl">
-          <p className={`${KICKER} text-center`}>Get started</p>
-          <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
-            Send us your design
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-foreground/70">
-            Share a photo or sketch and a few details, and our team will be in touch.
-          </p>
-          <div className="mt-10">
-            <CustomDesignForm />
-          </div>
-        </div>
-      </section>
-
-      {/* Five steps */}
-      <section className="px-6 pt-20 sm:px-12">
-        <div className="mx-auto max-w-6xl">
-          <p className={`${KICKER} text-center`}>From dream to design</p>
-          <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
-            Five easy steps
-          </h2>
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {STEPS.map((step, i) => (
-              <li key={step.title} className="rounded-2xl border border-black/[0.07] bg-white p-5">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-navy-900 text-[13px] font-semibold text-[#dfbf7b]">
-                  {i + 1}
-                </span>
-                <h3 className={`${SERIF} mt-4 text-2xl text-foreground`}>{step.title}</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/70">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       {/* Why custom jewelry */}
-      <section className="px-6 py-20 sm:px-12">
+      <section className="px-6 pt-20 sm:px-12">
         <div className="mx-auto max-w-6xl">
           <p className={`${KICKER} text-center`}>Made for you</p>
           <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
@@ -166,6 +106,22 @@ export default function CustomDesignPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Form */}
+      <section id="design-form" className="scroll-mt-24 px-6 py-20 sm:px-12">
+        <div className="mx-auto max-w-3xl">
+          <p className={`${KICKER} text-center`}>Get started</p>
+          <h2 className={`${SERIF} mt-3 text-center text-4xl tracking-tight text-foreground sm:text-5xl`}>
+            Send us your design
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-foreground/70">
+            Share a photo or sketch and a few details, and our team will be in touch.
+          </p>
+          <div className="mt-10">
+            <CustomDesignForm />
           </div>
         </div>
       </section>
