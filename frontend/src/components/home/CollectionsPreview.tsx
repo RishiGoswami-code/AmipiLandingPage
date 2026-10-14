@@ -14,12 +14,14 @@ type Collection = {
   image: string;
 };
 
-/** Two rows of three, in display order: gemstone, bezel-set and stackable
- * across the top; drop earrings, bridal rings and multi-shape underneath. */
+/** Two rows of three, in display order: gemstones, bezel-set and stackable
+ * across the top; drop earrings, bridal rings and multi-shape underneath.
+ * Each name ends on a different word, so the row doesn't read "Jewelry,
+ * Jewelry, Jewelry". */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "Gemstone Jewelry", image: "/Collections/Color.png" },
-  { name: "Bezel-Set Jewelry", image: "/Collections/bezel-set-collection.webp" },
-  { name: "Stackable Jewelry", image: "/Collections/Stack.png" },
+  { name: "Colorful Gemstones", image: "/Collections/Color.png" },
+  { name: "Bezel-Set Designs", image: "/Collections/bezel-set-collection.webp" },
+  { name: "Stackable Pieces", image: "/Collections/Stack.png" },
   { name: "Diamond Drop Earrings", image: "/Collections/cascade-collection.webp" },
   {
     name: "Bridal Rings",
