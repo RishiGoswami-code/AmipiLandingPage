@@ -18,6 +18,11 @@ type Slide = {
   /** Where to anchor the crop on phones, where cover keeps only a narrow
    *  vertical slice of these wide frames - aimed at the model or the piece. */
   phoneFocus: string;
+  /** Caption colours chosen to contrast with what sits behind the text in
+   *  this photograph (measured under the hero's scrim), so the title stands
+   *  out rather than blending in: the title, the small line above it (and the
+   *  active dot), and a dark glow that lifts both off lighter backgrounds. */
+  tone: { title: string; kicker: string; glow: string };
 };
 
 /**
@@ -32,6 +37,8 @@ export const SLIDES: Slide[] = [
     kicker: "Timeless brilliance",
     title: "The Diamond Tennis Bracelet",
     phoneFocus: "22% center",
+    // Behind the text: dark red-brown. White title (9.9:1), bright gold line.
+    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(30, 0, 6, 0.7)" },
   },
   {
     src: tennisNecklace,
@@ -39,6 +46,9 @@ export const SLIDES: Slide[] = [
     kicker: "An everyday icon",
     title: "The Riviera Necklace",
     phoneFocus: "72% center",
+    // Behind the text: cool charcoal. Gold title (10:1) - the one colour in a
+    // monochrome frame - with a white line.
+    tone: { title: "#f2c94c", kicker: "#ffffff", glow: "rgba(0, 0, 0, 0.7)" },
   },
   {
     src: sapphireRuby,
@@ -46,6 +56,8 @@ export const SLIDES: Slide[] = [
     kicker: "Gemstone collection",
     title: "Sapphire & Ruby, Set in Diamonds",
     phoneFocus: "30% center",
+    // Behind the text: dark skin and navy. White title (13:1), gold line.
+    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(0, 8, 30, 0.7)" },
   },
   {
     src: eternityBand,
@@ -53,6 +65,9 @@ export const SLIDES: Slide[] = [
     kicker: "Forever, in diamonds",
     title: "The Eternity Band",
     phoneFocus: "62% center",
+    // Behind the text: mid-tone sunlit stone, where only white clears 4.5:1
+    // (5.6:1); a heavy navy glow lifts both title and line off it.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(0, 8, 25, 0.95)" },
   },
   {
     src: bezelPendant,
@@ -60,6 +75,9 @@ export const SLIDES: Slide[] = [
     kicker: "Emerald cut, yellow gold",
     title: "The Bezel Solitaire",
     phoneFocus: "68% center",
+    // Behind the text: light stone and gold - the same as above (white, 5.3:1)
+    // with a heavy navy glow.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(0, 8, 25, 0.95)" },
   },
 ];
 
@@ -115,7 +133,8 @@ export function HeroSlideImages({ index }: { index: number }) {
 const SERIF = "font-[family-name:var(--font-cormorant)]";
 
 /**
- * The current slide's title and the hero's one call to action, bottom-left.
+ * The current slide's title and the hero's one call to action, bottom-left,
+ * in that slide's own colours (see `tone`).
  * Keyed on the slide, so each title rises in again just after its image has
  * faded in. Dots below let a visitor pick a slide directly.
  */
@@ -130,10 +149,16 @@ export function HeroSlideCaption({
   return (
     <div className="hero-slide-caption absolute inset-x-0 bottom-0 z-40 px-edge pb-10 sm:pb-14">
       <div key={index} className="hero-caption-in max-w-2xl" aria-live="polite">
-        <p className="text-[11px] tracking-[0.4em] text-[#dfbf7b] uppercase sm:text-xs">
+        <p
+          className="text-[11px] font-semibold tracking-[0.4em] uppercase sm:text-xs"
+          style={{ color: slide.tone.kicker, textShadow: `0 1px 10px ${slide.tone.glow}` }}
+        >
           {slide.kicker}
         </p>
-        <h2 className={`${SERIF} mt-3 text-4xl leading-[1.05] text-white italic sm:text-6xl lg:text-7xl`}>
+        <h2
+          className={`${SERIF} mt-3 text-4xl leading-[1.05] italic sm:text-6xl lg:text-7xl`}
+          style={{ color: slide.tone.title, textShadow: `0 2px 24px ${slide.tone.glow}, 0 1px 3px ${slide.tone.glow}` }}
+        >
           {slide.title}
         </h2>
       </div>
@@ -150,8 +175,9 @@ export function HeroSlideCaption({
               aria-label={`Show ${s.title}`}
               aria-current={i === index}
               className={`h-1.5 cursor-pointer rounded-full transition-all duration-500 ${
-                i === index ? "w-8 bg-[#dfbf7b]" : "w-3 bg-white/45 hover:bg-white/70"
+                i === index ? "w-8" : "w-3 bg-white/45 hover:bg-white/70"
               }`}
+              style={i === index ? { backgroundColor: slide.tone.kicker } : undefined}
             />
           ))}
         </div>
