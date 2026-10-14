@@ -14,19 +14,19 @@ type Collection = {
   image: string;
 };
 
-/** Two rows of three, in display order: color, bezel and stack across the
- * top; drop, bridal and multi-shape underneath. */
+/** Two rows of three, in display order: gemstone, bezel-set and stackable
+ * across the top; drop earrings, bridal rings and multi-shape underneath. */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "Color Collection", image: "/Collections/Color.png" },
-  { name: "Bezel Collection", image: "/Collections/bezel-set-collection.webp" },
-  { name: "Stack Collection", image: "/Collections/Stack.png" },
-  { name: "Drop Collection", image: "/Collections/cascade-collection.webp" },
+  { name: "Gemstone Jewelry", image: "/Collections/Color.png" },
+  { name: "Bezel-Set Jewelry", image: "/Collections/bezel-set-collection.webp" },
+  { name: "Stackable Jewelry", image: "/Collections/Stack.png" },
+  { name: "Diamond Drop Earrings", image: "/Collections/cascade-collection.webp" },
   {
-    name: "Bridal Collection",
+    name: "Bridal Rings",
     image: "/Collections/ever-after-bridal-edit.webp",
   },
   {
-    name: "Multi Shape Collection",
+    name: "Multi-Shape Diamond Jewelry",
     image: "/Collections/mosaic-collection.webp",
   },
 ];
