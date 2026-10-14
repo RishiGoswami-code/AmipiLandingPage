@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, type ComponentProps } from "react";
-import Image, { getImageProps } from "next/image";
+import { useRef, useState, type ComponentProps } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { HeroLockup } from "./HeroLockup";
+import { HeroSlideCaption, HeroSlideImages, useSlideshow } from "./HeroSlides";
 import {
   BEATS,
   EXIT_FADE,
@@ -23,8 +24,6 @@ import "./hero.css";
    art-directed <picture> below be built without hardcoding pixel sizes that
    would silently go stale — including when the 16:9 backdrop is swapped for its
    upscaled version. */
-import backdropWide from "../../../Hero-Images/Necklace-NavyBlue.png";
-import backdropPortrait from "../../../Hero-Images/Necklace-mobile.png";
 import cardEarrings from "../../../Hero-Images/earrings-Photoroom.png";
 import cardBracelet from "../../../Hero-Images/Hand.png";
 
@@ -40,7 +39,9 @@ gsap.registerPlugin(useGSAP);
  * to become the page background. Roughly 3.6s; any input fast-forwards it.
  *
  * The moment it resolves, the reveal hands the stage over: the lockup dissolves
- * and the hero's copy — the anniversary line — takes its place.
+ * and the hero's copy — the anniversary line — takes its place, and the
+ * backdrop becomes a slideshow of five jewelry photographs (HeroSlides.tsx),
+ * each with its own title and the hero's one call to action.
  * Driven by the intro's own completion rather than by scroll, so the whole hero
  * is a single viewport tall and the first scroll goes straight into the next
  * section.
@@ -52,6 +53,10 @@ gsap.registerPlugin(useGSAP);
  */
 export default function HeroStage() {
   const sectionRef = useRef<HTMLElement>(null);
+  /* Flips when the intro resolves (or is skipped): the slideshow starts and
+     its caption appears. Until then the backdrop holds the first slide. */
+  const [slidesOn, setSlidesOn] = useState(false);
+  const [slide, setSlide] = useSlideshow(slidesOn);
 
   useGSAP(
     () => {
@@ -103,6 +108,7 @@ export default function HeroStage() {
         gsap.set([mark, est, wordmark], { display: "none" });
         gsap.set(copy, { opacity: 1 });
         stage.dataset.heroIntro = "done";
+        setSlidesOn(true);
         return;
       }
 
@@ -234,6 +240,7 @@ export default function HeroStage() {
              thrown away, and the visitor is free to scroll past it either way
              since input is released on the same line above. */
           reveal.play();
+          setSlidesOn(true);
         },
       });
 
@@ -414,7 +421,7 @@ export default function HeroStage() {
       <div className="hero-viewport relative h-svh w-full overflow-hidden">
         <div className="hero-backdrop z-0">
           <div className="hero-backdrop-pan">
-            <HeroBackdrop />
+            <HeroSlideImages index={slide} />
           </div>
         </div>
 
@@ -470,6 +477,8 @@ export default function HeroStage() {
           </div>
         </div>
 
+        {slidesOn && <HeroSlideCaption index={slide} onSelect={setSlide} />}
+
         <HeroLockup />
       </div>
     </section>
@@ -510,79 +519,5 @@ function HeroCard({
         className="object-cover"
       />
     </div>
-  );
-}
-
-/**
- * The backdrop, art-directed.
- *
- * Two different photographs, not two crops of one: on a 9:19.5 phone a
- * `object-cover` against the 16:9 frame shows only its central ~26%, which
- * decapitates the model. The previous hero solved this with a `hidden sm:block`
- * pair, but CSS visibility does not prevent a download — both files were
- * fetched on every viewport, for the largest image on the page.
- *
- * `getImageProps` is the documented escape hatch for exactly this, letting a
- * real <picture>/<source> pair carry the optimizer's srcSets so the browser
- * fetches precisely one. Its one documented restriction is that it cannot be
- * combined with `placeholder`, so there is no blur-up here.
- *
- * `quality` is deliberately not set: as of Next 16 `images.qualities` defaults
- * to [75] and any other value is silently coerced to the nearest allowed entry,
- * so passing 90 would document an intent the build does not honour. Raising it
- * means adding `qualities` to next.config.ts.
- */
-function HeroBackdrop() {
-  const common = {
-    alt: HERO_COPY.alt.backdrop,
-    priority: true,
-  };
-
-  /* `sizes` has to describe the rendered width, not the viewport width. The
-     16:9 frame now renders at exactly 100vw — the subject is centred in the
-     source, so the corrective zoom that used to justify 120vw here is gone. The
-     4:5 frame is a different story: cover-cropping it to a phone screen renders
-     it at roughly 1.75x the viewport width, and claiming 100vw for that would
-     have the browser pick a candidate one step too small and hand back a
-     visibly soft hero. Each <source> carries its own value, since a <source>
-     without `sizes` falls back to 100vw rather than inheriting the <img>'s. */
-  const {
-    props: { srcSet: wideSrcSet, sizes: wideSizes },
-  } = getImageProps({
-    ...common,
-    sizes: "100vw",
-    src: backdropWide,
-    width: backdropWide.width,
-    height: backdropWide.height,
-  });
-
-  const {
-    props: { srcSet: portraitSrcSet, ...imgProps },
-  } = getImageProps({
-    ...common,
-    sizes: "175vw",
-    src: backdropPortrait,
-    width: backdropPortrait.width,
-    height: backdropPortrait.height,
-  });
-
-  return (
-    <picture>
-      <source
-        media="(min-width: 640px)"
-        srcSet={wideSrcSet}
-        sizes={wideSizes}
-      />
-      <source srcSet={portraitSrcSet} sizes={imgProps.sizes} />
-      {/* A raw <img> is correct here, not an oversight: getImageProps exists
-          precisely so the optimizer's output can be driven through a hand-built
-          <picture>, which next/image cannot express. The no-img-element rule
-          allows this when the img is a <picture> child. */}
-      <img
-        {...imgProps}
-        alt={HERO_COPY.alt.backdrop}
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-      />
-    </picture>
   );
 }

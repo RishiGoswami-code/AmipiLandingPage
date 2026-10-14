@@ -571,3 +571,44 @@ body:has(.hero-stage[data-hero-intro="done"]) .assistant-fixed {
     animation: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   The slideshow (HeroSlides.tsx).
+
+   The push-in and 70% anchor above were tuned for the single necklace photo
+   this backdrop used to be. The slides are framed differently, so they opt out
+   of both: no zoom, and on phones each one anchors its own crop
+   (--slide-focus) on the model or the piece rather than the frame's centre.
+--------------------------------------------------------------------------- */
+.hero-backdrop-pan .hero-slide img {
+  transform: none;
+  object-position: var(--slide-focus, center);
+}
+
+@media (min-width: 640px) {
+  .hero-backdrop-pan .hero-slide img {
+    object-position: center;
+  }
+}
+
+/* Each title rises in just after its photograph has finished fading in. */
+@keyframes heroCaptionIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-caption-in {
+  animation: heroCaptionIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-caption-in {
+    animation: none;
+  }
+}
