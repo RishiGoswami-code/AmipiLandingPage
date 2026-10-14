@@ -711,6 +711,7 @@ export function DiamondSearch() {
   const [clarity, setClarity] = useState<string | null>(null);
   const [weightOpen, setWeightOpen] = useState(false);
   const [weightIndex, setWeightIndex] = useState<number | null>(null);
+  const [labGrown, setLabGrown] = useState(false);
 
   return (
     <section className="relative bg-background">
@@ -886,26 +887,12 @@ export function DiamondSearch() {
           </FilterBox>
         </div>
 
-        {/* Search buttons, centred */}
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <div className="sm:w-72">
-            <PillButton
-              href="/contact-us"
-              variant="light"
-              icon="dot"
-              className="w-full border border-[#dfbf7b]"
-            >
-              Earth Mined Diamonds
-            </PillButton>
-          </div>
-          <div className="sm:w-72">
-            <PillButton
-              href="/contact-us"
-              variant="gold"
-              icon="dot"
-              className="w-full"
-            >
-              Lab Grown Diamonds
+        {/* Mined / lab-grown switch and the one search button, centred */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
+          <OriginToggle labGrown={labGrown} onChange={setLabGrown} />
+          <div className="w-full sm:w-64">
+            <PillButton href="/contact-us" variant="gold" icon="dot" className="w-full">
+              Search Diamonds
             </PillButton>
           </div>
         </div>
@@ -927,5 +914,55 @@ export function DiamondSearch() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Earth-mined or lab-grown, as one switch rather than two buttons: the two
+ * labels sit either side of a pill track. Off (mined) the track is navy;
+ * on (lab grown) it fills with the site's gold, and the white knob slides
+ * across. The label for the current choice is the one in full colour.
+ *
+ * A real switch for assistive technology (role="switch", aria-checked), and
+ * either label can be clicked as well as the track.
+ */
+function OriginToggle({
+  labGrown,
+  onChange,
+}: {
+  labGrown: boolean;
+  onChange: (labGrown: boolean) => void;
+}) {
+  const label = (active: boolean) =>
+    `cursor-pointer text-[13px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 ${
+      active ? "text-navy-900" : "text-foreground/40 hover:text-foreground/70"
+    }`;
+
+  return (
+    <div className="flex items-center gap-4">
+      <button type="button" onClick={() => onChange(false)} className={label(!labGrown)}>
+        Mined
+      </button>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={labGrown}
+        aria-label="Lab grown diamonds"
+        onClick={() => onChange(!labGrown)}
+        className={`relative h-8 w-[3.75rem] shrink-0 cursor-pointer rounded-full border transition-colors duration-300 ${
+          labGrown ? "border-[#c9a24f] bg-[#dfbf7b]" : "border-navy-900 bg-navy-900"
+        }`}
+      >
+        <span
+          aria-hidden
+          className={`absolute top-1/2 left-1 h-6 w-6 -translate-y-1/2 rounded-full bg-white shadow-[0_2px_6px_rgba(18,25,38,0.35)] transition-transform duration-300 ease-out ${
+            labGrown ? "translate-x-7" : "translate-x-0"
+          }`}
+        />
+      </button>
+      <button type="button" onClick={() => onChange(true)} className={label(labGrown)}>
+        Lab Grown
+      </button>
+    </div>
   );
 }
