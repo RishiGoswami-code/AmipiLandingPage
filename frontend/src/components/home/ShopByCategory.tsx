@@ -19,14 +19,20 @@ type ShopCategory = {
    * near-identical cream-and-white-gold studio shots, so "Earrings" alone
    * would leave a screen reader unable to tell any of them apart. */
   alt?: string;
+  /** CSS object-position for the square crop. The photos are portrait
+   * (roughly 4:5, bangles 2:3), so this picks which band of the height the
+   * tile keeps - set per photo so the piece stays in frame. */
+  position?: string;
 };
 
 /**
  * Eight categories, in browse order: necklaces, bracelets, bands, studs,
- * earrings, rings, bangles, pendants. Pendants has no photograph yet.
+ * earrings, rings, bangles, pendants.
  *
- * Photography is the `categoryImages` set, converted to WebP and filed under
- * /public/categories (1200px, ~120KB each, down from ~2MB PNGs). Every tile
+ * Photography is the October `categoryImages` set (the PNGs named after each
+ * category), converted to WebP and filed under /public/categories (~1120px
+ * wide, 70-155KB each, down from ~2MB PNGs). The older WebPs in that folder
+ * are still used by the gift guide and account pages. Every tile
  * links to /categories — there are no per-category routes yet, so a slug in
  * this table would be a promise the router cannot keep. When they exist, this
  * is the one place to add them.
@@ -34,41 +40,51 @@ type ShopCategory = {
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
     name: "Necklaces",
-    image: "/categories/tennis-necklaces.webp",
-    alt: "White gold diamond tennis necklace laid in an ivory presentation box",
+    image: "/categories/necklaces.webp",
+    alt: "White gold diamond tennis necklace worn with an open-collared linen shirt",
+    position: "50% 20%",
   },
   {
     name: "Bracelets",
-    image: "/categories/tennis-bracelets.webp",
-    alt: "White gold diamond tennis bracelet on a marble surface",
+    image: "/categories/bracelets.webp",
+    alt: "A hand holding a bundle of white and yellow gold diamond tennis bracelets",
+    position: "50% 75%",
   },
   {
     name: "Anniversary Bands & Eternity",
-    image: "/categories/wedding-bands.webp",
-    alt: "White gold half-eternity diamond anniversary band in an ivory ring box",
+    image: "/categories/anniversary-bands.webp",
+    alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
+    position: "50% 70%",
   },
   {
     name: "Studs & Jackets",
-    image: "/categories/diamond-studs.webp",
-    alt: "Pair of round brilliant diamond stud earrings in white gold",
+    image: "/categories/studs-jackets.webp",
+    alt: "Round brilliant diamond stud earring in white gold, worn",
+    position: "50% 45%",
   },
   {
     name: "Earrings",
-    image: "/categories/hoop-earrings.webp",
-    alt: "Oval diamond inside-out hoop earrings in white gold, on a stone ledge",
+    image: "/categories/earrings.webp",
+    alt: "Pair of white gold diamond inside-out hoop earrings held between fingertips",
+    position: "50% 50%",
   },
   {
     name: "Rings",
-    image: "/categories/engagement-rings.webp",
-    alt: "Round brilliant halo engagement ring in white gold, set in an ivory ring box",
+    image: "/categories/rings.webp",
+    alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
+    position: "50% 35%",
   },
   {
     name: "Bangles",
     image: "/categories/bangles.webp",
-    alt: "Flexible white gold diamond bangle resting on travertine",
+    alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
+    position: "50% 40%",
   },
   {
     name: "Pendants",
+    image: "/categories/pendants.webp",
+    alt: "White gold diamond cross pendant on a fine chain, worn",
+    position: "50% 45%",
   },
 ];
 
@@ -282,6 +298,7 @@ export function ShopByCategory() {
                       alt={category.alt ?? ""}
                       fill
                       sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
+                      style={{ objectPosition: category.position }}
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   )}
