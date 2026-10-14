@@ -46,12 +46,15 @@ const LOGOS = [
  * and the loop has no visible seam. Each logo carries its own right padding
  * (rather than the track using `gap`) so both halves are the same width.
  * Hover pauses it; reduced-motion users get a still, wrapping row instead.
+ *
+ * The site's copyright line sits in this strip's bottom-left corner, as the
+ * last thing on the page, rather than in the footer above.
  */
 export function PartnerMarquee() {
   return (
     <section
       aria-label="Our partners and memberships"
-      className="overflow-hidden bg-gold-500 py-8"
+      className="overflow-hidden bg-gold-500 pt-8 pb-4"
     >
       <div className="partner-marquee flex w-max items-center hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center">
         {[0, 1].map((copy) => (
@@ -77,6 +80,9 @@ export function PartnerMarquee() {
           </ul>
         ))}
       </div>
+      <p className="mt-6 px-6 text-xs text-navy-900/70 sm:px-12 lg:px-20">
+        &copy; {new Date().getFullYear()} AMIPI. All rights reserved.
+      </p>
     </section>
   );
 }

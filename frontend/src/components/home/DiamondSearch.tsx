@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronDown, Gem, Leaf, ShieldCheck } from "lucide-react";
+import { ChevronDown, Gem, Handshake, ShieldCheck } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
 type ShapeIconProps = { className?: string };
@@ -917,7 +917,8 @@ export function DiamondSearch() {
             Ethical Sourcing
           </span>
           <span className="inline-flex items-center gap-2">
-            <Leaf className="h-4 w-4 text-gold-500" />A Brighter Tomorrow
+            <Handshake className="h-4 w-4 text-gold-500" />
+            Integrity First
           </span>
           <span className="inline-flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-gold-500" />
