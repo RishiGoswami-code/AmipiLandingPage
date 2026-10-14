@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -12,182 +12,114 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShopCategory = {
   name: string;
-  /** Optional while a category is still waiting on photography; the tile then
-   * shows its empty surface square, so the row keeps its rhythm. */
-  image?: string;
+  /** The small letterspaced line under the name. */
+  tagline: string;
+  image: string;
   /** Written out per tile rather than derived from the name: these are
    * near-identical cream-and-white-gold studio shots, so "Earrings" alone
    * would leave a screen reader unable to tell any of them apart. */
-  alt?: string;
-  /** CSS object-position for the square crop. The photos are portrait
-   * (roughly 4:5, bangles 2:3), so this picks which band of the height the
-   * tile keeps - set per photo so the piece stays in frame. */
-  position?: string;
+  alt: string;
+  /** CSS object-position for the 4:3 crop. The photos are portrait (roughly
+   * 4:5, bangles 2:3), so this picks which band of the height the card keeps -
+   * set per photo so the piece stays in frame. */
+  position: string;
 };
 
 /**
- * Eight categories, in browse order: necklaces, bracelets, bands, studs,
- * earrings, rings, bangles, pendants.
+ * Eight categories, in the order of the approved design: necklaces,
+ * bracelets, studs, bands across the top; earrings, pendants, bangles, rings
+ * below.
  *
- * Photography is the October `categoryImages` set (the PNGs named after each
- * category), converted to WebP and filed under /public/categories (~1120px
- * wide, 70-155KB each, down from ~2MB PNGs). The older WebPs in that folder
- * are still used by the gift guide and account pages. Every tile
- * links to /categories — there are no per-category routes yet, so a slug in
- * this table would be a promise the router cannot keep. When they exist, this
- * is the one place to add them.
+ * Photography is the October `categoryImages` set, converted to WebP and
+ * filed under /public/categories. Every card links to /categories - there are
+ * no per-category routes yet, so a slug in this table would be a promise the
+ * router cannot keep. When they exist, this is the one place to add them.
  */
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
     name: "Necklaces",
+    tagline: "Elegance around you",
     image: "/categories/necklaces.webp",
     alt: "White gold diamond tennis necklace worn with an open-collared linen shirt",
-    position: "50% 20%",
+    position: "50% 30%",
   },
   {
     name: "Bracelets",
+    tagline: "Grace in every detail",
     image: "/categories/bracelets.webp",
     alt: "A hand holding a bundle of white and yellow gold diamond tennis bracelets",
-    position: "50% 75%",
-  },
-  {
-    name: "Anniversary Bands & Eternity",
-    image: "/categories/anniversary-bands.webp",
-    alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
     position: "50% 70%",
   },
   {
     name: "Studs & Jackets",
+    tagline: "Everyday elegance",
     image: "/categories/studs-jackets.webp",
     alt: "Round brilliant diamond stud earring in white gold, worn",
     position: "50% 45%",
   },
   {
+    name: "Anniversary Bands & Eternity",
+    tagline: "Celebrate forever",
+    image: "/categories/anniversary-bands.webp",
+    alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
+    position: "50% 65%",
+  },
+  {
     name: "Earrings",
+    tagline: "For every occasion",
     image: "/categories/earrings.webp",
     alt: "Pair of white gold diamond inside-out hoop earrings held between fingertips",
     position: "50% 50%",
   },
   {
-    name: "Rings",
-    image: "/categories/rings.webp",
-    alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
-    position: "50% 35%",
-  },
-  {
-    name: "Bangles",
-    image: "/categories/bangles.webp",
-    alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
-    position: "50% 40%",
-  },
-  {
     name: "Pendants",
+    tagline: "Meaning in every piece",
     image: "/categories/pendants.webp",
     alt: "White gold diamond cross pendant on a fine chain, worn",
     position: "50% 45%",
   },
+  {
+    name: "Bangles",
+    tagline: "Timeless sophistication",
+    image: "/categories/bangles.webp",
+    alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
+    position: "50% 45%",
+  },
+  {
+    name: "Rings",
+    tagline: "Symbols of your story",
+    image: "/categories/rings.webp",
+    alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
+    position: "50% 40%",
+  },
 ];
 
+const SERIF = "font-[family-name:var(--font-cormorant)]";
+
 /**
- * Shop Jewelry by Category — a single horizontal row of square tiles with the
- * category name beneath each, scrolled by arrow or swipe rather than wrapped
- * into a grid.
- *
- * The row is a native scroll container, not a JS-driven track: the browser
- * already does momentum, snapping, keyboard and touch correctly, and the arrows
- * are a thin `scrollBy` wrapper on top of it. So it works before hydration and
- * with JS off, where a transform-based carousel would show one frozen frame.
- *
- * It also deliberately runs to the viewport's right edge - a left gutter, no
- * right one - so the next tile is always visibly cut off. That clipped tile is
- * the affordance; an arrow alone does not tell the eye there is more to see. The
- * left gutter is a margin, so the scroll box begins on the headline's left edge
- * and tiles leaving the row are clipped there rather than trailing into it.
- *
- * All of that applies at lg and up. Below lg the same tiles lay out as a
- * plain grid instead - see the note on the row itself for why.
- *
- * Replaces the old CategoriesPreview, which showed the same idea further down
- * the page off the /categories data (two of its six tiles were still Unsplash
- * placeholders). The /categories page itself is untouched.
+ * Shop Jewelry by Category - a centred heading block ("Explore by style",
+ * the title and a one-line subtitle) over a four-by-two grid of cards on warm
+ * cream. Each card is a landscape photograph with the category name, a short
+ * letterspaced tagline and a round arrow button beneath it; the whole card is
+ * one link. Two columns on tablets, one on phones.
  */
 export function ShopByCategory() {
   const sectionRef = useRef<HTMLElement>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
-
-  /* Both start false so the server-rendered markup and the first client render
-     agree. The arrows are desktop-only chrome on a row that scrolls fine
-     without them, so a frame with neither is the correct pre-measurement
-     state. */
-  const [canScrollBack, setCanScrollBack] = useState(false);
-  const [canScrollOn, setCanScrollOn] = useState(false);
-
-  const syncArrows = useCallback(() => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    /* 1px of slack at both ends: scrollLeft is fractional on fractional-DPR
-       displays and at a hard stop it settles at e.g. 0.5 or max - 0.5, which
-       would otherwise leave an arrow lit with nowhere to go. */
-    const max = row.scrollWidth - row.clientWidth;
-    setCanScrollBack(row.scrollLeft > 1);
-    setCanScrollOn(row.scrollLeft < max - 1);
-  }, []);
-
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    syncArrows();
-
-    /* Resize, not just scroll: the tile width is in vw, so a window resize
-       changes how much overflow there is — including to none at all — without
-       the row ever being scrolled. */
-    const observer = new ResizeObserver(syncArrows);
-    observer.observe(row);
-    return () => observer.disconnect();
-  }, [syncArrows]);
-
-  const step = useCallback((direction: 1 | -1) => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    /* Measured off the live tile rather than recomputing the vw expression, so
-       the arrows stay correct if the widths below are ever retuned. */
-    const tile = row.firstElementChild as HTMLElement | null;
-    const gap = Number.parseFloat(getComputedStyle(row).columnGap) || 0;
-    const distance = (tile?.offsetWidth ?? row.clientWidth * 0.8) + gap;
-
-    row.scrollBy({
-      left: direction * distance,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  }, []);
 
   useGSAP(
     () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
-
-      const cards =
-        sectionRef.current?.querySelectorAll<HTMLElement>("[data-card]");
-      if (!cards || !cards.length) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const cards = sectionRef.current?.querySelectorAll<HTMLElement>("[data-card]");
+      if (!cards?.length) return;
 
       /* The same one-shot rise-and-fade New Arrivals and Collections use, so
-         three consecutive sections reveal identically. Only the tiles that
-         start on screen are really animated — the rest are already scrolled
-         out of the row's own overflow when it fires, which is fine: this is a
-         page-entrance flourish, not a per-tile reveal. */
+         consecutive sections reveal identically. */
       gsap.from(cards, {
         opacity: 0,
-        y: 48,
-        scale: 0.96,
+        y: 40,
         duration: 0.9,
         ease: "power3.out",
-        stagger: 0.1,
+        stagger: 0.08,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
@@ -202,171 +134,64 @@ export function ShopByCategory() {
     <section
       ref={sectionRef}
       aria-labelledby="shop-by-category-heading"
-      /* One tile width, declared once. The arrows centre themselves on the
-         image band with it (`top: calc(var(--cat-tile) / 2)`), which they
-         cannot do from the row's own box — that box includes the captions, and
-         centring on it would drop both arrows ~20px low.
-
-         15.5vw puts six tiles plus the clipped seventh across a ~1600px
-         viewport, which is the reference proportion. The 11rem floor is for the
-         bottom of the lg range: at 1024px the bare vw value resolves to 159px,
-         which leaves the mid-length labels ("Studs & Jackets") one word from
-         wrapping. "Anniversary Bands & Eternity" wraps to two lines at every
-         width; captions are top-aligned, so that only deepens its own tile.
-         Below the floor the row simply shows fewer tiles, which a scroller can
-         afford.
-
-         Declared at lg only, because that is the only breakpoint that reads
-         it: below lg the tiles are grid cells and size themselves.
-
-         Top padding is asymmetric on purpose. New Arrivals above is the same
-         bg-background with the same py-3/sm:py-4, so the two sections met with
-         24-32px between a row of captions and this headline and no colour
-         change to mark the seam - the headline read as a label on the row above
-         it. The bottom stays tight because CollectionsPreview below is
-         bg-surface and brings its own py-12/sm:py-16, so that seam is already
-         both spaced and visible. */
-      className="relative bg-background pt-12 pb-3 sm:pt-16 sm:pb-4 lg:pt-20 lg:[--cat-tile:max(11rem,15.5vw)]"
+      className="relative bg-[#faf6ef] px-6 py-16 sm:px-12 sm:py-20 lg:px-14"
     >
-      <div className="px-6 sm:px-12 lg:px-20">
-        <h2
-          id="shop-by-category-heading"
-          className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl"
-        >
-          Shop Jewelry by Category
-        </h2>
-      </div>
-
-      <div className="relative mt-12">
-        <div
-          ref={rowRef}
-          onScroll={syncArrows}
-          /* Two layouts, one set of markup. Below lg this is an ordinary
-             two-then-three column grid, because a horizontal scroller on a phone
-             is the wrong control: it competes with the page's own vertical
-             scroll, shows an overlay scrollbar mid-swipe, and - through
-             ScrollTrigger.normalizeScroll, which owns touch gestures - was
-             firing stray taps on the tiles it was being swiped across. At lg and
-             up it becomes the scroll-snap row the design asks for, driven by the
-             arrows.
-
-             At lg: the left gutter is a *margin*, not padding, and that is the
-             difference between a clipped tile and a stray one. Padding is inside
-             the scroll box, so content scrolled into it stays painted - a tile
-             leaving the row kept going across the full 80px and sat in the
-             gutter as a sliver, level with the headline's own left edge but with
-             nothing to explain it. As a margin, the scroll box itself starts on
-             that line, so an outgoing tile is cut off exactly where the headline
-             begins. scroll-pl went with it: snap-start now aligns to the content
-             edge, which is already where the gutter ends.
-
-             There is still no right gutter - the row runs to the viewport edge
-             so the next tile is always visibly clipped, and that clipped tile is
-             the affordance. pb-12 is load-bearing rather than spacing: overflow
-             clips at the padding edge, so the 48px the reveal translates each
-             tile down has to exist inside this box or the captions animate in
-             cut off. The scrollbar is hidden because a permanent grey trough
-             under a row of photographs reads as a browser artifact rather than
-             as part of the page.
-
-             data-lenis-prevent-horizontal is inert below lg, where nothing
-             scrolls horizontally. Above it, it stops Lenis from reading a
-             trackpad swipe as page scroll and swallowing it. */
-          data-lenis-prevent-horizontal
-          className="grid grid-cols-2 gap-x-7 gap-y-10 px-6 sm:grid-cols-3 sm:px-12 lg:ml-20 lg:flex lg:snap-x lg:gap-x-5 lg:gap-y-0 lg:overflow-x-auto lg:overflow-y-hidden lg:px-0 lg:pb-12 lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden"
-        >
-          {SHOP_CATEGORIES.map((category) => (
-            <Link
-              key={category.name}
-              href="/categories"
-              className="group block lg:w-[var(--cat-tile)] lg:shrink-0 lg:snap-start"
-            >
-              {/* The reveal is animated on this wrapper rather than on the
-                  <Link> itself, and that is a correctness fix, not a style
-                  choice. The Link is the scroll-snap target, so transforming it
-                  moves its snap area; Chrome re-snaps a snap container whenever
-                  layout changes under it, so the tween's own motion made the row
-                  snap to the nearest point and settle ~4px in — which lit the
-                  "previous" arrow on a row that had never been scrolled.
-                  Transforming a descendant leaves every snap area where it
-                  was. */}
-              <div data-card>
-                <div className="relative aspect-square overflow-hidden bg-surface">
-                  {category.image && (
-                    <Image
-                      src={category.image}
-                      alt={category.alt ?? ""}
-                      fill
-                      sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
-                      style={{ objectPosition: category.position }}
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  )}
-                </div>
-                <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
-                  {category.name}
-                </h3>
-              </div>
-            </Link>
-          ))}
-
-          {/* The scroller's right gutter, as a flex child. As padding-right it
-              would be ignored: browsers do not include the end padding of a
-              horizontal flex scroll container in its scrollable area, so the
-              last tile would sit hard against the viewport edge at full
-              scroll. Absent below lg, where the grid's own px-6/sm:px-12
-              supplies both gutters. */}
-          <div aria-hidden className="hidden lg:block lg:w-20 lg:shrink-0" />
+      <div className="mx-auto max-w-[96rem]">
+        <div className="text-center">
+          <p className="flex items-center justify-center gap-4 text-[12px] tracking-[0.45em] text-[#8a6a35] uppercase sm:text-[13px]">
+            <span aria-hidden className="h-px w-8 bg-[#a47a35]/60 sm:w-10" />
+            Explore by style
+            <span aria-hidden className="h-px w-8 bg-[#a47a35]/60 sm:w-10" />
+          </p>
+          <h2
+            id="shop-by-category-heading"
+            className={`${SERIF} mt-4 text-4xl font-normal tracking-tight text-navy-900 sm:text-5xl lg:text-6xl`}
+          >
+            Shop Jewelry by Category
+          </h2>
+          <p className={`${SERIF} mx-auto mt-3 max-w-2xl text-lg text-foreground/70 sm:text-xl`}>
+            From everyday essentials to timeless treasures, explore pieces for every occasion.
+          </p>
         </div>
 
-        <ScrollArrow
-          direction="back"
-          enabled={canScrollBack}
-          onClick={() => step(-1)}
-        />
-        <ScrollArrow
-          direction="on"
-          enabled={canScrollOn}
-          onClick={() => step(1)}
-        />
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+          {SHOP_CATEGORIES.map((category) => (
+            <li key={category.name} data-card>
+              <Link
+                href="/categories"
+                className="group flex h-full flex-col overflow-hidden rounded-sm border border-[#a47a35]/15 bg-[#fdfbf7] shadow-[0_14px_34px_-26px_rgba(60,40,10,0.45)] transition-shadow duration-300 hover:shadow-[0_22px_44px_-24px_rgba(60,40,10,0.5)]"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-surface">
+                  <Image
+                    src={category.image}
+                    alt={category.alt}
+                    fill
+                    sizes="(min-width: 1024px) 24vw, (min-width: 640px) 46vw, 92vw"
+                    style={{ objectPosition: category.position }}
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-1 items-center gap-2.5 px-5 py-5 lg:px-4">
+                  <div className="min-w-0 flex-1">
+                    <h3 className={`${SERIF} text-[1.375rem] leading-tight tracking-[-0.01em] text-navy-900`}>
+                      {category.name}
+                    </h3>
+                    <p className="mt-2 text-[10.5px] tracking-[0.28em] text-foreground/55 uppercase">
+                      {category.tagline}
+                    </p>
+                  </div>
+                  <span
+                    aria-hidden
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#a47a35]/35 text-[#8a6a35] transition-colors duration-300 group-hover:border-[#a47a35] group-hover:bg-[#a47a35] group-hover:text-white"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
-  );
-}
-
-/**
- * One of the two scroll controls.
- *
- * Kept mounted and disabled at the ends rather than unmounted, so neither arrow
- * can vanish from under a cursor mid-click. `disabled` also takes it out of the
- * tab order, which `opacity-0` alone would not.
- *
- * Hidden below `lg`, where the tiles lay out as a grid and there is nothing
- * to scroll.
- */
-function ScrollArrow({
-  direction,
-  enabled,
-  onClick,
-}: {
-  direction: "back" | "on";
-  enabled: boolean;
-  onClick: () => void;
-}) {
-  const isBack = direction === "back";
-  const Icon = isBack ? ChevronLeft : ChevronRight;
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={!enabled}
-      aria-label={isBack ? "Previous categories" : "Next categories"}
-      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white text-navy-950 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-ice-100 lg:grid ${
-        isBack ? "left-4 lg:left-6" : "right-4 lg:right-6"
-      } ${enabled ? "opacity-100" : "pointer-events-none opacity-0"}`}
-    >
-      <Icon className="h-5 w-5" />
-    </button>
   );
 }
