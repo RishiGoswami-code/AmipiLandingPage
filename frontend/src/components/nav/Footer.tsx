@@ -15,6 +15,8 @@ const COMPANY_LINKS = [
   { label: "Sell Your Diamonds", href: "/sell" },
   { label: "The Journal", href: "/blog" },
   { label: "Visit Us", href: "/contact-us" },
+  /* No newsletter signup of its own yet; the contact form has the opt-in. */
+  { label: "Subscribe to our newsletter", href: "/contact-us" },
 ];
 
 const LEGAL_LINKS = [
