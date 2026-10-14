@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 /**
- * Footer newsletter sign-up: a card with a thin golden-brown border (the
- * site's bronze, #a47a35) and a hard offset shadow that lifts on hover, the
- * title's underline sliding in, and a button whose navy face rolls up over
- * it on hover. The shape is the neo-brutalist card it was adapted from, kept
- * light so it sits quietly beside the footer links.
+ * Footer newsletter sign-up, styled to sit with the rest of the footer: a
+ * soft rounded card (the same faint border and shadow as the site's other
+ * cards), the footer columns' small gold letterspaced label, a serif heading,
+ * the footer's muted body text, and a pill email field with a gold Subscribe
+ * pill like the navbar's Login.
  *
  * No mailing-list service is connected yet, so a valid address gets an
  * honest "not connected" reply, as the site's other forms do.
@@ -24,30 +25,32 @@ export function NewsletterCard() {
   return (
     <div
       id="newsletter"
-      className="group w-full max-w-[19rem] border-2 border-[#a47a35] bg-white p-5 shadow-[6px_6px_0_#a47a35] transition-[transform,box-shadow] duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[9px_9px_0_#a47a35]"
+      className="w-full max-w-[19rem] rounded-2xl border border-[#a47a35]/25 bg-[#fcf4dc] p-6 shadow-[0_18px_40px_-30px_rgba(27,36,56,0.45)]"
     >
-      <span className="relative mb-3 block overflow-hidden pb-1 text-[22px] leading-tight font-bold tracking-wide text-navy-900 uppercase">
+      <p className="text-[11px] font-semibold tracking-[0.3em] text-gold-500 uppercase">
         Newsletter
-        <span
-          aria-hidden
-          className="absolute bottom-0 left-0 h-[2px] w-[85%] -translate-x-full bg-[#a47a35] transition-transform duration-300 group-hover:translate-x-0"
-        />
-      </span>
-      <p className="mb-5 text-[14px] leading-snug text-navy-900/80">
+      </p>
+      <p className="mt-3 font-[family-name:var(--font-cormorant)] text-2xl leading-tight text-navy-900">
+        Stay in the know
+      </p>
+      <p className="mt-2 text-sm leading-relaxed text-foreground/60">
         New arrivals, trade-show dates and market notes from the AMIPI team, straight to your
         inbox.
       </p>
 
       {state === "done" ? (
-        <p role="status" className="border border-[#a47a35] bg-[#faf3e3] p-3 text-[13px] leading-snug text-navy-900">
+        <p
+          role="status"
+          className="mt-5 rounded-xl border border-[#d4ae5c]/40 bg-[#faf3e3] px-4 py-3 text-[13px] leading-snug text-foreground/75"
+        >
           Thanks! Sign-up isn&rsquo;t connected yet - please email{" "}
-          <a href="mailto:info@amipi.com" className="font-bold underline underline-offset-2">
+          <a href="mailto:info@amipi.com" className="font-semibold underline underline-offset-2">
             info@amipi.com
           </a>{" "}
           to join the list.
         </p>
       ) : (
-        <form onSubmit={onSubmit} noValidate className="flex flex-col gap-3.5">
+        <form onSubmit={onSubmit} noValidate className="mt-5 space-y-3">
           <input
             name="email"
             type="email"
@@ -57,18 +60,19 @@ export function NewsletterCard() {
             aria-label="Email address"
             aria-invalid={state === "invalid"}
             onChange={() => state === "invalid" && setState("idle")}
-            className="w-full border border-[#a47a35] bg-white px-3 py-2.5 text-[15px] text-navy-900 transition-[transform,box-shadow] duration-300 outline-none placeholder:text-navy-900/45 focus:scale-[1.02] focus:shadow-[0_0_0_1px_#a47a35]"
+            className="w-full rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm text-navy-900 transition-colors outline-none placeholder:text-foreground/40 focus:border-[#a47a35]"
           />
           {state === "invalid" && (
-            <p role="alert" className="-mt-1.5 text-[12px] font-semibold text-crimson-500">
+            <p role="alert" className="px-1 text-[12px] font-medium text-crimson-500">
               Please enter a valid email address.
             </p>
           )}
           <button
             type="submit"
-            className="relative mx-auto w-3/5 cursor-pointer overflow-hidden border border-[#a47a35] bg-[#a47a35] py-2.5 text-[13px] font-semibold tracking-[0.12em] text-white uppercase transition-transform duration-300 before:absolute before:inset-0 before:flex before:translate-y-full before:items-center before:justify-center before:bg-navy-900 before:text-white before:transition-transform before:duration-300 before:content-['Sign_me_up'] hover:before:translate-y-0 active:scale-95"
+            className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#dfbf7b] py-2.5 text-[12px] font-semibold tracking-[0.16em] text-navy-900 uppercase transition-colors hover:bg-[#d4ae5c]"
           >
             Subscribe
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </button>
         </form>
       )}
