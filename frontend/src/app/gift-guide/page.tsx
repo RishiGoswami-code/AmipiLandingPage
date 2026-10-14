@@ -8,7 +8,7 @@ import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
 import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestsellers";
 import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
-import { GiftGuideColorOfYear } from "@/components/gift-guide/GiftGuideColorOfYear";
+import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
 import { GiftGuideShopJewelry } from "@/components/gift-guide/GiftGuideShopJewelry";
 import { GiftGuideStockingStuffers } from "@/components/gift-guide/GiftGuideStockingStuffers";
 
@@ -82,7 +82,7 @@ export default function GiftGuidePage() {
       <GiftGuideBestsellers />
       <GiftGuideCustom />
       <GiftGuideBezel />
-      <GiftGuideColorOfYear />
+      <GiftGuideColor />
       <GiftGuideShopJewelry />
       <GiftGuideStockingStuffers />
     </div>

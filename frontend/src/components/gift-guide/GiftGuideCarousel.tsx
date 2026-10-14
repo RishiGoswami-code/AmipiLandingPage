@@ -17,7 +17,7 @@ type GiftGuideCarouselProps = {
 
 /**
  * The carousel the gift guide's Stuller-style sections share (Holiday
- * Bestsellers, the Color of the Year collection, Shop Jewelry): a native
+ * Bestsellers, the Color collection, Shop Jewelry): a native
  * scroll-snap track, so it swipes on phones, with round white arrows either
  * side on desktop and page dots in a pill under it. The arrows and dots only
  * drive the track's scroll position.

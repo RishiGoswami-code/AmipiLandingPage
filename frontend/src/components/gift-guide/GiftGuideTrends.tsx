@@ -9,12 +9,12 @@ const NAVY = "#0b1a3d";
  * point the square-ish tile crop keeps.
  */
 const TRENDS = [
+  { title: "Stackables", src: "/new-arrival/half-eternity-band-model.webp", position: "50% 50%" },
+  { title: "Color", src: "/new-arrival/rainbow-tennis-set-model.webp", position: "50% 50%" },
+  { title: "Bezel", src: "/categories/tennis-bracelets.webp", position: "50% 55%" },
   { title: "Everyday Wearables", src: "/new-arrival/riviera-bracelet-model.webp", position: "50% 45%" },
-  { title: "Ultra-Comfort Bands", src: "/categories/wedding-bands.webp", position: "55% 55%" },
-  { title: "Tennis & Line Bracelets", src: "/categories/tennis-bracelets.webp", position: "50% 55%" },
-  { title: "Diamond Studs & Hoops", src: "/categories/hoop-earrings.webp", position: "40% 55%" },
-  { title: "Flexi Bangles", src: "/categories/bangles.webp", position: "50% 50%" },
-  { title: "Eternity & Stackable Bands", src: "/new-arrival/half-eternity-band-model.webp", position: "50% 50%" },
+  { title: "Drop", src: "/categories/hoop-earrings.webp", position: "40% 55%" },
+  { title: "Bridal", src: "/categories/engagement-rings.webp", position: "50% 45%" },
 ];
 
 /** Placeholder for the tall model shot beside the grid. */

@@ -2,10 +2,10 @@ import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 import { GiftGuideCarousel, PRODUCT_SLIDE, ProductCard } from "./GiftGuideCarousel";
 
-/** Ivory for the copy on the sapphire, as on the navy bands. */
+/** Ivory for the copy on the blue panel, as on the navy bands. */
 const IVORY = "#f5efe4";
 
-/** Champagne gold for "Sapphire" - the same ramp as "Catalog" in the hero. */
+/** Champagne gold for "Color" - the same ramp as "Catalog" in the hero. */
 const GOLD_TEXT =
   "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
 
@@ -14,7 +14,7 @@ const PHOTO_SRC = "/gift-guide/sapphire-ring.jpeg";
 
 /**
  * Soft out-of-focus lights behind the banner copy, the way Stuller's Signature
- * Red banner has bokeh - a handful of blurred discs in pale sapphire.
+ * Red banner has bokeh - a handful of blurred discs in pale blue.
  */
 const BOKEH = [
   "radial-gradient(circle at 62% 22%, rgba(150,185,255,0.2) 0, rgba(150,185,255,0.12) 2.5rem, transparent 3.75rem)",
@@ -26,26 +26,25 @@ const BOKEH = [
 ].join(", ");
 
 /**
- * The collection's pieces - named for the piece types in the collection until
- * the product list and photos are in, so every card is a placeholder for now.
+ * The collection's pieces - named for the piece types until the product list
+ * and photos are in, so every card is a placeholder for now.
  */
 const COLLECTION = [
-  "Sapphire Stud Earrings",
-  "Sapphire Stackable Ring",
-  "Sapphire Huggie Earrings",
-  "Sapphire Solitaire Necklace",
-  "Sapphire Bezel Bracelet",
-  "Sapphire Tennis Bracelet",
+  "Gemstone Stud Earrings",
+  "Gemstone Stackable Ring",
+  "Gemstone Huggie Earrings",
+  "Gemstone Solitaire Necklace",
+  "Gemstone Bezel Bracelet",
+  "Rainbow Tennis Bracelet",
 ];
 
 /**
- * "Midnight Sapphire" - AMIPI's Color of the Year, after Stuller's Signature
- * Red section: an inset sapphire panel holding a banner (photo on the left;
- * the colour's name, a line of copy and a button on the right, over soft
- * bokeh), then the colour's collection in the same carousel as Holiday
- * Bestsellers.
+ * "Color" - the coloured-gemstone holiday trend, after Stuller's Signature
+ * Red section: an inset blue panel holding a banner (photo on the left; the
+ * heading, a line of copy and a button on the right, over soft bokeh), then
+ * the collection in the same carousel as Holiday Bestsellers.
  */
-export function GiftGuideColorOfYear() {
+export function GiftGuideColor() {
   return (
     <section aria-labelledby="color-heading" className="px-edge py-20 lg:py-28">
       <div
@@ -70,24 +69,20 @@ export function GiftGuideColorOfYear() {
             />
           </div>
 
-          <div className="px-6 py-10 sm:px-10 lg:py-14 lg:pr-14 lg:pl-10">
-            <h2 id="color-heading" className="leading-none">
-              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.75rem,5vw,4.5rem)] leading-[1.1] font-medium italic">
-                Midnight
-              </span>
-              <span
-                className={`block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,4.4vw,4rem)] font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
-              >
-                Sapphire
-              </span>
+          <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:py-14 lg:pr-14 lg:pl-10">
+            <h2
+              id="color-heading"
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.5vw,5rem)] leading-none font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+            >
+              Color
             </h2>
             <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#dcbc7e] uppercase">
-              AMIPI&rsquo;s 2026 Color of the Year
+              Colored Gemstones
             </p>
             <p className="mt-5 max-w-[46ch] text-[0.9375rem] leading-relaxed text-[#f5efe4]/80 sm:text-base">
-              Midnight Sapphire is deep, luminous and made for winter nights.
-              This rich blue brings calm confidence and a cool, starlit glow to
-              the holiday season.
+              Colored gemstones are one of the season&rsquo;s biggest trends.
+              Rich blues, deep reds and rainbow-bright sets bring warmth and
+              personality to every holiday gift.
             </p>
             <div className="mt-8">
               <PillButton href="/categories" variant="light" size="sm" icon="arrow">
@@ -97,13 +92,13 @@ export function GiftGuideColorOfYear() {
           </div>
         </div>
 
-        {/* The colour's collection */}
+        {/* The collection */}
         <div className="px-1 pt-12 pb-4 text-center sm:px-0 lg:pt-14">
           <h3 className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2rem,3.2vw,2.75rem)] leading-[1.1] font-medium italic">
-            Midnight Sapphire Collection
+            The Color Collection
           </h3>
           <div className="mt-8">
-            <GiftGuideCarousel label="Midnight Sapphire pieces" slideClassName={PRODUCT_SLIDE}>
+            <GiftGuideCarousel label="Color collection pieces" slideClassName={PRODUCT_SLIDE}>
               {COLLECTION.map((title) => (
                 <ProductCard key={title} title={title} href="/categories" />
               ))}
