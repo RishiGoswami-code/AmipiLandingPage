@@ -71,7 +71,7 @@ export function TradeShows() {
 
   return (
     <section ref={sectionRef} className="relative bg-surface">
-      <div className="px-6 py-12 sm:px-12 sm:py-16 lg:px-20">
+      <div className="px-6 py-6 sm:px-12 sm:py-8 lg:px-20">
         <div className="text-center">
           <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
             Upcoming Trade Shows

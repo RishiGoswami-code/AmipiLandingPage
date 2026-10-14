@@ -97,8 +97,8 @@ const SHOP_CATEGORIES: ShopCategory[] = [
 const SERIF = "font-[family-name:var(--font-cormorant)]";
 
 /**
- * Shop Jewelry by Category - a centred heading block ("Explore by style",
- * the title and a one-line subtitle) over a four-by-two grid of cards on warm
+ * Shop Jewelry by Category - a centred heading block ("Explore by style"
+ * and the title) over a four-by-two grid of cards on warm
  * cream. Each card is a landscape photograph with the category name, a short
  * letterspaced tagline and a round arrow button beneath it; the whole card is
  * one link. Two columns on tablets, one on phones.
@@ -134,7 +134,7 @@ export function ShopByCategory() {
     <section
       ref={sectionRef}
       aria-labelledby="shop-by-category-heading"
-      className="relative bg-[#faf6ef] px-6 py-16 sm:px-12 sm:py-20 lg:px-14"
+      className="relative bg-[#faf6ef] px-6 pt-8 pb-8 sm:px-12 sm:pt-10 sm:pb-10 lg:px-14"
     >
       <div className="mx-auto max-w-[96rem]">
         <div className="text-center">
@@ -149,12 +149,9 @@ export function ShopByCategory() {
           >
             Shop Jewelry by Category
           </h2>
-          <p className={`${SERIF} mx-auto mt-3 max-w-2xl text-lg text-foreground/70 sm:text-xl`}>
-            From everyday essentials to timeless treasures, explore pieces for every occasion.
-          </p>
         </div>
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:mt-7 lg:grid-cols-4">
           {SHOP_CATEGORIES.map((category) => (
             <li key={category.name} data-card>
               <Link

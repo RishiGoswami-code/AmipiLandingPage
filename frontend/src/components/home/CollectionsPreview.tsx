@@ -85,7 +85,7 @@ export function CollectionsPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-surface px-6 py-12 sm:px-12 sm:py-16 lg:px-20"
+      className="relative overflow-hidden bg-surface px-6 pt-6 pb-6 sm:px-12 sm:pt-8 sm:pb-8 lg:px-20"
     >
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
@@ -96,7 +96,7 @@ export function CollectionsPreview() {
           </h2>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
           {PREVIEW_COLLECTIONS.map((collection, i) => (
             <Link
               key={collection.name}
