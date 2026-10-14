@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { NewsletterCard } from "./NewsletterCard";
 
 const SHOP_LINKS = [
   { label: "Categories", href: "/categories" },
@@ -15,8 +16,8 @@ const COMPANY_LINKS = [
   { label: "Sell Your Diamonds", href: "/sell" },
   { label: "The Journal", href: "/blog" },
   { label: "Visit Us", href: "/contact-us" },
-  /* No newsletter signup of its own yet; the contact form has the opt-in. */
-  { label: "Subscribe to our newsletter", href: "/contact-us" },
+  /* The sign-up card at the left of this footer. */
+  { label: "Subscribe to our newsletter", href: "#newsletter" },
 ];
 
 const LEGAL_LINKS = [
@@ -29,13 +30,18 @@ const LEGAL_LINKS = [
  * Site footer — sits at the end of every page's content (wired up in
  * layout.tsx, inside the same SmoothScroll flow as {children} rather than
  * fixed, so it scrolls normally and only appears once you reach the
- * bottom). Four-column link grid, same "one fair price, no bull" voice
- * as the rest of the site, closed out with a copyright bar.
+ * bottom). The newsletter card on the left, then the four-column link grid,
+ * in the same "one fair price, no bull" voice as the rest of the site. The
+ * copyright line lives in the partner strip below (PartnerMarquee).
  */
 export function Footer() {
   return (
     <footer className="relative border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
+        {/* Right padding leaves room for the card's offset shadow */}
+        <div className="flex justify-center pr-3 lg:justify-start">
+          <NewsletterCard />
+        </div>
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
             <Image
@@ -67,7 +73,11 @@ export function Footer() {
               </a>
               <div className="flex items-start gap-2.5 text-sm text-foreground/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
-                42 W 48th St, New York, NY
+                <span>
+                  42 W 48th St, 15th Flr
+                  <br />
+                  New York, NY 10036
+                </span>
               </div>
             </div>
           </div>
@@ -77,11 +87,6 @@ export function Footer() {
           <FooterColumn title="Legal" links={LEGAL_LINKS} />
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
-          <p className="text-xs text-foreground/40">
-            &copy; {new Date().getFullYear()} AMIPI. All rights reserved.
-          </p>
-        </div>
       </div>
     </footer>
   );
