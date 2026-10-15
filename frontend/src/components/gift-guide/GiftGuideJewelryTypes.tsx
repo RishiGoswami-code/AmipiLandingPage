@@ -32,7 +32,8 @@ const TYPES = [
  * sphere is transparent (the page shows through it), defined only by its
  * edge, reflections and the snow inside - falling flakes and a mound of
  * settled snow the piece stands on. It rests on a thin clear-glass disc
- * with a soft shadow under it. No stand, no scenery.
+ * with a soft shadow under it. No stand, no scenery. A faint frosty sky at
+ * the top of the glass gives it a winter feel.
  *
  * Everything is sized in cqw off the globe's own width (a size container),
  * so it scales as one object. The sphere is 92cqw across from the top; the
@@ -40,7 +41,7 @@ const TYPES = [
  */
 function SnowGlobe({ src }: { src: string }) {
   return (
-    <div aria-hidden className="@container relative aspect-[100/98] w-full">
+    <div aria-hidden className={`@container relative aspect-[100/98] w-full`}>
       {/* Soft floor shadow */}
       <div className="absolute top-[88cqw] left-[14cqw] h-[8cqw] w-[72cqw] rounded-[50%] bg-[radial-gradient(closest-side,rgba(11,26,61,0.3),rgba(11,26,61,0.1)_60%,transparent)] blur-[0.6cqw]" />
 
@@ -48,8 +49,11 @@ function SnowGlobe({ src }: { src: string }) {
       <div className="absolute top-[85cqw] left-[24cqw] h-[7cqw] w-[52cqw] rounded-[50%] border-[0.35cqw] border-white bg-[linear-gradient(180deg,rgba(235,242,250,0.9),rgba(170,192,218,0.7))] ring-1 ring-[rgba(110,140,182,0.45)] shadow-[inset_0_-0.8cqw_1.2cqw_rgba(120,145,180,0.35),0_0.4cqw_1cqw_rgba(11,26,61,0.12)]" />
 
       {/* Glass sphere */}
-      <div className="absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_46%_42%,transparent_0%,transparent_55%,rgba(150,178,212,0.16)_78%,rgba(105,138,182,0.48)_100%)] shadow-[0_0_0_1px_rgba(110,140,182,0.45)]">
+      <div className={`absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_46%_42%,transparent_0%,transparent_55%,rgba(150,178,212,0.16)_78%,rgba(105,138,182,0.48)_100%)] shadow-[0_0_0_1px_rgba(110,140,182,0.45)]`}>
+        {/* Frosty winter sky: pale ice blue at the top, clear by the middle */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(190,214,240,0.5)_0%,rgba(212,228,246,0.25)_38%,transparent_62%)]" />
         <div className={`${styles.snow} ${styles.far}`} />
+        <div className={`${styles.snow} ${styles.mid}`} />
 
         {/* Settled snow: a broad mound across the bottom of the sphere,
             heaped a little higher in the middle under the piece */}
@@ -136,7 +140,7 @@ export function GiftGuideJewelryTypes() {
   return (
     <section
       aria-labelledby="types-heading"
-      className="relative pb-24 lg:pb-32"
+      className="pb-24 lg:pb-32"
     >
       <div className="flex items-end justify-between gap-6 px-edge">
         <h2

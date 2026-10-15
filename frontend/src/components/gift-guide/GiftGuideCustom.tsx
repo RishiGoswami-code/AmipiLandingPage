@@ -1,34 +1,35 @@
-import { Gem, Heart, History, Layers, Sparkles, Stamp, type LucideIcon } from "lucide-react";
+import Image from "next/image";
+import { ImageIcon } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** Navy from the hero banner, used for the headings. */
+/** Navy from the hero banner, used for the heading. */
 const NAVY = "#0b1a3d";
 
-/** The custom work AMIPI's Custom Design Studio takes on (amipi.com/custom). */
-const OPTIONS: { title: string; text: string; Icon: LucideIcon }[] = [
-  { title: "Heirloom Redesign", text: "A family piece re-imagined for how it's worn today.", Icon: History },
-  { title: "Custom Engagement Rings", text: "A ring designed around one proposal, from the stone up.", Icon: Gem },
-  { title: "Logo Jewelry", text: "A brand, crest or monogram cast in gold and diamonds.", Icon: Stamp },
-  { title: "Your Own Stones", text: "Set the diamonds or gems your customer already has.", Icon: Sparkles },
-  { title: "Matching Sets", text: "Earrings, bracelets and pendants made to go together.", Icon: Layers },
-  { title: "Symbolic Pieces", text: "Initials, dates and motifs that mean something to them.", Icon: Heart },
-];
+/**
+ * The photo, still to come. While it is null the right of the panel shows a
+ * labelled placeholder; set it to a public/ path (4:3 works best) and the
+ * photo fills that space.
+ */
+const PHOTO_SRC: string | null = null;
+
+/** Why custom, in a word each - from AMIPI's Custom Design Studio page. */
+const POINTS = ["Personalization", "Sentimental Value", "Unique Design", "Long-Term Satisfaction"];
 
 /**
- * "Custom Jewelry" - in the place of Stuller's "Personalized Jewelry", which
- * is a plain list of six categories. AMIPI's version is its Custom Design
- * Studio: the six kinds of custom work beside a short pitch and one button to
- * book a meeting, in a white panel on the cream like Top Holiday Trends.
+ * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), kept short so
+ * the photo carries the section: a kicker, the heading, one line of copy, the
+ * four reasons as small tags and one button, beside the photo in a white
+ * panel on the cream like Top Holiday Trends. On phones the photo comes first.
  */
 export function GiftGuideCustom() {
   return (
     <section aria-labelledby="custom-heading" className="px-edge py-20 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 rounded-2xl border border-[#141414]/[0.06] bg-white px-6 py-12 shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] sm:px-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:px-14 lg:py-16">
-        <div className="max-w-md">
+      <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-2">
+        <div className="flex flex-col justify-center px-6 py-12 sm:px-10 order-2 lg:order-1 lg:px-14 lg:py-16">
           {/* The kicker with a trailing rule, as on the About page */}
           <p className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] text-[#8a6630] uppercase">
             Custom Design Studio
-            <span className="h-px w-12 bg-[#8a6630]/50 sm:w-20" />
+            <span className="hidden h-px w-20 bg-[#8a6630]/50 sm:block" />
           </p>
           <h2
             id="custom-heading"
@@ -37,33 +38,37 @@ export function GiftGuideCustom() {
           >
             Custom Jewelry
           </h2>
-          <p className="mt-5 text-[0.9375rem] leading-relaxed text-[#141414]/70 sm:text-base">
-            You dream it, we make it. From the first sketch to a CAD model, a
-            wax and the finished casting, our studio turns your customer&rsquo;s
-            idea into a one-of-a-kind holiday gift.
+          <p className="mt-5 max-w-[42ch] text-[0.9375rem] leading-relaxed text-[#141414]/70 sm:text-base">
+            One-of-a-kind jewelry made to your customer&rsquo;s vision, brought
+            to life in 5 easy steps.
           </p>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {POINTS.map((point) => (
+              <li
+                key={point}
+                className="rounded-full bg-[#f3ead8] px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.12em] text-[#8a6630] uppercase"
+              >
+                {point}
+              </li>
+            ))}
+          </ul>
           <div className="mt-8">
-            <PillButton href="/meet" variant="dark" size="sm" icon="arrow">
-              Start a Custom Piece
+            <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
+              Get Started
             </PillButton>
           </div>
         </div>
 
-        <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:self-center">
-          {OPTIONS.map(({ title, text, Icon }) => (
-            <li key={title} className="flex gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#f3ead8] text-[#8a6630]">
-                <Icon className="h-5 w-5" strokeWidth={1.5} />
-              </span>
-              <div>
-                <h3 className="text-sm font-semibold" style={{ color: NAVY }}>
-                  {title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-[#141414]/65">{text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="relative order-1 aspect-[4/3] lg:order-2 lg:aspect-auto lg:min-h-[28rem]">
+          {PHOTO_SRC ? (
+            <Image quality={90} src={PHOTO_SRC} alt="" fill sizes="(min-width: 1024px) 40rem, 100vw" className="object-cover" />
+          ) : (
+            <div className="absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#141414]/15 bg-[#f3efe7] text-[#8a6630] sm:inset-4">
+              <ImageIcon className="h-7 w-7" strokeWidth={1.25} />
+              <span className="text-[10px] font-semibold tracking-[0.2em] uppercase">Photo coming soon</span>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
