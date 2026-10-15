@@ -3,11 +3,11 @@ import { PillButton } from "@/components/ui/PillButton";
 
 /** The blue diamond banner: about 3:1, plain deep blue across the left half
  * and, on the right, a blue satin ribbon on velvet with loose diamonds and
- * hands holding a diamond and a loupe. Full size (3584px wide). */
-const BANNER_SRC = "/gift-guide/luxury-blue-diamond-banner.webp";
+ * hands holding a diamond and a loupe. Full size (2123px wide). */
+const BANNER_SRC = "/gift-guide/brilliance-blue-diamond-banner.webp";
 
 /** The banner's own plain blue, so the band and the fades match it. */
-const BLUE = "#1a2743";
+const BLUE = "#10192c";
 
 /** Ivory for the copy on the navy, as in the hero. */
 const IVORY = "#f5efe4";
@@ -32,7 +32,7 @@ export function GiftGuideBrilliance() {
   return (
     <section
       aria-labelledby="brilliance-heading"
-      className="relative isolate overflow-hidden lg:aspect-[3584/1184] lg:max-h-[80svh] lg:min-h-[28rem]"
+      className="relative isolate overflow-hidden lg:aspect-[2123/741] lg:max-h-[80svh] lg:min-h-[28rem]"
       style={{ color: IVORY, backgroundColor: BLUE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -43,12 +43,12 @@ export function GiftGuideBrilliance() {
           fill
           // On phones the 3:2 box shows the right half of the 3:1 banner,
           // which renders about twice the screen width
-          sizes="(min-width: 1024px) 100vw, 202vw"
+          sizes="(min-width: 1024px) 100vw, 191vw"
           className="object-cover object-right lg:object-center"
         />
         {/* Phones: the picture fades up into the plain blue under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#1a2743_0%,rgb(26_39_67/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#10192c_0%,rgb(16_25_44/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
       </div>
 
       <div className="h-full px-edge pt-14 lg:pt-0">
