@@ -30,10 +30,10 @@ const TYPES = [
 /**
  * A crystal-clear snow globe drawn in CSS, after the reference photo: the
  * sphere is transparent (the page shows through it), defined only by its
- * edge, reflections and the snow inside - falling flakes and a mound of
- * settled snow the piece stands on. It rests on a thin clear-glass disc
- * with a soft shadow under it. No stand, no scenery. A faint frosty sky at
- * the top of the glass gives it a winter feel.
+ * blue-tinted edge, a thin rim reflection and the snow inside - falling
+ * flakes and a thin drift of settled snow. Nothing hazy crosses the piece. It rests on a thin clear-glass disc
+ * with a soft shadow under it. No stand, no scenery. The glass is clear
+ * through the middle and tinted ice blue only towards its rim.
  *
  * Everything is sized in cqw off the globe's own width (a size container),
  * so it scales as one object. The sphere is 92cqw across from the top; the
@@ -49,37 +49,33 @@ function SnowGlobe({ src }: { src: string }) {
       <div className="absolute top-[85cqw] left-[24cqw] h-[7cqw] w-[52cqw] rounded-[50%] border-[0.35cqw] border-white bg-[linear-gradient(180deg,rgba(235,242,250,0.9),rgba(170,192,218,0.7))] ring-1 ring-[rgba(110,140,182,0.45)] shadow-[inset_0_-0.8cqw_1.2cqw_rgba(120,145,180,0.35),0_0.4cqw_1cqw_rgba(11,26,61,0.12)]" />
 
       {/* Glass sphere */}
-      <div className={`absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_46%_42%,transparent_0%,transparent_55%,rgba(150,178,212,0.16)_78%,rgba(105,138,182,0.48)_100%)] shadow-[0_0_0_1px_rgba(110,140,182,0.45)]`}>
-        {/* Frosty winter sky: pale ice blue at the top, clear by the middle */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(190,214,240,0.5)_0%,rgba(212,228,246,0.25)_38%,transparent_62%)]" />
+      <div className={`absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_50%,transparent_0%,transparent_80%,rgba(140,172,215,0.25)_92%,rgba(90,128,185,0.6)_100%)] shadow-[0_0_0_1px_rgba(90,128,185,0.55)]`}>
         <div className={`${styles.snow} ${styles.far}`} />
         <div className={`${styles.snow} ${styles.mid}`} />
 
-        {/* Settled snow: a broad mound across the bottom of the sphere,
-            heaped a little higher in the middle under the piece */}
-        <div className="absolute -inset-x-[4%] bottom-[-3%] h-[22%] rounded-[50%_50%_0_0/100%_100%_0_0] bg-[linear-gradient(180deg,#ffffff_0%,#eef3f8_40%,#cfdbe8_100%)] shadow-[0_-0.5cqw_1.2cqw_rgba(120,150,190,0.3)]" />
-        <div className="absolute bottom-[11%] left-[24%] h-[12%] w-[52%] rounded-[50%] bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#f6f8fb_55%,rgba(230,237,245,0)_100%)]" />
+        {/* Settled snow: a thin drift along the very bottom, so the glass
+            stays clear behind the piece */}
+        <div className="absolute -inset-x-[4%] bottom-[-3%] h-[13%] rounded-[50%_50%_0_0/100%_100%_0_0] bg-[linear-gradient(180deg,rgba(255,255,255,0.85)_0%,rgba(225,234,245,0.7)_60%,rgba(150,178,215,0.55)_100%)]" />
 
         {/* The piece: large and sharp, standing on the mound */}
-        <div className="absolute top-[13%] left-[10%] h-[70%] w-[80%]">
+        <div className="absolute top-[13%] left-[10%] h-[72%] w-[80%]">
           <Image
             quality={90}
             src={src}
             alt=""
             fill
             sizes="(min-width: 1024px) 16vw, (min-width: 640px) 28vw, 45vw"
-            className="object-contain object-[50%_72%] drop-shadow-[0_1cqw_1.4cqw_rgba(20,40,80,0.28)]"
+            className="object-contain object-[50%_60%] contrast-[1.06] drop-shadow-[0_1.2cqw_1.4cqw_rgba(20,40,80,0.35)]"
           />
         </div>
 
         <div className={`${styles.snow} ${styles.near}`} />
 
-        {/* Glass: a thin bright edge all round, a curved window reflection
-            top-left, a crisp specular glint, and a bright arc on the right */}
-        <div className="absolute inset-0 rounded-full shadow-[inset_0_0_0_0.3cqw_rgba(255,255,255,0.9),inset_0_0_0_0.6cqw_rgba(140,165,200,0.25),inset_0_0_2.5cqw_rgba(110,140,185,0.3)]" />
-        <div className="absolute inset-[5%] -rotate-[45deg] rounded-full border-[2cqw] border-transparent border-t-white/90 blur-[0.25cqw] drop-shadow-[0_0.3cqw_0.4cqw_rgba(100,130,175,0.45)]" />
-        <div className="absolute top-[15%] left-[22%] h-[6%] w-[11%] -rotate-[40deg] rounded-[50%] bg-white blur-[0.35cqw] drop-shadow-[0_0_0.5cqw_rgba(100,130,175,0.5)]" />
-        <div className="absolute inset-[3%] rotate-[100deg] rounded-full border-[0.9cqw] border-transparent border-t-white/80 blur-[0.2cqw] drop-shadow-[0_0.2cqw_0.3cqw_rgba(100,130,175,0.4)]" />
+        {/* Glass: a blue edge all round, a thin reflection hugging the
+            top-left rim and a small glint - nothing over the piece */}
+        <div className="absolute inset-0 rounded-full shadow-[inset_0_0_0_0.35cqw_rgba(255,255,255,0.7),inset_0_0_1.6cqw_rgba(80,120,180,0.35)]" />
+        <div className="absolute inset-[2.5%] -rotate-[45deg] rounded-full border-[0.9cqw] border-transparent border-t-white/80 blur-[0.15cqw]" />
+        <div className="absolute top-[11%] left-[19%] h-[4%] w-[7%] -rotate-[40deg] rounded-[50%] bg-white/90 blur-[0.3cqw]" />
       </div>
     </div>
   );
@@ -140,7 +136,7 @@ export function GiftGuideJewelryTypes() {
   return (
     <section
       aria-labelledby="types-heading"
-      className="pb-24 lg:pb-32"
+      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pt-10 pb-24 lg:pt-12 lg:pb-32"
     >
       <div className="flex items-end justify-between gap-6 px-edge">
         <h2

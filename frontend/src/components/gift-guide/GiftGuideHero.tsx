@@ -9,9 +9,6 @@ import { italiana } from "@/styles/fonts";
 
 gsap.registerPlugin(useGSAP);
 
-/** The page ground around the banner: the masthead above it and the page below. */
-const GROUND = "bg-[#fbfaf7]";
-
 /** The navy velvet-and-ribbon banner. 3:1, with the ribbons at both ends and
  * plain navy through the middle-left, where the copy sits. */
 const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
@@ -98,7 +95,7 @@ export function GiftGuideHero() {
   );
 
   return (
-    <div ref={rootRef} className={`${GROUND} text-[#141414]`}>
+    <div ref={rootRef} className="text-[#141414]">
       {/* Masthead strip, on the cream above the banner */}
       <header
         data-reveal

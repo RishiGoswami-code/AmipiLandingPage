@@ -1,106 +1,77 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
-import { GiftGuideCarousel, PRODUCT_SLIDE, ProductCard } from "./GiftGuideCarousel";
 
-/** Ivory for the copy on the blue panel, as on the navy bands. */
+/** The gold banner: 16:9, plain bronze satin across the left where the copy
+ * sits, and an alternating emerald band, emerald hoops and a ruby tennis
+ * bracelet in a shaft of light at the right. */
+const BANNER_SRC = "/gift-guide/color-gold-banner.webp";
+
+/** The banner's own plain bronze, so the band and the fades match it. */
+const BRONZE = "#673310";
+
+/** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
 
 /** Champagne gold for "Color" - the same ramp as "Catalog" in the hero. */
 const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
-
-/** The banner photo: a sapphire halo ring on a stack of blueberries. */
-const PHOTO_SRC = "/gift-guide/sapphire-ring.jpeg";
+  "bg-[linear-gradient(180deg,#f6e2b8_0%,#ecd3a0_50%,#dcbc7e_100%)] bg-clip-text text-transparent";
 
 /**
- * Soft out-of-focus lights behind the banner copy, the way Stuller's Signature
- * Red banner has bokeh - a handful of blurred discs in pale blue.
- */
-const BOKEH = [
-  "radial-gradient(circle at 62% 22%, rgba(150,185,255,0.2) 0, rgba(150,185,255,0.12) 2.5rem, transparent 3.75rem)",
-  "radial-gradient(circle at 88% 30%, rgba(150,185,255,0.16) 0, rgba(150,185,255,0.08) 1.75rem, transparent 2.75rem)",
-  "radial-gradient(circle at 78% 78%, rgba(150,185,255,0.18) 0, rgba(150,185,255,0.1) 3rem, transparent 4.25rem)",
-  "radial-gradient(circle at 95% 62%, rgba(150,185,255,0.12) 0, rgba(150,185,255,0.06) 1.25rem, transparent 2.25rem)",
-  "radial-gradient(circle at 56% 70%, rgba(150,185,255,0.1) 0, rgba(150,185,255,0.05) 1rem, transparent 2rem)",
-  "radial-gradient(ellipse 80% 90% at 75% 40%, #1d3f99 0%, #12286a 50%, #0a1a45 100%)",
-].join(", ");
-
-/** The collection's pieces, each on a white ground. The rainbow bracelet is
- * the same shot as in Holiday Bestsellers. */
-const COLLECTION = [
-  { title: "Alternating Emerald Band", src: "/gift-guide/color/emerald-band.webp" },
-  { title: "Full Color Emerald Hoops", src: "/gift-guide/color/emerald-hoops.webp" },
-  { title: "Full Color Ruby Bracelet", src: "/gift-guide/color/ruby-bracelet.webp" },
-  { title: "Half & Half Sapphire Necklace", src: "/gift-guide/color/sapphire-necklace.webp" },
-  { title: "Rainbow Tennis Bracelet", src: "/gift-guide/bestsellers/rainbow-bracelet.webp" },
-];
-
-/**
- * "Color" - the coloured-gemstone holiday trend, after Stuller's Signature
- * Red section: an inset blue panel holding a banner (photo on the left; the
- * heading, a line of copy and a button on the right, over soft bokeh), then
- * the collection in the same carousel as Holiday Bestsellers.
+ * "Color" - the coloured-gemstone holiday trend: a full-bleed banner built
+ * the same way as "Bezel-Set Styles", with the copy on the left.
+ *
+ * On phones the copy sits on the plain bronze and the right of the banner -
+ * the three pieces - forms a 3:2 band beneath it.
  */
 export function GiftGuideColor() {
   return (
-    <section aria-labelledby="color-heading" className="px-edge py-20 lg:py-28">
-      <div
-        className="mx-auto max-w-7xl overflow-hidden rounded-2xl p-3 shadow-[0_30px_70px_-40px_rgba(11,26,61,0.6)] sm:p-6 lg:p-8"
-        style={{
-          background: "radial-gradient(ellipse 70% 60% at 50% 100%, #1f4bb0 0%, transparent 70%), linear-gradient(180deg, #0a1a45, #102a73)",
-          color: IVORY,
-        }}
-      >
-        {/* Banner */}
-        <div
-          className="grid overflow-hidden rounded-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
-          style={{ background: BOKEH }}
-        >
-          <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[26rem]">
-            <Image quality={90}
-              src={PHOTO_SRC}
-              alt="Sapphire halo ring"
-              fill
-              sizes="(min-width: 1024px) 34rem, 100vw"
-              className="object-cover object-[50%_30%] lg:[mask-image:linear-gradient(90deg,#000_55%,transparent)]"
-            />
-          </div>
+    <section
+      aria-labelledby="color-heading"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[min(56.25vw,80svh)] lg:min-h-[26rem] lg:pt-0"
+      style={{ color: IVORY, backgroundColor: BRONZE }}
+    >
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
+        <Image
+          quality={90}
+          src={BANNER_SRC}
+          alt=""
+          fill
+          // On phones the 3:2 box shows the right of the 16:9 banner, which
+          // renders about 1.2 times the screen width
+          sizes="(min-width: 1024px) 100vw, 120vw"
+          className="object-cover object-right lg:object-center"
+        />
+        {/* Phones: the picture fades up into the plain bronze under the copy;
+            desktop: a soft pool behind the copy only */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#673310_0%,rgb(103_51_16/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+      </div>
 
-          <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:py-14 lg:pr-14 lg:pl-10">
+      <div className="w-full px-edge">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-xl">
             <h2
               id="color-heading"
               className={`font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.5vw,5rem)] leading-none font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#dcbc7e] uppercase">
+            <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#ecd3a0] uppercase">
               Colored Gemstones
             </p>
-            <p className="mt-5 max-w-[46ch] text-[0.9375rem] leading-relaxed text-[#f5efe4]/80 sm:text-base">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/85">
               Colored gemstones are one of the season&rsquo;s biggest trends.
-              Rich blues, deep reds and rainbow-bright sets bring warmth and
+              Rich greens, deep reds and bright accents bring warmth and
               personality to every holiday gift.
             </p>
-            <div className="mt-8">
+            <div className="mt-[clamp(1.25rem,3vh,2rem)]">
               <PillButton href="/categories" variant="light" size="sm" icon="arrow">
                 Shop Now
               </PillButton>
             </div>
           </div>
-        </div>
 
-        {/* The collection */}
-        <div className="px-1 pt-12 pb-4 text-center sm:px-0 lg:pt-14">
-          <h3 className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2rem,3.2vw,2.75rem)] leading-[1.1] font-medium italic">
-            The Color Collection
-          </h3>
-          <div className="mt-8">
-            <GiftGuideCarousel label="Color collection pieces" slideClassName={PRODUCT_SLIDE}>
-              {COLLECTION.map((piece) => (
-                <ProductCard key={piece.title} title={piece.title} src={piece.src} href="/categories" />
-              ))}
-            </GiftGuideCarousel>
-          </div>
+          {/* Phones: room under the copy for the jewelry */}
+          <div aria-hidden className="aspect-[3/2] lg:hidden" />
         </div>
       </div>
     </section>

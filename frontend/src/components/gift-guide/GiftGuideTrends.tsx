@@ -10,16 +10,16 @@ const NAVY = "#0b1a3d";
  */
 const TRENDS = [
   {
-    title: "Stackables",
-    src: "/gift-guide/trends/stackables.webp",
-    position: "50% 55%",
+    title: "Everyday Wearables",
+    src: "/gift-guide/trends/everyday-wearables.webp",
+    position: "50% 50%",
   },
   { title: "Color", src: "/gift-guide/trends/color.webp", position: "50% 50%" },
   { title: "Bezel", src: "/gift-guide/trends/bezel.webp", position: "50% 50%" },
   {
-    title: "Everyday Wearables",
-    src: "/gift-guide/trends/everyday-wearables.webp",
-    position: "50% 50%",
+    title: "Stackables",
+    src: "/gift-guide/trends/stackables.webp",
+    position: "50% 55%",
   },
   { title: "Drop", src: "/gift-guide/trends/drop.webp", position: "50% 40%" },
   {

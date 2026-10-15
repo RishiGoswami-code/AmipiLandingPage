@@ -69,9 +69,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gift-guide" },
 };
 
+/**
+ * The page ground: warm champagne ivory under a faint paper grain
+ * (public/gift-guide/paper-grain.svg, a 220px tiling noise), so the plain
+ * sections read as printed card rather than flat screen white. Sections
+ * without a banner are transparent and sit on it.
+ */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#fbfaf7]`}>
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] bg-[url(/gift-guide/paper-grain.svg)]`}>
       <GiftGuideHero />
       <GiftGuideTrends />
       <GiftGuideJewelryTypes />
