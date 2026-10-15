@@ -1,6 +1,9 @@
 import Image from "next/image";
-import { PillButton } from "@/components/ui/PillButton";
-import { GiftGuideCarousel, PRODUCT_SLIDE, ProductCard } from "./GiftGuideCarousel";
+import {
+  GiftGuideCarousel,
+  PRODUCT_SLIDE,
+  ProductCard,
+} from "./GiftGuideCarousel";
 
 /** The navy velvet banner from the hero - ribbons at both ends and plain
  * navy through the middle, where the centred heading and carousel sit. */
@@ -9,25 +12,34 @@ const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 /** Ivory for the copy on the navy, as in the hero. */
 const IVORY = "#f5efe4";
 
-/**
- * AMIPI's bestsellers. The photos are stand-ins from the site's new-arrival
- * product shots (white ground) where one is close; the pieces with no close
- * match show a placeholder until the product photography is in.
- */
+/** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
+ * bracelet still use the site's new-arrival product shots. */
 const BESTSELLERS: { title: string; src?: string }[] = [
   { title: "Split Prong Hoops", src: "/new-arrival/classic-hoops.webp" },
-  { title: "3 Stone Huggies" },
+  {
+    title: "3 Stone Huggies",
+    src: "/gift-guide/bestsellers/three-stone-huggies.webp",
+  },
   { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
   { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },
-  { title: "Unflippable Necklace", src: "/new-arrival/tennis-necklace.webp" },
-  { title: "Bezel Bracelet" },
-  { title: "Rainbow Bracelet", src: "/new-arrival/rainbow-tennis-set.webp" },
+  {
+    title: "Unflippable Necklace",
+    src: "/gift-guide/bestsellers/tennis-necklace.webp",
+  },
+  {
+    title: "Bezel Bracelet",
+    src: "/gift-guide/bestsellers/bezel-bracelet.webp",
+  },
+  {
+    title: "Rainbow Bracelet",
+    src: "/gift-guide/bestsellers/rainbow-bracelet.webp",
+  },
 ];
 
 /**
  * "Holiday Bestsellers" - laid out like the matching section on Stuller's
  * holiday page: a full-bleed banner with a centred heading and line of copy,
- * a carousel of white product cards, then one "Shop All" button.
+ * a carousel of white product cards, each with its own red "Shop" button.
  *
  * Every card links to /categories until the product pages exist.
  */
@@ -39,10 +51,17 @@ export function GiftGuideBestsellers() {
       style={{ color: IVORY }}
     >
       <div aria-hidden className="absolute inset-0 -z-10">
-        <Image src={BANNER_SRC} alt="" fill sizes="100vw" className="object-cover" />
-        {/* Darkened through the middle so the cards and copy sit on plain navy
-            and only the ribbons at the ends show through */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_75%_at_50%_50%,rgba(5,13,35,0.65),transparent)]" />
+        <Image
+          quality={90}
+          src={BANNER_SRC}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Darkened through the middle so the cards and copy sit on plain navy;
+            wide enough now that the row runs nearly edge to edge */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_75%_at_50%_50%,rgba(5,13,35,0.65),transparent)]" />
       </div>
 
       <div className="mx-auto max-w-7xl text-center">
@@ -57,20 +76,22 @@ export function GiftGuideBestsellers() {
           retailers reorder most for their timeless appeal, effortless
           versatility and gift-worthy sparkle.
         </p>
+      </div>
 
-        <div className="mt-10">
-          <GiftGuideCarousel label="bestsellers" slideClassName={PRODUCT_SLIDE}>
-            {BESTSELLERS.map((piece) => (
-              <ProductCard key={piece.title} title={piece.title} src={piece.src} href="/categories" />
-            ))}
-          </GiftGuideCarousel>
-        </div>
-
-        <div className="mt-8">
-          <PillButton href="/categories" variant="light" size="sm" icon="arrow">
-            Shop All Bestsellers
-          </PillButton>
-        </div>
+      {/* The carousel spans the full width between the page gutters rather
+          than the centred column the copy uses */}
+      <div className="mt-10">
+        <GiftGuideCarousel label="bestsellers" slideClassName={PRODUCT_SLIDE}>
+          {BESTSELLERS.map((piece) => (
+            <ProductCard
+              key={piece.title}
+              title={piece.title}
+              src={piece.src}
+              href="/categories"
+              shop
+            />
+          ))}
+        </GiftGuideCarousel>
       </div>
     </section>
   );

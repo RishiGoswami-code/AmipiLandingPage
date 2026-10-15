@@ -9,8 +9,6 @@ import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestselle
 import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
-import { GiftGuideShopJewelry } from "@/components/gift-guide/GiftGuideShopJewelry";
-import { GiftGuideStockingStuffers } from "@/components/gift-guide/GiftGuideStockingStuffers";
 
 /*
  * Catalog display face for the gift guide only, vendored as latin-subset
@@ -83,8 +81,6 @@ export default function GiftGuidePage() {
       <GiftGuideCustom />
       <GiftGuideBezel />
       <GiftGuideColor />
-      <GiftGuideShopJewelry />
-      <GiftGuideStockingStuffers />
     </div>
   );
 }

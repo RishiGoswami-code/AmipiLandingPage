@@ -16,7 +16,11 @@ const nextConfig: NextConfig = {
     return [
       // amipi.com variants of pages this site has
       { source: "/sell.php", destination: "/sell", permanent: true },
-      { source: "/schedule-appointment", destination: "/meet", permanent: true },
+      {
+        source: "/schedule-appointment",
+        destination: "/meet",
+        permanent: true,
+      },
       // Paths this site used before it matched amipi.com's
       { source: "/contact", destination: "/contact-us", permanent: true },
       { source: "/sell-your-diamonds", destination: "/sell", permanent: true },
@@ -24,6 +28,9 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // 75 is Next's default; 90 is for the gift guide's photography, which
+    // shows visible softening at 75.
+    qualities: [75, 90],
     // Unsplash-hosted placeholder photography for New Arrivals (see
     // NewArrivals.tsx) - freely licensed for this use, standing in until
     // real product photography exists.

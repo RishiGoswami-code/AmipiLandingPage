@@ -4,21 +4,33 @@ import Image from "next/image";
 const NAVY = "#0b1a3d";
 
 /**
- * The six trend tiles. Placeholder photos from the site's existing product
- * shots until the gift-guide photography is in; `position` is the focal
- * point the square-ish tile crop keeps.
+ * The six trend tiles, from GiftPageImages/HOLIDAY TRENDS. The tiles are 4:5;
+ * `position` is the focal point the crop keeps on the photos that aren't
+ * (Stackables and Drop are 2:3, Bezel is nearly square).
  */
 const TRENDS = [
-  { title: "Stackables", src: "/new-arrival/half-eternity-band-model.webp", position: "50% 50%" },
-  { title: "Color", src: "/new-arrival/rainbow-tennis-set-model.webp", position: "50% 50%" },
-  { title: "Bezel", src: "/categories/tennis-bracelets.webp", position: "50% 55%" },
-  { title: "Everyday Wearables", src: "/new-arrival/riviera-bracelet-model.webp", position: "50% 45%" },
-  { title: "Drop", src: "/categories/hoop-earrings.webp", position: "40% 55%" },
-  { title: "Bridal", src: "/categories/engagement-rings.webp", position: "50% 45%" },
+  {
+    title: "Stackables",
+    src: "/gift-guide/trends/stackables.webp",
+    position: "50% 55%",
+  },
+  { title: "Color", src: "/gift-guide/trends/color.webp", position: "50% 50%" },
+  { title: "Bezel", src: "/gift-guide/trends/bezel.webp", position: "50% 50%" },
+  {
+    title: "Everyday Wearables",
+    src: "/gift-guide/trends/everyday-wearables.webp",
+    position: "50% 50%",
+  },
+  { title: "Drop", src: "/gift-guide/trends/drop.webp", position: "50% 40%" },
+  {
+    title: "Bridal",
+    src: "/gift-guide/trends/bridal.webp",
+    position: "50% 50%",
+  },
 ];
 
-/** Placeholder for the tall model shot beside the grid. */
-const MODEL_SRC = "/new-arrival/eternity-band-model.webp";
+/** The tall model shot beside the grid (sapphire rings and studs). */
+const MODEL_SRC = "/gift-guide/trends/model.webp";
 
 /**
  * "Top Holiday Trends" - laid out like the matching section on Stuller's
@@ -30,7 +42,10 @@ const MODEL_SRC = "/new-arrival/eternity-band-model.webp";
  */
 export function GiftGuideTrends() {
   return (
-    <section aria-labelledby="trends-heading" className="px-edge pt-10 pb-20 lg:pt-16 lg:pb-28">
+    <section
+      aria-labelledby="trends-heading"
+      className="px-edge pt-10 pb-20 lg:pt-16 lg:pb-28"
+    >
       <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="px-4 pt-10 pb-4 sm:px-8 lg:px-8 lg:pt-12 lg:pb-8 xl:px-10">
           {/* Cormorant Italic, as "Holiday" in the hero */}
@@ -49,6 +64,7 @@ export function GiftGuideTrends() {
                 className="@container relative aspect-[4/5] overflow-hidden rounded-xl bg-[#ebe7df]"
               >
                 <Image
+                  quality={90}
                   src={trend.src}
                   alt=""
                   fill
@@ -57,7 +73,7 @@ export function GiftGuideTrends() {
                   className="object-cover"
                 />
                 {/* Dark fade from the top for the numeral and from the bottom
-                    for the label; the placeholder photos are mostly pale. */}
+                    for the label, so both read on any photo */}
                 <div
                   aria-hidden
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,13,35,0.28)_0%,transparent_35%,transparent_50%,rgba(5,13,35,0.78)_100%)]"
@@ -80,6 +96,7 @@ export function GiftGuideTrends() {
         {/* Model photo: fills the panel's right side on desktop, follows the grid on phones */}
         <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-xl sm:m-8 sm:mt-0 lg:m-0 lg:aspect-auto lg:rounded-none">
           <Image
+            quality={90}
             src={MODEL_SRC}
             alt=""
             fill

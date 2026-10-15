@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** The midnight-blue satin banner: 3:1, plain navy across the left two-thirds
- * and a satin ribbon over an envelope on the right. */
-const BANNER_SRC = "/gift-guide/midnight-satin-banner.webp";
+/** The navy and gold ribbon display: 3:1, plain navy across the left half
+ * and a navy satin ribbon wound with gold ribbon, gold leaves and diamonds on
+ * the right. */
+const BANNER_SRC = "/gift-guide/navy-gold-ribbon-banner.webp";
 
 /** Ivory for the copy on the navy, as in the hero. */
 const IVORY = "#f5efe4";
@@ -14,13 +15,14 @@ const GOLD_TEXT =
 
 /**
  * "Give the Gift of Brilliance" - after the matching banner on Stuller's
- * holiday page: copy on the plain navy at the left, the satin ribbon at the
- * right (product photos to be laid on it later), with one button each for
- * natural and lab-grown diamond jewelry. The headline repeats the hero's pairing - a Cormorant Italic line
- * over a gold Bodoni capital word - so the two navy bands read as a set.
+ * holiday page: copy on the plain navy at the left, the ribbons, gold leaves
+ * and diamonds of the banner at the right, with one button each for natural and lab-grown
+ * diamond jewelry. The headline repeats the hero's pairing - a Cormorant
+ * Italic line over a gold Bodoni capital word - so the two navy bands read as
+ * a set.
  *
  * Full-bleed like the hero's band. On phones the banner is anchored right so
- * the ribbon shows, with the copy on a navy fade at the top and the ribbon
+ * the ribbons show, with the copy on a navy fade at the top and the ribbons
  * left clear beneath it.
  */
 export function GiftGuideBrilliance() {
@@ -32,11 +34,14 @@ export function GiftGuideBrilliance() {
     >
       <div aria-hidden className="absolute inset-0 -z-10">
         <Image
+          quality={90}
           src={BANNER_SRC}
           alt=""
           fill
-          sizes="100vw"
-          className="object-cover object-[80%_50%] lg:object-center"
+          // On phones the 3:1 banner fills a tall section, so it renders
+          // about four screens wide - ask for that, or it is upscaled
+          sizes="(min-width: 1024px) 100vw, 1700px"
+          className="object-cover object-[88%_50%] lg:object-center"
         />
         {/* Phones: navy fade down from the top so the copy sits on plain
             colour; desktop: a soft pool behind the copy only */}
@@ -63,16 +68,26 @@ export function GiftGuideBrilliance() {
             </p>
 
             <div className="mt-[clamp(1.25rem,3vh,2rem)] flex flex-wrap gap-3">
-              <PillButton href="/categories" variant="gold" size="sm" icon="arrow">
+              <PillButton
+                href="/categories"
+                variant="gold"
+                size="sm"
+                icon="arrow"
+              >
                 Shop Natural Diamond Jewelry
               </PillButton>
-              <PillButton href="/categories" variant="light" size="sm" icon="arrow">
+              <PillButton
+                href="/categories"
+                variant="light"
+                size="sm"
+                icon="arrow"
+              >
                 Shop Lab-Grown Diamond Jewelry
               </PillButton>
             </div>
           </div>
 
-          {/* Phones: room under the copy for the ribbon to show */}
+          {/* Phones: room under the copy for the ribbons */}
           <div aria-hidden className="aspect-[4/3] lg:hidden" />
         </div>
       </div>

@@ -28,6 +28,7 @@ const GOLD_TEXT =
 function BannerImage({ position = "50% 50%" }: { position?: string }) {
   return (
     <Image
+      quality={90}
       src={BANNER_SRC}
       alt=""
       fill
@@ -39,15 +40,19 @@ function BannerImage({ position = "50% 50%" }: { position?: string }) {
   );
 }
 
-/** The four tiles on the spread mockup, from GiftPageImages. All four are
- * portrait shots cropped to square tiles, so each sets the focal point the
- * crop keeps. Shown in colour - the photos were picked for it (the sapphire,
- * the red gloves), unlike the cover, which stays black-and-white. */
+/** The catalog cover: the model in the red dress wearing the diamond
+ * necklace, from GiftPageImages/Top banner grid of 4/Single. 4:5, the same
+ * shape as the cover's photo box, so nothing is cropped. */
+const COVER_SRC = "/gift-guide/hero/cover-necklace.webp";
+
+/** The four tiles on the spread mockup, from GiftPageImages/Top banner grid
+ * of 4. All four are 4:5 shots cropped to square tiles, so each sets the
+ * focal point the crop keeps - the hands and rings. */
 const SPREAD = [
-  { src: "/gift-guide/rings.jpeg", position: "50% 55%" },
-  { src: "/gift-guide/champagne-bracelet.jpeg", position: "50% 40%" },
-  { src: "/gift-guide/sapphire-ring.jpeg", position: "50% 45%" },
-  { src: "/gift-guide/pendant-gloves.jpeg", position: "50% 50%" },
+  { src: "/gift-guide/hero/spread-cupcake.webp", position: "50% 62%" },
+  { src: "/gift-guide/hero/spread-can.webp", position: "50% 45%" },
+  { src: "/gift-guide/hero/spread-cocoa.webp", position: "50% 60%" },
+  { src: "/gift-guide/hero/spread-croissant.webp", position: "50% 35%" },
 ];
 
 /**
@@ -71,10 +76,23 @@ export function GiftGuideHero() {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      gsap.from("[data-reveal]", { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", stagger: 0.08 });
+      gsap.from("[data-reveal]", {
+        opacity: 0,
+        y: 28,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.08,
+      });
       // The catalog pages drop in one after the other. Their tilt is the CSS
       // `rotate` property, which GSAP's transform tween leaves alone.
-      gsap.from("[data-page]", { opacity: 0, y: 60, duration: 1.2, ease: "power3.out", stagger: 0.15, delay: 0.2 });
+      gsap.from("[data-page]", {
+        opacity: 0,
+        y: 60,
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.15,
+        delay: 0.2,
+      });
     },
     { scope: rootRef },
   );
@@ -89,7 +107,15 @@ export function GiftGuideHero() {
         {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
             this page hides the site chrome and the wordmark is the way home. */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
-          <Image src="/icon.png" alt="" aria-hidden width={512} height={512} className="h-8 w-8 sm:h-9 sm:w-9" />
+          <Image
+            quality={90}
+            src="/icon.png"
+            alt=""
+            aria-hidden
+            width={512}
+            height={512}
+            className="h-8 w-8 sm:h-9 sm:w-9"
+          />
           <span
             className={`${italiana.className} text-xl tracking-[0.06em] text-[#141414] uppercase transition-colors hover:text-[#a8803f] sm:text-2xl`}
           >
@@ -106,7 +132,10 @@ export function GiftGuideHero() {
           where the hero stacks, the band sits behind the copy only and the
           collage follows on the cream. */}
       <section className="relative isolate mt-6 grid items-center gap-10 pb-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:py-[clamp(1rem,3vh,2rem)]">
-        <div aria-hidden className="absolute inset-x-0 top-[13%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block">
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-[13%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block"
+        >
           <BannerImage />
           {/* Soft navy pool behind the copy, so the left ribbon's sheen
               doesn't run through the paragraph */}
@@ -124,34 +153,40 @@ export function GiftGuideHero() {
             <div className="absolute inset-0 bg-[#050d23]/50" />
           </div>
           <div className="max-w-2xl lg:pl-4 xl:pl-[clamp(1.5rem,6vw,7rem)]">
-          <h1 data-reveal className="leading-none">
-            {/* Cormorant Garamond Italic (the real italic, loaded in the route's
+            <h1 data-reveal className="leading-none">
+              {/* Cormorant Garamond Italic (the real italic, loaded in the route's
                 page.tsx) at 500 - heavy enough that its hairlines survive on
                 the velvet, calligraphic without turning into a script. */}
-            <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.2] font-medium italic">
-              Holiday
-            </span>
-            {/* Second line pushed right - the stagger on Stuller's "Magic /
+              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.2] font-medium italic">
+                Holiday
+              </span>
+              {/* Second line pushed right - the stagger on Stuller's "Magic /
                 MOMENT" - so the two lines don't share a left edge. */}
-            <span
-              className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+              <span
+                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+              >
+                Catalog
+              </span>
+            </h1>
+
+            <div
+              data-reveal
+              className="mt-[clamp(1rem,3vh,1.75rem)] flex items-center gap-4"
             >
-              Catalog
-            </span>
-          </h1>
+              <span className="h-px w-12 bg-[#dcbc7e]/60" />
+              <span className="text-xs tracking-[0.25em] whitespace-nowrap text-[#f5efe4]/75 uppercase sm:tracking-[0.35em]">
+                Christmas · New Year · Winter
+              </span>
+            </div>
 
-          <div data-reveal className="mt-[clamp(1rem,3vh,1.75rem)] flex items-center gap-4">
-            <span className="h-px w-12 bg-[#dcbc7e]/60" />
-            <span className="text-xs tracking-[0.25em] whitespace-nowrap text-[#f5efe4]/75 uppercase sm:tracking-[0.35em]">
-              Christmas · New Year · Winter
-            </span>
-          </div>
-
-          <p data-reveal className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80">
-            One page, every gift your customers will ask for this season - the
-            essentials that sell themselves, the trends worth stocking, and the
-            new collections ready for the holiday counter.
-          </p>
+            <p
+              data-reveal
+              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+            >
+              One page, every gift your customers will ask for this season - the
+              essentials that sell themselves, the trends worth stocking, and
+              the new collections ready for the holiday counter.
+            </p>
           </div>
         </div>
 
@@ -160,22 +195,21 @@ export function GiftGuideHero() {
             overflows it, and held slightly in from the right edge. A size
             container, so the cover lines scale with the collage (cqw) rather
             than the viewport. The photos stay decorative (alt=""). */}
-        <div
-          className="@container relative mx-auto aspect-[4/3] w-[calc(100%-2*var(--spacing-edge)-1rem)] max-w-[min(50rem,calc(58svh*4/3))] sm:w-[calc(100%-2*var(--spacing-edge))] lg:mr-[clamp(1rem,3vw,3.5rem)] lg:w-full"
-        >
+        <div className="@container relative mx-auto aspect-[4/3] w-[calc(100%-2*var(--spacing-edge)-1rem)] max-w-[min(50rem,calc(58svh*4/3))] sm:w-[calc(100%-2*var(--spacing-edge))] lg:mr-[clamp(1rem,3vw,3.5rem)] lg:w-full">
           {/* Cover */}
           <div
             data-page
-            className="group absolute top-[2%] left-[1%] w-[54%] -rotate-3 bg-white p-[4%] shadow-[0_30px_60px_-20px_rgba(5,12,30,0.55)]"
+            className="absolute top-[2%] left-[1%] w-[54%] -rotate-3 bg-white p-[4%] shadow-[0_30px_60px_-20px_rgba(5,12,30,0.55)]"
           >
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
-                src="/new-arrival/tennis-necklace-model.webp"
+                quality={90}
+                src={COVER_SRC}
                 alt=""
                 fill
                 priority
                 sizes="(min-width: 1024px) 24rem, 55vw"
-                className="object-cover grayscale contrast-125 transition duration-700 group-hover:grayscale-0"
+                className="object-cover object-[50%_35%]"
               />
               {/* Cover line, magazine style: a dark fade up from the bottom
                   keeps white type readable over any part of the photo. */}
@@ -203,8 +237,12 @@ export function GiftGuideHero() {
             </p>
             <div className="grid grid-cols-2 gap-2">
               {SPREAD.map((tile) => (
-                <div key={tile.src} className="relative aspect-square overflow-hidden bg-white">
+                <div
+                  key={tile.src}
+                  className="relative aspect-square overflow-hidden bg-white"
+                >
                   <Image
+                    quality={90}
                     src={tile.src}
                     alt=""
                     fill
@@ -218,7 +256,6 @@ export function GiftGuideHero() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

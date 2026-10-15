@@ -1,9 +1,16 @@
 "use client";
 
-import { Children, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Children,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Gem } from "lucide-react";
+import { ChevronLeft, ChevronRight, Gem, ArrowRight } from "lucide-react";
 
 type GiftGuideCarouselProps = {
   /** Names the controls for screen readers, e.g. "bestsellers" gives
@@ -17,12 +24,16 @@ type GiftGuideCarouselProps = {
 
 /**
  * The carousel the gift guide's Stuller-style sections share (Holiday
- * Bestsellers, the Color collection, Shop Jewelry): a native
+ * Bestsellers and the Color collection): a native
  * scroll-snap track, so it swipes on phones, with round white arrows either
  * side on desktop and page dots in a pill under it. The arrows and dots only
  * drive the track's scroll position.
  */
-export function GiftGuideCarousel({ label, slideClassName, children }: GiftGuideCarouselProps) {
+export function GiftGuideCarousel({
+  label,
+  slideClassName,
+  children,
+}: GiftGuideCarouselProps) {
   const trackRef = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(1);
@@ -32,7 +43,9 @@ export function GiftGuideCarousel({ label, slideClassName, children }: GiftGuide
     const track = trackRef.current;
     const slide = track?.firstElementChild as HTMLElement | null;
     if (!track || !slide) return 0;
-    return slide.offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0");
+    return (
+      slide.offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0")
+    );
   }, []);
 
   // The dots count the scroll positions the track can stop at, which changes
@@ -41,7 +54,10 @@ export function GiftGuideCarousel({ label, slideClassName, children }: GiftGuide
     const track = trackRef.current;
     const s = step();
     if (!track || !s) return;
-    const last = Math.max(0, Math.ceil((track.scrollWidth - track.clientWidth) / s - 0.05));
+    const last = Math.max(
+      0,
+      Math.ceil((track.scrollWidth - track.clientWidth) / s - 0.05),
+    );
     setPages(last + 1);
     setPage(Math.min(Math.round(track.scrollLeft / s), last));
   }, [step]);
@@ -122,19 +138,35 @@ export function GiftGuideCarousel({ label, slideClassName, children }: GiftGuide
 
 /** Slide widths for a row of product cards: about 1.6 on phones, 3.3 on
  * tablets, 5.25 on desktop - the part card at the end says "there's more". */
-export const PRODUCT_SLIDE = "w-[calc((100%-1rem)/1.6)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
+export const PRODUCT_SLIDE =
+  "w-[calc((100%-1rem)/1.6)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
 
 /**
  * A white product card, as in Stuller's carousels: a square photo on white
  * and the name under it. With no `src` it shows a placeholder until the
- * product photo is in. No hover effect.
+ * product photo is in. `shop` adds a red "Shop" button under the name (the
+ * whole card stays the link, so the button is drawn, not nested).
  */
-export function ProductCard({ title, src, href }: { title: string; src?: string; href: string }) {
+export function ProductCard({
+  title,
+  src,
+  href,
+  shop = false,
+}: {
+  title: string;
+  src?: string;
+  href: string;
+  shop?: boolean;
+}) {
   return (
-    <Link href={href} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left text-[#141414]">
+    <Link
+      href={href}
+      className="group flex h-full flex-col overflow-hidden rounded-lg bg-white text-left text-[#141414]"
+    >
       <div className="relative aspect-square">
         {src ? (
           <Image
+            quality={90}
             src={src}
             alt=""
             fill
@@ -144,11 +176,23 @@ export function ProductCard({ title, src, href }: { title: string; src?: string;
         ) : (
           <div className="absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-md border border-dashed border-[#141414]/15 bg-[#f3efe7] text-[#8a6630]">
             <Gem className="h-7 w-7" strokeWidth={1.25} />
-            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase">Photo coming soon</span>
+            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase">
+              Photo coming soon
+            </span>
           </div>
         )}
       </div>
-      <p className="px-4 pt-2 pb-5 text-[0.9375rem] leading-snug">{title}</p>
+      <p
+        className={`px-4 pt-2 text-[0.9375rem] leading-snug ${shop ? "pb-3" : "pb-5"}`}
+      >
+        {title}
+      </p>
+      {shop && (
+        <span className="mx-4 mt-auto mb-5 inline-flex items-center justify-center gap-1.5 self-start rounded-full bg-[#9e1b2c] px-5 py-2 text-[11px] font-semibold tracking-[0.16em] text-white uppercase transition-colors group-hover:bg-[#7f1422]">
+          Shop
+          <ArrowRight className="h-3.5 w-3.5" />
+        </span>
+      )}
     </Link>
   );
 }

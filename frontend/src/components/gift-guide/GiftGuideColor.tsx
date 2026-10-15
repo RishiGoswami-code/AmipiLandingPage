@@ -25,17 +25,14 @@ const BOKEH = [
   "radial-gradient(ellipse 80% 90% at 75% 40%, #1d3f99 0%, #12286a 50%, #0a1a45 100%)",
 ].join(", ");
 
-/**
- * The collection's pieces - named for the piece types until the product list
- * and photos are in, so every card is a placeholder for now.
- */
+/** The collection's pieces, each on a white ground. The rainbow bracelet is
+ * the same shot as in Holiday Bestsellers. */
 const COLLECTION = [
-  "Gemstone Stud Earrings",
-  "Gemstone Stackable Ring",
-  "Gemstone Huggie Earrings",
-  "Gemstone Solitaire Necklace",
-  "Gemstone Bezel Bracelet",
-  "Rainbow Tennis Bracelet",
+  { title: "Alternating Emerald Band", src: "/gift-guide/color/emerald-band.webp" },
+  { title: "Full Color Emerald Hoops", src: "/gift-guide/color/emerald-hoops.webp" },
+  { title: "Full Color Ruby Bracelet", src: "/gift-guide/color/ruby-bracelet.webp" },
+  { title: "Half & Half Sapphire Necklace", src: "/gift-guide/color/sapphire-necklace.webp" },
+  { title: "Rainbow Tennis Bracelet", src: "/gift-guide/bestsellers/rainbow-bracelet.webp" },
 ];
 
 /**
@@ -60,7 +57,7 @@ export function GiftGuideColor() {
           style={{ background: BOKEH }}
         >
           <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[26rem]">
-            <Image
+            <Image quality={90}
               src={PHOTO_SRC}
               alt="Sapphire halo ring"
               fill
@@ -99,8 +96,8 @@ export function GiftGuideColor() {
           </h3>
           <div className="mt-8">
             <GiftGuideCarousel label="Color collection pieces" slideClassName={PRODUCT_SLIDE}>
-              {COLLECTION.map((title) => (
-                <ProductCard key={title} title={title} href="/categories" />
+              {COLLECTION.map((piece) => (
+                <ProductCard key={piece.title} title={piece.title} src={piece.src} href="/categories" />
               ))}
             </GiftGuideCarousel>
           </div>

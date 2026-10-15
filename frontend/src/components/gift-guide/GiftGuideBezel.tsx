@@ -1,14 +1,11 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/**
- * The banner photo, still to come. While it is null the band is plain navy;
- * set it to a public/ path (3:1, plain on the left where the copy sits) and
- * the photo fills the band behind the copy.
- */
-const BANNER_SRC: string | null = null;
+/** The burgundy velvet banner: 3:1, plain deep red across the left where the
+ * copy sits, and a bezel-set pendant and solitaire on velvet at the right. */
+const BANNER_SRC = "/gift-guide/burgundy-velvet-banner.webp";
 
-/** Ivory for the copy on the navy, as in the hero. */
+/** Ivory for the copy on the burgundy. */
 const IVORY = "#f5efe4";
 
 /** Champagne gold for "Styles" - the same ramp as "Catalog" in the hero. */
@@ -20,19 +17,31 @@ const GOLD_TEXT =
  * a full-bleed band with the copy on the left, built the same way as
  * "Give the Gift of Brilliance" so the two read as a pair - a Cormorant
  * Italic line over a gold Bodoni capital word.
+ *
+ * On phones the banner is anchored right so the jewelry shows, with the copy
+ * on a burgundy fade at the top and the jewelry left clear beneath it.
  */
 export function GiftGuideBezel() {
   return (
     <section
       aria-labelledby="bezel-heading"
-      className="relative isolate flex items-center overflow-hidden bg-[#0b1a3d] py-16 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[26rem] lg:py-0"
+      className="relative isolate flex items-center overflow-hidden bg-[#2a0508] pt-14 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[26rem] lg:pt-0"
       style={{ color: IVORY }}
     >
       <div aria-hidden className="absolute inset-0 -z-10">
-        {BANNER_SRC && <Image src={BANNER_SRC} alt="" fill sizes="100vw" className="object-cover" />}
-        {/* A soft lift behind the copy and a glow off to the right, so the
-            plain navy isn't flat until the photo is in */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgba(5,13,35,0.55),transparent),radial-gradient(ellipse_50%_90%_at_85%_50%,rgba(60,90,160,0.35),transparent)]" />
+        <Image
+          quality={90}
+          src={BANNER_SRC}
+          alt=""
+          fill
+          // On phones the 3:1 banner fills a tall section, so it renders
+          // about four screens wide - ask for that, or it is upscaled
+          sizes="(min-width: 1024px) 100vw, 1700px"
+          className="object-cover object-[85%_50%] lg:object-center"
+        />
+        {/* Phones: burgundy fade down from the top so the copy sits on plain
+            colour; desktop: a soft pool behind the copy only */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2a0508_0%,#2a0508_45%,rgba(42,5,8,0.4)_70%,transparent_100%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgba(25,3,5,0.5),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
@@ -60,6 +69,9 @@ export function GiftGuideBezel() {
               </PillButton>
             </div>
           </div>
+
+          {/* Phones: room under the copy for the jewelry */}
+          <div aria-hidden className="aspect-[4/3] lg:hidden" />
         </div>
       </div>
     </section>

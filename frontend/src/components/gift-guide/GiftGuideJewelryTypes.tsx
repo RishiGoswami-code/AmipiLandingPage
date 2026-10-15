@@ -1,156 +1,202 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./SnowGlobe.module.css";
 
-/** Navy from the hero banner, used for the heading and labels. */
+/** Navy from the hero banner, used for the heading, labels and arrows. */
 const NAVY = "#0b1a3d";
 
 /**
  * AMIPI's product lines. Placeholder cut-outs made from the navbar's
  * white-background thumbnails (public/nav-jewelry) - to be replaced by proper
- * transparent product PNGs in public/gift-guide/types.
+ * high-resolution transparent product PNGs in public/gift-guide/types. The
+ * current ones are only ~120-240px wide, so they read soft at globe size.
  */
 const TYPES = [
   { label: "Diamond Studs", src: "/gift-guide/types/diamond-studs.webp" },
-  { label: "Hoops", src: "/gift-guide/types/hoop-earrings.webp" },
-  { label: "Tennis Bracelets", src: "/gift-guide/types/tennis-bracelet.webp" },
+  { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp" },
+  {
+    label: "Tennis Bracelets",
+    src: "/gift-guide/types/tennis-bracelet-hd.webp",
+  },
   { label: "Flexi Bangles", src: "/gift-guide/types/flexi-bangle.webp" },
-  { label: "Bands", src: "/gift-guide/types/anniversary-band.webp" },
-  { label: "Rings", src: "/gift-guide/types/halo-ring.webp" },
-  { label: "Necklaces", src: "/gift-guide/types/tennis-necklace.webp" },
+  { label: "Bands", src: "/gift-guide/types/band-hd.webp" },
+  { label: "Rings", src: "/gift-guide/types/ring-hd.webp" },
+  { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
 ];
 
-/** Gradient ids for the pines, defined once by <PineDefs> and shared by every globe. */
-const PINE_FAR = "gift-guide-pine-far";
-const PINE_NEAR = "gift-guide-pine-near";
-
 /**
- * One tiered pine as an SVG path: three stacked triangles, narrow at the top,
- * standing on `base` in the globe scene's 100x60 viewBox.
- */
-function pine(x: number, h: number, base = 60) {
-  const w = h * 0.62;
-  const top = base - h;
-  const pt = (dx: number, dy: number) => `${(x + dx * w).toFixed(1)},${(top + dy * h).toFixed(1)}`;
-  return `M${pt(0, 0)} L${pt(0.24, 0.3)} L${pt(0.11, 0.3)} L${pt(0.37, 0.62)} L${pt(0.19, 0.62)} L${pt(0.5, 0.95)} L${pt(-0.5, 0.95)} L${pt(-0.19, 0.62)} L${pt(-0.37, 0.62)} L${pt(-0.11, 0.3)} L${pt(-0.24, 0.3)} Z`;
-}
-
-/** Back row across the whole globe; front row at the sides only, so the
- * middle stays clear behind the piece. [x, height] in viewBox units. */
-const FAR_PINES = [[6, 24], [17, 30], [28, 22], [39, 27], [50, 32], [61, 25], [72, 29], [83, 23], [94, 28]].map(([x, h]) => pine(x, h, 54)).join(" ");
-const NEAR_PINES = [[4, 36], [15, 44], [27, 31], [73, 33], [85, 45], [96, 37]].map(([x, h]) => pine(x, h)).join(" ");
-
-/**
- * The pines' gradients, rendered once for the whole row: snow-white at the
- * tips fading to frosted blue-grey, the back row paler for depth. A zero-size
- * SVG rather than display:none, which stops some browsers painting gradients.
- */
-function PineDefs() {
-  return (
-    <svg aria-hidden width="0" height="0" className="absolute">
-      <defs>
-        <linearGradient id={PINE_FAR} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#eef3f8" />
-          <stop offset="1" stopColor="#b2c2d4" />
-        </linearGradient>
-        <linearGradient id={PINE_NEAR} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#e9eff6" />
-          <stop offset="0.5" stopColor="#a2b5ca" />
-          <stop offset="1" stopColor="#7d94af" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-/**
- * A snow globe drawn in CSS and SVG, after the classic clear-glass globe: pale
- * icy glass holding a soft snowy pine forest, the piece standing in front of
- * it, snow falling and settled at the bottom, on the page's navy-and-gold base.
- * The pines are blurred and kept pale so the jewelry stays the subject. Sized
- * off its own width (a size container, cqw units), so it scales as one object.
+ * A crystal-clear snow globe drawn in CSS, after the reference photo: the
+ * sphere is transparent (the page shows through it), defined only by its
+ * edge, reflections and the snow inside - falling flakes and a mound of
+ * settled snow the piece stands on. It rests on a thin clear-glass disc
+ * with a soft shadow under it. No stand, no scenery.
+ *
+ * Everything is sized in cqw off the globe's own width (a size container),
+ * so it scales as one object. The sphere is 92cqw across from the top; the
+ * disc sits under its lowest point.
  */
 function SnowGlobe({ src }: { src: string }) {
   return (
-    <div aria-hidden className="@container relative aspect-[1/1.12] w-full">
-      {/* Floor shadow */}
-      <div className="absolute inset-x-[6%] bottom-[-3cqw] h-[8cqw] rounded-[50%] bg-[radial-gradient(closest-side,rgba(11,26,61,0.28),transparent)]" />
+    <div aria-hidden className="@container relative aspect-[100/98] w-full">
+      {/* Soft floor shadow */}
+      <div className="absolute top-[88cqw] left-[14cqw] h-[8cqw] w-[72cqw] rounded-[50%] bg-[radial-gradient(closest-side,rgba(11,26,61,0.3),rgba(11,26,61,0.1)_60%,transparent)] blur-[0.6cqw]" />
 
-      {/* Glass sphere: icy sky, brightest just above centre, cooling to a blue rim */}
-      <div className="absolute top-0 left-[4%] aspect-square w-[92%] overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_32%,#f6f9fc_0%,#e2eaf3_40%,#c9d7e6_72%,#a9bfd6_100%)] shadow-[0_0_0_1px_rgba(95,125,165,0.35),inset_0_0_0_0.7cqw_rgba(255,255,255,0.55),inset_0_0_6cqw_rgba(105,135,175,0.45)]">
+      {/* Clear glass disc the sphere rests in: a lit rim and a faint body */}
+      <div className="absolute top-[85cqw] left-[24cqw] h-[7cqw] w-[52cqw] rounded-[50%] border-[0.35cqw] border-white bg-[linear-gradient(180deg,rgba(235,242,250,0.9),rgba(170,192,218,0.7))] ring-1 ring-[rgba(110,140,182,0.45)] shadow-[inset_0_-0.8cqw_1.2cqw_rgba(120,145,180,0.35),0_0.4cqw_1cqw_rgba(11,26,61,0.12)]" />
+
+      {/* Glass sphere */}
+      <div className="absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_46%_42%,transparent_0%,transparent_55%,rgba(150,178,212,0.16)_78%,rgba(105,138,182,0.48)_100%)] shadow-[0_0_0_1px_rgba(110,140,182,0.45)]">
         <div className={`${styles.snow} ${styles.far}`} />
 
-        {/* Soft snowy pines at the back of the globe */}
-        <svg
-          viewBox="0 0 100 60"
-          preserveAspectRatio="none"
-          className="absolute inset-x-0 top-[30%] h-[52%] w-full blur-[0.25cqw]"
-        >
-          <path d={FAR_PINES} fill={`url(#${PINE_FAR})`} />
-          <path d={NEAR_PINES} fill={`url(#${PINE_NEAR})`} />
-        </svg>
+        {/* Settled snow: a broad mound across the bottom of the sphere,
+            heaped a little higher in the middle under the piece */}
+        <div className="absolute -inset-x-[4%] bottom-[-3%] h-[22%] rounded-[50%_50%_0_0/100%_100%_0_0] bg-[linear-gradient(180deg,#ffffff_0%,#eef3f8_40%,#cfdbe8_100%)] shadow-[0_-0.5cqw_1.2cqw_rgba(120,150,190,0.3)]" />
+        <div className="absolute bottom-[11%] left-[24%] h-[12%] w-[52%] rounded-[50%] bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#f6f8fb_55%,rgba(230,237,245,0)_100%)]" />
 
-        {/* The piece, held a little above centre, clear of the snow drift */}
-        <div className="absolute top-[18%] left-[20%] h-[56%] w-[60%]">
+        {/* The piece: large and sharp, standing on the mound */}
+        <div className="absolute top-[13%] left-[10%] h-[70%] w-[80%]">
           <Image
+            quality={90}
             src={src}
             alt=""
             fill
-            sizes="(min-width: 1024px) 7rem, 10rem"
-            className="object-contain drop-shadow-[0_1.5cqw_2.5cqw_rgba(20,40,80,0.4)]"
+            sizes="(min-width: 1024px) 16vw, (min-width: 640px) 28vw, 45vw"
+            className="object-contain object-[50%_72%] drop-shadow-[0_1cqw_1.4cqw_rgba(20,40,80,0.28)]"
           />
         </div>
 
-        {/* Settled snow */}
-        <div className="absolute -inset-x-[6%] bottom-[-9%] h-[27%] rounded-[50%] bg-[radial-gradient(ellipse_at_50%_25%,#ffffff_0%,#eef3f8_50%,#c6d3e2_100%)] shadow-[0_-1cqw_4cqw_rgba(255,255,255,0.6)]" />
-
         <div className={`${styles.snow} ${styles.near}`} />
 
-        {/* Glass: a curved highlight top-left, a glint bottom-right, and a bright arc along the upper edge */}
-        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_22%,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0.2)_16%,transparent_32%),radial-gradient(circle_at_78%_82%,rgba(255,255,255,0.35)_0%,transparent_22%)]" />
-        <div className="absolute inset-[3%] rounded-full border-t-[1.2cqw] border-l-[0.6cqw] border-white/70 [mask-image:linear-gradient(135deg,#000_0%,transparent_45%)]" />
-      </div>
-
-      {/* Base: gold collar, navy plinth, gold foot */}
-      <div className="absolute inset-x-0 bottom-0 h-[30%]">
-        <div className="absolute top-0 left-[15%] h-[12%] w-[70%] rounded-[1cqw] bg-[linear-gradient(90deg,#8a6630,#ecd3a0_40%,#c9a35c_65%,#6b4d22)]" />
-        <div className="absolute inset-x-[2%] top-[11%] bottom-[12%] bg-[linear-gradient(90deg,#050d23_0%,#1c3166_32%,#2a4380_42%,#0b1a3d_70%,#040a1c_100%)] [clip-path:polygon(13%_0,87%_0,100%_100%,0_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-[13%] rounded-[1cqw] bg-[linear-gradient(90deg,#6b4d22,#c9a35c_30%,#ecd3a0_45%,#b08a4a_70%,#6b4d22)]" />
+        {/* Glass: a thin bright edge all round, a curved window reflection
+            top-left, a crisp specular glint, and a bright arc on the right */}
+        <div className="absolute inset-0 rounded-full shadow-[inset_0_0_0_0.3cqw_rgba(255,255,255,0.9),inset_0_0_0_0.6cqw_rgba(140,165,200,0.25),inset_0_0_2.5cqw_rgba(110,140,185,0.3)]" />
+        <div className="absolute inset-[5%] -rotate-[45deg] rounded-full border-[2cqw] border-transparent border-t-white/90 blur-[0.25cqw] drop-shadow-[0_0.3cqw_0.4cqw_rgba(100,130,175,0.45)]" />
+        <div className="absolute top-[15%] left-[22%] h-[6%] w-[11%] -rotate-[40deg] rounded-[50%] bg-white blur-[0.35cqw] drop-shadow-[0_0_0.5cqw_rgba(100,130,175,0.5)]" />
+        <div className="absolute inset-[3%] rotate-[100deg] rounded-full border-[0.9cqw] border-transparent border-t-white/80 blur-[0.2cqw] drop-shadow-[0_0.2cqw_0.3cqw_rgba(100,130,175,0.4)]" />
       </div>
     </div>
   );
 }
 
 /**
- * "Shop by Jewelry Type" - Stuller's row of category roundels, with each
- * piece shown in a winter snow globe instead. All seven in one row on
- * desktop, three a row on tablets, two a row on phones.
+ * "Shop by Jewelry Type" - one row of snow globes, one per product line.
+ *
+ * Not centred: the heading sits on the page gutter with the arrows at the
+ * right end of its row, and the globes run in a native scroll-snap track
+ * that starts on the gutter and runs off the viewport's right edge, so the
+ * clipped globe at the end shows there is more. Native scrolling means
+ * swipe, momentum and keyboard all work before hydration; the arrows only
+ * call scrollBy. About 2.3 globes show on phones, 3.4 on tablets, 5.4 on
+ * desktop.
  *
  * Visual only for now: the globes do not link anywhere.
  */
 export function GiftGuideJewelryTypes() {
-  return (
-    <section aria-labelledby="types-heading" className="relative px-edge pb-24 lg:pb-32">
-      <PineDefs />
-      <h2
-        id="types-heading"
-        className="text-center font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
-        style={{ color: NAVY }}
-      >
-        Shop by Jewelry Type
-      </h2>
+  const rowRef = useRef<HTMLUListElement>(null);
+  const [canBack, setCanBack] = useState(false);
+  const [canOn, setCanOn] = useState(false);
 
-      <ul className="mx-auto mt-10 flex max-w-7xl flex-wrap justify-center gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12 lg:mt-14 lg:flex-nowrap lg:gap-x-6">
+  const sync = useCallback(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    // 1px of slack: scrollLeft is fractional on fractional-DPR screens.
+    const max = row.scrollWidth - row.clientWidth;
+    setCanBack(row.scrollLeft > 1);
+    setCanOn(row.scrollLeft < max - 1);
+  }, []);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [sync]);
+
+  const step = (direction: 1 | -1) => {
+    const row = rowRef.current;
+    const slide = row?.firstElementChild as HTMLElement | null;
+    if (!row || !slide) return;
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    row.scrollBy({
+      left: direction * (slide.offsetWidth + gap) * 2,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  };
+
+  const arrow =
+    "grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-[#0b1a3d]/25 bg-white text-[#0b1a3d] shadow-[0_6px_18px_-8px_rgba(11,26,61,0.45)] transition-[opacity,background-color] hover:bg-[#f3efe7] disabled:cursor-default disabled:opacity-35 disabled:hover:bg-white";
+
+  return (
+    <section
+      aria-labelledby="types-heading"
+      className="relative pb-24 lg:pb-32"
+    >
+      <div className="flex items-end justify-between gap-6 px-edge">
+        <h2
+          id="types-heading"
+          className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
+          style={{ color: NAVY }}
+        >
+          Shop by Jewelry Type
+        </h2>
+
+        <div className="hidden shrink-0 gap-3 pb-2 lg:flex">
+          <button
+            type="button"
+            aria-label="Previous jewelry types"
+            onClick={() => step(-1)}
+            disabled={!canBack}
+            className={arrow}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Next jewelry types"
+            onClick={() => step(1)}
+            disabled={!canOn}
+            className={arrow}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* The left gutter is a margin, not padding, so the scroll box itself
+          starts on the heading's line and outgoing globes are cut off there.
+          No right gutter: the row runs to the viewport edge. Bottom padding
+          leaves room for the floor shadows inside the scroll box, which clips. */}
+      <ul
+        ref={rowRef}
+        onScroll={sync}
+        data-lenis-prevent-horizontal
+        className="mt-10 ml-edge flex snap-x snap-mandatory gap-x-5 overflow-x-auto overflow-y-hidden pt-2 pb-6 [scrollbar-width:none] sm:gap-x-7 lg:mt-12 lg:gap-x-8 [&::-webkit-scrollbar]:hidden"
+      >
         {TYPES.map((type) => (
           <li
             key={type.label}
-            className="flex w-[calc((100%-1.5rem)/2)] max-w-[11rem] flex-col items-center sm:w-[calc((100%-4rem)/3)] sm:max-w-[13rem] lg:w-auto lg:max-w-none lg:flex-1"
+            className="flex w-[40vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
             <SnowGlobe src={type.src} />
-            <p className="mt-4 text-center text-[11px] font-semibold tracking-[0.16em] uppercase sm:mt-5 sm:text-xs sm:tracking-[0.22em]" style={{ color: NAVY }}>
+            <p
+              className="mt-4 text-center text-[13px] font-semibold tracking-[0.14em] uppercase sm:mt-5 sm:text-sm sm:tracking-[0.2em] lg:text-base"
+              style={{ color: NAVY }}
+            >
               {type.label}
             </p>
           </li>
         ))}
+        {/* Trailing gutter as a flex child: browsers ignore end padding on a
+            horizontal flex scroller, so the last globe would sit against the
+            viewport edge at full scroll. */}
+        <li aria-hidden className="w-edge shrink-0" />
       </ul>
     </section>
   );

@@ -36,7 +36,7 @@ export function GiftGuideCard({
     <Link href={href} className="group block">
       <div className={`relative aspect-[4/5] overflow-hidden rounded-xl ${dark ? "bg-white/10" : "bg-white"}`}>
         {src ? (
-          <Image src={src} alt="" fill sizes={sizes} style={{ objectPosition: position }} className="object-cover" />
+          <Image quality={90} src={src} alt="" fill sizes={sizes} style={{ objectPosition: position }} className="object-cover" />
         ) : (
           <div
             className={`absolute inset-0 flex flex-col items-center justify-center gap-3 border border-dashed ${
