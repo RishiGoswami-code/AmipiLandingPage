@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
+import { BannerTitle } from "./BannerTitle";
 
 /** The red velvet banner, from GiftPageImages/Luxury Jewelry on Red
  * Velvet.png: 3:1, plain deep red across the left where the copy sits, and a
@@ -13,10 +14,6 @@ const RED = "#2b0000";
 /** Ivory for the copy on the burgundy. */
 const IVORY = "#f5efe4";
 
-/** Champagne gold for "Styles" - the same ramp as "Gift Guide" in the hero. */
-const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
-
 /**
  * "Bezel-Set Styles" - after the matching banner on Stuller's holiday page:
  * a full-bleed band with the copy on the left, built the same way as
@@ -28,9 +25,12 @@ const GOLD_TEXT =
  */
 export function GiftGuideBezel() {
   return (
+    // Desktop height is the banner's own shape (width / 3) clamped between a
+    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
+    // that pair widens the box past the viewport whenever the floor wins.
     <section
       aria-labelledby="bezel-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[26rem] lg:pt-0"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[clamp(26rem,33.333vw,80svh)] lg:pt-0"
       style={{ color: IVORY, backgroundColor: RED }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -52,18 +52,14 @@ export function GiftGuideBezel() {
       <div className="w-full px-edge">
         <div>
           <div className="max-w-xl">
-            <h2 id="bezel-heading" className="leading-none">
-              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.6vw,4.25rem)] leading-[1.15] font-medium italic">
-                Bezel-Set
-              </span>{" "}
-              <span
-                className={`mt-[0.15em] block font-[family-name:var(--font-bodoni)] text-[clamp(2rem,3.8vw,3.5rem)] font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
-              >
-                Styles
-              </span>
-            </h2>
+            <BannerTitle
+              id="bezel-heading"
+              lead="Bezel-Set"
+              accent="Styles"
+              uppercase
+            />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               Modern bezel-set designs strike the balance between durability
               and sophistication - a clean, sleek setting for everyday luxury.
             </p>

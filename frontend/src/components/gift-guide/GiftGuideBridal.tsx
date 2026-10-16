@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
+import { BannerTitle } from "./BannerTitle";
 
 /** Ivory for the copy on the gold, as on the navy bands. */
 const IVORY = "#f5efe4";
@@ -21,9 +22,12 @@ const LIGHTSCAPE = "/gift-guide/bridal/golden-lightscape.webp";
  */
 export function GiftGuideBridal() {
   return (
+    // Desktop height is the banner's own shape (width / 3) clamped between a
+    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
+    // that pair widens the box past the viewport whenever the floor wins.
     <section
       aria-labelledby="bridal-heading"
-      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-16 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[30rem] lg:py-10"
+      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-16 lg:h-[clamp(30rem,33.333vw,80svh)] lg:py-10"
       style={{ color: IVORY }}
     >
       <Image
@@ -44,13 +48,16 @@ export function GiftGuideBridal() {
               Bridal
               <span className="h-px w-20 bg-[#dcbc7e]/50 sm:w-32" />
             </p>
-            <h2
-              id="bridal-heading"
-              className="mt-4 font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
-            >
-              Shop Bridal Styles
-            </h2>
-            <p className="mt-5 max-w-[46ch] text-[0.9375rem] leading-relaxed text-[#f5efe4]/80 sm:text-base">
+            {/* The same staggered title as the Diamonds and Bezel banners */}
+            <div className="mt-4">
+              <BannerTitle
+                id="bridal-heading"
+                lead="Shop Bridal"
+                accent="Styles"
+                uppercase
+              />
+            </div>
+            <p className="mt-5 max-w-[46ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               Celebrate the moments that last a lifetime with bridal jewelry
               made for every love story - timeless solitaires, modern
               silhouettes and stackable bands, ready for the season of

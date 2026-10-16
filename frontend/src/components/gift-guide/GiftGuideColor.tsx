@@ -26,9 +26,12 @@ const GOLD_TEXT =
  */
 export function GiftGuideColor() {
   return (
+    // Desktop height is the banner's own shape (width / 3) clamped between a
+    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
+    // that pair widens the box past the viewport whenever the floor wins.
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[26rem] lg:pt-0"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[clamp(26rem,33.333vw,80svh)] lg:pt-0"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -52,14 +55,14 @@ export function GiftGuideColor() {
           <div className="max-w-xl">
             <h2
               id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.5vw,5rem)] leading-none font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7.6vw,8rem)] leading-[0.95] font-medium tracking-[0.08em] uppercase ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#ecd3a0] uppercase">
+            <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#ecd3a0] uppercase sm:text-sm">
               Colored Gemstones
             </p>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/85">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/85">
               Colored gemstones are one of the season&rsquo;s biggest trends.
               Rich greens, deep reds and bright accents bring warmth and
               personality to every holiday gift.

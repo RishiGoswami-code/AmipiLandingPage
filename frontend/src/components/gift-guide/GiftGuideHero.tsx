@@ -6,6 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { italiana } from "@/styles/fonts";
+import { GOLD_TEXT } from "./BannerTitle";
 
 gsap.registerPlugin(useGSAP);
 
@@ -15,11 +16,6 @@ const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 
 /** Ivory for the copy on the navy banner. */
 const IVORY = "#f5efe4";
-
-/** Champagne gold for "Gift Guide". Light enough to hold up on the navy; the
- * darker antique gold used on the cream ground disappears against it. */
-const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
 
 /** The banner photo, filling whichever box it is placed in. */
 function BannerImage({ position = "50% 50%" }: { position?: string }) {

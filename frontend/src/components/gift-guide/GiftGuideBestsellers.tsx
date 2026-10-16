@@ -67,11 +67,11 @@ export function GiftGuideBestsellers() {
       <div className="text-center">
         <h2
           id="bestsellers-heading"
-          className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
+          className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.06] font-medium italic"
         >
           Holiday Bestsellers
         </h2>
-        <p className="mx-auto mt-4 max-w-[60ch] text-[0.9375rem] leading-relaxed text-[#f5efe4]/80 sm:text-base">
+        <p className="mx-auto mt-4 max-w-[60ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
           Give them a style they&rsquo;ll love season after season - the pieces
           retailers reorder most for their timeless appeal, effortless
           versatility and gift-worthy sparkle.

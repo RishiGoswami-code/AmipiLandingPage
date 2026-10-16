@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
+import { BannerTitle } from "./BannerTitle";
 
 /** The blue diamond banner, from GiftPageImages/LuxuaryBlueDiamond.png:
  * about 3:1, plain midnight blue across the left half and, on the right, a
@@ -12,10 +13,6 @@ const BLUE = "#000c21";
 
 /** Ivory for the copy on the navy, as in the hero. */
 const IVORY = "#f5efe4";
-
-/** Champagne gold for "Diamonds" - the same ramp as "Gift Guide" in the hero. */
-const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
 
 /**
  * "The Season Starts with Diamonds" - after the matching banner on Stuller's
@@ -31,9 +28,12 @@ const GOLD_TEXT =
  */
 export function GiftGuideBrilliance() {
   return (
+    // Desktop height is the banner's own shape (about width / 2.87) clamped between a
+    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
+    // that pair widens the box past the viewport whenever the floor wins.
     <section
       aria-labelledby="brilliance-heading"
-      className="relative isolate overflow-hidden lg:aspect-[2123/741] lg:max-h-[80svh] lg:min-h-[28rem]"
+      className="relative isolate overflow-hidden lg:h-[clamp(28rem,34.9vw,80svh)]"
       style={{ color: IVORY, backgroundColor: BLUE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -53,20 +53,15 @@ export function GiftGuideBrilliance() {
       </div>
 
       <div className="h-full px-edge pt-14 lg:pt-0">
-        <div className="grid h-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
-          <div className="max-w-2xl">
-            <h2 id="brilliance-heading" className="leading-none">
-              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.6vw,4.25rem)] leading-[1.15] font-medium italic">
-                The Season Starts with
-              </span>{" "}
-              <span
-                className={`mt-[0.15em] block font-[family-name:var(--font-bodoni)] text-[clamp(2rem,3.8vw,3.5rem)] font-medium tracking-[0.04em] ${GOLD_TEXT}`}
-              >
-                Diamonds
-              </span>
-            </h2>
+        <div className="grid h-full items-center gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-10">
+          <div>
+            <BannerTitle
+              id="brilliance-heading"
+              lead="The Season Starts with"
+              accent="Diamonds"
+            />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               From natural diamonds to lab-grown favorites, explore beautiful
               pieces your customers will be looking for this holiday season.
             </p>
