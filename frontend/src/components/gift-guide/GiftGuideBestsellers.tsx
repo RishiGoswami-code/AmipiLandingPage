@@ -18,7 +18,7 @@ const BESTSELLERS: { title: string; src?: string }[] = [
   { title: "Split Prong Hoops", src: "/new-arrival/classic-hoops.webp" },
   {
     title: "3 Stone Huggies",
-    src: "/gift-guide/bestsellers/three-stone-huggies.webp",
+    src: "/gift-guide/bestsellers/three-stone-huggies-close.webp",
   },
   { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
   { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },

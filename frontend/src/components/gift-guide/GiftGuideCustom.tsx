@@ -1,33 +1,76 @@
 import Image from "next/image";
+import { Gem, HeartHandshake, Lightbulb, UserRound, type LucideIcon } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** Navy from the hero banner, used for the heading. */
+/** Navy from the hero banner, used for the heading, reason titles and icons. */
 const NAVY = "#0b1a3d";
+
+/** Antique gold for type on the ivory ground - the champagne used on the
+ * banners is too pale to read here. */
+const ANTIQUE_GOLD = "#8a6630";
 
 /** A custom emerald-cut cocktail ring in a baguette and pear halo, from
  * GiftPageImages/custom.png: a 500px square cut-out on a transparent ground.
  * Copied as-is so it is not re-compressed before Next serves it. */
 const PHOTO_SRC = "/gift-guide/custom/custom-ring.png";
 
-/** Why custom, in a word each - from AMIPI's Custom Design Studio page. */
-const POINTS = ["Personalization", "Sentimental Value", "Unique Design", "Long-Term Satisfaction"];
+/**
+ * Why custom - the four reasons and icons from the Custom Design Studio page
+ * (src/app/custom/page.tsx, verbatim from amipi.com/custom), each cut to the
+ * one sentence that carries it so the section stays a catalog page.
+ */
+const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
+  {
+    icon: UserRound,
+    title: "Personalization",
+    body: "Custom-designed jewelry allows you to create a piece that reflects your unique style, personality, and preferences.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Sentimental Value",
+    body: "The ability to incorporate personal elements, such as heirloom stones or symbols, adds significant sentimental value to the jewelry.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Unique Design",
+    body: "Custom jewelry ensures that you own a design that is exclusive to you.",
+  },
+  {
+    icon: Gem,
+    title: "Long-Term Satisfaction",
+    body: "Knowing that your piece is uniquely yours and crafted to your specifications enhances the joy of wearing it for years to come.",
+  },
+];
 
 /**
- * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), kept short so
- * the ring carries the section. It sits straight on the page's ivory ground,
- * no panel: the copy on the left - a Bodoni heading, one
- * line, the four reasons in Cormorant italic and one button - and the cut-out ring on the right, floating in a
- * softly lit sand arch with a gold hairline arch set behind it. The ring is
- * kept to about 25rem at most, as the file is only 500px. On phones the ring comes first.
+ * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), on the page's
+ * ivory ground with no panel. The copy on the left follows the studio page:
+ * a kicker, the Bodoni heading, the studio's introduction and its "5 easy
+ * steps" line, the four reasons with their icons, and two buttons - the studio
+ * page, and straight to its design form. The cut-out ring is centred in the
+ * space to the right, in a soft warm glow, kept to about 28rem at most as the
+ * file is only 500px.
+ * On phones the ring comes first.
  */
 export function GiftGuideCustom() {
   return (
     <section aria-labelledby="custom-heading" className="px-edge py-(--gift-gap)">
-      <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,30rem)]">
-        <div className="order-2 lg:order-1">
+      {/* The copy column stops at a reading width; the ring is centred in
+          whatever is left, so no empty band opens between the two */}
+      <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[minmax(0,48rem)_minmax(0,1fr)]">
+        <div className="order-2 max-w-3xl lg:order-1">
+          {/* The kicker with a trailing rule, as on the Bridal banner */}
+          <p
+            className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] uppercase"
+            style={{ color: ANTIQUE_GOLD }}
+          >
+            Custom Design Studio
+            <span className="h-px w-20 bg-[#8a6630]/45 sm:w-32" />
+          </p>
+
           <h2
             id="custom-heading"
-            className="font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5vw,4.75rem)] leading-[1.02] font-normal"
+            className="mt-4 font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.6vw,5.5rem)] leading-[1.02] font-normal"
             style={{ color: NAVY }}
           >
             Custom{" "}
@@ -35,21 +78,51 @@ export function GiftGuideCustom() {
               Jewelry
             </span>
           </h2>
-          <p className="mt-6 max-w-[44ch] text-[0.9375rem] leading-relaxed text-[#141414]/70 sm:text-lg">
-            One-of-a-kind jewelry made to your customer&rsquo;s vision, brought
-            to life in 5 easy steps.
+
+          <p className="mt-6 max-w-[54ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#141414]/70">
+            Custom Design Studio by AMIPI FINE JEWELS is your personalized
+            service that allows each one of you to create unique and
+            one-of-a-kind jewelry tailored to your preferences.
+          </p>
+          <p
+            className="mt-3 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,2vw,1.875rem)] leading-snug font-medium italic"
+            style={{ color: ANTIQUE_GOLD }}
+          >
+            In 5 easy steps, you can see your vision come to life.
           </p>
 
-          {/* The four reasons, set as a quiet serif list - no markers or rules */}
-          <ul className="mt-8 grid max-w-lg gap-x-10 gap-y-2 font-[family-name:var(--font-cormorant-italic)] text-[1.375rem] leading-snug italic sm:grid-cols-2 sm:text-2xl" style={{ color: NAVY }}>
-            {POINTS.map((point) => (
-              <li key={point}>{point}</li>
+          {/* Why custom: icon, title and one line each, two by two */}
+          <ul className="mt-10 grid gap-x-10 gap-y-7 border-t border-[#141414]/10 pt-8 sm:grid-cols-2">
+            {REASONS.map(({ icon: Icon, title, body }) => (
+              <li key={title} className="flex gap-4">
+                <span
+                  aria-hidden
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#dfbf7b] shadow-[0_8px_18px_-10px_rgba(11,26,61,0.6)]"
+                  style={{ backgroundColor: NAVY }}
+                >
+                  <Icon className="h-5 w-5" strokeWidth={1.6} />
+                </span>
+                <div>
+                  <h3
+                    className="font-[family-name:var(--font-cormorant-italic)] text-[1.5rem] leading-tight font-medium italic"
+                    style={{ color: NAVY }}
+                  >
+                    {title}
+                  </h3>
+                  <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-[#141414]/65">
+                    {body}
+                  </p>
+                </div>
+              </li>
             ))}
           </ul>
 
-          <div className="mt-10">
+          <div className="mt-10 flex flex-wrap gap-3">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
+            </PillButton>
+            <PillButton href="/custom#design-form" variant="outline" size="sm" icon="arrow">
+              Send Us Your Design
             </PillButton>
           </div>
         </div>
