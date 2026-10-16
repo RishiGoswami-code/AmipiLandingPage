@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Gem, Lightbulb, Trophy, UserRound, type LucideIcon } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** Navy from the hero banner, used for the heading, reason titles and icons. */
+/** Navy from the hero banner, used for the heading and reason titles. */
 const NAVY = "#0b1a3d";
 
 /** Antique gold for type on the light photo - the champagne used on the dark
@@ -53,7 +53,7 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  * fills the section, with the copy over its plain left side under a soft
  * ivory wash. The copy follows the studio page - a kicker, the Bodoni and
  * gold Cormorant Italic heading, the studio's introduction and its "5 easy
- * steps" line, the four reasons with their icons, and two buttons: the studio
+ * steps" line, the four reasons with line icons, and two buttons: the studio
  * page, and straight to its design form.
  *
  * From 1280px the section is at least the photo's banner shape (about 2.3:1)
@@ -116,17 +116,17 @@ export function GiftGuideCustom() {
             In 5 easy steps, you can see your vision come to life.
           </p>
 
-          {/* Why custom, two by two under a hairline: icon, title, one line */}
-          <ul className="mt-6 grid gap-x-10 gap-y-7 border-t border-[#141414]/15 pt-8 sm:grid-cols-2">
+          {/* Why custom, two by two: a bare line icon in antique gold, set on
+              the title's first line, then the title and one line */}
+          <ul className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
             {REASONS.map(({ icon: Icon, title, body }) => (
-              <li key={title} className="flex gap-4">
-                <span
+              <li key={title} className="flex gap-3.5">
+                <Icon
                   aria-hidden
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#dfbf7b] shadow-[0_8px_18px_-10px_rgba(11,26,61,0.6)]"
-                  style={{ backgroundColor: NAVY }}
-                >
-                  <Icon className="h-5 w-5" strokeWidth={1.6} />
-                </span>
+                  className="mt-1 h-6 w-6 shrink-0"
+                  strokeWidth={1.4}
+                  style={{ color: ANTIQUE_GOLD }}
+                />
                 <div>
                   <h3
                     className="font-[family-name:var(--font-cormorant-italic)] text-[1.625rem] leading-tight font-medium italic"
