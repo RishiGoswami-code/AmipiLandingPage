@@ -1,17 +1,22 @@
 import Image from "next/image";
+import { Gem, Lightbulb, Trophy, UserRound, type LucideIcon } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** Navy from the hero banner, used for the heading and reason titles. */
+/** Navy from the hero banner, used for the heading, reason titles and icons. */
 const NAVY = "#0b1a3d";
 
-/** Antique gold for type on the ivory ground - the champagne used on the
+/** Antique gold for type on the light photo - the champagne used on the dark
  * banners is too pale to read here. */
 const ANTIQUE_GOLD = "#8a6630";
 
+/** The warm ivory of the photo's left side, evened out: the wash behind the
+ * copy and the plain ground under it on phones. */
+const CREAM = "#f2e7d7";
+
 /** The custom emerald-cut halo ring on a travertine block in warm window
  * light, with baby's breath at the right, from GiftPageImages/HOLIDAY TRENDS/
- * Emerald Halo Ring in Warm Golden Light.png. 16:9 (1672px wide); the crops
- * are held on the ring, which sits right of centre. */
+ * Emerald Halo Ring in Warm Golden Light.png. 16:9 (1672px wide), the ring
+ * right of centre and the left side plain light, where the copy sits. */
 const PHOTO_SRC = "/gift-guide/custom/emerald-halo-golden-light.webp";
 
 /**
@@ -19,42 +24,68 @@ const PHOTO_SRC = "/gift-guide/custom/emerald-halo-golden-light.webp";
  * (src/app/custom/page.tsx, verbatim from amipi.com/custom), each cut to the
  * one sentence that carries it so the section stays a catalog page.
  */
-const REASONS = [
+const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
   {
+    icon: UserRound,
     title: "Personalization",
     body: "Custom-designed jewelry allows you to create a piece that reflects your unique style, personality, and preferences.",
   },
   {
+    icon: Gem,
     title: "Sentimental Value",
     body: "The ability to incorporate personal elements, such as heirloom stones or symbols, adds significant sentimental value to the jewelry.",
   },
   {
+    icon: Lightbulb,
     title: "Unique Design",
     body: "Custom jewelry ensures that you own a design that is exclusive to you.",
   },
   {
+    icon: Trophy,
     title: "Long-Term Satisfaction",
     body: "Knowing that your piece is uniquely yours and crafted to your specifications enhances the joy of wearing it for years to come.",
   },
 ];
 
 /**
- * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), on the page's
- * ivory ground with no panel. The copy follows the studio page: a kicker, the
- * heading, the studio's introduction and its "5 easy steps" line, the four
- * reasons and two buttons - the studio page, and straight to its design form.
+ * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom) as a full-bleed
+ * banner, like the others on the page but light: the emerald halo photo
+ * fills the section, with the copy over its plain left side under a soft
+ * ivory wash. The copy follows the studio page - a kicker, the Bodoni and
+ * gold Cormorant Italic heading, the studio's introduction and its "5 easy
+ * steps" line, the four reasons with their icons, and two buttons: the studio
+ * page, and straight to its design form.
  *
- * Set upright throughout, like a printed catalog page: Bodoni for the heading
- * and the reason titles, the site's Manrope for everything else, with gold
- * kept to the small type. The photo of the ring sits beside the copy (above
- * it on phones).
+ * From 1280px the section is at least the photo's banner shape (about 2.3:1)
+ * and grows with the copy; the photo is cropped to cover, held so the ring
+ * stays clear of the copy. Narrower than that - phones, tablets and small
+ * laptops, where half the width is too tight for the reasons two by two -
+ * the copy sits on plain cream and the ring forms a band beneath it, built
+ * the same way as the dark banners.
  */
 export function GiftGuideCustom() {
   return (
-    <section aria-labelledby="custom-heading" className="px-edge py-(--gift-gap)">
-      {/* The copy column stops at a reading width; the photo takes the rest */}
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[minmax(0,46rem)_minmax(0,1fr)] xl:gap-20">
-        <div className="order-2 lg:order-1">
+    <section
+      aria-labelledby="custom-heading"
+      className="relative isolate flex items-center overflow-hidden pt-14 xl:min-h-[max(38rem,43vw)] xl:py-[clamp(3rem,5vw,5rem)]"
+      style={{ backgroundColor: CREAM }}
+    >
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[4/3] sm:aspect-[2/1] xl:inset-0 xl:aspect-auto">
+        <Image
+          quality={90}
+          src={PHOTO_SRC}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[70%_50%] xl:object-[30%_50%]"
+        />
+        {/* Phones: the photo fades up into the plain cream under the copy;
+            desktop: an ivory wash across the left, gone before the ring */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.8)_38%,rgb(242_231_215/0.35)_53%,transparent_62%)]" />
+      </div>
+
+      <div className="w-full px-edge">
+        <div className="max-w-[46rem] xl:max-w-[min(46rem,52%)]">
           <p
             className="text-xs font-semibold tracking-[0.3em] uppercase"
             style={{ color: ANTIQUE_GOLD }}
@@ -64,43 +95,54 @@ export function GiftGuideCustom() {
 
           <h2
             id="custom-heading"
-            className="mt-4 font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5rem)] leading-[1.02] font-normal tracking-[-0.01em]"
+            className="mt-4 font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal"
             style={{ color: NAVY }}
           >
-            Custom Jewelry
+            Custom{" "}
+            <span className="bg-[linear-gradient(180deg,#d4b06a_0%,#b8904e_50%,#8a6630_100%)] bg-clip-text pr-[0.08em] font-[family-name:var(--font-cormorant-italic)] text-[1.12em] font-medium text-transparent italic">
+              Jewelry
+            </span>
           </h2>
 
-          <p className="mt-6 max-w-[54ch] text-[clamp(1rem,1.3vw,1.1875rem)] leading-relaxed text-[#141414]/70">
+          <p className="mt-6 max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-[#141414]/80">
             Custom Design Studio by AMIPI FINE JEWELS is your personalized
             service that allows each one of you to create unique and
             one-of-a-kind jewelry tailored to your preferences.
           </p>
           <p
-            className="mt-4 text-[clamp(1rem,1.2vw,1.125rem)] font-semibold"
+            className="mt-4 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium italic"
             style={{ color: ANTIQUE_GOLD }}
           >
             In 5 easy steps, you can see your vision come to life.
           </p>
 
-          {/* Why custom, two by two: each a hairline, a Bodoni title and one
-              line - no icons, like the feature list in a printed catalog */}
-          <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-            {REASONS.map(({ title, body }) => (
-              <li key={title} className="border-t border-[#141414]/15 pt-5">
-                <h3
-                  className="font-[family-name:var(--font-bodoni)] text-[1.375rem] leading-tight font-medium"
-                  style={{ color: NAVY }}
+          {/* Why custom, two by two under a hairline: icon, title, one line */}
+          <ul className="mt-6 grid gap-x-10 gap-y-7 border-t border-[#141414]/15 pt-8 sm:grid-cols-2">
+            {REASONS.map(({ icon: Icon, title, body }) => (
+              <li key={title} className="flex gap-4">
+                <span
+                  aria-hidden
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-[#dfbf7b] shadow-[0_8px_18px_-10px_rgba(11,26,61,0.6)]"
+                  style={{ backgroundColor: NAVY }}
                 >
-                  {title}
-                </h3>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-[#141414]/65">
-                  {body}
-                </p>
+                  <Icon className="h-5 w-5" strokeWidth={1.6} />
+                </span>
+                <div>
+                  <h3
+                    className="font-[family-name:var(--font-cormorant-italic)] text-[1.625rem] leading-tight font-medium italic"
+                    style={{ color: NAVY }}
+                  >
+                    {title}
+                  </h3>
+                  <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-[#141414]/75">
+                    {body}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
             </PillButton>
@@ -110,19 +152,8 @@ export function GiftGuideCustom() {
           </div>
         </div>
 
-        {/* Phones 4:5, tablets 16:10; on desktop the photo stretches to the
-            copy's height rather than keeping a shape, so a wide column
-            can't make it taller than the text beside it */}
-        <div className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-[0_30px_70px_-40px_rgba(60,40,10,0.45)] sm:aspect-[16/10] lg:order-2 lg:aspect-auto lg:min-h-[28rem] lg:self-stretch">
-          <Image
-            quality={90}
-            src={PHOTO_SRC}
-            alt="Custom emerald-cut halo ring with pear and baguette diamonds on travertine in warm light"
-            fill
-            sizes="(min-width: 1280px) 40vw, (min-width: 1024px) 42vw, 100vw"
-            className="object-cover object-[82%_50%] sm:object-center lg:object-[82%_50%]"
-          />
-        </div>
+        {/* Below 1280px: room under the copy for the photo */}
+        <div aria-hidden className="mt-8 aspect-[4/3] sm:aspect-[2/1] xl:hidden" />
       </div>
     </section>
   );
