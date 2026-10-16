@@ -23,7 +23,7 @@ const TYPES = [
   },
   { label: "Flexi Bangles", src: "/gift-guide/types/flexi-bangle.webp" },
   { label: "Bands", src: "/gift-guide/types/band-hd.webp" },
-  { label: "Rings", src: "/gift-guide/types/ring-hd.webp" },
+  { label: "Rings", src: "/gift-guide/types/oval-ring.webp" },
   { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
 ];
 
