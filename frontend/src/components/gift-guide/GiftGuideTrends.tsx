@@ -50,7 +50,7 @@ export function GiftGuideTrends() {
   return (
     <section
       aria-labelledby="trends-heading"
-      className="px-edge pt-10 pb-20 lg:pt-16 lg:pb-28"
+      className="px-edge pt-(--gift-gap) pb-(--gift-gap) lg:pt-[calc(var(--gift-gap)/3)]"
     >
       <div className="grid overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="px-4 pt-10 pb-4 sm:px-8 lg:px-8 lg:pt-12 lg:pb-8 xl:px-10">

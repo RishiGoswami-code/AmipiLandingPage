@@ -136,7 +136,7 @@ export function GiftGuideJewelryTypes() {
   return (
     <section
       aria-labelledby="types-heading"
-      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pt-10 pb-24 lg:pt-12 lg:pb-32"
+      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pb-[max(0px,calc(var(--gift-gap)-1.5rem))]"
     >
       <div className="flex items-end justify-between gap-6 px-edge">
         <h2

@@ -124,7 +124,7 @@ export function GiftGuideHero() {
           and below it the way the products do on Stuller's banner. On phones,
           where the hero stacks, the band sits behind the copy only and the
           collage follows on the cream. */}
-      <section className="relative isolate mt-6 grid items-center gap-10 pb-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:py-[clamp(1rem,3vh,2rem)]">
+      <section className="relative isolate mt-6 grid items-center gap-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:py-[clamp(1rem,3vh,2rem)]">
         <div
           aria-hidden
           className="absolute inset-x-0 top-[13%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block"
