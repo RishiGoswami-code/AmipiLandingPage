@@ -23,7 +23,7 @@ const POINTS = ["Personalization", "Sentimental Value", "Unique Design", "Long-T
 export function GiftGuideCustom() {
   return (
     <section aria-labelledby="custom-heading" className="px-edge py-20 lg:py-28">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,30rem)]">
+      <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,30rem)]">
         <div className="order-2 lg:order-1">
           <h2
             id="custom-heading"

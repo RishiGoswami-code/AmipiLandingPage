@@ -74,10 +74,14 @@ export const metadata: Metadata = {
  * (public/gift-guide/paper-grain.svg, a 220px tiling noise), so the plain
  * sections read as printed card rather than flat screen white. Sections
  * without a banner are transparent and sit on it.
+ *
+ * The page runs edge to edge: it narrows the site's --spacing-edge gutter
+ * (max(1.25rem, 5.5vw) in globals.css) for this route only, so every px-edge,
+ * mx-edge and ml-edge in the gift-guide sections leaves just a small margin.
  */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] bg-[url(/gift-guide/paper-grain.svg)]`}>
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:clamp(1rem,2.5vw,2.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
       <GiftGuideHero />
       <GiftGuideTrends />
       <GiftGuideJewelryTypes />

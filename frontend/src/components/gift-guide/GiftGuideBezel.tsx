@@ -1,18 +1,19 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** The red velvet banner: 3:1, plain deep red across the left where the copy
- * sits, and a bezel-set eternity band, emerald-cut pendant and solitaire on
- * red satin at the right. */
-const BANNER_SRC = "/gift-guide/red-velvet-bezel-banner.webp";
+/** The red velvet banner, from GiftPageImages/Luxury Jewelry on Red
+ * Velvet.png: 3:1, plain deep red across the left where the copy sits, and a
+ * bezel-set eternity band, emerald-cut pendant and bezel solitaire on red
+ * satin with gold-edged ribbon at the right. */
+const BANNER_SRC = "/gift-guide/bezel-red-velvet-banner.webp";
 
 /** The banner's own plain red, so the band and the fades match it. */
-const RED = "#4d0e0b";
+const RED = "#2b0000";
 
 /** Ivory for the copy on the burgundy. */
 const IVORY = "#f5efe4";
 
-/** Champagne gold for "Styles" - the same ramp as "Catalog" in the hero. */
+/** Champagne gold for "Styles" - the same ramp as "Gift Guide" in the hero. */
 const GOLD_TEXT =
   "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
 
@@ -45,16 +46,16 @@ export function GiftGuideBezel() {
         />
         {/* Phones: the picture fades up into the plain red under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#4d0e0b_0%,rgb(77_14_11/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(35_5_4/0.4),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2b0000_0%,rgb(43_0_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(35_5_4/0.4),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
-        <div className="mx-auto max-w-7xl">
+        <div>
           <div className="max-w-xl">
             <h2 id="bezel-heading" className="leading-none">
               <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.6vw,4.25rem)] leading-[1.15] font-medium italic">
                 Bezel-Set
-              </span>
+              </span>{" "}
               <span
                 className={`mt-[0.15em] block font-[family-name:var(--font-bodoni)] text-[clamp(2rem,3.8vw,3.5rem)] font-medium tracking-[0.06em] uppercase ${GOLD_TEXT}`}
               >

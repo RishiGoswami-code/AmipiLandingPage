@@ -16,7 +16,7 @@ const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 /** Ivory for the copy on the navy banner. */
 const IVORY = "#f5efe4";
 
-/** Champagne gold for "Catalog". Light enough to hold up on the navy; the
+/** Champagne gold for "Gift Guide". Light enough to hold up on the navy; the
  * darker antique gold used on the cream ground disappears against it. */
 const GOLD_TEXT =
   "bg-[linear-gradient(180deg,#ecd3a0_0%,#dcbc7e_50%,#c9a35c_100%)] bg-clip-text text-transparent";
@@ -139,7 +139,7 @@ export function GiftGuideHero() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_75%_at_24%_55%,rgba(5,13,35,0.7),transparent)]" />
         </div>
 
-        {/* Copy - inset from the masthead edge so it sits nearer the collage */}
+        {/* Copy - on the page gutter, like the copy on the other banners */}
         <div
           className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-14 sm:py-16 lg:overflow-visible lg:bg-transparent lg:px-0 lg:py-0"
           style={{ color: IVORY }}
@@ -149,26 +149,34 @@ export function GiftGuideHero() {
             <BannerImage position="0% 50%" />
             <div className="absolute inset-0 bg-[#050d23]/50" />
           </div>
-          <div className="max-w-2xl lg:pl-4 xl:pl-[clamp(1.5rem,6vw,7rem)]">
+          <div className="max-w-2xl">
             <h1 data-reveal className="leading-none">
               {/* Cormorant Garamond Italic (the real italic, loaded in the route's
                 page.tsx) at 500 - heavy enough that its hairlines survive on
                 the velvet, calligraphic without turning into a script. */}
-              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.2] font-medium italic">
+              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.1] font-medium italic">
                 Holiday
-              </span>
+              </span>{" "}
               {/* Second line pushed right - the stagger on Stuller's "Magic /
                 MOMENT" - so the two lines don't share a left edge. */}
               <span
-                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.06em] uppercase ${GOLD_TEXT}`}
+                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.04em] ${GOLD_TEXT}`}
               >
-                Catalog
+                Gift Guide
               </span>
             </h1>
 
+            {/* Tagline: Cormorant italic like "Holiday", a step down in size */}
+            <p
+              data-reveal
+              className="mt-[clamp(0.5rem,1.5vh,1rem)] font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,min(2.2vw,3.6vh),2rem)] leading-snug font-medium italic text-[#f5efe4]/90"
+            >
+              Make This Season One to Remember.
+            </p>
+
             <div
               data-reveal
-              className="mt-[clamp(1rem,3vh,1.75rem)] flex items-center gap-4"
+              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] flex items-center gap-4"
             >
               <span className="h-px w-12 bg-[#dcbc7e]/60" />
               <span className="text-xs tracking-[0.25em] whitespace-nowrap text-[#f5efe4]/75 uppercase sm:tracking-[0.35em]">
@@ -178,11 +186,11 @@ export function GiftGuideHero() {
 
             <p
               data-reveal
-              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+              className="mt-[clamp(0.5rem,2vh,1.25rem)] max-w-[50ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
             >
-              One page, every gift your customers will ask for this season - the
-              essentials that sell themselves, the trends worth stocking, and
-              the new collections ready for the holiday counter.
+              From timeless favorites to standout new arrivals, explore a
+              collection of diamonds and fine jewelry your customers will love
+              to gift, receive, and cherish long after the holidays.
             </p>
           </div>
         </div>
@@ -215,9 +223,9 @@ export function GiftGuideHero() {
                   The Holiday Edit
                 </p>
                 <p className="mt-[0.4em] font-[family-name:var(--font-bodoni)] text-[4.4cqw] leading-[1.05] italic">
-                  Made to Be
+                  A Season Set
                   <br />
-                  Unwrapped
+                  in Diamonds
                 </p>
               </div>
             </div>

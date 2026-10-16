@@ -14,14 +14,14 @@ const TRENDS = [
     src: "/gift-guide/trends/everyday-wearables.webp",
     position: "50% 50%",
   },
-  { title: "Color", src: "/gift-guide/trends/color.webp", position: "50% 50%" },
+  { title: "Drop", src: "/gift-guide/trends/drop.webp", position: "50% 40%" },
   { title: "Bezel", src: "/gift-guide/trends/bezel.webp", position: "50% 50%" },
   {
     title: "Stackables",
     src: "/gift-guide/trends/stackables.webp",
     position: "50% 55%",
   },
-  { title: "Drop", src: "/gift-guide/trends/drop.webp", position: "50% 40%" },
+  { title: "Color", src: "/gift-guide/trends/color.webp", position: "50% 50%" },
   {
     title: "Bridal",
     src: "/gift-guide/trends/bridal.webp",
@@ -46,7 +46,7 @@ export function GiftGuideTrends() {
       aria-labelledby="trends-heading"
       className="px-edge pt-10 pb-20 lg:pt-16 lg:pb-28"
     >
-      <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+      <div className="grid overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="px-4 pt-10 pb-4 sm:px-8 lg:px-8 lg:pt-12 lg:pb-8 xl:px-10">
           {/* Cormorant Italic, as "Holiday" in the hero */}
           <h2

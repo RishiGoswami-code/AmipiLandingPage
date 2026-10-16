@@ -64,7 +64,7 @@ export function GiftGuideBestsellers() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_75%_at_50%_50%,rgba(5,13,35,0.65),transparent)]" />
       </div>
 
-      <div className="mx-auto max-w-7xl text-center">
+      <div className="text-center">
         <h2
           id="bestsellers-heading"
           className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"

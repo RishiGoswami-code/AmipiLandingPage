@@ -36,7 +36,7 @@ export function GiftGuideBridal() {
         sizes="(min-width: 1024px) 100vw, 2172px"
         className="-z-10 object-cover object-[75%_50%] lg:object-center"
       />
-      <div className="relative mx-auto w-full max-w-7xl">
+      <div className="relative w-full">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-12">
           <div>
             {/* The kicker with a trailing rule, as on the About page */}

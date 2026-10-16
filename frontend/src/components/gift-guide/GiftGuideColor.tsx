@@ -1,18 +1,19 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** The gold banner: 16:9, plain bronze satin across the left where the copy
- * sits, and an alternating emerald band, emerald hoops and a ruby tennis
- * bracelet in a shaft of light at the right. */
-const BANNER_SRC = "/gift-guide/color-gold-banner.webp";
+/** The golden shimmer banner, from GiftPageImages/Luxury Jewellery on Golden
+ * Shimmer.png: 3:1, plain dark bronze across the left where the copy sits,
+ * and an alternating emerald band, emerald hoops and a ruby tennis bracelet
+ * on sweeping gold shimmer at the right. */
+const BANNER_SRC = "/gift-guide/color-golden-shimmer-banner.webp";
 
 /** The banner's own plain bronze, so the band and the fades match it. */
-const BRONZE = "#673310";
+const BRONZE = "#320c00";
 
 /** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
 
-/** Champagne gold for "Color" - the same ramp as "Catalog" in the hero. */
+/** Champagne gold for "Color" - the same ramp as "Gift Guide" in the hero. */
 const GOLD_TEXT =
   "bg-[linear-gradient(180deg,#f6e2b8_0%,#ecd3a0_50%,#dcbc7e_100%)] bg-clip-text text-transparent";
 
@@ -27,7 +28,7 @@ export function GiftGuideColor() {
   return (
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[min(56.25vw,80svh)] lg:min-h-[26rem] lg:pt-0"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:aspect-[3/1] lg:max-h-[80svh] lg:min-h-[26rem] lg:pt-0"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -36,18 +37,18 @@ export function GiftGuideColor() {
           src={BANNER_SRC}
           alt=""
           fill
-          // On phones the 3:2 box shows the right of the 16:9 banner, which
-          // renders about 1.2 times the screen width
-          sizes="(min-width: 1024px) 100vw, 120vw"
+          // On phones the 3:2 box shows the right half of the 3:1 banner,
+          // which renders about twice the screen width
+          sizes="(min-width: 1024px) 100vw, 200vw"
           className="object-cover object-right lg:object-center"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#673310_0%,rgb(103_51_16/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#320c00_0%,rgb(50_12_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
-        <div className="mx-auto max-w-7xl">
+        <div>
           <div className="max-w-xl">
             <h2
               id="color-heading"
