@@ -6,7 +6,9 @@ const NAVY = "#0b1a3d";
 /**
  * The six trend tiles, from GiftPageImages/HOLIDAY TRENDS. The tiles are 4:5;
  * `position` is the focal point the crop keeps on the photos that aren't
- * (Stackables and Drop are 2:3, Bezel is nearly square).
+ * (Stackables is 2:3, Bezel is nearly square, and Drop - chain drop earrings
+ * in a velvet box - is landscape, so its crop sets the earrings left of the
+ * big numeral).
  */
 const TRENDS = [
   {
@@ -14,7 +16,11 @@ const TRENDS = [
     src: "/gift-guide/trends/everyday-wearables.webp",
     position: "50% 50%",
   },
-  { title: "Drop", src: "/gift-guide/trends/drop.webp", position: "50% 40%" },
+  {
+    title: "Drop",
+    src: "/gift-guide/trends/drop-chain-earrings.webp",
+    position: "95% 50%",
+  },
   { title: "Bezel", src: "/gift-guide/trends/bezel.webp", position: "50% 50%" },
   {
     title: "Stackables",
