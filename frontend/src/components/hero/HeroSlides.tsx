@@ -4,11 +4,11 @@ import { useEffect, useState, type CSSProperties } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-import tennisBracelet from "../../../Hero-Images/slides/tennis-bracelet-velvet.webp";
 import tennisNecklace from "../../../Hero-Images/slides/tennis-necklace-noir.webp";
-import sapphireRuby from "../../../Hero-Images/slides/sapphire-ruby-set.webp";
-import eternityBand from "../../../Hero-Images/slides/eternity-band.webp";
-import bezelPendant from "../../../Hero-Images/slides/bezel-pendant-gold.webp";
+import tennisBracelet from "../../../Hero-Images/slides/tennis-bracelet-satin.webp";
+import ultraComfortBand from "../../../Hero-Images/slides/ultra-comfort-band.webp";
+import colorCollection from "../../../Hero-Images/slides/color-collection.webp";
+import bezelCollection from "../../../Hero-Images/slides/bezel-collection.webp";
 
 type Slide = {
   src: StaticImageData;
@@ -26,58 +26,58 @@ type Slide = {
 };
 
 /**
- * The hero's slides, in play order. The velvet tennis bracelet leads - it is
- * the frame the intro lands on - then the rest follow in the order they were
- * supplied, wrapping round.
+ * The hero's slides, in play order: the Unflippable necklace leads - it is
+ * the frame the intro lands on - then bracelet, band, color and bezel,
+ * wrapping round.
  */
 export const SLIDES: Slide[] = [
-  {
-    src: tennisBracelet,
-    alt: "Model with a diamond tennis bracelet, the bracelet on red velvet beside her",
-    kicker: "Timeless brilliance",
-    title: "The Diamond Tennis Bracelet",
-    phoneFocus: "22% center",
-    // Behind the text: dark red-brown. White title (9.9:1), bright gold line.
-    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(30, 0, 6, 0.7)" },
-  },
   {
     src: tennisNecklace,
     alt: "Black-and-white portrait of a model wearing a diamond tennis necklace",
     kicker: "An everyday icon",
-    title: "The Riviera Necklace",
+    title: "The Unflippable Necklace",
     phoneFocus: "72% center",
     // Behind the text: cool charcoal. Gold title (10:1) - the one colour in a
     // monochrome frame - with a white line.
     tone: { title: "#f2c94c", kicker: "#ffffff", glow: "rgba(0, 0, 0, 0.7)" },
   },
   {
-    src: sapphireRuby,
-    alt: "Model wearing a sapphire ring, sapphire and diamond necklace and ruby bracelet",
-    kicker: "Gemstone collection",
-    title: "Sapphire & Ruby, Set in Diamonds",
-    phoneFocus: "30% center",
-    // Behind the text: dark skin and navy. White title (13:1), gold line.
-    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(0, 8, 30, 0.7)" },
+    src: tennisBracelet,
+    alt: "White gold diamond tennis bracelet, clasp open, resting on gold satin",
+    kicker: "Timeless brilliance",
+    title: "The Diamond Tennis Bracelet",
+    phoneFocus: "50% center",
+    // Behind the text: mid-tone caramel satin. White title and line with a
+    // heavy dark-brown glow to lift them off it.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 12, 0, 0.95)" },
   },
   {
-    src: eternityBand,
-    alt: "Smiling model wearing a diamond eternity band, the band resting in sunlight",
-    kicker: "Forever, in diamonds",
-    title: "The Eternity Band",
-    phoneFocus: "62% center",
-    // Behind the text: mid-tone sunlit stone, where only white clears 4.5:1
-    // (5.6:1); a heavy navy glow lifts both title and line off it.
-    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(0, 8, 25, 0.95)" },
+    src: ultraComfortBand,
+    alt: "Two diamond eternity bands on dark marble beside a hand wearing a third",
+    kicker: "Made to be worn every day",
+    title: "The Ultra Comfort Band",
+    phoneFocus: "28% center",
+    // Behind the text: dark marble. White title, gold line.
+    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(0, 0, 0, 0.7)" },
   },
   {
-    src: bezelPendant,
-    alt: "Model wearing an emerald-cut diamond bezel pendant on a yellow gold chain",
-    kicker: "Emerald cut, yellow gold",
-    title: "The Bezel Solitaire",
-    phoneFocus: "68% center",
-    // Behind the text: light stone and gold - the same as above (white, 5.3:1)
-    // with a heavy navy glow.
-    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(0, 8, 25, 0.95)" },
+    src: colorCollection,
+    alt: "Sapphire halo ring, ruby tennis bracelet and sapphire and diamond tennis necklace on stone plinths",
+    kicker: "Sapphire, ruby & diamond",
+    title: "The Color Collection",
+    phoneFocus: "50% center",
+    // Behind the text: light olive satin and stone - the lightest frame, so
+    // white with the heaviest glow.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(20, 16, 0, 0.95)" },
+  },
+  {
+    src: bezelCollection,
+    alt: "Round bezel-set diamond ring in white gold beside an emerald-cut bezel pendant on a yellow gold chain",
+    kicker: "Clean lines, modern settings",
+    title: "The Bezel Collection",
+    phoneFocus: "45% center",
+    // Behind the text: taupe satin. White title and line, heavy dark glow.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
   },
 ];
 
