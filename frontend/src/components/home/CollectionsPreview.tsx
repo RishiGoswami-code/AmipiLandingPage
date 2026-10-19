@@ -19,9 +19,9 @@ type Collection = {
  * Each name ends on a different word, so the row doesn't read "Jewelry,
  * Jewelry, Jewelry". */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "Colorful Gemstones", image: "/Collections/Color.png" },
+  { name: "Colorful Gemstones", image: "/Collections/color-collection.webp" },
   { name: "Bezel-Set Designs", image: "/Collections/bezel-set-collection.webp" },
-  { name: "Stackable Pieces", image: "/Collections/Stack.png" },
+  { name: "Stackable Pieces", image: "/Collections/stack-collection.webp" },
   { name: "Diamond Drop Earrings", image: "/Collections/cascade-collection.webp" },
   {
     name: "Bridal Rings",
