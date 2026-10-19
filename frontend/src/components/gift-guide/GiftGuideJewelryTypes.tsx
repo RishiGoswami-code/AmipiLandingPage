@@ -9,22 +9,25 @@ import styles from "./SnowGlobe.module.css";
 const NAVY = "#0b1a3d";
 
 /**
- * AMIPI's product lines. Placeholder cut-outs made from the navbar's
- * white-background thumbnails (public/nav-jewelry) - to be replaced by proper
- * high-resolution transparent product PNGs in public/gift-guide/types. The
- * current ones are only ~120-240px wide, so they read soft at globe size.
+ * AMIPI's product lines, in the order the manager set: necklace, bracelet,
+ * bands, studs, hoops, rings, bangles. Transparent cut-outs in
+ * public/gift-guide/types; Diamond Studs is still the navbar's ~240px
+ * thumbnail, so it reads soft at globe size. The bangle is the stretchy
+ * diamond bangle from GiftPageImages/JeweleryType, cut out of its white
+ * ground (inside the loop as well as around it).
  */
-const TYPES = [
-  { label: "Diamond Studs", src: "/gift-guide/types/diamond-studs.webp" },
-  { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp" },
+const TYPES: { label: string; src: string; wide?: boolean }[] = [
+  { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
   {
     label: "Tennis Bracelets",
     src: "/gift-guide/types/tennis-bracelet-hd.webp",
   },
-  { label: "Flexi Bangles", src: "/gift-guide/types/flexi-bangle.webp" },
   { label: "Bands", src: "/gift-guide/types/band-hd.webp" },
+  { label: "Diamond Studs", src: "/gift-guide/types/diamond-studs.webp" },
+  { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp" },
   { label: "Rings", src: "/gift-guide/types/oval-ring.webp" },
-  { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
+  // A wide, flat piece (about 3.7:1), so it gets more of the globe's width
+  { label: "Bangles", src: "/gift-guide/types/stretchy-bangle.webp", wide: true },
 ];
 
 /**
@@ -39,7 +42,7 @@ const TYPES = [
  * so it scales as one object. The sphere is 92cqw across from the top; the
  * disc sits under its lowest point.
  */
-function SnowGlobe({ src }: { src: string }) {
+function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
   return (
     <div aria-hidden className={`@container relative aspect-[100/98] w-full`}>
       {/* Soft floor shadow */}
@@ -58,7 +61,7 @@ function SnowGlobe({ src }: { src: string }) {
         <div className="absolute -inset-x-[4%] bottom-[-3%] h-[13%] rounded-[50%_50%_0_0/100%_100%_0_0] bg-[linear-gradient(180deg,rgba(255,255,255,0.85)_0%,rgba(225,234,245,0.7)_60%,rgba(150,178,215,0.55)_100%)]" />
 
         {/* The piece: large and sharp, standing on the mound */}
-        <div className="absolute top-[13%] left-[10%] h-[72%] w-[80%]">
+        <div className={`absolute top-[13%] h-[72%] ${wide ? "left-[5%] w-[90%]" : "left-[10%] w-[80%]"}`}>
           <Image
             quality={90}
             src={src}
@@ -184,7 +187,7 @@ export function GiftGuideJewelryTypes() {
             key={type.label}
             className="flex w-[40vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
-            <SnowGlobe src={type.src} />
+            <SnowGlobe src={type.src} wide={type.wide} />
             <p
               className="mt-4 text-center text-[13px] font-semibold tracking-[0.14em] uppercase sm:mt-5 sm:text-sm sm:tracking-[0.2em] lg:text-base"
               style={{ color: NAVY }}

@@ -51,14 +51,14 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom) as a full-bleed
  * banner, like the others on the page but light: the emerald halo photo
  * fills the section, with the copy over its plain left side under a soft
- * ivory wash. The copy follows the studio page - a kicker, the Bodoni and
- * gold Cormorant Italic heading, the studio's introduction and its "5 easy
+ * ivory wash. The copy follows the studio page - the Bodoni and gold
+ * Cormorant Italic heading, the studio's introduction and its "5 easy
  * steps" line, the four reasons with line icons, and two buttons: the studio
  * page, and straight to its design form.
  *
- * From 1280px the section is at least the photo's banner shape (about 2.3:1)
- * and grows with the copy; the photo is cropped to cover, held so the ring
- * stays clear of the copy. Narrower than that - phones, tablets and small
+ * From 1280px the copy sets the height (at least 34rem), kept close to the
+ * dark banners; the photo is cropped to cover, held so the ring stays clear
+ * of the copy. Narrower than that - phones, tablets and small
  * laptops, where half the width is too tight for the reasons two by two -
  * the copy sits on plain cream and the ring forms a band beneath it, built
  * the same way as the dark banners.
@@ -67,10 +67,10 @@ export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 xl:min-h-[max(38rem,43vw)] xl:py-[clamp(3rem,5vw,5rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-10 xl:min-h-[34rem] xl:py-[clamp(2rem,3.5vw,3.5rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[4/3] sm:aspect-[2/1] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] sm:aspect-[2/1] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
@@ -81,21 +81,15 @@ export function GiftGuideCustom() {
         />
         {/* Phones: the photo fades up into the plain cream under the copy;
             desktop: an ivory wash across the left, gone before the ring */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.8)_38%,rgb(242_231_215/0.35)_53%,transparent_62%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.84)_40%,rgb(242_231_215/0.4)_54%,transparent_63%)]" />
       </div>
 
       <div className="w-full px-edge">
         <div className="max-w-[46rem] xl:max-w-[min(46rem,52%)]">
-          <p
-            className="text-xs font-semibold tracking-[0.3em] uppercase"
-            style={{ color: ANTIQUE_GOLD }}
-          >
-            Custom Design Studio
-          </p>
 
           <h2
             id="custom-heading"
-            className="mt-4 font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal"
+            className="font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal"
             style={{ color: NAVY }}
           >
             Custom{" "}
@@ -104,13 +98,13 @@ export function GiftGuideCustom() {
             </span>
           </h2>
 
-          <p className="mt-6 max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-[#141414]/80">
+          <p className="mt-4 max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-[#141414]/80">
             Custom Design Studio by AMIPI FINE JEWELS is your personalized
             service that allows each one of you to create unique and
             one-of-a-kind jewelry tailored to your preferences.
           </p>
           <p
-            className="mt-4 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium italic"
+            className="mt-3 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium italic"
             style={{ color: ANTIQUE_GOLD }}
           >
             In 5 easy steps, you can see your vision come to life.
@@ -118,7 +112,7 @@ export function GiftGuideCustom() {
 
           {/* Why custom, two by two: a bare line icon in antique gold, set on
               the title's first line, then the title and one line */}
-          <ul className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+          <ul className="mt-7 grid gap-x-10 gap-y-5 sm:grid-cols-2">
             {REASONS.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3.5">
                 <Icon
@@ -134,7 +128,7 @@ export function GiftGuideCustom() {
                   >
                     {title}
                   </h3>
-                  <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-[#141414]/75">
+                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75">
                     {body}
                   </p>
                 </div>
@@ -142,7 +136,7 @@ export function GiftGuideCustom() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
             </PillButton>
@@ -153,7 +147,7 @@ export function GiftGuideCustom() {
         </div>
 
         {/* Below 1280px: room under the copy for the photo */}
-        <div aria-hidden className="mt-8 aspect-[4/3] sm:aspect-[2/1] xl:hidden" />
+        <div aria-hidden className="mt-6 aspect-[3/2] sm:aspect-[2/1] xl:hidden" />
       </div>
     </section>
   );

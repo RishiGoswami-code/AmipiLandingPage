@@ -170,19 +170,9 @@ export function GiftGuideHero() {
               Make This Season One to Remember.
             </p>
 
-            <div
-              data-reveal
-              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] flex items-center gap-4"
-            >
-              <span className="h-px w-12 bg-[#dcbc7e]/60" />
-              <span className="text-xs tracking-[0.25em] whitespace-nowrap text-[#f5efe4]/75 uppercase sm:tracking-[0.35em]">
-                Christmas · New Year · Winter
-              </span>
-            </div>
-
             <p
               data-reveal
-              className="mt-[clamp(0.5rem,2vh,1.25rem)] max-w-[50ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
             >
               From timeless favorites to standout new arrivals, explore a
               collection of diamonds and fine jewelry your customers will love
