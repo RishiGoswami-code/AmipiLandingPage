@@ -64,7 +64,7 @@ export function GiftGuideColor() {
           <div>
             <h2
               id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] lg:text-[clamp(4.5rem,10vw,11rem)] lg:tracking-[0.05em] ${GOLD_TEXT}`}
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.01em] lg:text-[clamp(4.25rem,9vw,10rem)] ${GOLD_TEXT}`}
             >
               Color
             </h2>
