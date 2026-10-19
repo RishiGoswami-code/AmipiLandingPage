@@ -2,11 +2,11 @@ import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 import { BannerTitle } from "./BannerTitle";
 
-/** The red velvet banner, from GiftPageImages/Luxury Jewelry on Red
- * Velvet.png: 3:1, plain deep red across the left where the copy sits, and a
+/** The burgundy velvet banner, from GiftPageImages/Burgundy Velvet Jewelry
+ * Luxe.png: 3:1, plain deep red across the left where the copy sits, and a
  * bezel-set eternity band, emerald-cut pendant and bezel solitaire on red
  * satin with gold-edged ribbon at the right. */
-const BANNER_SRC = "/gift-guide/bezel-red-velvet-banner.webp";
+const BANNER_SRC = "/gift-guide/bezel-burgundy-luxe-banner.webp";
 
 /** The banner's own plain red, so the band and the fades match it. */
 const RED = "#2b0000";

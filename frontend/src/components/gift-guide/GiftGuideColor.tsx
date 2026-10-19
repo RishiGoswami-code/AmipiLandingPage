@@ -5,10 +5,10 @@ import { PillButton } from "@/components/ui/PillButton";
  * Shimmer.png: 3:1, plain dark bronze across the left where the copy sits,
  * and an alternating emerald band, emerald hoops and a ruby tennis bracelet
  * on sweeping gold shimmer at the right. */
-const BANNER_SRC = "/gift-guide/color-golden-shimmer-banner.webp";
+const BANNER_SRC = "/gift-guide/color-shimmer-jewels-banner.webp";
 
 /** The banner's own plain bronze, so the band and the fades match it. */
-const BRONZE = "#320c00";
+const BRONZE = "#290b00";
 
 /** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
@@ -47,7 +47,7 @@ export function GiftGuideColor() {
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#320c00_0%,rgb(50_12_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
