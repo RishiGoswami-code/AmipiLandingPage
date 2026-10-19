@@ -41,9 +41,16 @@ export function GiftGuideColor() {
           alt=""
           fill
           // On phones the 3:2 box shows the right half of the 3:1 banner,
-          // which renders about twice the screen width
-          sizes="(min-width: 1024px) 100vw, 200vw"
-          className="object-cover object-right lg:object-center"
+          // which renders about twice the screen width. On desktop the
+          // picture is scaled up (below), so it renders wider than the screen
+          sizes="(min-width: 1280px) 130vw, (min-width: 1024px) 120vw, 200vw"
+          // Desktop: the jewelry sits low in the photo (centre at ~62% of its
+          // height), so the picture is zoomed in from its bottom-right corner
+          // - 1.3x puts the set's centre level with the copy and makes it
+          // about a third bigger. 1024-1279px, where the band is taller than
+          // 3:1 and the copy takes more of the width, anchor the crop right
+          // so the whole set shows and zoom less to keep it clear of the copy.
+          className="object-cover object-right lg:origin-bottom-right lg:scale-[1.2] xl:scale-[1.3]"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
             desktop: a soft pool behind the copy only */}
