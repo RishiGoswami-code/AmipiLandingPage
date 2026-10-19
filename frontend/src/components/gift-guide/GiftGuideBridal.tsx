@@ -75,16 +75,17 @@ export function GiftGuideBridal() {
             </div>
           </div>
 
-          {/* The bridal set together on a gold ribbon, large in the light,
-            with a warm glow behind it */}
-          <div className="relative mx-auto aspect-[1200/744] w-full max-w-[38rem] lg:mr-0">
+          {/* The bridal set together on a gold ribbon, in the light, with a
+            warm glow behind it. Held to 34rem so it sits inside the band
+            with some air above and below rather than filling it */}
+          <div className="relative mx-auto aspect-[1200/744] w-full max-w-[34rem] lg:mr-0">
             <div className="absolute -inset-[12%] rounded-full bg-[radial-gradient(closest-side,rgba(255,226,160,0.42),rgba(245,205,130,0.14)_55%,transparent)]" />
             <Image
               quality={90}
               src="/gift-guide/bridal/together.webp"
               alt="AMIPI engagement rings together on a gold ribbon"
               fill
-              sizes="(min-width: 1024px) 38rem, 90vw"
+              sizes="(min-width: 1024px) 34rem, 90vw"
               className="object-contain drop-shadow-[0_18px_24px_rgba(20,12,2,0.45)]"
             />
           </div>
