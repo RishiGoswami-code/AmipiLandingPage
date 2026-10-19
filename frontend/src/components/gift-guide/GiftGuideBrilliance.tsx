@@ -28,12 +28,11 @@ const IVORY = "#f5efe4";
  */
 export function GiftGuideBrilliance() {
   return (
-    // Desktop height is the banner's own shape (about width / 2.87) clamped between a
-    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
-    // that pair widens the box past the viewport whenever the floor wins.
+    // Desktop height follows the copy, with only a little padding above and
+    // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="brilliance-heading"
-      className="relative isolate overflow-hidden lg:h-[clamp(28rem,34.9vw,80svh)]"
+      className="relative isolate flex items-center overflow-hidden lg:py-10"
       style={{ color: IVORY, backgroundColor: BLUE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -52,7 +51,7 @@ export function GiftGuideBrilliance() {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#000c21_0%,rgb(0_12_33/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
       </div>
 
-      <div className="h-full px-edge pt-14 lg:pt-0">
+      <div className="w-full px-edge pt-14 lg:pt-0">
         <div className="grid h-full items-center gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-10">
           <div>
             <BannerTitle

@@ -26,13 +26,11 @@ const GOLD_TEXT =
  */
 export function GiftGuideColor() {
   return (
-    // Desktop height is kept below the banner's own shape (width / 3), so the
-    // band is no taller than the copy and jewelry need, growing if the copy
-    // does - a min-height, not aspect-ratio + min-height, since that pair
-    // widens the box past the viewport whenever the floor wins.
+    // Desktop height follows the copy, with only a little padding above and
+    // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-12 lg:min-h-[clamp(24rem,28vw,70svh)] lg:py-10"
+      className="relative isolate flex items-center overflow-hidden pt-12 lg:py-10"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -45,13 +43,13 @@ export function GiftGuideColor() {
           // which renders about twice the screen width. On desktop the
           // picture is scaled up (below), so it renders wider than the screen
           sizes="(min-width: 1280px) 130vw, (min-width: 1024px) 120vw, 200vw"
-          // Desktop: the jewelry sits low in the photo (centre at ~62% of its
-          // height), so the picture is zoomed in from its bottom-right corner
-          // - 1.3x puts the set's centre level with the copy and makes it
-          // about a third bigger. 1024-1279px, where the band is taller than
-          // 3:1 and the copy takes more of the width, anchor the crop right
-          // so the whole set shows and zoom less to keep it clear of the copy.
-          className="object-cover object-right lg:origin-bottom-right lg:scale-[1.2] xl:scale-[1.3]"
+          // Desktop: the band is only as tall as the copy, so the 3:1 picture
+          // is cropped top and bottom. The jewelry sits low in the photo (32%
+          // to 91% of its height), so the crop is held near the bottom and
+          // the picture zoomed 1.2x from its bottom-right corner, which keeps
+          // the hoops' tops and the bracelet inside the band. From 1536px the
+          // set is already large and the crop deeper, so no zoom.
+          className="object-cover object-right lg:origin-bottom-right lg:scale-[1.2] lg:object-[100%_85%] 2xl:scale-100"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
             desktop: a soft pool behind the copy only */}
@@ -66,11 +64,11 @@ export function GiftGuideColor() {
           <div>
             <h2
               id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] lg:text-[clamp(4.5rem,10vw,11rem)] lg:tracking-[0.1em] ${GOLD_TEXT}`}
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] lg:text-[clamp(4.5rem,10vw,11rem)] lg:tracking-[0.05em] ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[52ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel

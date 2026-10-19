@@ -25,13 +25,11 @@ const IVORY = "#f5efe4";
  */
 export function GiftGuideBezel() {
   return (
-    // Desktop height is at least the banner's own shape (width / 3) clamped
-    // between a floor and 80svh, growing if the copy needs it - a min-height,
-    // not aspect-ratio + min-height, since that pair widens the box past the
-    // viewport whenever the floor wins.
+    // Desktop height follows the copy, with only a little padding above and
+    // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="bezel-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:min-h-[clamp(26rem,33.333vw,80svh)] lg:py-10"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:py-10"
       style={{ color: IVORY, backgroundColor: RED }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -58,7 +56,7 @@ export function GiftGuideBezel() {
           <div>
             <BannerTitle id="bezel-heading" lead="Bezel-Set" accent="Styles" large />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[52ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
               A fresh take on diamond jewelry, bezel settings frame each stone
               with a smooth, polished edge that feels modern, refined, and easy
               to wear. From rings to necklaces, these are pieces that work

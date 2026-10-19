@@ -22,13 +22,11 @@ const LIGHTSCAPE = "/gift-guide/bridal/golden-lightscape.webp";
  */
 export function GiftGuideBridal() {
   return (
-    // Desktop height is at least the banner's own shape (width / 3) clamped
-    // between a floor and 80svh, growing if the longer title needs it - a
-    // min-height, not aspect-ratio + min-height, since that pair widens the
-    // box past the viewport whenever the floor wins.
+    // Desktop height follows the copy, with only a little padding above and
+    // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="bridal-heading"
-      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-14 lg:min-h-[clamp(30rem,33.333vw,80svh)] lg:py-10"
+      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-14 lg:py-10"
       style={{ color: IVORY }}
     >
       <Image
