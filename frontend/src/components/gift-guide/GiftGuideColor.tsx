@@ -59,17 +59,18 @@ export function GiftGuideColor() {
       </div>
 
       <div className="w-full px-edge">
-        {/* Desktop: the copy is centred in the plain left of the banner,
-            clear of the jewelry, rather than pressed to the gutter */}
-        <div className="lg:flex lg:w-[54%] lg:justify-center">
-          <div className="w-full lg:max-w-[clamp(30rem,40vw,42rem)]">
+        <div>
+          {/* No width cap on the block: the large title reaches into the
+              plain middle of the banner, while the paragraph keeps a
+              readable measure */}
+          <div>
             <h2
               id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] ${GOLD_TEXT}`}
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] lg:text-[clamp(4.5rem,10vw,11rem)] lg:tracking-[0.1em] ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[56ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[52ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel

@@ -22,6 +22,7 @@ export function BannerTitle({
   accent,
   uppercase = false,
   long = false,
+  large = false,
 }: {
   id: string;
   /** Text, or text with a <br /> where a long lead should break. */
@@ -33,6 +34,9 @@ export function BannerTitle({
    * the title keeps to the banner's height. The hanging indent steps the
    * second line in, so the three lines stagger. */
   long?: boolean;
+  /** A short title set a size up from 1024px, so it reaches into the plain
+   * middle of the banner. Phones and tablets keep the regular size. */
+  large?: boolean;
 }) {
   return (
     <h2 id={id} className="leading-none">
@@ -40,13 +44,15 @@ export function BannerTitle({
         className={`block pl-[0.9em] -indent-[0.9em] font-[family-name:var(--font-cormorant-italic)] ${
           long
             ? "text-[clamp(2.5rem,4.3vw,4.5rem)]"
-            : "text-[clamp(2.75rem,5.2vw,5.5rem)]"
+            : `text-[clamp(2.75rem,5.2vw,5.5rem)] ${large ? "lg:text-[clamp(3.25rem,7vw,8rem)]" : ""}`
         } leading-[1.06] font-medium italic`}
       >
         {lead}
       </span>{" "}
       <span
         className={`mt-[0.1em] ml-[1.4em] block font-[family-name:var(--font-bodoni)] text-[clamp(2.375rem,4.4vw,4.75rem)] leading-[1.08] font-medium ${
+          large ? "lg:text-[clamp(2.75rem,5.9vw,6.75rem)]" : ""
+        } ${
           uppercase ? "tracking-[0.08em] uppercase" : "tracking-[0.03em]"
         } ${GOLD_TEXT}`}
       >
