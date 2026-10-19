@@ -52,13 +52,12 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  * banner, like the others on the page but light: the emerald halo photo
  * fills the section, with the copy over its plain left side under a soft
  * ivory wash. The copy follows the studio page - the Bodoni and gold
- * Cormorant Italic heading, the studio's introduction and its "5 easy
- * steps" line, the four reasons with line icons, and two buttons: the studio
+ * Cormorant Italic heading, a "Made for you" label over "Why Custom
+ * Jewelry?", the four reasons with line icons, and two buttons: the studio
  * page, and straight to its design form.
  *
- * From 1280px the copy sets the height (at least 34rem), kept close to the
- * dark banners; the photo is cropped to cover, held so the ring stays clear
- * of the copy. Narrower than that - phones, tablets and small
+ * From 1280px the copy sets the height, kept compact; the photo is cropped
+ * to cover, held so the ring stays clear of the copy. Narrower than that - phones, tablets and small
  * laptops, where half the width is too tight for the reasons two by two -
  * the copy sits on plain cream and the ring forms a band beneath it, built
  * the same way as the dark banners.
@@ -67,10 +66,10 @@ export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-10 xl:min-h-[34rem] xl:py-[clamp(2rem,3.5vw,3.5rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-8 xl:py-[clamp(1.75rem,2.5vw,2.75rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] sm:aspect-[2/1] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
@@ -98,21 +97,24 @@ export function GiftGuideCustom() {
             </span>
           </h2>
 
-          <p className="mt-4 max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-[#141414]/80">
-            Custom Design Studio by AMIPI FINE JEWELS is your personalized
-            service that allows each one of you to create unique and
-            one-of-a-kind jewelry tailored to your preferences.
-          </p>
+          {/* "Made for you" as a small label over the heading for the
+              reasons */}
           <p
-            className="mt-3 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium italic"
+            className="mt-[clamp(1rem,2vw,1.5rem)] text-xs font-semibold tracking-[0.3em] uppercase"
             style={{ color: ANTIQUE_GOLD }}
           >
-            In 5 easy steps, you can see your vision come to life.
+            Made for you
           </p>
+          <h3
+            className="mt-1.5 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.75rem,2.4vw,2.375rem)] leading-tight font-medium italic"
+            style={{ color: NAVY }}
+          >
+            Why Custom Jewelry?
+          </h3>
 
           {/* Why custom, two by two: a bare line icon in antique gold, set on
               the title's first line, then the title and one line */}
-          <ul className="mt-7 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+          <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2">
             {REASONS.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3.5">
                 <Icon
@@ -122,12 +124,12 @@ export function GiftGuideCustom() {
                   style={{ color: ANTIQUE_GOLD }}
                 />
                 <div>
-                  <h3
+                  <h4
                     className="font-[family-name:var(--font-cormorant-italic)] text-[1.625rem] leading-tight font-medium italic"
                     style={{ color: NAVY }}
                   >
                     {title}
-                  </h3>
+                  </h4>
                   <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75">
                     {body}
                   </p>
@@ -136,7 +138,7 @@ export function GiftGuideCustom() {
             ))}
           </ul>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
             </PillButton>
@@ -147,7 +149,7 @@ export function GiftGuideCustom() {
         </div>
 
         {/* Below 1280px: room under the copy for the photo */}
-        <div aria-hidden className="mt-6 aspect-[3/2] sm:aspect-[2/1] xl:hidden" />
+        <div aria-hidden className="mt-4 aspect-[3/2] sm:aspect-[5/2] xl:hidden" />
       </div>
     </section>
   );

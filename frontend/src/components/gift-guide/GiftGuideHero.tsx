@@ -53,7 +53,7 @@ const SPREAD = [
  * banner on Stuller's holiday page: a large display word on the first line
  * and a serif capital word on the second, pushed right so the two lines stagger
  * rather than share a left edge. The collage on the right borrows the printed
- * catalog from landingPageTheme.jpeg; each page carries a single cover line.
+ * catalog from landingPageTheme.jpeg; the cover carries a single cover line.
  *
  * The banner is held to 60-70% of the viewport height on desktop (on phones
  * it stacks and takes its natural height). The masthead sits above it,
@@ -115,7 +115,6 @@ export function GiftGuideHero() {
             Amipi
           </span>
         </Link>
-        <span className="hidden sm:block">Holiday 2026 · Winter Edition</span>
         <span>Vol. 01</span>
       </header>
 
@@ -181,8 +180,8 @@ export function GiftGuideHero() {
           </div>
         </div>
 
-        {/* Catalog collage: a cover and an open spread, each carrying one
-            cover line. 4:3, capped by the banner's height so it never
+        {/* Catalog collage: a cover, carrying one cover line, and an open
+            spread. 4:3, capped by the banner's height so it never
             overflows it, and held slightly in from the right edge. A size
             container, so the cover lines scale with the collage (cqw) rather
             than the viewport. The photos stay decorative (alt=""). */}
@@ -222,10 +221,6 @@ export function GiftGuideHero() {
             data-page
             className="absolute right-[1%] bottom-[2%] w-[60%] rotate-2 bg-[#ebe7df] p-[4%] shadow-[0_30px_60px_-20px_rgba(5,12,30,0.55)]"
           >
-            {/* Ribbon tag across the spread's top edge */}
-            <p className="absolute top-0 left-[6%] -translate-y-1/2 bg-[linear-gradient(180deg,#ecd3a0,#c9a35c)] px-[0.9em] py-[0.55em] text-[max(8px,1.5cqw)] font-medium tracking-[0.18em] whitespace-nowrap sm:tracking-[0.28em] text-[#0b1a3d] uppercase shadow-[0_8px_20px_-8px_rgba(5,12,30,0.6)]">
-              Little Boxes · <span className="font-semibold">Big Sparkle</span>
-            </p>
             <div className="grid grid-cols-2 gap-2">
               {SPREAD.map((tile) => (
                 <div

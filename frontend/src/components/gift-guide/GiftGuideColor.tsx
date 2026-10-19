@@ -26,12 +26,13 @@ const GOLD_TEXT =
  */
 export function GiftGuideColor() {
   return (
-    // Desktop height is the banner's own shape (width / 3) clamped between a
-    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
-    // that pair widens the box past the viewport whenever the floor wins.
+    // Desktop height is kept below the banner's own shape (width / 3), so the
+    // band is no taller than the copy and jewelry need, growing if the copy
+    // does - a min-height, not aspect-ratio + min-height, since that pair
+    // widens the box past the viewport whenever the floor wins.
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[clamp(26rem,33.333vw,80svh)] lg:pt-0"
+      className="relative isolate flex items-center overflow-hidden pt-12 lg:min-h-[clamp(24rem,28vw,70svh)] lg:py-10"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -58,21 +59,21 @@ export function GiftGuideColor() {
       </div>
 
       <div className="w-full px-edge">
-        <div>
-          <div className="max-w-xl">
+        {/* Desktop: the copy is centred in the plain left of the banner,
+            clear of the jewelry, rather than pressed to the gutter */}
+        <div className="lg:flex lg:w-[54%] lg:justify-center">
+          <div className="w-full lg:max-w-[clamp(30rem,40vw,42rem)]">
             <h2
               id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7.6vw,8rem)] leading-[0.95] font-medium tracking-[0.08em] uppercase ${GOLD_TEXT}`}
+              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.04em] ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-4 text-xs font-semibold tracking-[0.3em] text-[#ecd3a0] uppercase sm:text-sm">
-              Colored Gemstones
-            </p>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/85">
-              Colored gemstones are one of the season&rsquo;s biggest trends.
-              Rich greens, deep reds and bright accents bring warmth and
-              personality to every holiday gift.
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[56ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+              Bring a little more personality to holiday gifting with rich
+              emeralds, deep rubies, and vibrant gemstone accents. Bold enough
+              to stand out, easy enough to wear every day, and made to feel
+              special long after the season is over.
             </p>
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">
               <PillButton href="/categories" variant="light" size="sm" icon="arrow">

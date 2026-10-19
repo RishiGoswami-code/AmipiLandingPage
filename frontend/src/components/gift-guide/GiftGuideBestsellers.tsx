@@ -47,7 +47,7 @@ export function GiftGuideBestsellers() {
   return (
     <section
       aria-labelledby="bestsellers-heading"
-      className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-16 lg:py-20"
+      className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-10 lg:py-[clamp(2.5rem,3.5vw,3.5rem)]"
       style={{ color: IVORY }}
     >
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -72,15 +72,14 @@ export function GiftGuideBestsellers() {
           Holiday Bestsellers
         </h2>
         <p className="mx-auto mt-4 max-w-[60ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
-          Give them a style they&rsquo;ll love season after season - the pieces
-          retailers reorder most for their timeless appeal, effortless
-          versatility and gift-worthy sparkle.
+          A selection of our most-loved styles for the holiday season, from
+          everyday essentials to classic diamond gifts.
         </p>
       </div>
 
       {/* The carousel spans the full width between the page gutters rather
           than the centred column the copy uses */}
-      <div className="mt-10">
+      <div className="mt-8">
         <GiftGuideCarousel label="bestsellers" slideClassName={PRODUCT_SLIDE}>
           {BESTSELLERS.map((piece) => (
             <ProductCard

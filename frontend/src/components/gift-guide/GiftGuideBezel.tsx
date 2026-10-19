@@ -17,20 +17,21 @@ const IVORY = "#f5efe4";
 /**
  * "Bezel-Set Styles" - after the matching banner on Stuller's holiday page:
  * a full-bleed band with the copy on the left, built the same way as
- * "Give the Gift of Brilliance" so the two read as a pair - a Cormorant
- * Italic line over a gold Bodoni capital word.
+ * the diamonds banner so the two read as a pair - a Cormorant Italic line
+ * over a gold Bodoni word.
  *
  * On phones the copy sits on the plain red and the right half of the banner -
  * the three pieces - forms a 3:2 band beneath it.
  */
 export function GiftGuideBezel() {
   return (
-    // Desktop height is the banner's own shape (width / 3) clamped between a
-    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
-    // that pair widens the box past the viewport whenever the floor wins.
+    // Desktop height is at least the banner's own shape (width / 3) clamped
+    // between a floor and 80svh, growing if the copy needs it - a min-height,
+    // not aspect-ratio + min-height, since that pair widens the box past the
+    // viewport whenever the floor wins.
     <section
       aria-labelledby="bezel-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 lg:h-[clamp(26rem,33.333vw,80svh)] lg:pt-0"
+      className="relative isolate flex items-center overflow-hidden pt-14 lg:min-h-[clamp(26rem,33.333vw,80svh)] lg:py-10"
       style={{ color: IVORY, backgroundColor: RED }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
@@ -50,18 +51,18 @@ export function GiftGuideBezel() {
       </div>
 
       <div className="w-full px-edge">
-        <div>
-          <div className="max-w-xl">
-            <BannerTitle
-              id="bezel-heading"
-              lead="Bezel-Set"
-              accent="Styles"
-              uppercase
-            />
+        {/* Desktop: the copy is centred in the plain left of the banner,
+            clear of the jewelry, rather than pressed to the gutter */}
+        <div className="lg:flex lg:w-[56%] lg:justify-center">
+          <div className="w-full lg:max-w-[clamp(30rem,42vw,44rem)]">
+            <BannerTitle id="bezel-heading" lead="Bezel-Set" accent="Styles" />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[42ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
-              Modern bezel-set designs strike the balance between durability
-              and sophistication - a clean, sleek setting for everyday luxury.
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[56ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
+              A fresh take on diamond jewelry, bezel settings frame each stone
+              with a smooth, polished edge that feels modern, refined, and easy
+              to wear. From rings to necklaces, these are pieces that work
+              beautifully for everyday looks and feel special enough for
+              gifting.
             </p>
 
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">

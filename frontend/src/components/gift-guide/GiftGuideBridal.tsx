@@ -11,7 +11,7 @@ const IVORY = "#f5efe4";
 const LIGHTSCAPE = "/gift-guide/bridal/golden-lightscape.webp";
 
 /**
- * "Shop Bridal Styles" - a full-bleed gold banner, after the ring banner on
+ * "New Bridal Styles for the Season of Yes" - a full-bleed gold banner, after the ring banner on
  * Stuller's holiday page: the copy on the dark left of the lightscape and the
  * five rings together in the light at the right (under the copy on phones).
  * On desktop the band is 3:1, the lightscape's own shape, so the whole
@@ -22,12 +22,13 @@ const LIGHTSCAPE = "/gift-guide/bridal/golden-lightscape.webp";
  */
 export function GiftGuideBridal() {
   return (
-    // Desktop height is the banner's own shape (width / 3) clamped between a
-    // floor and 80svh - set as a height, not aspect-ratio + min-height, since
-    // that pair widens the box past the viewport whenever the floor wins.
+    // Desktop height is at least the banner's own shape (width / 3) clamped
+    // between a floor and 80svh, growing if the longer title needs it - a
+    // min-height, not aspect-ratio + min-height, since that pair widens the
+    // box past the viewport whenever the floor wins.
     <section
       aria-labelledby="bridal-heading"
-      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-16 lg:h-[clamp(30rem,33.333vw,80svh)] lg:py-10"
+      className="relative isolate flex items-center overflow-hidden bg-[#140e07] px-edge py-14 lg:min-h-[clamp(30rem,33.333vw,80svh)] lg:py-10"
       style={{ color: IVORY }}
     >
       <Image
@@ -41,27 +42,26 @@ export function GiftGuideBridal() {
         className="-z-10 object-cover object-[75%_50%] lg:object-center"
       />
       <div className="relative w-full">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-12">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
           <div>
-            {/* The kicker with a trailing rule, as on the About page */}
-            <p className="flex items-center gap-5 text-xs font-medium tracking-[0.4em] text-[#dcbc7e] uppercase">
-              Bridal
-              <span className="h-px w-20 bg-[#dcbc7e]/50 sm:w-32" />
-            </p>
-            {/* The same staggered title as the Diamonds and Bezel banners */}
-            <div className="mt-4">
-              <BannerTitle
-                id="bridal-heading"
-                lead="Shop Bridal"
-                accent="Styles"
-                uppercase
-              />
-            </div>
-            <p className="mt-5 max-w-[46ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
-              Celebrate the moments that last a lifetime with bridal jewelry
-              made for every love story - timeless solitaires, modern
-              silhouettes and stackable bands, ready for the season of
-              proposals.
+            {/* The same staggered title as the Diamonds and Bezel banners,
+                its longer lead set a step smaller and broken over two lines,
+                with "Yes" as the gold accent */}
+            <BannerTitle
+              id="bridal-heading"
+              lead={
+                <>
+                  New Bridal Styles <br />
+                  for the Season of
+                </>
+              }
+              accent="“Yes”"
+              long
+            />
+            <p className="mt-5 max-w-[48ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+              Celebrate forever with our newest bridal styles: timeless
+              solitaires, modern settings, and stackable bands designed for
+              proposals, weddings, and every moment after.
             </p>
             <div className="mt-8">
               <PillButton
