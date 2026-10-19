@@ -47,7 +47,7 @@ export function GiftGuideBestsellers() {
   return (
     <section
       aria-labelledby="bestsellers-heading"
-      className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-10 lg:py-[clamp(2.5rem,3.5vw,3.5rem)]"
+      className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-8 lg:px-[calc(var(--spacing-edge)/2)] lg:py-[clamp(1.75rem,2.25vw,2.5rem)]"
       style={{ color: IVORY }}
     >
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -79,7 +79,7 @@ export function GiftGuideBestsellers() {
 
       {/* The carousel spans the full width between the page gutters rather
           than the centred column the copy uses */}
-      <div className="mt-8">
+      <div className="mt-6">
         <GiftGuideCarousel label="bestsellers" slideClassName={PRODUCT_SLIDE}>
           {BESTSELLERS.map((piece) => (
             <ProductCard

@@ -85,7 +85,7 @@ export function GiftGuideCarousel({
 
   return (
     <div className="text-center">
-      <div className="relative lg:px-14">
+      <div className="relative lg:px-12">
         <button
           type="button"
           aria-label={`Previous ${label}`}
@@ -117,7 +117,7 @@ export function GiftGuideCarousel({
       </div>
 
       {pages > 1 && (
-        <div className="mt-6 inline-flex items-center gap-2.5 rounded-full bg-white/15 px-3 py-2">
+        <div className="mt-5 inline-flex items-center gap-2.5 rounded-full bg-white/15 px-3 py-2">
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
