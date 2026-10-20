@@ -39,7 +39,7 @@ export function Footer() {
         <div className="flex justify-center lg:justify-start">
           <NewsletterCard />
         </div>
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-[2fr_1fr_1fr_1fr]">
           <div className="col-span-2 sm:col-span-1">
             <Image
               src="/amipi-logo.png"
@@ -48,7 +48,7 @@ export function Footer() {
               height={201}
               className="h-9 w-auto"
             />
-            <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-foreground/60">
+            <p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-foreground/60">
               Wholesale diamonds and fine jewelry, priced fair and graded
               honest. No bull.
             </p>
