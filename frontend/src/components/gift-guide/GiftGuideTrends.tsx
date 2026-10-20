@@ -6,7 +6,7 @@ const NAVY = "#0b1a3d";
 /**
  * The six trend tiles, from GiftPageImages/HOLIDAY TRENDS. The tiles are 4:5;
  * `position` is the focal point the crop keeps on the photos that aren't
- * (Stackables is 2:3, Bezel is nearly square, and Drop - chain drop earrings
+ * (Stackables and Color are 2:3, Bezel is nearly square, and Drop - chain drop earrings
  * in a velvet box - is landscape, so its crop sets the earrings left of the
  * big numeral).
  */
@@ -27,7 +27,13 @@ const TRENDS = [
     src: "/gift-guide/trends/stackables.webp",
     position: "50% 55%",
   },
-  { title: "Color", src: "/gift-guide/trends/color.webp", position: "50% 50%" },
+  // Festive Sapphire Necklace Portrait: 2:3, so the crop sits a little low
+  // so the whole necklace and the hand stay in frame
+  {
+    title: "Color",
+    src: "/gift-guide/trends/sapphire-necklace-portrait.webp",
+    position: "50% 55%",
+  },
   {
     title: "Bridal",
     src: "/gift-guide/trends/bridal.webp",
@@ -35,10 +41,8 @@ const TRENDS = [
   },
 ];
 
-/** The tall model shot beside the grid, from GiftPageImages/HOLIDAY TRENDS/
- * Festive Sapphire Necklace Portrait.png: 2:3, a sapphire and diamond tennis
- * necklace on a model, with Christmas lights behind. */
-const MODEL_SRC = "/gift-guide/trends/sapphire-necklace-portrait.webp";
+/** The tall model shot beside the grid (sapphire rings and studs). */
+const MODEL_SRC = "/gift-guide/trends/model.webp";
 
 /**
  * "Top Holiday Trends" - laid out like the matching section on Stuller's
@@ -109,7 +113,7 @@ export function GiftGuideTrends() {
             alt=""
             fill
             sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover object-[50%_50%]"
+            className="object-cover object-[50%_40%]"
           />
         </div>
       </div>
