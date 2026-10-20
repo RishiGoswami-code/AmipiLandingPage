@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-import tennisNecklace from "../../../Hero-Images/slides/tennis-necklace-noir.webp";
+import unflippableNecklace from "../../../Hero-Images/slides/unflippable-necklace-navy.webp";
 import tennisBracelet from "../../../Hero-Images/slides/tennis-bracelet-satin.webp";
 import ultraComfortBand from "../../../Hero-Images/slides/ultra-comfort-band.webp";
 import colorCollection from "../../../Hero-Images/slides/color-collection.webp";
@@ -32,14 +32,13 @@ type Slide = {
  */
 export const SLIDES: Slide[] = [
   {
-    src: tennisNecklace,
-    alt: "Black-and-white portrait of a model wearing a diamond tennis necklace",
+    src: unflippableNecklace,
+    alt: "Model wearing a diamond tennis necklace against navy velvet",
     kicker: "An everyday icon",
     title: "The Unflippable Necklace",
-    phoneFocus: "72% center",
-    // Behind the text: cool charcoal. Gold title (10:1) - the one colour in a
-    // monochrome frame - with a white line.
-    tone: { title: "#f2c94c", kicker: "#ffffff", glow: "rgba(0, 0, 0, 0.7)" },
+    phoneFocus: "58% center",
+    // Behind the text: deep navy velvet. Gold title, white line, navy glow.
+    tone: { title: "#f2c94c", kicker: "#ffffff", glow: "rgba(0, 6, 30, 0.7)" },
   },
   {
     src: tennisBracelet,

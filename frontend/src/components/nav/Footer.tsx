@@ -35,11 +35,11 @@ const LEGAL_LINKS = [
 export function Footer() {
   return (
     <footer className="relative border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
+      <div className="grid w-full gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
         <div className="flex justify-center lg:justify-start">
           <NewsletterCard />
         </div>
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-[2fr_1fr_1fr_1fr]">
           <div className="col-span-2 sm:col-span-1">
             <Image
               src="/amipi-logo.png"
@@ -48,7 +48,7 @@ export function Footer() {
               height={201}
               className="h-9 w-auto"
             />
-            <p className="mt-4 max-w-[26ch] text-sm leading-relaxed text-foreground/60">
+            <p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-foreground/60">
               Wholesale diamonds and fine jewelry, priced fair and graded
               honest. No bull.
             </p>
