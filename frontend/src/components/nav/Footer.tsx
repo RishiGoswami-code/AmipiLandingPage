@@ -35,7 +35,7 @@ const LEGAL_LINKS = [
 export function Footer() {
   return (
     <footer className="relative border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
+      <div className="grid w-full gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
         <div className="flex justify-center lg:justify-start">
           <NewsletterCard />
         </div>
