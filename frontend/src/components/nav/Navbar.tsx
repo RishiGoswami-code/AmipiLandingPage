@@ -211,13 +211,13 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} (opens in a new tab)`}
-                  className={`grid h-8 w-7 place-items-center xl:w-8 transition-colors ${
+                  className={`grid h-10 w-7 place-items-center transition-colors xl:w-10 ${
                     onDark
                       ? "text-ice-100/80 hover:text-white"
                       : "text-navy-700/80 hover:text-navy-900"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-6 w-6 xl:h-8 xl:w-8" />
                 </a>
               </li>
             ))}

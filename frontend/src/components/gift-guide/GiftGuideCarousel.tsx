@@ -183,7 +183,7 @@ export function ProductCard({
         )}
       </div>
       <p
-        className={`px-4 pt-2 text-[0.9375rem] leading-snug ${shop ? "pb-3" : "pb-5"}`}
+        className={`px-4 pt-2 text-[0.9375rem] leading-snug max-sm:text-center ${shop ? "pb-3" : "pb-5"}`}
       >
         {title}
       </p>

@@ -41,7 +41,7 @@ export function GiftGuideBridal() {
       />
       <div className="relative w-full">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
-          <div>
+          <div className="max-sm:text-center">
             {/* The same staggered title as the Diamonds and Bezel banners,
                 its longer lead set a step smaller and broken over two lines,
                 with "Yes" as the gold accent */}
@@ -56,7 +56,7 @@ export function GiftGuideBridal() {
               accent="“Yes”"
               long
             />
-            <p className="mt-5 max-w-[48ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className="mt-5 max-w-[48ch] max-sm:mx-auto text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               Celebrate forever with our newest bridal styles: timeless
               solitaires, modern settings, and stackable bands designed for
               proposals, weddings, and every moment after.

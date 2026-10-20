@@ -61,14 +61,14 @@ export function GiftGuideColor() {
           {/* No width cap on the block: the large title reaches into the
               plain middle of the banner, while the paragraph keeps a
               readable measure */}
-          <div>
+          <div className="max-sm:text-center">
             <h2
               id="color-heading"
               className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.01em] lg:text-[clamp(4.25rem,9vw,10rem)] ${GOLD_TEXT}`}
             >
               Color
             </h2>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel

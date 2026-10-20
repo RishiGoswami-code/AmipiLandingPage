@@ -84,7 +84,7 @@ export function GiftGuideCustom() {
       </div>
 
       <div className="w-full px-edge">
-        <div className="max-w-[46rem] xl:max-w-[min(46rem,52%)]">
+        <div className="max-w-[46rem] max-sm:text-center xl:max-w-[min(46rem,52%)]">
 
           <h2
             id="custom-heading"
@@ -141,9 +141,6 @@ export function GiftGuideCustom() {
           <div className="mt-6 flex flex-wrap gap-3">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
-            </PillButton>
-            <PillButton href="/custom#design-form" variant="outline" size="sm" icon="arrow">
-              Send Us Your Design
             </PillButton>
           </div>
         </div>

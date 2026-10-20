@@ -53,10 +53,10 @@ export function GiftGuideBezel() {
           {/* No width cap on the block: the large title reaches into the
               plain middle of the banner, while the paragraph keeps a
               readable measure */}
-          <div>
+          <div className="max-sm:text-center">
             <BannerTitle id="bezel-heading" lead="Bezel-Set" accent="Styles" large />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
               A fresh take on diamond jewelry, bezel settings frame each stone
               with a smooth, polished edge that feels modern, refined, and easy
               to wear. From rings to necklaces, these are pieces that work

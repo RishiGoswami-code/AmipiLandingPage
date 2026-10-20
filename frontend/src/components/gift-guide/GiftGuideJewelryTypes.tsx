@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./SnowGlobe.module.css";
 
@@ -95,7 +96,8 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  * call scrollBy. About 2.3 globes show on phones, 3.4 on tablets, 5.4 on
  * desktop.
  *
- * Visual only for now: the globes do not link anywhere.
+ * Each globe ends in an underlined "Shop now" link to /categories, since there
+ * are no per-type pages yet.
  */
 export function GiftGuideJewelryTypes() {
   const rowRef = useRef<HTMLUListElement>(null);
@@ -144,7 +146,7 @@ export function GiftGuideJewelryTypes() {
       <div className="flex items-end justify-between gap-6 px-edge">
         <h2
           id="types-heading"
-          className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
+          className="max-sm:w-full max-sm:text-center font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
           style={{ color: NAVY }}
         >
           Shop by Jewelry Type
@@ -194,6 +196,13 @@ export function GiftGuideJewelryTypes() {
             >
               {type.label}
             </p>
+            {/* Underlined text only, not a button. */}
+            <Link
+              href="/categories"
+              className="mt-2 text-[13px] font-medium text-[#0b1a3d] underline underline-offset-4 transition-colors hover:text-[#8a6630] sm:text-sm"
+            >
+              Shop now
+            </Link>
           </li>
         ))}
         {/* Trailing gutter as a flex child: browsers ignore end padding on a

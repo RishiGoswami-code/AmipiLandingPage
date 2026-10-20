@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 /** Navy from the hero banner, used here for the heading. */
 const NAVY = "#0b1a3d";
@@ -50,7 +51,8 @@ const MODEL_SRC = "/gift-guide/trends/model.webp";
  * with a tall model photo filling the panel's right side. On phones the grid
  * drops to two columns and the model photo follows it.
  *
- * Visual only for now: the tiles do not link anywhere.
+ * Each tile ends in an underlined "Explore" link to /categories, since there
+ * are no per-trend pages yet.
  */
 export function GiftGuideTrends() {
   return (
@@ -97,9 +99,18 @@ export function GiftGuideTrends() {
                 >
                   {i + 1}
                 </span>
-                <h3 className="absolute inset-x-0 bottom-0 px-[8%] pb-[8%] text-center text-[max(12px,6.2cqw)] leading-snug font-semibold text-white">
-                  {trend.title}
-                </h3>
+                <div className="absolute inset-x-0 bottom-0 px-[8%] pb-[8%] text-center">
+                  <h3 className="text-[max(12px,6.2cqw)] leading-snug font-semibold text-white">
+                    {trend.title}
+                  </h3>
+                  {/* No per-trend pages yet, so every link goes to the shop. */}
+                  <Link
+                    href="/categories"
+                    className="mt-1 inline-block text-[max(11px,4.6cqw)] font-medium text-white/90 underline underline-offset-4 transition-colors hover:text-[#ecd3a0]"
+                  >
+                    Explore {trend.title}
+                  </Link>
+                </div>
               </li>
             ))}
           </ol>

@@ -115,7 +115,6 @@ export function GiftGuideHero() {
             Amipi
           </span>
         </Link>
-        <span>Vol. 01</span>
       </header>
 
       {/* Hero: 65% of the viewport on desktop. The navy band runs edge to edge
@@ -144,7 +143,7 @@ export function GiftGuideHero() {
             <BannerImage position="0% 50%" />
             <div className="absolute inset-0 bg-[#050d23]/50" />
           </div>
-          <div className="max-w-2xl">
+          <div className="max-w-2xl max-sm:text-center">
             <h1 data-reveal className="leading-none">
               {/* Cormorant Garamond Italic (the real italic, loaded in the route's
                 page.tsx) at 500 - heavy enough that its hairlines survive on
@@ -155,7 +154,7 @@ export function GiftGuideHero() {
               {/* Second line pushed right - the stagger on Stuller's "Magic /
                 MOMENT" - so the two lines don't share a left edge. */}
               <span
-                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.04em] ${GOLD_TEXT}`}
+                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] max-sm:ml-0 block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.04em] ${GOLD_TEXT}`}
               >
                 Gift Guide
               </span>
@@ -171,7 +170,7 @@ export function GiftGuideHero() {
 
             <p
               data-reveal
-              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:mx-auto text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
             >
               From timeless favorites to standout new arrivals, explore a
               collection of diamonds and fine jewelry your customers will love

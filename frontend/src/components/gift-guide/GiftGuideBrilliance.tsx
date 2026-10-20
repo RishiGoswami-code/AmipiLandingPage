@@ -53,14 +53,14 @@ export function GiftGuideBrilliance() {
 
       <div className="w-full px-edge pt-14 lg:pt-0">
         <div className="grid h-full items-center gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-10">
-          <div>
+          <div className="max-sm:text-center">
             <BannerTitle
               id="brilliance-heading"
               lead="The Season Starts with"
               accent="Diamonds"
             />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] max-sm:mx-auto text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               From natural diamonds to lab-grown favorites, explore beautiful
               pieces your customers will be looking for this holiday season.
             </p>

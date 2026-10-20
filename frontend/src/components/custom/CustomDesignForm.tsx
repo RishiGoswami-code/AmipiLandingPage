@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Building2, Globe, ImagePlus, Mail, Phone, RefreshCw, ShieldCheck, User, X } from "lucide-react";
+import { Building2, Globe, ImagePlus, Mail, NotebookPen, Phone, RefreshCw, ShieldCheck, User, X } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
 import { Field, FieldAlert, NotConnectedNote } from "@/components/account/fields";
 
@@ -185,6 +185,24 @@ export function CustomDesignForm() {
         <Field label="Company name" name="company" icon={Building2} placeholder="Your store or business" autoComplete="organization" />
         <Field label="Website" name="website" type="url" icon={Globe} placeholder="www.yourstore.com" autoComplete="url" />
         <Field label="Phone *" name="phone" type="tel" icon={Phone} placeholder="Phone number" autoComplete="tel" required className="sm:col-span-2" />
+      </div>
+
+      {/* Description - the one long field, so the team gets the specs up front
+          instead of chasing them by email. The placeholder lists what to cover. */}
+      <div className="mt-3 flex items-start gap-2.5 rounded-lg border border-black/10 bg-white px-3 py-1.5 transition-colors focus-within:border-[#d4ae5c]">
+        <NotebookPen className="mt-1 h-3.5 w-3.5 shrink-0 text-foreground/45" />
+        <div className="min-w-0 flex-1">
+          <label htmlFor="design-details" className="block text-[10px] font-semibold text-foreground/75">
+            Tell us about your piece
+          </label>
+          <textarea
+            id="design-details"
+            name="details"
+            rows={7}
+            placeholder={["Add in details:", "• Natural or lab-grown", "• Size", "• Metal", "• Quality", "• Inspiration"].join("\n")}
+            className="w-full resize-y bg-transparent text-[13px] leading-relaxed text-foreground outline-none placeholder:text-foreground/35"
+          />
+        </div>
       </div>
 
       {/* Verification code */}

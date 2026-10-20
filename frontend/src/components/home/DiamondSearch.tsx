@@ -941,7 +941,7 @@ function OriginToggle({
   return (
     <div className="flex items-center gap-4">
       <button type="button" onClick={() => onChange(false)} className={label(!labGrown)}>
-        Mined
+        Earth Mined
       </button>
       <button
         type="button"
