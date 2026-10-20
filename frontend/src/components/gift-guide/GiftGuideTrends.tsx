@@ -35,8 +35,10 @@ const TRENDS = [
   },
 ];
 
-/** The tall model shot beside the grid (sapphire rings and studs). */
-const MODEL_SRC = "/gift-guide/trends/model.webp";
+/** The tall model shot beside the grid, from GiftPageImages/HOLIDAY TRENDS/
+ * Festive Sapphire Necklace Portrait.png: 2:3, a sapphire and diamond tennis
+ * necklace on a model, with Christmas lights behind. */
+const MODEL_SRC = "/gift-guide/trends/sapphire-necklace-portrait.webp";
 
 /**
  * "Top Holiday Trends" - laid out like the matching section on Stuller's
@@ -107,7 +109,7 @@ export function GiftGuideTrends() {
             alt=""
             fill
             sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover object-[50%_40%]"
+            className="object-cover object-[50%_50%]"
           />
         </div>
       </div>
