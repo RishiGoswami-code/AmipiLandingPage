@@ -35,7 +35,7 @@ export function GiftGuideColor() {
     // picture covers the band.
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 xl:py-[clamp(3.5rem,4.5vw,5rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-16 xl:py-[clamp(4.5rem,6vw,7rem)]"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[2/1] sm:aspect-[5/2] xl:inset-y-0 xl:right-0 xl:left-[22vw] xl:aspect-auto">
@@ -74,7 +74,7 @@ export function GiftGuideColor() {
                 band, the wider the picture and the further left the
                 bracelet: below 1600px the paragraph takes a narrower
                 measure to clear it */}
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] xl:max-[1400px]:max-w-[48ch] min-[1400px]:max-[1600px]:max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] xl:max-[1600px]:max-w-[44ch] min-[1600px]:max-[1900px]:max-w-[52ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel
