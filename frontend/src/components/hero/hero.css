@@ -44,8 +44,8 @@
      to a single espresso key; a blue-black stage behind them reads as a colour
      cast rather than as darkness. */
   background-color: #0e0b0a;
-  height: calc(100svh - 3.5cm);
-  min-height: calc(100svh - 3.5cm);
+  height: calc(100svh - 2.3cm);
+  min-height: calc(100svh - 2.3cm);
 
   /* --- Card geometry. ----------------------------------------------------
      All three cards follow one rule: a single driving dimension, clamped
@@ -75,11 +75,11 @@
 
   /* --- Composition centre. -------------------------------------------------
      Where the card stack, the clip window and the lockup are all centred. */
-  --hero-center-y: calc(50svh - 1.75cm);
+  --hero-center-y: calc(50svh - 1.25cm);
 
   --hero-pan-max: min(
     16svh,
-    calc(100svh - 3.5cm - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
+    calc(100svh - 2.3cm - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
   );
 
   /* Corner radius of the card-sized window, straightened as it opens. */
@@ -102,7 +102,7 @@
 
     --hero-pan-max: min(
       20svh,
-      calc(100svh - 3.5cm - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
+      calc(100svh - 2.3cm - var(--hero-center-y) - var(--hero-c3-h) / 2 - 2svh)
     );
   }
 }
@@ -159,64 +159,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  /* ---------------------------------------------------------------------
-     Centring the subject.
-
-     The 4:5 mobile art still puts the model's face centre at ~57% of image
-     width, so she reads as sitting right of centre, and the correction has to
-     survive object-fit: cover, which crops by a different amount at every
-     viewport ratio.
-
-     Let r be displayed image width over container width (r >= 1 under cover).
-     Centred by default, a feature at image fraction f lands at container
-     fraction 0.5 + (f - 0.5) * r — so the error grows with how much cover is
-     cropping. On a ~9:19.5 viewport the 4:5 source gives r = 1.43 to 1.74,
-     meaning cover is already discarding 30-43% of the width. That is ample room
-     to slide within, so object-position alone does it, with no zoom and no loss
-     of resolution. Solving 0.5 = p(1 - r) + f*r for the position gives
-     p = (f*r - 0.5) / (r - 1), which is 66.5% at r = 1.74 and 73.4% at
-     r = 1.43. A single 70% holds her within +/-2.6% of centre across every
-     phone in that range.
-  --------------------------------------------------------------------- */
   object-position: 70% center;
 }
 
 @media (min-width: 640px) {
   .hero-backdrop-pan img {
-    /* Override the 70% above: the 16:9 art has the subject centred already. */
     object-position: center;
-
-    /* --- The push-in. ----------------------------------------------------
-       Two problems, one lever. The necklace was small in frame and the
-       backdrop carried dead space on both flanks; and the model's face fills
-       the top half of the photograph, which put her chin on the viewport
-       centreline where the lockup sits.
-
-       Scaling about the centre and shifting upward fixes both. A feature at
-       image fraction f lands at screen fraction
-       0.5 + (f - 0.5) * zoom + shift. Her clear throat runs 52-68% of frame,
-       so targeting its midpoint f = 0.60 and solving for the centreline gives
-       shift = -0.10 * zoom — which is exactly the translate below, expressed
-       as a percentage of the container so it stays correct at any size.
-
-       With that relationship held, the zoom is free to be a taste decision and
-       the composition follows automatically. At 1.40 the visible frame runs
-       f = 0.24 to 0.96, which puts the top edge at about her brow: the crown and
-       forehead are cut, which is the accepted cost, while the necklace grows
-       roughly 40% larger than unzoomed and the dead space on both flanks closes
-       in. The clamp is coverage — below 1.25 the upward shift would pull the
-       image's bottom edge above the viewport and open a gap.
-
-       Resolution still holds: 1920 * 1.40 = 2688px against a 3344px source, so
-       the image is oversampled rather than stretched.
-
-       Order matters in the transform list. The rightmost function applies
-       first, so this scales and then translates, and the translate percentage
-       resolves against the element's own height rather than the scaled result —
-       which is what keeps the shift/zoom relationship linear. */
-    --hero-bg-zoom: 1.4;
-    transform: translateY(calc(-10% * var(--hero-bg-zoom)))
+    --hero-bg-zoom: 1.32;
+    transform: translateY(calc(-4% * var(--hero-bg-zoom)))
       scale(var(--hero-bg-zoom));
   }
 }
