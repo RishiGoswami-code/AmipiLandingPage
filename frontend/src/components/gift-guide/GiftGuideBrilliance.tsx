@@ -65,7 +65,7 @@ export function GiftGuideBrilliance() {
               pieces your customers will be looking for this holiday season.
             </p>
 
-            <div className="mt-[clamp(1.25rem,3vh,2rem)] flex flex-wrap gap-3">
+            <div className="mt-[clamp(1.25rem,3vh,2rem)] flex flex-wrap gap-3 max-sm:justify-center">
               <PillButton
                 href="/categories"
                 variant="gold"

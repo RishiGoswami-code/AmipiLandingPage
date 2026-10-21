@@ -113,13 +113,14 @@ export function GiftGuideCustom() {
           </h3>
 
           {/* Why custom, two by two: a bare line icon in antique gold, set on
-              the title's first line, then the title and one line */}
+              the title's first line, then the title and one line. On phones,
+              where the copy is centred, the icon sits above the title */}
           <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2">
             {REASONS.map(({ icon: Icon, title, body }) => (
-              <li key={title} className="flex gap-3.5">
+              <li key={title} className="flex gap-3.5 max-sm:flex-col max-sm:items-center max-sm:gap-1.5">
                 <Icon
                   aria-hidden
-                  className="mt-1 h-6 w-6 shrink-0"
+                  className="h-6 w-6 shrink-0 sm:mt-1"
                   strokeWidth={1.4}
                   style={{ color: ANTIQUE_GOLD }}
                 />
@@ -138,7 +139,7 @@ export function GiftGuideCustom() {
             ))}
           </ul>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 max-sm:justify-center">
             <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
               Get Started
             </PillButton>

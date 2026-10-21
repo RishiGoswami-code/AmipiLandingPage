@@ -41,7 +41,7 @@ export function BannerTitle({
   return (
     <h2 id={id} className="leading-none">
       <span
-        className={`block pl-[0.9em] -indent-[0.9em] max-sm:pl-0 max-sm:indent-0 font-[family-name:var(--font-cormorant-italic)] ${
+        className={`block pl-[0.9em] -indent-[0.9em] max-sm:pl-0 max-sm:indent-0 max-sm:text-balance font-[family-name:var(--font-cormorant-italic)] ${
           long
             ? "text-[clamp(2.5rem,4.3vw,4.5rem)]"
             : `text-[clamp(2.75rem,5.2vw,5.5rem)] ${large ? "lg:text-[clamp(3.25rem,7vw,8rem)]" : ""}`

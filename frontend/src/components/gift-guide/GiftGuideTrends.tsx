@@ -117,14 +117,14 @@ export function GiftGuideTrends() {
         </div>
 
         {/* Model photo: fills the panel's right side on desktop, follows the grid on phones */}
-        <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-xl sm:m-8 sm:mt-0 lg:m-0 lg:aspect-auto lg:rounded-none">
+        <div className="relative m-4 mt-0 aspect-square overflow-hidden sm:aspect-[16/10] rounded-xl sm:m-8 sm:mt-0 lg:m-0 lg:aspect-auto lg:rounded-none">
           <Image
             quality={90}
             src={MODEL_SRC}
             alt=""
             fill
             sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover object-[50%_40%]"
+            className="object-cover object-[50%_40%] sm:object-[50%_62%] lg:object-[50%_40%]"
           />
         </div>
       </div>
