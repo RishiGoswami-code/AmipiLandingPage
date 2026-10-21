@@ -17,11 +17,12 @@ const DETAIL =
 /**
  * The page's footer, under the last banner, after a classic footer strip:
  * three columns across the full width, split by dotted rules - "Follow Us"
- * with AMIPI's social accounts at the left, "Newsletter Signup" in the
+ * with AMIPI's social accounts at the left, "Subscribe to Our Newsletter" in the
  * middle (an email field with an italic Subscribe pill beneath it, set to
  * the right), and "Contact Us" with the phone, email and showroom address
  * at the right. Below 1024px the three stack, centred, with the rules
- * running across between them.
+ * running across between them. A hairline along the bottom separates it
+ * from the yellow partner belt below.
  *
  * The social links, phone and email are the navbar's (CONTACT); the address
  * is the site footer's. No mailing-list
@@ -40,7 +41,7 @@ export function GiftGuideConnect() {
   return (
     <section
       aria-labelledby="newsletter-heading"
-      className="px-edge py-[var(--gift-gap)]"
+      className="border-b border-[#0b1a3d]/70 px-edge py-[var(--gift-gap)]"
       style={{ color: NAVY }}
     >
       {/* --gap is the space either side of the dotted rules */}
@@ -66,7 +67,7 @@ export function GiftGuideConnect() {
 
         <div className={`border-dotted border-[#0b1a3d]/35 max-lg:border-y max-lg:py-8 lg:border-x lg:px-[var(--gap)]`}>
           <h2 id="newsletter-heading" className={LABEL}>
-            Newsletter Signup
+            Subscribe to Our Newsletter
           </h2>
           {state === "done" ? (
             <p
