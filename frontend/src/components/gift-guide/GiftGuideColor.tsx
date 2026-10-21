@@ -1,18 +1,16 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** The golden silk banner, from GiftPageImages/Emerald and Ruby Jewelry on
- * Golden Silk.png: plain dark bronze across the left where the copy sits,
- * and an alternating emerald band, emerald hoops and a ruby tennis bracelet
- * on sweeping golden silk at the right. The photo is 3:1 with the set ending
- * 93% across; this copy is widened 72px on the right with more of the plain
- * silk (copied from just right of the hoops, offset along the light streaks
- * and cross-faded in), so it is 3.1:1 and the set ends 90% across - 10vw in
- * from the right edge of the band. */
-const BANNER_SRC = "/gift-guide/color-golden-silk-wide-banner.webp";
+/** The golden satin banner, from GiftPageImages/COLOR/Luxury Gemstone
+ * Jewelry on Golden Satin.png: 3:1, dark bronze satin at the left and four
+ * pieces on golden satin from 43% to 96% across - a ruby tennis bracelet, a
+ * diamond and sapphire necklace hanging in from the top edge, an emerald and
+ * diamond band, and emerald hoops. */
+const BANNER_SRC = "/gift-guide/color-gemstones-golden-satin-banner.webp";
 
-/** The banner's own plain bronze, so the band and the fades match it. */
-const BRONZE = "#290b00";
+/** The banner's own dark bronze at its left edge, so the band and the fades
+ * match it. */
+const BRONZE = "#2a1404";
 
 /** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
@@ -25,8 +23,11 @@ const GOLD_TEXT =
  * "Color" - the coloured-gemstone holiday trend: a full-bleed banner built
  * the same way as "Bezel-Set Styles", with the copy on the left.
  *
- * On phones the copy sits on the plain bronze and the right of the banner -
- * the three pieces - forms a 3:2 band beneath it.
+ * The set starts left of centre, so from 1280px the picture starts 22vw in
+ * from the left (its edge fading into the bronze), which moves the
+ * bracelet clear of the paragraph. Narrower than 1280px there is no room
+ * beside the copy: it sits on the plain bronze and the set forms a band
+ * beneath it, as on the Bridal banner.
  */
 export function GiftGuideColor() {
   return (
@@ -34,29 +35,27 @@ export function GiftGuideColor() {
     // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="color-heading"
-      className="relative isolate flex items-center overflow-hidden pt-12 lg:py-10"
+      className="relative isolate flex items-center overflow-hidden pt-12 xl:py-10"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[2/1] sm:aspect-[5/2] xl:inset-y-0 xl:right-0 xl:left-[22vw] xl:aspect-auto">
         <Image
           quality={90}
           src={BANNER_SRC}
           alt=""
           fill
-          // On phones the 3:2 box shows the right half of the 3:1 banner,
-          // which renders about twice the screen width. Around 1024px the
-          // band is a little taller than 3:1, so the picture runs slightly
-          // wider than the screen
-          sizes="(min-width: 1280px) 100vw, (min-width: 1024px) 110vw, 200vw"
-          // Desktop: the band is only as tall as the copy, so the 3:1 picture
-          // is cropped top and bottom. The jewelry sits low in the photo (31%
-          // to 84% of its height), so the crop is held a little below the
-          // middle, which keeps the hoops' tops and the bracelet in the band.
-          className="object-cover object-right lg:object-[100%_70%]"
+          // Phones: the 2:1 box shows the right two thirds of the 3:1 banner,
+          // which renders 1.5x the screen width, so the whole set fits; from
+          // 640px a 5:2 box shows nearly all of it
+          sizes="(min-width: 1280px) 80vw, (min-width: 640px) 120vw, 150vw"
+          // From 1280px the band is only as tall as the copy, so the picture
+          // is cropped top and bottom; the necklace hangs in from the top
+          // edge of the photo anyway
+          className="object-cover object-right sm:object-[85%_50%] xl:object-[100%_50%]"
         />
-        {/* Phones: the picture fades up into the plain bronze under the copy;
-            desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+        {/* Below 1280px: the picture fades up into the plain bronze under
+            the copy; from 1280px: its left edge fades into the bronze */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2a1404_0%,rgb(42_20_4/0.6)_15%,transparent_35%)] xl:bg-[linear-gradient(90deg,#2a1404_0%,rgb(42_20_4/0.6)_8%,transparent_22%)]" />
       </div>
 
       <div className="w-full px-edge">
@@ -71,7 +70,10 @@ export function GiftGuideColor() {
             >
               Color
             </h2>
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            {/* Between 1280 and 1400px the band is short, so the picture
+                is height-bound and the bracelet sits further left: the
+                paragraph takes a narrower measure there to clear it */}
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:mx-auto max-w-[64ch] xl:max-[1400px]:max-w-[54ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel
@@ -84,8 +86,8 @@ export function GiftGuideColor() {
             </div>
           </div>
 
-          {/* Phones: room under the copy for the jewelry */}
-          <div aria-hidden className="aspect-[3/2] lg:hidden" />
+          {/* Below 1280px: room under the copy for the jewelry */}
+          <div aria-hidden className="aspect-[2/1] sm:aspect-[5/2] xl:hidden" />
         </div>
       </div>
     </section>
