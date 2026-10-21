@@ -152,11 +152,15 @@ export function ProductCard({
   src,
   href,
   shop = false,
+  contain = false,
 }: {
   title: string;
   src?: string;
   href: string;
   shop?: boolean;
+  /** A cut-out on a transparent ground: shown whole, inset on the white,
+   * instead of cropped to fill the square. */
+  contain?: boolean;
 }) {
   return (
     <Link
@@ -171,7 +175,7 @@ export function ProductCard({
             alt=""
             fill
             sizes="(min-width: 1024px) 15rem, (min-width: 640px) 30vw, 60vw"
-            className="object-cover"
+            className={contain ? "object-contain p-[7%]" : "object-cover"}
           />
         ) : (
           <div className="absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-md border border-dashed border-[#141414]/15 bg-[#f3efe7] text-[#8a6630]">

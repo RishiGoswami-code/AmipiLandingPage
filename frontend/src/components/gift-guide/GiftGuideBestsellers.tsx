@@ -13,8 +13,10 @@ const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 const IVORY = "#f5efe4";
 
 /** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
- * bracelet still use the site's new-arrival product shots. */
-const BESTSELLERS: { title: string; src?: string }[] = [
+ * bracelet still use the site's new-arrival product shots. `contain` marks a
+ * cut-out on a transparent ground, shown whole on the card's white rather
+ * than cropped to fill it. */
+const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
   {
     title: "Unflippable Necklace",
     src: "/gift-guide/bestsellers/tennis-necklace.webp",
@@ -23,7 +25,9 @@ const BESTSELLERS: { title: string; src?: string }[] = [
   { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
   {
     title: "Diamond Studs",
-    src: "/gift-guide/bestsellers/diamond-studs.webp",
+    // The transparent cut-out from Shop by Jewelry Type
+    src: "/gift-guide/types/diamond-studs.webp",
+    contain: true,
   },
   {
     title: "3 Stone Huggies",
@@ -86,6 +90,7 @@ export function GiftGuideBestsellers() {
               key={piece.title}
               title={piece.title}
               src={piece.src}
+              contain={piece.contain}
               href="/categories"
               shop
             />
