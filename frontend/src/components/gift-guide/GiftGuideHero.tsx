@@ -109,10 +109,18 @@ export function GiftGuideHero() {
             height={512}
             className="h-8 w-8 sm:h-9 sm:w-9"
           />
-          <span
-            className={`${italiana.className} text-xl tracking-[0.06em] text-[#141414] uppercase transition-colors hover:text-[#a8803f] sm:text-2xl`}
-          >
-            Amipi
+          <span className="flex flex-col">
+            <span
+              className={`${italiana.className} text-xl tracking-[0.06em] text-[#141414] uppercase transition-colors hover:text-[#a8803f] sm:text-2xl`}
+            >
+              Amipi
+            </span>
+            {/* The anniversary line under the wordmark, in Cormorant Italic
+                on a metallic gold ramp - deeper than the champagne used on
+                the dark banners, so it holds on the cream */}
+            <span className="-mt-0.5 bg-[linear-gradient(100deg,#9a6b25_0%,#c9a04f_35%,#e6c47a_50%,#c9a04f_65%,#9a6b25_100%)] bg-clip-text font-[family-name:var(--font-cormorant-italic)] text-[13px] leading-tight font-semibold tracking-[0.04em] text-transparent normal-case italic lining-nums sm:text-[15px]">
+              Celebrating 50 Years
+            </span>
           </span>
         </Link>
       </header>
