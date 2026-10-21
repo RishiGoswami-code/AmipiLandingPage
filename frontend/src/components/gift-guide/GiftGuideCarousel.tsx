@@ -139,7 +139,7 @@ export function GiftGuideCarousel({
 /** Slide widths for a row of product cards: about 1.6 on phones, 3.3 on
  * tablets, 5.25 on desktop - the part card at the end says "there's more". */
 export const PRODUCT_SLIDE =
-  "w-[calc((100%-1rem)/1.6)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
+  "w-[calc((100%-1rem)/1.2)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
 
 /**
  * A white product card, as in Stuller's carousels: a square photo on white

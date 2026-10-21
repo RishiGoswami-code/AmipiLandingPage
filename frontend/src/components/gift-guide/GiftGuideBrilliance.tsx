@@ -22,9 +22,11 @@ const IVORY = "#f5efe4";
  * Italic line over a gold Bodoni word - so the two navy bands read as
  * a set.
  *
- * Full-bleed like the hero's band. On phones the copy sits on the plain blue
- * and the right half of the banner - the ribbon, hands and diamonds - forms
- * a 3:2 band beneath it.
+ * Full-bleed like the hero's band. On tablets the copy sits on the plain
+ * blue and the right half of the banner - the ribbon, hands and diamonds -
+ * forms a 3:2 band beneath it. On phones the picture leads instead: a square
+ * crop of the hands and diamonds across the top, then the title and buttons
+ * (the paragraph is left to larger screens).
  */
 export function GiftGuideBrilliance() {
   return (
@@ -32,26 +34,28 @@ export function GiftGuideBrilliance() {
     // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="brilliance-heading"
-      className="relative isolate flex items-center overflow-hidden lg:py-10"
+      className="relative isolate flex items-center overflow-hidden max-sm:pt-[100vw] max-sm:pb-12 lg:py-10"
       style={{ color: IVORY, backgroundColor: BLUE }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] lg:inset-0 lg:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-square lg:inset-0 lg:aspect-auto">
         <Image
           quality={90}
           src={BANNER_SRC}
           alt=""
           fill
-          // On phones the 3:2 box shows the right half of the 3:1 banner,
-          // which renders about twice the screen width
-          sizes="(min-width: 1024px) 100vw, 191vw"
-          className="object-cover object-right lg:object-center"
+          // On tablets the 3:2 box shows the right half of the 3:1 banner,
+          // which renders about twice the screen width; the phone square
+          // shows its right third, about three times the width
+          sizes="(min-width: 1024px) 100vw, (min-width: 640px) 191vw, 290vw"
+          className="object-cover object-right max-sm:object-[92%_50%] lg:object-center"
         />
-        {/* Phones: the picture fades up into the plain blue under the copy;
+        {/* Phones: the picture fades down into the plain blue above the
+            copy; tablets: it fades up into the blue under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#000c21_0%,rgb(0_12_33/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#000c21_0%,rgb(0_12_33/0.6)_18%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#000c21_0%,rgb(0_12_33/0.6)_12%,transparent_30%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
       </div>
 
-      <div className="w-full px-edge pt-14 lg:pt-0">
+      <div className="w-full px-edge pt-14 max-sm:pt-0 lg:pt-0">
         <div className="grid h-full items-center gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-10">
           <div className="max-sm:text-center">
             <BannerTitle
@@ -60,7 +64,7 @@ export function GiftGuideBrilliance() {
               accent="Diamonds"
             />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] max-sm:mx-auto text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] max-sm:hidden text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
               From natural diamonds to lab-grown favorites, explore beautiful
               pieces your customers will be looking for this holiday season.
             </p>
@@ -85,8 +89,8 @@ export function GiftGuideBrilliance() {
             </div>
           </div>
 
-          {/* Phones: room under the copy for the picture */}
-          <div aria-hidden className="aspect-[3/2] lg:hidden" />
+          {/* Tablets: room under the copy for the picture */}
+          <div aria-hidden className="aspect-[3/2] max-sm:hidden lg:hidden" />
         </div>
       </div>
     </section>

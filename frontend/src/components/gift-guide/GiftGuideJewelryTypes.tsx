@@ -96,7 +96,7 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  * that starts on the gutter and runs off the viewport's right edge, so the
  * clipped globe at the end shows there is more. Native scrolling means
  * swipe, momentum and keyboard all work before hydration; the arrows only
- * call scrollBy. About 2.3 globes show on phones, 3.4 on tablets, 5.4 on
+ * call scrollBy. About 1.6 globes show on phones, 3.4 on tablets, 5.4 on
  * desktop.
  *
  * Each globe ends in an underlined "Shop now" link to /categories, since there
@@ -190,7 +190,7 @@ export function GiftGuideJewelryTypes() {
         {TYPES.map((type) => (
           <li
             key={type.label}
-            className="flex w-[40vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
+            className="flex w-[58vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
             <SnowGlobe src={type.src} wide={type.wide} />
             <p

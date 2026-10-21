@@ -75,7 +75,7 @@ export function GiftGuideBestsellers() {
         >
           Holiday Bestsellers
         </h2>
-        <p className="mx-auto mt-4 max-w-[60ch] text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+        <p className="mx-auto mt-4 max-w-[60ch] max-sm:hidden text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
           A selection of our most-loved styles for the holiday season, from
           everyday essentials to classic diamond gifts.
         </p>

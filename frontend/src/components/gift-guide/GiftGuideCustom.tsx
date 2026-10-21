@@ -60,27 +60,33 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  * to cover, held so the ring stays clear of the copy. Narrower than that - phones, tablets and small
  * laptops, where half the width is too tight for the reasons two by two -
  * the copy sits on plain cream and the ring forms a band beneath it, built
- * the same way as the dark banners.
+ * the same way as the dark banners. On phones the ring leads instead: a
+ * square crop across the top, then the heading and the four reasons as
+ * small icon-and-title tiles, two by two (their sentences are left to
+ * larger screens).
  */
 export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-8 xl:py-[clamp(1.75rem,2.5vw,2.75rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[100vw] max-sm:pb-12 xl:py-[clamp(1.75rem,2.5vw,2.75rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-square sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
           alt=""
           fill
-          sizes="100vw"
-          className="object-cover object-[70%_50%] xl:object-[30%_50%]"
+          // The phone square shows the middle of the 16:9 photo, about
+          // 1.8x the screen width, held on the ring
+          sizes="(min-width: 640px) 100vw, 180vw"
+          className="object-cover object-[70%_50%] max-sm:object-[72%_50%] xl:object-[30%_50%]"
         />
-        {/* Phones: the photo fades up into the plain cream under the copy;
+        {/* Phones: the photo fades down into the plain cream above the
+            copy; tablets: it fades up into the cream under the copy;
             desktop: an ivory wash across the left, gone before the ring */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.84)_40%,rgb(242_231_215/0.4)_54%,transparent_63%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f2e7d7_0%,rgb(242_231_215/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.84)_40%,rgb(242_231_215/0.4)_54%,transparent_63%)]" />
       </div>
 
       <div className="w-full px-edge">
@@ -113,9 +119,10 @@ export function GiftGuideCustom() {
           </h3>
 
           {/* Why custom, two by two: a bare line icon in antique gold, set on
-              the title's first line, then the title and one line. On phones,
-              where the copy is centred, the icon sits above the title */}
-          <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+              the title's first line, then the title and one line. On phones
+              they stay two by two as small tiles: the icon above the title,
+              without the sentence */}
+          <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-10 sm:gap-y-4">
             {REASONS.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3.5 max-sm:flex-col max-sm:items-center max-sm:gap-1.5">
                 <Icon
@@ -126,12 +133,12 @@ export function GiftGuideCustom() {
                 />
                 <div>
                   <h4
-                    className="font-[family-name:var(--font-cormorant-italic)] text-[1.625rem] leading-tight font-medium italic"
+                    className="font-[family-name:var(--font-cormorant-italic)] text-[1.625rem] leading-tight font-medium italic max-sm:text-[1.3125rem]"
                     style={{ color: NAVY }}
                   >
                     {title}
                   </h4>
-                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75">
+                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden">
                     {body}
                   </p>
                 </div>
@@ -146,8 +153,8 @@ export function GiftGuideCustom() {
           </div>
         </div>
 
-        {/* Below 1280px: room under the copy for the photo */}
-        <div aria-hidden className="mt-4 aspect-[3/2] sm:aspect-[5/2] xl:hidden" />
+        {/* Tablets: room under the copy for the photo */}
+        <div aria-hidden className="mt-4 aspect-[3/2] max-sm:hidden sm:aspect-[5/2] xl:hidden" />
       </div>
     </section>
   );

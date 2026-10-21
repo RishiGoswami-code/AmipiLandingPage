@@ -178,7 +178,7 @@ export function GiftGuideHero() {
 
             <p
               data-reveal
-              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:mx-auto text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:hidden text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
             >
               From timeless favorites to standout new arrivals, explore a
               collection of diamonds and fine jewelry your customers will love
