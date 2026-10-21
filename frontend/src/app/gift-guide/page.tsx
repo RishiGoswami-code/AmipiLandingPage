@@ -78,14 +78,15 @@ export const metadata: Metadata = {
  * without a banner are transparent and sit on it.
  *
  * The page runs edge to edge: it narrows the site's --spacing-edge gutter
- * (max(1.25rem, 5.5vw) in globals.css) for this route only, so every px-edge,
- * mx-edge and ml-edge in the gift-guide sections leaves just a small margin.
+ * (max(1.25rem, 5.5vw) in globals.css) to 3vw for this route only (never
+ * under 16px on phones), so every px-edge, mx-edge and ml-edge in the
+ * gift-guide sections leaves the same small margin left and right.
  * --gift-gap is the matching space above and below the plain sections, a
  * little more than the side gutter (about 24px on phones, 50px at 1440).
  */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:clamp(1rem,2.5vw,2.5rem)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
       <GiftGuideHero />
       <GiftGuideTrends />
       <GiftGuideJewelryTypes />
