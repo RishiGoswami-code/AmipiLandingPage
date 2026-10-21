@@ -2,10 +2,14 @@ import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
 /** The golden silk banner, from GiftPageImages/Emerald and Ruby Jewelry on
- * Golden Silk.png: 3:1, plain dark bronze across the left where the copy
- * sits, and an alternating emerald band, emerald hoops and a ruby tennis
- * bracelet on sweeping golden silk at the right (61% to 93% across). */
-const BANNER_SRC = "/gift-guide/color-golden-silk-banner.webp";
+ * Golden Silk.png: plain dark bronze across the left where the copy sits,
+ * and an alternating emerald band, emerald hoops and a ruby tennis bracelet
+ * on sweeping golden silk at the right. The photo is 3:1 with the set ending
+ * 93% across; this copy is widened 72px on the right with more of the plain
+ * silk (copied from just right of the hoops, offset along the light streaks
+ * and cross-faded in), so it is 3.1:1 and the set ends 90% across - 10vw in
+ * from the right edge of the band. */
+const BANNER_SRC = "/gift-guide/color-golden-silk-wide-banner.webp";
 
 /** The banner's own plain bronze, so the band and the fades match it. */
 const BRONZE = "#290b00";
@@ -48,16 +52,11 @@ export function GiftGuideColor() {
           // is cropped top and bottom. The jewelry sits low in the photo (31%
           // to 84% of its height), so the crop is held a little below the
           // middle, which keeps the hoops' tops and the bracelet in the band.
-          // The set's middle sits about 77% across; the picture is nudged
-          // 3vw right so it sits nearer 80%, 20vw in from the right edge.
-          // The strip uncovered at the left is the section's own bronze,
-          // the same as the picture's edge
-          className="object-cover object-right lg:translate-x-[3vw] lg:object-[100%_70%]"
+          className="object-cover object-right lg:object-[100%_70%]"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
-            desktop: a soft pool behind the copy, and a short fade that blends
-            the nudged picture's left edge into the bronze strip */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[linear-gradient(90deg,#290b00_3vw,transparent_10vw),radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+            desktop: a soft pool behind the copy only */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
