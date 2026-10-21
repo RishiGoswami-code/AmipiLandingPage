@@ -54,8 +54,9 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
 
       {/* Glass sphere */}
       <div className={`absolute top-0 left-[4cqw] h-[92cqw] w-[92cqw] overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_50%,transparent_0%,transparent_80%,rgba(140,172,215,0.25)_92%,rgba(90,128,185,0.6)_100%)] shadow-[0_0_0_1px_rgba(90,128,185,0.55)]`}>
-        <div className={`${styles.snow} ${styles.far}`} />
-        <div className={`${styles.snow} ${styles.mid}`} />
+        <div className={`${styles.snow} ${styles.back}`}>
+          <div className={styles.fall} />
+        </div>
 
         {/* Settled snow: a thin drift along the very bottom, so the glass
             stays clear behind the piece */}
@@ -73,7 +74,9 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
           />
         </div>
 
-        <div className={`${styles.snow} ${styles.near}`} />
+        <div className={`${styles.snow} ${styles.front}`}>
+          <div className={styles.fall} />
+        </div>
 
         {/* Glass: a blue edge all round, a thin reflection hugging the
             top-left rim and a small glint - nothing over the piece */}
