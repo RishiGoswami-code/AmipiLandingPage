@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
-/** The golden shimmer banner, from GiftPageImages/Luxury Jewellery on Golden
- * Shimmer.png: 3:1, plain dark bronze across the left where the copy sits,
- * and an alternating emerald band, emerald hoops and a ruby tennis bracelet
- * on sweeping gold shimmer at the right. */
-const BANNER_SRC = "/gift-guide/color-shimmer-jewels-banner.webp";
+/** The golden silk banner, from GiftPageImages/Emerald and Ruby Jewelry on
+ * Golden Silk.png: 3:1, plain dark bronze across the left where the copy
+ * sits, and an alternating emerald band, emerald hoops and a ruby tennis
+ * bracelet on sweeping golden silk at the right (61% to 93% across). */
+const BANNER_SRC = "/gift-guide/color-golden-silk-banner.webp";
 
 /** The banner's own plain bronze, so the band and the fades match it. */
 const BRONZE = "#290b00";
@@ -40,16 +40,15 @@ export function GiftGuideColor() {
           alt=""
           fill
           // On phones the 3:2 box shows the right half of the 3:1 banner,
-          // which renders about twice the screen width. On desktop the
-          // picture is scaled up (below), so it renders wider than the screen
-          sizes="(min-width: 1280px) 130vw, (min-width: 1024px) 120vw, 200vw"
+          // which renders about twice the screen width. Around 1024px the
+          // band is a little taller than 3:1, so the picture runs slightly
+          // wider than the screen
+          sizes="(min-width: 1280px) 100vw, (min-width: 1024px) 110vw, 200vw"
           // Desktop: the band is only as tall as the copy, so the 3:1 picture
-          // is cropped top and bottom. The jewelry sits low in the photo (32%
-          // to 91% of its height), so the crop is held near the bottom and
-          // the picture zoomed 1.2x from its bottom-right corner, which keeps
-          // the hoops' tops and the bracelet inside the band. From 1536px the
-          // set is already large and the crop deeper, so no zoom.
-          className="object-cover object-right lg:origin-bottom-right lg:scale-[1.2] lg:object-[100%_85%] 2xl:scale-100"
+          // is cropped top and bottom. The jewelry sits low in the photo (31%
+          // to 84% of its height), so the crop is held a little below the
+          // middle, which keeps the hoops' tops and the bracelet in the band.
+          className="object-cover object-right lg:object-[100%_70%]"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
             desktop: a soft pool behind the copy only */}
