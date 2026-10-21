@@ -3,14 +3,14 @@ import { PillButton } from "@/components/ui/PillButton";
 
 /** The golden satin banner, from GiftPageImages/COLOR/Luxury Gemstone
  * Jewelry on Golden Satin.png: 3:1, dark bronze satin at the left and four
- * pieces on golden satin from 43% to 96% across - a ruby tennis bracelet, a
+ * pieces on golden satin from 47% to 95% across - a ruby tennis bracelet, a
  * diamond and sapphire necklace hanging in from the top edge, an emerald and
  * diamond band, and emerald hoops. */
-const BANNER_SRC = "/gift-guide/color-gemstones-golden-satin-banner.webp";
+const BANNER_SRC = "/gift-guide/color-gemstones-golden-satin-v2-banner.webp";
 
 /** The banner's own dark bronze at its left edge, so the band and the fades
  * match it. */
-const BRONZE = "#2a1404";
+const BRONZE = "#271304";
 
 /** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
@@ -55,7 +55,7 @@ export function GiftGuideColor() {
         />
         {/* Below 1280px: the picture fades up into the plain bronze under
             the copy; from 1280px: its left edge fades into the bronze */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2a1404_0%,rgb(42_20_4/0.6)_15%,transparent_35%)] xl:bg-[linear-gradient(90deg,#2a1404_0%,rgb(42_20_4/0.6)_8%,transparent_22%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#271304_0%,rgb(39_19_4/0.6)_15%,transparent_35%)] xl:bg-[linear-gradient(90deg,#271304_0%,rgb(39_19_4/0.6)_8%,transparent_22%)]" />
       </div>
 
       <div className="w-full px-edge">
