@@ -108,7 +108,7 @@ export function GiftGuideTrends() {
                     href="/categories"
                     className="mt-1 inline-block text-[max(11px,4.6cqw)] font-medium text-white/90 underline underline-offset-4 transition-colors hover:text-[#ecd3a0]"
                   >
-                    Explore {trend.title}
+                    Shop Now
                   </Link>
                 </div>
               </li>

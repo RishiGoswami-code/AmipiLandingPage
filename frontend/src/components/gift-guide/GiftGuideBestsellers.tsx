@@ -15,24 +15,24 @@ const IVORY = "#f5efe4";
 /** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
  * bracelet still use the site's new-arrival product shots. */
 const BESTSELLERS: { title: string; src?: string }[] = [
-  { title: "Split Prong Hoops", src: "/new-arrival/classic-hoops.webp" },
-  {
-    title: "3 Stone Huggies",
-    src: "/gift-guide/bestsellers/three-stone-huggies-close.webp",
-  },
-  { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
-  { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },
   {
     title: "Unflippable Necklace",
     src: "/gift-guide/bestsellers/tennis-necklace.webp",
   },
+  { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },
+  { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
+  {
+    title: "Diamond Studs",
+    src: "/gift-guide/bestsellers/diamond-studs.webp",
+  },
+  {
+    title: "3 Stone Huggies",
+    src: "/gift-guide/bestsellers/three-stone-huggies-close.webp",
+  },
+  { title: "Split Prong Hoops", src: "/new-arrival/classic-hoops.webp" },
   {
     title: "Bezel Bracelet",
     src: "/gift-guide/bestsellers/bezel-bracelet.webp",
-  },
-  {
-    title: "Rainbow Bracelet",
-    src: "/gift-guide/bestsellers/rainbow-bracelet.webp",
   },
 ];
 

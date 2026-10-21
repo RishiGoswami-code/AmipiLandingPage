@@ -6,6 +6,7 @@ import { PillButton } from "@/components/ui/PillButton";
 
 import unflippableNecklace from "../../../Hero-Images/slides/unflippable-necklace-navy.webp";
 import ultraComfortBracelet from "../../../Hero-Images/slides/ultra-comfort-bracelet.webp";
+import colorCollection from "../../../Hero-Images/slides/color-collection.webp";
 import bezelCollection from "../../../Hero-Images/slides/bezel-collection.webp";
 
 type Slide = {
@@ -27,7 +28,7 @@ type Slide = {
 
 /**
  * The hero's slides, in play order: the Unflippable necklace leads - it is
- * the frame the intro lands on - then bracelet and bezel,
+ * the frame the intro lands on - then bracelet, color and bezel,
  * wrapping round.
  */
 export const SLIDES: Slide[] = [
@@ -50,6 +51,15 @@ export const SLIDES: Slide[] = [
     // Behind the text: cream marble and a knit sleeve, darkened by the hero's
     // scrim. White title and line with a heavy dark-brown glow.
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
+  },
+  {
+    src: colorCollection,
+    alt: "Ruby tennis bracelet, sapphire and diamond tennis necklace, and emerald eternity band on cream stone",
+    kicker: "Sapphire, ruby & emerald",
+    title: "The Color Collection",
+    phoneFocus: "50% center",
+    // Behind the text: light travertine and stone with shadows. White title and line with heavy dark glow.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(20, 16, 0, 0.95)" },
   },
   {
     src: bezelCollection,
