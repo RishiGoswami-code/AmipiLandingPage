@@ -48,20 +48,24 @@ export function GiftGuideColor() {
           // is cropped top and bottom. The jewelry sits low in the photo (31%
           // to 84% of its height), so the crop is held a little below the
           // middle, which keeps the hoops' tops and the bracelet in the band.
-          className="object-cover object-right lg:object-[100%_70%]"
+          // The set's middle sits about 77% across; the picture is nudged
+          // 3vw right so it sits nearer 80%, 20vw in from the right edge.
+          // The strip uncovered at the left is the section's own bronze,
+          // the same as the picture's edge
+          className="object-cover object-right lg:translate-x-[3vw] lg:object-[100%_70%]"
         />
         {/* Phones: the picture fades up into the plain bronze under the copy;
-            desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
+            desktop: a soft pool behind the copy, and a short fade that blends
+            the nudged picture's left edge into the bronze strip */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#290b00_0%,rgb(41_11_0/0.6)_18%,transparent_45%)] lg:bg-[linear-gradient(90deg,#290b00_3vw,transparent_10vw),radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(40_18_4/0.35),transparent)]" />
       </div>
 
       <div className="w-full px-edge">
         <div>
           {/* No width cap on the block: the large title reaches into the
               plain middle of the banner, while the paragraph keeps a
-              readable measure. From 1280px the copy is drawn in from the
-              edge; below that the paragraph would reach the ring */}
-          <div className="max-sm:text-center xl:pl-[4vw] 2xl:pl-[6vw]">
+              readable measure */}
+          <div className="max-sm:text-center">
             <h2
               id="color-heading"
               className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.01em] lg:text-[clamp(4.25rem,9vw,10rem)] ${GOLD_TEXT}`}
