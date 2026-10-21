@@ -20,14 +20,6 @@ type Slide = {
   /** Where to anchor the crop on phones, where cover keeps only a narrow
    *  vertical slice of these wide frames - aimed at the model or the piece. */
   phoneFocus: string;
-  /** Where to anchor the crop from 640px up (default: centre). Only needed
-   *  for the very wide frames, where cover keeps well under two thirds of the
-   *  width and the centre would cut the piece in half. */
-  desktopFocus?: string;
-  /** A frame wider than the hero (about 3:1) is scaled up to the hero's
-   *  height, so it is served as the full-size file rather than resized to
-   *  the screen's width, which would leave it soft once cropped. */
-  wide?: boolean;
   /** Caption colours chosen to contrast with what sits behind the text in
    *  this photograph (measured under the hero's scrim), so the title stands
    *  out rather than blending in: the title, the small line above it (and the
@@ -57,8 +49,6 @@ export const SLIDES: Slide[] = [
     title: "The Ultra Comfort Bracelet",
     cta: "Shop now",
     phoneFocus: "76% center",
-    desktopFocus: "100% center",
-    wide: true,
     // Behind the text: cream marble and a knit sleeve, darkened by the hero's
     // scrim. White title and line with a heavy dark-brown glow.
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
@@ -88,8 +78,6 @@ export const SLIDES: Slide[] = [
     kicker: "Clean lines, modern settings",
     title: "The Bezel Collection",
     phoneFocus: "48% center",
-    desktopFocus: "62% center",
-    wide: true,
     // Behind the text: cream stone and satin, darkened by the hero's scrim.
     // White title and line, heavy dark-brown glow.
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
@@ -129,7 +117,7 @@ export function HeroSlideImages({ index }: { index: number }) {
           key={slide.title}
           aria-hidden={i !== index}
           className="hero-slide absolute inset-0 transition-opacity duration-[1200ms] ease-in-out motion-reduce:transition-none"
-          style={{ opacity: i === index ? 1 : 0, "--slide-focus": slide.phoneFocus, "--slide-focus-lg": slide.desktopFocus ?? "center" } as CSSProperties}
+          style={{ opacity: i === index ? 1 : 0, "--slide-focus": slide.phoneFocus } as CSSProperties}
         >
           <Image
             src={slide.src}
@@ -137,7 +125,6 @@ export function HeroSlideImages({ index }: { index: number }) {
             fill
             priority={i === 0}
             sizes="100vw"
-            unoptimized={slide.wide}
             className="object-cover"
           />
         </div>
