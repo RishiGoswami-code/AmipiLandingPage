@@ -36,7 +36,13 @@ export default function SmoothScroll({
 }) {
   /* The Sanity Studio (/studio) runs its own scroll panes; Lenis on the window
      would swallow their wheel events, so it stays off there. */
-  const inStudio = usePathname().startsWith("/studio");
+  const pathname = usePathname();
+  const inStudio = pathname.startsWith("/studio");
+  /* The gift guide pins nothing, and its Shop by Jewelry Type and Holiday
+     Bestsellers rows are horizontal scrollers that normalizeScroll would
+     swallow (it takes every touch gesture off the browser's native path), so
+     touch devices keep the native scroll there. */
+  const nativeTouch = pathname.startsWith("/gift-guide");
 
   useEffect(() => {
     if (inStudio) return;
@@ -63,6 +69,10 @@ export default function SmoothScroll({
     window.addEventListener("load", refresh);
 
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
+    if (isTouch && nativeTouch) {
+      return () => window.removeEventListener("load", refresh);
+    }
 
     if (isTouch) {
       /* Plain `true`, not `{ allowNestedScroll: true }`. That flag was added so
@@ -110,7 +120,7 @@ export default function SmoothScroll({
       gsap.ticker.lagSmoothing(500, 33);
       lenis.destroy();
     };
-  }, [inStudio]);
+  }, [inStudio, nativeTouch]);
 
   return <>{children}</>;
 }
