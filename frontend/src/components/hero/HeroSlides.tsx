@@ -139,7 +139,7 @@ export function HeroSlideCaption({
 }) {
   const slide = SLIDES[index];
   return (
-    <div className="hero-slide-caption absolute inset-x-0 bottom-0 z-40 px-edge pb-10 sm:pb-14">
+    <div className="hero-slide-caption absolute inset-x-0 bottom-0 z-40 px-edge pb-7 sm:pb-10">
       <div key={index} className="hero-caption-in max-w-2xl" aria-live="polite">
         <p
           className="text-[11px] font-semibold tracking-[0.4em] uppercase sm:text-xs"

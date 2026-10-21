@@ -60,18 +60,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Routes whose top section is a dark canvas - the home hero and the About
-     story; everywhere else is the light theme. Scrolled, the bar is white, so
-     it paints dark on those routes too. */
-  const onDark = DARK_ROUTES.includes(usePathname()) && !scrolled;
-
-  /* The white surface steps aside while the overlay is open, so the light
-     close button reads against the overlay's espresso rather than a white bar. */
+  /* The surface becomes frosted cream when scrolled */
   const surfaced = scrolled && !open;
-
-  /* The overlay is espresso on every route, so once it is open the button has to
-     read against the overlay rather than against the page underneath it. */
-  const lightChrome = onDark || open;
 
   useEffect(() => {
     if (!open) return;
@@ -82,43 +72,18 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  /* Letterspaced uppercase at 11px, which is the same typographic vocabulary as
-     the hero's "ESTABLISHED 1976" band. Sentence-case 13px semibold read as
-     generic application chrome against cinematic photography.
-
-     Held at 90% rather than 70% over the hero. Letterspacing thins a word's
-     apparent weight — the glyphs stay the same but the whitespace between them
-     grows — so type that reads comfortably at 70% when set tight goes faint once
-     it is tracked out this far, and it has to survive a photographic backdrop
-     rather than a flat panel. Hover goes to pure white for a clear step up.
-
-     Tracking is 0.08em until 2xl, where it opens back up to 0.14em. Five labels
-     with dropdown chevrons are about 90px wider than the four plain links this
-     replaced, which overflowed into the logo at 1024px; tightening the tracking
-     and the row's gap buys that back, so laptops keep the full link row instead
-     of dropping to a hamburger.
-
-     It holds to 2xl rather than xl because the row is centred, so its width is
-     spent twice: every pixel it grows takes one from each side, and the logo
-     and the socials-and-Login cluster already take most of what is left at 1280. */
   const linkClasses = [
     "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
-    onDark
-      ? "text-ice-100/90 hover:text-white"
-      : "text-navy-700/80 hover:text-navy-900",
+    "text-[#2A251F]/85 hover:text-[#110E0C]",
   ].join(" ");
 
-  /* Per-link hairline, wiped in from the left. This replaces a single gradient
-     line that used to span the whole bar and carried a white glow — drawn back
-     when the nav was a contained white pill, but on a transparent full-width bar
-     it read as a light leak across the hero. */
   const underlineClasses = [
     "pointer-events-none absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0",
     "transition-transform duration-300 ease-out group-hover/link:scale-x-100",
-    onDark ? "bg-gold-500/70" : "bg-crimson-500/60",
+    "bg-[#A68551]",
   ].join(" ");
 
-  const barColour = lightChrome ? "bg-ice-100" : "bg-navy-900";
+  const barColour = open ? "bg-ice-100" : "bg-[#2A251F]";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -126,38 +91,18 @@ export function Navbar() {
           button stays clickable while the menu is open. */}
       <NavOverlay open={open} onClose={() => setOpen(false)} />
 
-      {/* `px-edge` is the shared gutter token from globals.css, not a local
-          choice: the hero's tagline lines up with the logo below it, so both
-          sides have to read the same value.
-
-          `relative` is what NavMenu's dropdowns position against - the panels
-          hang off the bottom edge of this box, and the wide one spans its full
-          width.
-
-          The surface goes on this row rather than on header: a backdrop-filter
-          on header would make it the containing block for the fixed overlay. */}
       <div
         className={`nav-bar relative z-10 flex items-center justify-between px-edge transition-[background-color,box-shadow,height] duration-300 ease-out motion-reduce:transition-none ${
           surfaced
-            ? "h-16 bg-white/90 shadow-[0_8px_24px_-16px_rgba(15,23,42,0.35)] backdrop-blur-md"
-            : "h-16 sm:h-20"
+            ? "h-16 bg-[#F5E9DD]/95 shadow-[0_8px_24px_-16px_rgba(40,30,20,0.25)] backdrop-blur-md"
+            : "h-16 sm:h-20 bg-[#F5E9DD]"
         }`}
       >
-        {/* Centred on mobile, flush left from lg. Centring it also does the work
-            of moving the hamburger: with the logo out of flow and both the centre
-            nav and the right cluster hidden, the button is the only remaining
-            flex child, so justify-between drops it at the start edge. No order
-            utilities needed. */}
         <Link
           href="/"
-          className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 lg:static lg:translate-x-0"
+          className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5 sm:gap-3 lg:static lg:translate-x-0"
           onClick={() => setOpen(false)}
         >
-          {/* Decorative: the adjacent text is the link's accessible name.
-              Held below full opacity on the dark route so the roundel's
-              saturated yellow and red sit back into the espresso photograph
-              instead of punching a hole in it. On the light routes it keeps full
-              strength, where that brightness is an asset rather than a problem. */}
           <Image
             src="/icon.png"
             alt=""
@@ -165,26 +110,18 @@ export function Navbar() {
             width={512}
             height={512}
             priority
-            className={`h-10 w-10 transition-[width,height] duration-300 motion-reduce:transition-none ${
-              surfaced ? "sm:h-11 sm:w-11" : "sm:h-12 sm:w-12"
-            } ${lightChrome ? "opacity-75" : ""}`}
-          />
-          {/* Italiana, with no weight class. The face ships only at 400, so a
-              bold utility here would have the browser synthesise one and thicken
-              the hairlines that are the reason for choosing it.
-
-              Tracking is light at 0.06em. Wide letterspacing suits the small caps
-              elsewhere in the chrome, but this is a wordmark rather than a label:
-              it has to read as one object, and Italiana's caps already carry
-              generous sidebearings of their own, so added space pulls the five
-              letters apart instead of setting them off. Just enough to stop caps
-              designed for mixed-case fitting from looking tight. */}
-          <span
-            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl ${
-              lightChrome ? "text-ice-100" : "text-navy-900"
+            className={`h-9 w-9 sm:h-10 sm:w-10 transition-[width,height] duration-300 motion-reduce:transition-none ${
+              surfaced ? "sm:h-9 sm:w-9" : "sm:h-10 sm:w-10"
             }`}
+          />
+          <span
+            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl text-[#2A251F]`}
           >
             Amipi
+          </span>
+          <span className="hidden h-4 w-px bg-[#D4B28C]/80 xl:block mx-1.5" aria-hidden />
+          <span className="hidden text-[8px] font-medium tracking-[0.1em] text-[#A07F4E] uppercase xl:inline-block 2xl:text-[9.5px] 2xl:tracking-[0.14em] whitespace-nowrap">
+            Celebrating 50 Years of Amipi
           </span>
         </Link>
 
@@ -194,15 +131,7 @@ export function Navbar() {
         />
 
         <div className="relative z-10 ml-auto hidden items-center gap-2 lg:flex xl:gap-3">
-          {/* AMIPI's social accounts, where the Schedule button used to sit -
-              scheduling moved into the Contact Us panel. Plain glyphs rather
-              than the circled buttons the panel had: four circles beside a pill
-              read as a second button row, and the bare marks are narrow enough
-              to fit beside the centred link row from 1024px. Below xl the hit
-              areas and the gap before Login narrow by a few pixels, which is
-              what keeps the cluster clear of the six-item link row at 1024px.
-              Each carries an aria-label, so the name is there for anyone not
-              going by the mark. */}
+          <span className="hidden h-5 w-px bg-[#D4B28C]/80 xl:block mr-1" aria-hidden />
           <ul className="flex items-center">
             {CONTACT.socials.map(({ label, href, Icon }) => (
               <li key={label}>
@@ -211,21 +140,13 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} (opens in a new tab)`}
-                  className={`grid h-10 w-7 place-items-center transition-colors xl:w-10 ${
-                    onDark
-                      ? "text-ice-100/80 hover:text-white"
-                      : "text-navy-700/80 hover:text-navy-900"
-                  }`}
+                  className="grid h-10 w-7 place-items-center transition-colors xl:w-9 text-[#2A251F]/80 hover:text-[#110E0C]"
                 >
-                  <Icon className="h-6 w-6 xl:h-8 xl:w-8" />
+                  <Icon className="h-5 w-5 xl:h-6 xl:w-6" />
                 </a>
               </li>
             ))}
           </ul>
-          {/* Brand gold rather than navy. Navy-on-espresso was a dark shape on a
-              dark photograph whose edge dissolved into it, needing a hairline to
-              stay visible at all; gold separates on value alone and ties the
-              button to the accent already used by the kicker and the lockup. */}
           <PillButton href="/login" variant="gold" size="sm" icon="dot">
             Login
           </PillButton>
