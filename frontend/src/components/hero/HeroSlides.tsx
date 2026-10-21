@@ -5,7 +5,7 @@ import Image, { type StaticImageData } from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 
 import unflippableNecklace from "../../../Hero-Images/slides/unflippable-necklace-navy.webp";
-import tennisBracelet from "../../../Hero-Images/slides/tennis-bracelet-satin.webp";
+import ultraComfortBracelet from "../../../Hero-Images/slides/ultra-comfort-bracelet.webp";
 import ultraComfortBand from "../../../Hero-Images/slides/ultra-comfort-band.webp";
 import colorCollection from "../../../Hero-Images/slides/color-collection.webp";
 import bezelCollection from "../../../Hero-Images/slides/bezel-collection.webp";
@@ -15,9 +15,19 @@ type Slide = {
   alt: string;
   kicker: string;
   title: string;
+  /** The button's label; "Shop the collection" when left out. */
+  cta?: string;
   /** Where to anchor the crop on phones, where cover keeps only a narrow
    *  vertical slice of these wide frames - aimed at the model or the piece. */
   phoneFocus: string;
+  /** Where to anchor the crop from 640px up (default: centre). Only needed
+   *  for the very wide frames, where cover keeps well under two thirds of the
+   *  width and the centre would cut the piece in half. */
+  desktopFocus?: string;
+  /** A frame wider than the hero (about 3:1) is scaled up to the hero's
+   *  height, so it is served as the full-size file rather than resized to
+   *  the screen's width, which would leave it soft once cropped. */
+  wide?: boolean;
   /** Caption colours chosen to contrast with what sits behind the text in
    *  this photograph (measured under the hero's scrim), so the title stands
    *  out rather than blending in: the title, the small line above it (and the
@@ -41,14 +51,17 @@ export const SLIDES: Slide[] = [
     tone: { title: "#f2c94c", kicker: "#ffffff", glow: "rgba(0, 6, 30, 0.7)" },
   },
   {
-    src: tennisBracelet,
-    alt: "White gold diamond tennis bracelet, clasp open, resting on gold satin",
-    kicker: "Timeless brilliance",
-    title: "The Diamond Tennis Bracelet",
-    phoneFocus: "50% center",
-    // Behind the text: mid-tone caramel satin. White title and line with a
-    // heavy dark-brown glow to lift them off it.
-    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 12, 0, 0.95)" },
+    src: ultraComfortBracelet,
+    alt: "A diamond tennis bracelet worn on the wrist beside a second bracelet, clasp open, on a cream marble table",
+    kicker: "Made to be worn every day",
+    title: "The Ultra Comfort Bracelet",
+    cta: "Shop now",
+    phoneFocus: "76% center",
+    desktopFocus: "100% center",
+    wide: true,
+    // Behind the text: cream marble and a knit sleeve, darkened by the hero's
+    // scrim. White title and line with a heavy dark-brown glow.
+    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
   },
   {
     src: ultraComfortBand,
@@ -71,17 +84,20 @@ export const SLIDES: Slide[] = [
   },
   {
     src: bezelCollection,
-    alt: "Round bezel-set diamond ring in white gold beside an emerald-cut bezel pendant on a yellow gold chain",
+    alt: "Bezel-set diamond tennis bracelet and yellow gold bezel eternity band on cream stone beside an emerald-cut bezel pendant on driftwood",
     kicker: "Clean lines, modern settings",
     title: "The Bezel Collection",
-    phoneFocus: "45% center",
-    // Behind the text: taupe satin. White title and line, heavy dark glow.
+    phoneFocus: "48% center",
+    desktopFocus: "62% center",
+    wide: true,
+    // Behind the text: cream stone and satin, darkened by the hero's scrim.
+    // White title and line, heavy dark-brown glow.
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
   },
 ];
 
 /** Each slide holds this long before the next fades in. */
-export const SLIDE_MS = 4000;
+export const SLIDE_MS = 6000;
 
 /**
  * Which slide is showing. Advances every SLIDE_MS once `started` (the intro
@@ -113,7 +129,7 @@ export function HeroSlideImages({ index }: { index: number }) {
           key={slide.title}
           aria-hidden={i !== index}
           className="hero-slide absolute inset-0 transition-opacity duration-[1200ms] ease-in-out motion-reduce:transition-none"
-          style={{ opacity: i === index ? 1 : 0, "--slide-focus": slide.phoneFocus } as CSSProperties}
+          style={{ opacity: i === index ? 1 : 0, "--slide-focus": slide.phoneFocus, "--slide-focus-lg": slide.desktopFocus ?? "center" } as CSSProperties}
         >
           <Image
             src={slide.src}
@@ -121,6 +137,7 @@ export function HeroSlideImages({ index }: { index: number }) {
             fill
             priority={i === 0}
             sizes="100vw"
+            unoptimized={slide.wide}
             className="object-cover"
           />
         </div>
@@ -163,7 +180,7 @@ export function HeroSlideCaption({
       </div>
       <div className="mt-7 flex flex-wrap items-center gap-6">
         <PillButton href="/categories" variant="gold" icon="arrow">
-          Shop the collection
+          {slide.cta ?? "Shop the collection"}
         </PillButton>
         <div className="flex gap-2" role="group" aria-label="Choose a slide">
           {SLIDES.map((s, i) => (

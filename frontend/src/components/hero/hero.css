@@ -587,7 +587,7 @@ body:has(.hero-stage[data-hero-intro="done"]) .assistant-fixed {
 
 @media (min-width: 640px) {
   .hero-backdrop-pan .hero-slide img {
-    object-position: center;
+    object-position: var(--slide-focus-lg, center);
   }
 }
 
