@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CircleArrowRight } from "lucide-react";
+import { CircleArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT } from "@/components/nav/navigation";
 
 /** Navy from the hero banner, as on the Custom Jewelry section. */
@@ -10,14 +10,21 @@ const NAVY = "#0b1a3d";
 /** The small letterspaced label over each column. */
 const LABEL = "text-[13px] font-semibold tracking-[0.22em] uppercase";
 
+/** Phone, email and address lines in the Contact Us column. */
+const DETAIL =
+  "flex items-start gap-3 text-[15px] leading-snug text-[#0b1a3d]/75 max-lg:justify-center";
+
 /**
- * The sign-off strip under the last banner, after a classic footer strip: a
- * "Follow Us" column with AMIPI's social accounts at the left, a dotted rule,
- * and "Newsletter Signup" at the right - an email field with an italic
- * Subscribe pill beneath it, set to the right. On phones the two stack,
- * centred, with the rule running across between them.
+ * The page's footer, under the last banner, after a classic footer strip:
+ * three columns across the full width, split by dotted rules - "Follow Us"
+ * with AMIPI's social accounts at the left, "Newsletter Signup" in the
+ * middle (an email field with an italic Subscribe pill beneath it, set to
+ * the right), and "Contact Us" with the phone, email and showroom address
+ * at the right. Below 1024px the three stack, centred, with the rules
+ * running across between them.
  *
- * The social links are the navbar's (CONTACT.socials). No mailing-list
+ * The social links, phone and email are the navbar's (CONTACT); the address
+ * is the site footer's. No mailing-list
  * service is connected yet, so, as in the footer's NewsletterCard, a valid
  * address gets an honest "not connected" reply.
  */
@@ -36,10 +43,11 @@ export function GiftGuideConnect() {
       className="px-edge py-[var(--gift-gap)]"
       style={{ color: NAVY }}
     >
-      <div className="mx-auto grid max-w-5xl max-md:text-center md:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)]">
-        <div className="pb-8 md:pr-[clamp(2rem,5vw,4.5rem)] md:pb-0">
+      {/* --gap is the space either side of the dotted rules */}
+      <div className="grid [--gap:clamp(2rem,4vw,4.5rem)] max-lg:text-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)]">
+        <div className="pb-8 lg:pr-[var(--gap)] lg:pb-0">
           <h2 className={LABEL}>Follow Us</h2>
-          <ul className="mt-5 flex flex-wrap gap-3 max-md:justify-center">
+          <ul className="mt-5 flex flex-wrap gap-3 max-lg:justify-center">
             {CONTACT.socials.map(({ label, href, Icon }) => (
               <li key={label}>
                 <a
@@ -56,7 +64,7 @@ export function GiftGuideConnect() {
           </ul>
         </div>
 
-        <div className="border-dotted border-[#0b1a3d]/35 max-md:border-t max-md:pt-8 md:border-l md:pl-[clamp(2rem,5vw,4.5rem)]">
+        <div className={`border-dotted border-[#0b1a3d]/35 max-lg:border-y max-lg:py-8 lg:border-x lg:px-[var(--gap)]`}>
           <h2 id="newsletter-heading" className={LABEL}>
             Newsletter Signup
           </h2>
@@ -89,7 +97,7 @@ export function GiftGuideConnect() {
                   Please enter a valid email address.
                 </p>
               )}
-              <div className="mt-4 flex max-md:justify-center md:justify-end">
+              <div className="mt-4 flex max-lg:justify-center lg:justify-end">
                 <button
                   type="submit"
                   className="group flex cursor-pointer items-center gap-4 rounded-full bg-[#0b1a3d] py-2.5 pr-5 pl-8 font-[family-name:var(--font-cormorant-italic)] text-2xl text-[#f5efe4] italic transition-colors hover:bg-[#13285a]"
@@ -103,6 +111,32 @@ export function GiftGuideConnect() {
               </div>
             </form>
           )}
+        </div>
+
+        <div className="pt-8 lg:pt-0 lg:pl-[var(--gap)]">
+          <h2 className={LABEL}>Contact Us</h2>
+          <ul className="mt-5 space-y-3.5">
+            <li>
+              <a href={CONTACT.phone.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d]`}>
+                <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+                {CONTACT.phone.label}
+              </a>
+            </li>
+            <li>
+              <a href={CONTACT.email.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d]`}>
+                <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+                {CONTACT.email.label}
+              </a>
+            </li>
+            <li className={DETAIL}>
+              <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+              <address className="not-italic">
+                42 W 48th St, 15th Flr
+                <br />
+                New York, NY 10036
+              </address>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
