@@ -44,8 +44,11 @@ export function GiftGuideBridal() {
           // which renders about twice the screen width; 5:2 from 640px
           sizes="(min-width: 1280px) 105vw, (min-width: 640px) 120vw, 200vw"
           // The rings sit 42% to 89% across: on phones the crop is held far
-          // enough right that the 3:2 box shows all five (41% to 91%)
-          className="object-cover object-[82%_55%] xl:object-[100%_55%]"
+          // enough right that the 3:2 box shows all five (41% to 91%). From
+          // 1280px the picture is nudged 3vw right, so the oval ring clears
+          // the three-line paragraph; the strip it uncovers at the left is
+          // the section's own bronze, the same as the picture's edge
+          className="object-cover object-[82%_55%] xl:translate-x-[3vw] xl:object-[100%_55%]"
         />
         {/* Below 1280px: the picture fades up into the plain bronze under
             the copy; from 1280px: a soft shade behind the copy only */}
@@ -68,8 +71,7 @@ export function GiftGuideBridal() {
             accent="“Yes”"
             long
           />
-          {/* 42ch from 1280px keeps the paragraph clear of the oval ring */}
-          <p className="mt-5 max-w-[48ch] max-sm:mx-auto text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80 xl:max-w-[42ch]">
+          <p className="mt-5 max-w-[48ch] max-sm:mx-auto text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
             Celebrate forever with our newest bridal styles: timeless
             solitaires, modern settings, and stackable bands designed for
             proposals, weddings, and every moment after.
