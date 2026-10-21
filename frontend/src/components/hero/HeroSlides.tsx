@@ -6,8 +6,6 @@ import { PillButton } from "@/components/ui/PillButton";
 
 import unflippableNecklace from "../../../Hero-Images/slides/unflippable-necklace-navy.webp";
 import ultraComfortBracelet from "../../../Hero-Images/slides/ultra-comfort-bracelet.webp";
-import ultraComfortBand from "../../../Hero-Images/slides/ultra-comfort-band.webp";
-import colorCollection from "../../../Hero-Images/slides/color-collection.webp";
 import bezelCollection from "../../../Hero-Images/slides/bezel-collection.webp";
 
 type Slide = {
@@ -29,7 +27,7 @@ type Slide = {
 
 /**
  * The hero's slides, in play order: the Unflippable necklace leads - it is
- * the frame the intro lands on - then bracelet, band, color and bezel,
+ * the frame the intro lands on - then bracelet and bezel,
  * wrapping round.
  */
 export const SLIDES: Slide[] = [
@@ -52,25 +50,6 @@ export const SLIDES: Slide[] = [
     // Behind the text: cream marble and a knit sleeve, darkened by the hero's
     // scrim. White title and line with a heavy dark-brown glow.
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
-  },
-  {
-    src: ultraComfortBand,
-    alt: "Two diamond eternity bands on dark marble beside a hand wearing a third",
-    kicker: "Made to be worn every day",
-    title: "The Ultra Comfort Band",
-    phoneFocus: "28% center",
-    // Behind the text: dark marble. White title, gold line.
-    tone: { title: "#ffffff", kicker: "#ffd166", glow: "rgba(0, 0, 0, 0.7)" },
-  },
-  {
-    src: colorCollection,
-    alt: "Sapphire halo ring, ruby tennis bracelet and sapphire and diamond tennis necklace on stone plinths",
-    kicker: "Sapphire, ruby & diamond",
-    title: "The Color Collection",
-    phoneFocus: "50% center",
-    // Behind the text: light olive satin and stone - the lightest frame, so
-    // white with the heaviest glow.
-    tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(20, 16, 0, 0.95)" },
   },
   {
     src: bezelCollection,
