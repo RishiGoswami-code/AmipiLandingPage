@@ -9,6 +9,8 @@ import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestselle
 import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
+import { GiftGuideConnect } from "@/components/gift-guide/GiftGuideConnect";
+import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
 
 /*
  * Catalog display face for the gift guide only, vendored as latin-subset
@@ -93,6 +95,10 @@ export default function GiftGuidePage() {
       <GiftGuideCustom />
       <GiftGuideBezel />
       <GiftGuideColor />
+      <GiftGuideConnect />
+      {/* The site chrome is hidden on this route (layout.tsx), so the home
+          page's yellow partner belt is added here to close the page */}
+      <PartnerMarquee />
     </div>
   );
 }
