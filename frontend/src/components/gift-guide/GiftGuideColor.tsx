@@ -60,8 +60,9 @@ export function GiftGuideColor() {
         <div>
           {/* No width cap on the block: the large title reaches into the
               plain middle of the banner, while the paragraph keeps a
-              readable measure */}
-          <div className="max-sm:text-center">
+              readable measure. From 1280px the copy is drawn in from the
+              edge; below that the paragraph would reach the ring */}
+          <div className="max-sm:text-center xl:pl-[4vw] 2xl:pl-[6vw]">
             <h2
               id="color-heading"
               className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.01em] lg:text-[clamp(4.25rem,9vw,10rem)] ${GOLD_TEXT}`}

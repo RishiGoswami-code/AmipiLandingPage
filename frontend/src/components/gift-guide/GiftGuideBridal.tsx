@@ -40,7 +40,9 @@ export function GiftGuideBridal() {
         className="-z-10 object-cover object-[75%_50%] lg:object-center"
       />
       <div className="relative w-full">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+        {/* Desktop: the copy and the rings are each drawn in from the edges,
+            so the plain middle of the band does not look empty */}
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12 lg:px-[4vw] xl:px-[6vw]">
           <div className="max-sm:text-center">
             {/* The same staggered title as the Diamonds and Bezel banners,
                 its longer lead set a step smaller and broken over two lines,
