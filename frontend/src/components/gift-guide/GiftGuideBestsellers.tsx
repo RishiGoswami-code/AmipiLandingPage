@@ -19,7 +19,7 @@ const IVORY = "#f5efe4";
 const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
   {
     title: "Unflippable Necklace",
-    src: "/gift-guide/bestsellers/tennis-necklace-zoom.webp",
+    src: "/gift-guide/bestsellers/tennis-necklace-fit.webp",
   },
   { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },
   { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
