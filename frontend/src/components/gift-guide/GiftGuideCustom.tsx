@@ -11,15 +11,15 @@ const ANTIQUE_GOLD = "#8a6630";
 
 /** The warm cream of the photo's left side, evened out: the wash behind the
  * copy and the plain ground under it on phones and tablets. */
-const CREAM = "#f9e8ce";
+const CREAM = "#f9e3ca";
 
 /** Four custom rings in warm window light, from GiftPageImages/Custom/
  * Luxurious Rings in Warm Sunlight.png: 3:1 (2172px wide), plain sunlit
- * cream across the left and, from 44% to 93% across, an alexandrite
- * three-stone ring, a diamond split-shank ring on a travertine block, a
- * green flower bypass ring and a pink sapphire eternity band, with baby's
- * breath at the right edge. */
-const PHOTO_SRC = "/gift-guide/custom/rings-warm-sunlight-banner.webp";
+ * cream across the left and, from 46% to 93% across, an emerald-cut halo
+ * ring, a diamond split-shank ring on a travertine block, a green flower
+ * bypass ring and a pink sapphire eternity band, with baby's breath at the
+ * right edge. */
+const PHOTO_SRC = "/gift-guide/custom/rings-warm-sunlight-v2-banner.webp";
 
 /**
  * Why custom - the four reasons from the Custom Design Studio page
@@ -93,7 +93,7 @@ export function GiftGuideCustom() {
             copy; tablets: it fades up into the cream under the copy;
             desktop: a light cream wash behind the copy, gone before the
             rings (the photo is plain cream there anyway) */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e8ce_0%,rgb(249_232_206/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e8ce_0%,rgb(249_232_206/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(249_232_206/0.75)_0%,rgb(249_232_206/0.5)_22%,transparent_34%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e3ca_0%,rgb(249_227_202/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e3ca_0%,rgb(249_227_202/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(249_227_202/0.75)_0%,rgb(249_227_202/0.5)_22%,transparent_34%)]" />
       </div>
 
       <div className="w-full px-edge">
