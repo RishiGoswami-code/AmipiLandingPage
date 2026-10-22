@@ -11,15 +11,14 @@ const ANTIQUE_GOLD = "#8a6630";
 
 /** The warm cream of the photo's left side, evened out: the wash behind the
  * copy and the plain ground under it on phones and tablets. */
-const CREAM = "#f9e3ca";
+const CREAM = "#fbe5cc";
 
-/** Four custom rings in warm window light, from GiftPageImages/Custom/
- * Luxurious Rings in Warm Sunlight.png: 3:1 (2172px wide), plain sunlit
- * cream across the left and, from 46% to 93% across, an emerald-cut halo
- * ring, a diamond split-shank ring on a travertine block, a green flower
- * bypass ring and a pink sapphire eternity band, with baby's breath at the
- * right edge. */
-const PHOTO_SRC = "/gift-guide/custom/rings-warm-sunlight-v2-banner.webp";
+/** Three custom rings in warm window light, from GiftPageImages/Custom/
+ * Luxurious Rings in Warm Sunlight.png: 3:1 (2171px wide), plain sunlit
+ * cream across the left and, from 62% to 94% across, an emerald-cut halo
+ * ring on a travertine block, a green flower bypass ring in front of it and
+ * a pink sapphire eternity band, with baby's breath at the right edge. */
+const PHOTO_SRC = "/gift-guide/custom/rings-warm-sunlight-v3-banner.webp";
 
 /**
  * Why custom - the four reasons from the Custom Design Studio page
@@ -51,7 +50,7 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
 
 /**
  * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom) as a full-bleed
- * banner, like the others on the page but light: the four-ring photo
+ * banner, like the others on the page but light: the three-ring photo
  * fills the section, with the copy over its plain left side under a soft
  * cream wash. The copy follows the studio page - the Bodoni and gold
  * Cormorant Italic heading, a "Made for you" label over "Why Custom
@@ -60,45 +59,46 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  *
  * From 1280px the copy sets the height and the photo, height-bound, is held
  * to the right edge, so the taller the band, the further left the rings
- * reach. Up to 1900px the reasons are icon-and-title tiles (no sentence),
+ * reach. Up to 1500px the reasons are icon-and-title tiles (no sentence),
  * which keeps the band short and the copy narrow enough for the rings to
- * clear it; from 1900px there is room for the sentences too. On tablets the
+ * clear it; from 1500px there is room for the sentences too. On tablets the
  * copy, with the sentences, sits on plain cream and the rings form a band
  * beneath it, built the same way as the dark banners. On phones the rings
- * lead instead: an 8:5 crop across the top that keeps all four, then the
+ * lead instead: a 5:4 crop across the top that keeps all three, then the
  * heading and the reasons as small tiles, two by two.
  */
 export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[calc(100vw*5/8)] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[80vw] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[8/5] max-sm:top-0 max-sm:bottom-auto sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[5/4] max-sm:top-0 max-sm:bottom-auto sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
           alt=""
           fill
-          // The phone 8:5 box shows 44% to 97% of the 3:1 photo, all four
-          // rings (46% to 93%) whole, at about 1.9x the screen width;
+          // The phone 5:4 box shows 57% to 99% of the 3:1 photo, all three
+          // rings (62% to 94%) whole, at 2.4x the screen width;
           // tablets' 5:2 box
           // shows its right five sixths. From 1280px the photo is
           // height-bound and held to the right edge, nudged 3vw past it
           // (only baby's breath is lost) so the rings clear the copy
-          sizes="(min-width: 1280px) 130vw, (min-width: 640px) 120vw, 190vw"
-          className="object-cover object-[94%_50%] sm:object-right xl:object-[calc(100%+3vw)_50%]"
+          sizes="(min-width: 1280px) 130vw, (min-width: 640px) 120vw, 240vw"
+          className="object-cover object-[98%_50%] sm:object-right xl:object-[calc(100%+3vw)_50%]"
         />
         {/* Phones: the photo fades down into the plain cream above the
-            copy; tablets: it fades up into the cream under the copy;
+            copy; tablets: it fades up into the cream under the copy,
+            briefly, as the emerald ring sits near the photo's top;
             desktop: a light cream wash behind the copy, gone before the
             rings (the photo is plain cream there anyway) */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e3ca_0%,rgb(249_227_202/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e3ca_0%,rgb(249_227_202/0.5)_5%,transparent_14%)] xl:bg-[linear-gradient(90deg,rgb(249_227_202/0.75)_0%,rgb(249_227_202/0.5)_22%,transparent_34%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#fbe5cc_0%,rgb(251_229_204/0.5)_5%,transparent_14%)] max-sm:bg-[linear-gradient(0deg,#fbe5cc_0%,rgb(251_229_204/0.5)_5%,transparent_14%)] xl:bg-[linear-gradient(90deg,rgb(251_229_204/0.75)_0%,rgb(251_229_204/0.5)_22%,transparent_34%)]" />
       </div>
 
       <div className="w-full px-edge">
-        <div className="max-w-[46rem] max-sm:text-center xl:max-[1900px]:max-w-[32rem]">
+        <div className="max-w-[46rem] max-sm:text-center xl:max-[1500px]:max-w-[32rem]">
 
           <h2
             id="custom-heading"
@@ -129,9 +129,9 @@ export function GiftGuideCustom() {
           {/* Why custom, two by two: a bare line icon in antique gold, set on
               the title's first line, then the title and one line. On phones
               they are small tiles, the icon above the title, and from 1280
-              to 1900px the sentence is left out so the rings clear the
+              to 1500px the sentence is left out so the rings clear the
               copy */}
-          <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-10 sm:gap-y-4 xl:max-[1900px]:gap-x-6">
+          <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-10 sm:gap-y-4 xl:max-[1500px]:gap-x-6">
             {REASONS.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3.5 max-sm:flex-col max-sm:items-center max-sm:gap-1.5">
                 <Icon
@@ -147,7 +147,7 @@ export function GiftGuideCustom() {
                   >
                     {title}
                   </h4>
-                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden xl:max-[1900px]:hidden">
+                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden xl:max-[1500px]:hidden">
                     {body}
                   </p>
                 </div>
