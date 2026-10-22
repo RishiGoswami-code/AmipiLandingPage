@@ -95,10 +95,11 @@ export function GiftGuideHero() {
       {/* Masthead strip, on the cream above the banner */}
       <header
         data-reveal
-        className="mx-edge flex items-center justify-between border-b border-[#141414]/15 pt-6 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
+        className="mx-edge flex items-center justify-between max-sm:justify-center border-b border-[#141414]/15 pt-6 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
       >
         {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
-            this page hides the site chrome and the wordmark is the way home. */}
+            this page hides the site chrome and the wordmark is the way home.
+            Centred on phones, over the centred banner copy. */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
           <Image
             quality={90}
