@@ -65,35 +65,36 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
  * clear it; from 1900px there is room for the sentences too. On tablets the
  * copy, with the sentences, sits on plain cream and the rings form a band
  * beneath it, built the same way as the dark banners. On phones the rings
- * lead instead: a 3:2 crop across the top that keeps all four, then the
+ * lead instead: an 8:5 crop across the top that keeps all four, then the
  * heading and the reasons as small tiles, two by two.
  */
 export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[calc(100vw*2/3)] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[calc(100vw*5/8)] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[8/5] max-sm:top-0 max-sm:bottom-auto sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
           alt=""
           fill
-          // The phone 3:2 box shows half the 3:1 photo (43% to 93%, all
-          // four rings), rendered twice the screen width; tablets' 5:2 box
+          // The phone 8:5 box shows 44% to 97% of the 3:1 photo, all four
+          // rings (46% to 93%) whole, at about 1.9x the screen width;
+          // tablets' 5:2 box
           // shows its right five sixths. From 1280px the photo is
           // height-bound and held to the right edge, nudged 3vw past it
           // (only baby's breath is lost) so the rings clear the copy
-          sizes="(min-width: 1280px) 130vw, (min-width: 640px) 120vw, 200vw"
-          className="object-cover object-[86%_50%] sm:object-right xl:object-[calc(100%+3vw)_50%]"
+          sizes="(min-width: 1280px) 130vw, (min-width: 640px) 120vw, 190vw"
+          className="object-cover object-[94%_50%] sm:object-right xl:object-[calc(100%+3vw)_50%]"
         />
         {/* Phones: the photo fades down into the plain cream above the
             copy; tablets: it fades up into the cream under the copy;
             desktop: a light cream wash behind the copy, gone before the
             rings (the photo is plain cream there anyway) */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e3ca_0%,rgb(249_227_202/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e3ca_0%,rgb(249_227_202/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(249_227_202/0.75)_0%,rgb(249_227_202/0.5)_22%,transparent_34%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e3ca_0%,rgb(249_227_202/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e3ca_0%,rgb(249_227_202/0.5)_5%,transparent_14%)] xl:bg-[linear-gradient(90deg,rgb(249_227_202/0.75)_0%,rgb(249_227_202/0.5)_22%,transparent_34%)]" />
       </div>
 
       <div className="w-full px-edge">

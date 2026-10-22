@@ -22,7 +22,7 @@ const IVORY = "#f5efe4";
  *
  * On tablets the copy sits on the plain red and the right half of the
  * banner - the three pieces - forms a 3:2 band beneath it. On phones the
- * pieces lead instead: a square crop across the top, then the title and
+ * pieces lead instead: a 5:4 crop across the top, then the title and
  * button (the paragraph is left to larger screens).
  */
 export function GiftGuideBezel() {
@@ -31,25 +31,25 @@ export function GiftGuideBezel() {
     // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="bezel-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[100vw] max-sm:pb-12 lg:py-10"
+      className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[80vw] max-sm:pb-12 lg:py-10"
       style={{ color: IVORY, backgroundColor: RED }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-square lg:inset-0 lg:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-[5/4] lg:inset-0 lg:aspect-auto">
         <Image
           quality={90}
           src={BANNER_SRC}
           alt=""
           fill
           // On tablets the 3:2 box shows the right half of the 3:1 banner,
-          // which renders about twice the screen width; the phone square
-          // shows the third with the three pieces (59% to 95% across)
-          sizes="(min-width: 1024px) 100vw, (min-width: 640px) 200vw, 300vw"
-          className="object-cover object-right max-sm:object-[86%_50%] lg:object-center"
+          // which renders about twice the screen width; the phone 5:4 box
+          // shows 56% to 98%, the three pieces (59% to 94%) whole, at 2.4x
+          sizes="(min-width: 1024px) 100vw, (min-width: 640px) 200vw, 240vw"
+          className="object-cover object-right max-sm:object-[97%_50%] lg:object-center"
         />
         {/* Phones: the picture fades down into the plain red above the
             copy; tablets: it fades up into the red under the copy; desktop:
             a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2b0000_0%,rgb(43_0_0/0.6)_18%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#2b0000_0%,rgb(43_0_0/0.6)_12%,transparent_30%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(35_5_4/0.4),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2b0000_0%,rgb(43_0_0/0.6)_18%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#2b0000_0%,rgb(43_0_0/0.5)_5%,transparent_14%)] lg:bg-[radial-gradient(ellipse_45%_80%_at_22%_50%,rgb(35_5_4/0.4),transparent)]" />
       </div>
 
       <div className="w-full px-edge">

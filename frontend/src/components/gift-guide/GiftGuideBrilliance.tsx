@@ -45,14 +45,15 @@ export function GiftGuideBrilliance() {
           fill
           // On tablets the 3:2 box shows the right half of the 3:1 banner,
           // which renders about twice the screen width; the phone square
-          // shows its right third, about three times the width
+          // shows its right third (65% to 100%), about three times the
+          // width - the diamonds, both hands and the loupe (69% to 100%)
           sizes="(min-width: 1024px) 100vw, (min-width: 640px) 191vw, 290vw"
-          className="object-cover object-right max-sm:object-[92%_50%] lg:object-center"
+          className="object-cover object-right lg:object-center"
         />
         {/* Phones: the picture fades down into the plain blue above the
             copy; tablets: it fades up into the blue under the copy;
             desktop: a soft pool behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#000c21_0%,rgb(0_12_33/0.6)_18%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#000c21_0%,rgb(0_12_33/0.6)_12%,transparent_30%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#000c21_0%,rgb(0_12_33/0.6)_18%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#000c21_0%,rgb(0_12_33/0.5)_5%,transparent_14%)] lg:bg-[radial-gradient(ellipse_50%_80%_at_22%_50%,rgb(12_20_40/0.45),transparent)]" />
       </div>
 
       <div className="w-full px-edge pt-14 max-sm:pt-0 lg:pt-0">

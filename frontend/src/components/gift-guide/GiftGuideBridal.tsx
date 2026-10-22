@@ -21,8 +21,8 @@ const BANNER_SRC = "/gift-guide/bridal/golden-rings-velvet-banner.webp";
  *
  * The rings start well left of centre, so narrower than 1280px the copy
  * would run into them: on tablets the copy sits on the plain bronze and the
- * rings form a band beneath it. On phones the rings lead instead: a square
- * crop across the top, close in on the three middle rings, then the title
+ * rings form a band beneath it. On phones the rings lead instead: an 8:5
+ * crop across the top with all five rings whole, then the title
  * and button (the paragraph is left to larger screens).
  *
  * Links to /categories until the bridal pages exist.
@@ -33,30 +33,29 @@ export function GiftGuideBridal() {
     // below; the picture covers the band, cropped top and bottom.
     <section
       aria-labelledby="bridal-heading"
-      className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[100vw] max-sm:pb-12 xl:py-10"
+      className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[calc(100vw*5/8)] max-sm:pb-12 xl:py-10"
       style={{ color: IVORY, backgroundColor: BRONZE }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-square sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-[8/5] sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={BANNER_SRC}
           alt=""
           fill
-          // On phones the 3:2 box shows the rings' part of the 3:1 banner,
-          // which renders about twice the screen width; 5:2 from 640px
-          sizes="(min-width: 1280px) 105vw, (min-width: 640px) 120vw, 300vw"
-          // The rings sit 42% to 89% across. The phone square shows a third
-          // of the banner, 49% to 82%: the three middle rings whole, the
-          // outer two running off the edges. From
+          // On phones an 8:5 box shows the rings' part of the 3:1 banner,
+          // which renders about 1.9x the screen width; 5:2 from 640px
+          sizes="(min-width: 1280px) 105vw, (min-width: 640px) 120vw, 190vw"
+          // The rings sit 42% to 89% across. The phone box shows 39% to 92%,
+          // all five whole. From
           // 1280px the picture is nudged 3vw right, so the oval ring clears
           // the three-line paragraph; the strip it uncovers at the left is
           // the section's own bronze, the same as the picture's edge
-          className="object-cover object-[82%_55%] max-sm:object-[73%_55%] xl:translate-x-[3vw] xl:object-[100%_55%]"
+          className="object-cover object-[82%_55%] max-sm:object-[84%_55%] xl:translate-x-[3vw] xl:object-[100%_55%]"
         />
         {/* Phones: the picture fades down into the plain bronze above the
             copy; tablets: it fades up into the bronze under the copy; from
             1280px: a soft shade behind the copy only */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2f1c05_0%,rgb(47_28_5/0.6)_15%,transparent_40%)] max-sm:bg-[linear-gradient(0deg,#2f1c05_0%,rgb(47_28_5/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(40_24_4/0.5)_0%,rgb(40_24_4/0.25)_25%,transparent_40%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#2f1c05_0%,rgb(47_28_5/0.6)_15%,transparent_40%)] max-sm:bg-[linear-gradient(0deg,#2f1c05_0%,rgb(47_28_5/0.5)_5%,transparent_14%)] xl:bg-[linear-gradient(90deg,rgb(40_24_4/0.5)_0%,rgb(40_24_4/0.25)_25%,transparent_40%)]" />
       </div>
 
       <div className="w-full px-edge">
