@@ -9,15 +9,17 @@ const NAVY = "#0b1a3d";
  * banners is too pale to read here. */
 const ANTIQUE_GOLD = "#8a6630";
 
-/** The warm ivory of the photo's left side, evened out: the wash behind the
- * copy and the plain ground under it on phones. */
-const CREAM = "#f2e7d7";
+/** The warm cream of the photo's left side, evened out: the wash behind the
+ * copy and the plain ground under it on phones and tablets. */
+const CREAM = "#f9e8ce";
 
-/** The custom emerald-cut halo ring on a travertine block in warm window
- * light, with baby's breath at the right, from GiftPageImages/HOLIDAY TRENDS/
- * Emerald Halo Ring in Warm Golden Light.png. 16:9 (1672px wide), the ring
- * right of centre and the left side plain light, where the copy sits. */
-const PHOTO_SRC = "/gift-guide/custom/emerald-halo-golden-light.webp";
+/** Four custom rings in warm window light, from GiftPageImages/Custom/
+ * Luxurious Rings in Warm Sunlight.png: 3:1 (2172px wide), plain sunlit
+ * cream across the left and, from 44% to 93% across, an alexandrite
+ * three-stone ring, a diamond split-shank ring on a travertine block, a
+ * green flower bypass ring and a pink sapphire eternity band, with baby's
+ * breath at the right edge. */
+const PHOTO_SRC = "/gift-guide/custom/rings-warm-sunlight-banner.webp";
 
 /**
  * Why custom - the four reasons from the Custom Design Studio page
@@ -49,52 +51,57 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
 
 /**
  * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom) as a full-bleed
- * banner, like the others on the page but light: the emerald halo photo
+ * banner, like the others on the page but light: the four-ring photo
  * fills the section, with the copy over its plain left side under a soft
- * ivory wash. The copy follows the studio page - the Bodoni and gold
+ * cream wash. The copy follows the studio page - the Bodoni and gold
  * Cormorant Italic heading, a "Made for you" label over "Why Custom
  * Jewelry?", the four reasons with line icons, and two buttons: the studio
  * page, and straight to its design form.
  *
- * From 1280px the copy sets the height, kept compact; the photo is cropped
- * to cover, held so the ring stays clear of the copy. Narrower than that - phones, tablets and small
- * laptops, where half the width is too tight for the reasons two by two -
- * the copy sits on plain cream and the ring forms a band beneath it, built
- * the same way as the dark banners. On phones the ring leads instead: a
- * square crop across the top, then the heading and the four reasons as
- * small icon-and-title tiles, two by two (their sentences are left to
- * larger screens).
+ * From 1280px the copy sets the height and the photo, height-bound, is held
+ * to the right edge, so the taller the band, the further left the rings
+ * reach. Up to 1900px the reasons are icon-and-title tiles (no sentence),
+ * which keeps the band short and the copy narrow enough for the rings to
+ * clear it; from 1900px there is room for the sentences too. On tablets the
+ * copy, with the sentences, sits on plain cream and the rings form a band
+ * beneath it, built the same way as the dark banners. On phones the rings
+ * lead instead: a 3:2 crop across the top that keeps all four, then the
+ * heading and the reasons as small tiles, two by two.
  */
 export function GiftGuideCustom() {
   return (
     <section
       aria-labelledby="custom-heading"
-      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[100vw] max-sm:pb-12 xl:py-[clamp(1.75rem,2.5vw,2.75rem)]"
+      className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[calc(100vw*2/3)] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
       style={{ backgroundColor: CREAM }}
     >
-      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto max-sm:aspect-square sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
+      <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 aspect-[3/2] max-sm:top-0 max-sm:bottom-auto sm:aspect-[5/2] xl:inset-0 xl:aspect-auto">
         <Image
           quality={90}
           src={PHOTO_SRC}
           alt=""
           fill
-          // The phone square shows the middle of the 16:9 photo, about
-          // 1.8x the screen width, held on the ring
-          sizes="(min-width: 640px) 100vw, 180vw"
-          className="object-cover object-[70%_50%] max-sm:object-[72%_50%] xl:object-[30%_50%]"
+          // The phone 3:2 box shows half the 3:1 photo (43% to 93%, all
+          // four rings), rendered twice the screen width; tablets' 5:2 box
+          // shows its right five sixths. From 1280px the photo is
+          // height-bound and held to the right edge, nudged 3vw past it
+          // (only baby's breath is lost) so the rings clear the copy
+          sizes="(min-width: 1280px) 130vw, (min-width: 640px) 120vw, 200vw"
+          className="object-cover object-[86%_50%] sm:object-right xl:object-[calc(100%+3vw)_50%]"
         />
         {/* Phones: the photo fades down into the plain cream above the
             copy; tablets: it fades up into the cream under the copy;
-            desktop: an ivory wash across the left, gone before the ring */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f2e7d7_0%,rgb(242_231_215/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f2e7d7_0%,rgb(242_231_215/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(242_231_215/0.92)_0%,rgb(242_231_215/0.84)_40%,rgb(242_231_215/0.4)_54%,transparent_63%)]" />
+            desktop: a light cream wash behind the copy, gone before the
+            rings (the photo is plain cream there anyway) */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#f9e8ce_0%,rgb(249_232_206/0.6)_20%,transparent_45%)] max-sm:bg-[linear-gradient(0deg,#f9e8ce_0%,rgb(249_232_206/0.6)_12%,transparent_30%)] xl:bg-[linear-gradient(90deg,rgb(249_232_206/0.75)_0%,rgb(249_232_206/0.5)_22%,transparent_34%)]" />
       </div>
 
       <div className="w-full px-edge">
-        <div className="max-w-[46rem] max-sm:text-center xl:max-w-[min(46rem,52%)]">
+        <div className="max-w-[46rem] max-sm:text-center xl:max-[1900px]:max-w-[32rem]">
 
           <h2
             id="custom-heading"
-            className="font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal"
+            className="font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal xl:whitespace-nowrap"
             style={{ color: NAVY }}
           >
             Custom{" "}
@@ -120,9 +127,10 @@ export function GiftGuideCustom() {
 
           {/* Why custom, two by two: a bare line icon in antique gold, set on
               the title's first line, then the title and one line. On phones
-              they stay two by two as small tiles: the icon above the title,
-              without the sentence */}
-          <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-10 sm:gap-y-4">
+              they are small tiles, the icon above the title, and from 1280
+              to 1900px the sentence is left out so the rings clear the
+              copy */}
+          <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-10 sm:gap-y-4 xl:max-[1900px]:gap-x-6">
             {REASONS.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3.5 max-sm:flex-col max-sm:items-center max-sm:gap-1.5">
                 <Icon
@@ -138,7 +146,7 @@ export function GiftGuideCustom() {
                   >
                     {title}
                   </h4>
-                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden">
+                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden xl:max-[1900px]:hidden">
                     {body}
                   </p>
                 </div>
@@ -154,7 +162,7 @@ export function GiftGuideCustom() {
         </div>
 
         {/* Tablets: room under the copy for the photo */}
-        <div aria-hidden className="mt-4 aspect-[3/2] max-sm:hidden sm:aspect-[5/2] xl:hidden" />
+        <div aria-hidden className="mt-4 aspect-[5/2] max-sm:hidden xl:hidden" />
       </div>
     </section>
   );
