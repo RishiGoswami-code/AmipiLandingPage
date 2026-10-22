@@ -411,14 +411,9 @@ export default function HeroStage() {
     <section
       ref={sectionRef}
       data-hero-intro="pending"
-      className="hero-stage relative h-svh w-full"
+      className="hero-stage relative h-[calc(100svh-3.5cm)] w-full"
     >
-      {/* Exactly one viewport, so this is a plain box rather than the sticky
-          one it used to be: with nothing below it inside the section, there is
-          no scroll distance for a sticky child to hold against. (It was never a
-          ScrollTrigger pin either — page.tsx documents why that spacer is a
-          hazard here, and sticky sidestepped it.) */}
-      <div className="hero-viewport relative h-svh w-full overflow-hidden">
+      <div className="hero-viewport relative h-full w-full overflow-hidden">
         <div className="hero-backdrop z-0">
           <div className="hero-backdrop-pan">
             <HeroSlideImages index={slide} />
@@ -444,33 +439,9 @@ export default function HeroStage() {
 
         <div className="hero-scrim z-30" />
 
-        {/* The reveal's payload. Held at opacity 0 by hero.css until the intro
-            resolves and the hand-off runs — but present in the markup from the
-            first byte, so the h1 is always there for crawlers and assistive
-            technology.
-
-            It sits just under the navbar's logo rather than at the left
-            centre, so the anniversary line reads as a caption to the AMIPI
-            lockup. The top padding clears the bar's top-of-page height (h-16,
-            sm:h-20) with the logo's own breathing room below it. Below lg the
-            navbar centres its logo, so the line centres with it there.
-
-            `px-edge` rather than the px-6/sm:px-12/lg:px-20 ramp the sections
-            below use: this column has to start on the same vertical line as the
-            navbar's logo, which is directly above it, and that means reading the
-            same shared gutter token rather than a fixed inset that only agreed
-            with it near 1454px. */}
-        <div className="hero-copy pointer-events-none absolute inset-0 z-40 flex flex-col items-center justify-start px-edge pt-[4.5rem] text-center sm:pt-[5.25rem] lg:items-start lg:text-left">
-          {/* Narrower than a full-width column on purpose. Recentring the subject
-              moved her left, which pulled the clear backdrop band in from ~33% of
-              the viewport to ~21.6%, and the copy has to stay inside it rather
-              than run across her hair. */}
+        {/* The reveal's payload: h1 maintained for SEO and accessibility while visually in navbar */}
+        <div className="hero-copy sr-only">
           <div className="max-w-xl">
-            {/* The h1, now that the display headline is parked. The page needs
-                one and this is the only copy left in the hero, so the level is
-                carried here rather than pushed down into the first section
-                below. Nothing changes visually — the styling was never coming
-                from the element. */}
             <h1 className="hero-kicker text-[10px] tracking-[0.42em] text-gold-500 uppercase sm:text-xs">
               {HERO_COPY.kicker}
             </h1>

@@ -145,7 +145,7 @@ export function NavMenu({
       className="pointer-events-none absolute inset-0 hidden lg:block"
     >
       <nav
-        className="pointer-events-auto mx-auto flex h-full w-max items-center gap-2 2xl:gap-7"
+        className="pointer-events-auto mx-auto flex h-full w-max items-center gap-1.5 xl:gap-3 2xl:gap-6"
         aria-label="Primary"
       >
         {NAV_ITEMS.map((item) => {
