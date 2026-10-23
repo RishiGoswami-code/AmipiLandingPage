@@ -11,8 +11,8 @@ import type { ReactNode } from "react";
  * copy's half is wider than the copy. The heading is set large, so it holds
  * its own beside the jewelry rather than reading as a caption to it.
  *
- * The photo does not grow with the copy: it is a 3:2 box nine tenths of the
- * half's width, at the right and centred top to bottom, so the jewelry
+ * The photo does not grow with the copy: it is a 3:2 box 88% of the half's
+ * width (82% from 1536px), at the right and centred top to bottom, so the jewelry
  * keeps one scale however tall the copy makes the half. It crops to that
  * box, held at `position`, and its left, top and bottom edges fade into
  * the half's ground (`ground`, the photo's own plain colour), so there is
@@ -38,7 +38,9 @@ export function GiftGuideHalfBanner({
   children,
 }: {
   id: string;
-  title: string;
+  /** The heading: one string, wrapped to the copy's half, or its lines,
+   * each kept whole from 768px however far it runs towards the photo. */
+  title: string | string[];
   src: string;
   position: string;
   /** The photo's plain ground, for the fade and the phone copy block. */
@@ -53,7 +55,7 @@ export function GiftGuideHalfBanner({
       className="relative isolate flex min-w-0 scroll-mt-[-5rem] flex-col overflow-hidden text-[#f5efe4] md:min-h-[66.67vw] md:justify-center lg:min-h-[56.25vw] xl:min-h-[max(27rem,33.33vw)]"
       style={{ backgroundColor: ground }}
     >
-      <div className="relative aspect-[3/2] md:absolute md:top-1/2 md:right-0 md:-z-10 md:w-[90%] md:-translate-y-1/2 md:[mask-composite:intersect] md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
+      <div className="relative aspect-[3/2] md:absolute md:top-1/2 md:right-0 md:-z-10 md:w-[88%] 2xl:w-[82%] md:-translate-y-1/2 md:[mask-composite:intersect] md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
         <Image
           quality={90}
           src={src}
@@ -70,12 +72,23 @@ export function GiftGuideHalfBanner({
         />
       </div>
 
-      <div className="px-edge py-10 sm:py-12 md:max-w-[50%] md:pr-0 md:pl-[clamp(1.5rem,3.5vw,3.5rem)]">
+      <div className="px-edge py-10 sm:py-12 md:pr-0 md:pl-[clamp(1.5rem,3.5vw,3.5rem)]">
         <h2
           id={`${id}-heading`}
-          className="font-[family-name:var(--font-cormorant)] text-[clamp(2.5rem,6vw,4rem)] leading-[1.02] xl:text-[clamp(3.25rem,4.2vw,4.75rem)] font-medium text-balance"
+          className={`font-[family-name:var(--font-cormorant)] text-[clamp(2.5rem,6vw,4rem)] leading-[1.02] font-medium text-balance xl:text-[clamp(3rem,3.7vw,4.125rem)] ${
+            typeof title === "string" ? "md:max-w-[48%]" : ""
+          }`}
         >
-          {title}
+          {typeof title === "string"
+            ? title
+            : // A space between the lines keeps the heading's accessible
+              // name one phrase
+              title.map((line, i) => (
+                <span key={line}>
+                  {i > 0 && " "}
+                  <span className="block md:whitespace-nowrap">{line}</span>
+                </span>
+              ))}
         </h2>
         <span aria-hidden className="mt-5 block h-0.5 w-16 bg-[#d9b877]" />
         {children}
@@ -84,13 +97,14 @@ export function GiftGuideHalfBanner({
   );
 }
 
-/** The body line under a half banner's heading. */
+/** The body line under a half banner's heading, held to the photo's plain
+ * half. */
 export function HalfBannerText({ children }: { children: ReactNode }) {
-  return <p className="mt-5 max-w-[40ch] text-[clamp(1.0625rem,1.4vw,1.3125rem)] leading-relaxed text-pretty text-[#f5efe4]/85">{children}</p>;
+  return <p className="mt-5 max-w-[40ch] md:max-w-[min(40ch,50%)] text-[clamp(1.0625rem,1.4vw,1.3125rem)] leading-relaxed text-pretty text-[#f5efe4]/85">{children}</p>;
 }
 
 /** The buttons under a half banner's copy, stacked and left-aligned, each
- * on one line even where it runs past the copy's half. */
+ * on one line. */
 export function HalfBannerActions({ children }: { children: ReactNode }) {
   return <div className="mt-7 flex flex-col items-start gap-3 [&>*]:whitespace-nowrap">{children}</div>;
 }

@@ -16,7 +16,7 @@ export function GiftGuideBrilliance() {
   return (
     <GiftGuideHalfBanner
       id="diamonds"
-      title="The Season Starts with Diamonds"
+      title={["The Season", "Starts with Diamonds"]}
       src="/gift-guide/diamonds/emerald-velvet-diamonds.webp"
       position="100% 50%"
       ground="#021a10"
