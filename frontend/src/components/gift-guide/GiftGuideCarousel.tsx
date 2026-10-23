@@ -12,7 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Gem, ArrowRight } from "lucide-react";
 import { CTA_CLASSES } from "./GiftGuideButton";
-import { CARD, NAME } from "./GiftGuideTheme";
+import { INK } from "./GiftGuideTheme";
 
 type GiftGuideCarouselProps = {
   /** Names the controls for screen readers, e.g. "bestsellers" gives
@@ -32,9 +32,9 @@ const AUTOPLAY_MS = 3000;
 
 /**
  * The carousel the gift guide's Stuller-style sections share (Holiday
- * Bestsellers and the Color collection): a native
- * scroll-snap track, so it swipes on phones, with round white arrows either
- * side on desktop and page dots in a pill under it. The arrows and dots only
+ * Bestsellers): a native scroll-snap track, so it swipes on phones, with
+ * square outlined arrows either side on desktop, as in Shop by Jewelry
+ * Type, and page dots under it. The arrows and dots only
  * drive the track's scroll position.
  *
  * With `autoplay` it also moves on a page every three seconds and wraps
@@ -167,11 +167,11 @@ export function GiftGuideCarousel({
   };
 
   const arrow =
-    "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white text-[#0b1a3d] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.5)] transition-opacity disabled:cursor-default disabled:opacity-40 lg:grid";
+    "absolute top-[38%] z-10 hidden h-11 w-11 -translate-y-1/2 cursor-pointer place-items-center rounded-[2px] border border-[#141a17]/25 bg-white text-[#141a17] transition-[opacity,background-color,color,border-color] hover:border-(--gift-green) hover:bg-(--gift-green) hover:text-white disabled:cursor-default disabled:opacity-35 disabled:hover:border-[#141a17]/25 disabled:hover:bg-white disabled:hover:text-[#141a17] lg:grid";
 
   return (
     <div ref={rootRef} className="text-center">
-      <div className="relative lg:px-12">
+      <div className="relative lg:px-16">
         <button
           type="button"
           aria-label={`Previous ${label}`}
@@ -184,9 +184,7 @@ export function GiftGuideCarousel({
 
         <ul
           ref={trackRef}
-          // Room above and below for the cards' glow, which the scroller
-          // would otherwise clip
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pt-2 pb-8 max-lg:-mx-edge max-lg:scroll-px-edge max-lg:px-edge [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-6 max-lg:-mx-edge lg:gap-5 max-lg:scroll-px-edge max-lg:px-edge [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {Children.map(children, (child) => (
             <li className={`shrink-0 snap-start ${slideClassName}`}>{child}</li>
@@ -205,7 +203,7 @@ export function GiftGuideCarousel({
       </div>
 
       {pages > 1 && (
-        <div className="mt-1 inline-flex items-center gap-2.5 rounded-full bg-[#0b1a3d]/[0.06] px-3 py-2">
+        <div className="mt-1 inline-flex items-center gap-2.5 px-3 py-2">
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
@@ -213,8 +211,8 @@ export function GiftGuideCarousel({
               aria-label={`Show ${label} page ${i + 1}`}
               aria-current={i === page}
               onClick={() => scrollToPage(i)}
-              className={`h-2.5 w-2.5 cursor-pointer rounded-full border border-[#0b1a3d]/60 transition-colors ${
-                i === page ? "bg-[#0b1a3d]" : "bg-transparent"
+              className={`h-2 w-2 cursor-pointer rounded-full border border-[#141a17]/50 transition-colors ${
+                i === page ? "bg-[#141a17]" : "bg-transparent"
               }`}
             />
           ))}
@@ -224,17 +222,19 @@ export function GiftGuideCarousel({
   );
 }
 
-/** Slide widths for a row of product cards: about 1.6 on phones, 3.3 on
- * tablets, 5.25 on desktop - the part card at the end says "there's more". */
+/** Slide widths for a row of product tiles: about 1.6 on phones and 3.3 on
+ * tablets, the part tile at the end saying "there's more"; exactly five on
+ * desktop, as in the mockups, where the arrows say it. */
 export const PRODUCT_SLIDE =
-  "w-[calc((100%-1rem)/1.2)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
+  "w-[calc((100%-1rem)/1.6)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-5rem)/5)]";
 
 /**
- * A product card in the page's one card style: a square photo on white and
- * the name under it, bold navy and centred. With no `src` it shows a
- * placeholder until the product photo is in. `shop` adds the page's red
- * call to action under the name (the whole card stays the link, so the
- * button is drawn, not nested).
+ * A product tile, after the mockups: flat, with no card - a square photo on
+ * a faint warm-grey tile (multiplied, so a product shot's white ground
+ * takes the tile's tone) and the name under it in ink, centred. With no
+ * `src` it shows a placeholder until the product photo is in. `shop` adds
+ * the page's squared red call to action under the name (the whole tile
+ * stays the link, so the button is drawn, not nested).
  */
 export function ProductCard({
   title,
@@ -254,9 +254,9 @@ export function ProductCard({
   return (
     <Link
       href={href}
-      className={`group flex h-full flex-col items-center overflow-hidden ${CARD}`}
+      className="group flex h-full flex-col items-center"
     >
-      <div className="relative aspect-square w-full">
+      <div className="relative aspect-square w-full overflow-hidden bg-[#f6f4f1]">
         {src ? (
           <Image
             quality={90}
@@ -264,7 +264,7 @@ export function ProductCard({
             alt=""
             fill
             sizes="(min-width: 1024px) 15rem, (min-width: 640px) 30vw, 60vw"
-            className={contain ? "object-contain p-[7%]" : "object-cover"}
+            className={`mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.03] ${contain ? "object-contain p-[7%]" : "object-cover"}`}
           />
         ) : (
           <div className="absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-md border border-dashed border-[#141414]/15 bg-[#f3efe7] text-[#8a6630]">
@@ -275,11 +275,14 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <p className={`px-4 pt-2 ${NAME} ${shop ? "pb-3" : "pb-5"}`}>
+      <p
+        className={`px-2 pt-4 text-center text-[0.9375rem] leading-snug font-semibold ${shop ? "pb-3" : "pb-2"}`}
+        style={{ color: INK }}
+      >
         {title}
       </p>
       {shop && (
-        <span className={`mt-auto mb-5 h-8 px-4 text-[10px] group-hover:bg-(--gift-cta-hover) ${CTA_CLASSES}`}>
+        <span className={`mt-auto h-9 px-5 text-[10px] group-hover:bg-(--gift-cta-hover) ${CTA_CLASSES}`}>
           Shop
           <ArrowRight className="h-3.5 w-3.5" />
         </span>

@@ -3,12 +3,12 @@ import {
   PRODUCT_SLIDE,
   ProductCard,
 } from "./GiftGuideCarousel";
-import { FOLD, SectionHeading } from "./GiftGuideTheme";
+import { BAND_WHITE, BandHeading } from "./GiftGuideTheme";
 
 /** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
  * bracelet still use the site's new-arrival product shots. `contain` marks a
- * cut-out on a transparent ground, shown whole on the card's white rather
- * than cropped to fill it. */
+ * cut-out on a transparent ground, shown whole on the tile rather than
+ * cropped to fill it. */
 const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
   {
     title: "Unflippable Necklace",
@@ -34,18 +34,19 @@ const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
 ];
 
 /**
- * "Holiday Bestsellers" - on the page's cream like every other section: the
- * centred heading with its ribbon line and a line of copy, then a carousel
- * of product cards in the page's card style, each with the red "Shop"
- * button. The carousel moves on by itself every few seconds.
+ * "Holiday Bestsellers" - a white band, after the team's mockups: the band
+ * heading with its gold rule and a line of copy, then a carousel of flat
+ * product tiles, five across on desktop, each with its name and the red
+ * "Shop" button. The carousel moves on by itself every few seconds.
  *
  * Every card links to /categories until the product pages exist.
  */
 export function GiftGuideBestsellers() {
   return (
-    <section id="bestsellers" aria-labelledby="bestsellers-heading" className={FOLD}>
-      <SectionHeading
+    <section id="bestsellers" aria-labelledby="bestsellers-heading" className={`${BAND_WHITE} px-edge`}>
+      <BandHeading
         id="bestsellers-heading"
+        tone="white"
         title="Holiday Bestsellers"
         intro="A selection of our most-loved styles for the holiday season, from everyday essentials to classic diamond gifts."
       />

@@ -169,7 +169,8 @@ export const BAND_WHITE = "bg-white text-[#141a17] py-[calc(var(--gift-gap)*0.9)
 
 /**
  * A band's heading block, after the mockups: an optional eyebrow, the
- * heading, and a short gold rule with a sparkle at its centre. `tone` is
+ * heading, a short gold rule with a sparkle at its centre, and an optional
+ * line of body text. `tone` is
  * the band it sits on - ivory and champagne on the evergreen, ink and
  * antique gold on white.
  */
@@ -177,11 +178,14 @@ export function BandHeading({
   id,
   title,
   eyebrow,
+  intro,
   tone,
 }: {
   id: string;
   title: string;
   eyebrow?: string;
+  /** An optional line of body text under the rule. */
+  intro?: string;
   tone: "green" | "white";
 }) {
   const gold = tone === "green" ? CHAMPAGNE : DEEP_GOLD;
@@ -200,6 +204,14 @@ export function BandHeading({
         <Sparkle className="h-2.5 w-2.5" />
         <span className="h-px flex-1 bg-[linear-gradient(270deg,transparent,currentColor)]" />
       </span>
+      {intro && (
+        <p
+          className={`mx-auto mt-5 max-w-[56ch] text-pretty ${BODY_TYPE}`}
+          style={{ color: tone === "green" ? "rgb(245 239 228 / 0.8)" : "rgb(20 26 23 / 0.7)" }}
+        >
+          {intro}
+        </p>
+      )}
     </div>
   );
 }
