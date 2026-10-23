@@ -5,6 +5,7 @@ import { GiftGuideTrends } from "@/components/gift-guide/GiftGuideTrends";
 import { GiftGuideJewelryTypes } from "@/components/gift-guide/GiftGuideJewelryTypes";
 import { GiftGuideBrilliance } from "@/components/gift-guide/GiftGuideBrilliance";
 import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
+import { GiftGuideHalfRow } from "@/components/gift-guide/GiftGuideHalfBanner";
 import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestsellers";
 import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
@@ -100,8 +101,10 @@ export default function GiftGuidePage() {
         <GiftGuideHero />
         <GiftGuideTrends />
         <GiftGuideJewelryTypes />
-        <GiftGuideBrilliance />
-        <GiftGuideBridal />
+        <GiftGuideHalfRow>
+          <GiftGuideBrilliance />
+          <GiftGuideBridal />
+        </GiftGuideHalfRow>
         <GiftGuideBestsellers />
         <GiftGuideCustom />
         <GiftGuideBezel />

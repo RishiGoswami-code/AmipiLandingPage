@@ -1,33 +1,34 @@
 import { GiftGuideButton } from "./GiftGuideButton";
-import { FeatureActions, GiftGuideFeature } from "./GiftGuideFeature";
-import { BODY } from "./GiftGuideTheme";
+import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGuideHalfBanner";
 
 /**
- * "New Bridal Styles for the Season of “Yes”", from GiftPageImages/Bridal/
- * Golden Rings on Shimmering Velvet.png: 3:1, dark bronze velvet at the left
- * and five engagement rings - one on a stone pedestal - on shimmering gold
- * velvet from 42% to 89% across. The card's crop (a little over half the
- * photo's width) is centred on the rings. Photo on the left.
+ * "New Bridal Styles for the Season of “Yes”" - the right half of the
+ * Diamonds and Bridal row, from GiftPageImages/Bridal/Golden Rings on
+ * Shimmering Velvet.png: 3:1, dark bronze velvet at the left and five
+ * engagement rings - one on a stone pedestal - on shimmering gold velvet
+ * from 42% to 89% across. The half's crop (about half the photo's width)
+ * keeps the rings; the bronze fade carries the copy over them.
  *
- * Links to /categories until the bridal pages exist.
+ * A stand-in until the bridal photo for this row arrives. Links to
+ * /categories until the bridal pages exist.
  */
 export function GiftGuideBridal() {
   return (
-    <GiftGuideFeature
+    <GiftGuideHalfBanner
       id="bridal"
       title="New Bridal Styles for the Season of “Yes”"
       src="/gift-guide/bridal/golden-rings-velvet-banner.webp"
       position="83% 55%"
-      photoSide="left"
+      ground="#2b1a07"
     >
-      <p className={`max-w-[46ch] text-pretty ${BODY}`}>
+      <HalfBannerText>
         Celebrate forever with our newest bridal styles: timeless solitaires,
         modern settings, and stackable bands designed for proposals, weddings,
         and every moment after.
-      </p>
-      <FeatureActions>
+      </HalfBannerText>
+      <HalfBannerActions>
         <GiftGuideButton href="/categories">Shop Now</GiftGuideButton>
-      </FeatureActions>
-    </GiftGuideFeature>
+      </HalfBannerActions>
+    </GiftGuideHalfBanner>
   );
 }
