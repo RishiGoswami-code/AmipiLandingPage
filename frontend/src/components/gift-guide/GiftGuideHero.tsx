@@ -196,9 +196,11 @@ export function GiftGuideHero() {
 
           <h1
             data-reveal
-            className="mt-4 font-[family-name:var(--font-cormorant)] text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.02] font-medium text-balance"
+            className="mt-4 font-[family-name:var(--font-cormorant)] text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.02] font-medium"
           >
-            A Season Set in Diamonds
+            {/* Two set lines; the space keeps the accessible name one phrase */}
+            <span className="block whitespace-nowrap">A Season</span>{" "}
+            <span className="block whitespace-nowrap">Set in Diamonds</span>
           </h1>
 
           {/* The short red rule under the headline */}

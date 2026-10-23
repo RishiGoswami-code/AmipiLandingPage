@@ -3,23 +3,22 @@ import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGu
 
 /**
  * "New Bridal Styles for the Season of “Yes”" - the right half of the
- * Diamonds and Bridal row, from GiftPageImages/Bridal/Golden Rings on
- * Shimmering Velvet.png: 3:1, dark bronze velvet at the left and five
- * engagement rings - one on a stone pedestal - on shimmering gold velvet
- * from 42% to 89% across. The half's crop (about half the photo's width)
- * keeps the rings; the bronze fade carries the copy over them.
+ * Diamonds and Bridal row, from GiftPageImages/Bridal/Elegant Diamond Ring
+ * in Velvet Box.png: 3:2, plain near-black red velvet across the left half
+ * and, from 48% to 94% across, the oval solitaire (Bridal/OVAL DIAMOND
+ * RING.png) in an open red velvet ring box, with a pine sprig and berries
+ * in the top-right corner - so the crop is held to the right.
  *
- * A stand-in until the bridal photo for this row arrives. Links to
- * /categories until the bridal pages exist.
+ * Links to /categories until the bridal pages exist.
  */
 export function GiftGuideBridal() {
   return (
     <GiftGuideHalfBanner
       id="bridal"
       title="New Bridal Styles for the Season of “Yes”"
-      src="/gift-guide/bridal/golden-rings-velvet-banner.webp"
-      position="83% 55%"
-      ground="#2b1a07"
+      src="/gift-guide/bridal/oval-ring-velvet-box.webp"
+      position="100% 50%"
+      ground="#1a0101"
     >
       <HalfBannerText>
         Celebrate forever with our newest bridal styles: timeless solitaires,
