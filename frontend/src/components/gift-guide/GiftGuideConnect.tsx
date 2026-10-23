@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CircleArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { italiana } from "@/styles/fonts";
 import { CONTACT } from "@/components/nav/navigation";
+import { CTA_CLASSES } from "./GiftGuideButton";
+import { CONTACT_HOVER, SteadyBold } from "./GiftGuideTheme";
 
 /** Navy from the hero banner, as on the Custom Jewelry section. */
 const NAVY = "#0b1a3d";
@@ -22,11 +25,12 @@ const DETAIL =
  * the right), and "Contact Us" with the phone, email and showroom address
  * at the right. Below 1024px the three stack, centred, with the rules
  * running across between them. A hairline along the bottom separates it
- * from the yellow partner belt below.
+ * from the yellow partner belt below. It sits on the page's own cream, and
+ * behind the columns the AMIPI wordmark runs very large and very faint.
  *
- * The left column opens with a few lines on AMIPI, from the About Us page
- * and the site footer. The social links, phone and email are the navbar's
- * (CONTACT); the address is the site footer's. No mailing-list
+ * The left column opens with AMIPI's intro, in the team's wording. The
+ * social links, phone and email are the navbar's (CONTACT); the address is
+ * the site footer's. No mailing-list
  * service is connected yet, so, as in the footer's NewsletterCard, a valid
  * address gets an honest "not connected" reply.
  */
@@ -42,20 +46,31 @@ export function GiftGuideConnect() {
   return (
     <section
       aria-labelledby="newsletter-heading"
-      className="border-b border-[#0b1a3d]/70 px-edge py-[var(--gift-gap)]"
+      className="relative isolate overflow-hidden border-b border-[#0b1a3d]/70 px-edge py-[var(--gift-gap)]"
       style={{ color: NAVY }}
     >
+      {/* The wordmark in the background: the navbar's Italiana, as wide as
+          the page and barely darker than the cream, so the columns over it
+          read as clearly as without it */}
+      <p
+        aria-hidden
+        className={`${italiana.className} pointer-events-none absolute inset-x-0 bottom-[-0.12em] -z-10 text-center text-[24vw] leading-none tracking-[0.06em] text-[#0b1a3d]/[0.035] uppercase select-none`}
+      >
+        Amipi
+      </p>
+
       {/* --gap is the space either side of the dotted rules */}
       <div className="grid [--gap:clamp(2rem,4vw,4.5rem)] max-lg:text-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="pb-8 lg:pr-[var(--gap)] lg:pb-0">
-          {/* AMIPI in brief, from the About Us page and the site footer */}
-          <p className="font-[family-name:var(--font-cormorant-italic)] text-2xl leading-snug font-semibold italic">
-            AMIPI Inc, established since 1976.
-          </p>
-          <p className="mt-2 max-w-[38ch] text-[15px] leading-relaxed text-[#0b1a3d]/75 max-lg:mx-auto">
-            Wholesale diamonds and fine jewelry, priced fair and graded honest:
-            transparent fixed pricing, GIA standard grading, actual weights and
-            the No Bull philosophy.
+          {/* AMIPI's intro, exactly as the team sent it */}
+          <h2 className="font-[family-name:var(--font-cormorant-italic)] text-[1.375rem] leading-snug font-semibold italic">
+            AMIPI Inc. | Wholesale Diamonds &amp; Fine Jewelry Since 1976
+          </h2>
+          <p className="mt-2 max-w-[42ch] text-[15px] leading-relaxed text-[#0b1a3d]/75 max-lg:mx-auto">
+            For over 50 years, AMIPI has supplied fine jewelry and wholesale
+            diamonds with transparent fixed pricing, GIA standard grading, and
+            accurate weights. Discover our No Bull approach to quality and
+            value.
           </p>
 
           <h2 className={`mt-7 ${LABEL}`}>Follow Us</h2>
@@ -110,14 +125,15 @@ export function GiftGuideConnect() {
                 </p>
               )}
               <div className="mt-4 flex max-lg:justify-center lg:justify-end">
+                {/* The page's one call-to-action style */}
                 <button
                   type="submit"
-                  className="group flex cursor-pointer items-center gap-4 rounded-full bg-[#0b1a3d] py-2.5 pr-5 pl-8 font-[family-name:var(--font-cormorant-italic)] text-2xl text-[#f5efe4] italic transition-colors hover:bg-[#13285a]"
+                  className={`group h-10 cursor-pointer px-5 text-[11px] ${CTA_CLASSES}`}
                 >
-                  subscribe
-                  <CircleArrowRight
+                  <span className="block leading-none">Subscribe</span>
+                  <ArrowRight
                     aria-hidden
-                    className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-0.5"
+                    className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover:translate-x-1"
                   />
                 </button>
               </div>
@@ -129,15 +145,15 @@ export function GiftGuideConnect() {
           <h2 className={LABEL}>Contact Us</h2>
           <ul className="mt-5 space-y-3.5">
             <li>
-              <a href={CONTACT.phone.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d] hover:underline hover:underline-offset-4`}>
+              <a href={CONTACT.phone.href} className={`${DETAIL} ${CONTACT_HOVER}`}>
                 <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0b1a3d]" />
-                {CONTACT.phone.label}
+                <SteadyBold>{CONTACT.phone.label}</SteadyBold>
               </a>
             </li>
             <li>
-              <a href={CONTACT.email.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d] hover:underline hover:underline-offset-4`}>
+              <a href={CONTACT.email.href} className={`${DETAIL} ${CONTACT_HOVER}`}>
                 <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0b1a3d]" />
-                {CONTACT.email.label}
+                <SteadyBold>{CONTACT.email.label}</SteadyBold>
               </a>
             </li>
             <li className={DETAIL}>

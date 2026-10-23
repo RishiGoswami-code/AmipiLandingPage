@@ -8,7 +8,8 @@ import { useGSAP } from "@gsap/react";
 import { Mail, Phone } from "lucide-react";
 import { italiana } from "@/styles/fonts";
 import { CONTACT } from "@/components/nav/navigation";
-import { BannerTitle, SUBHEAD, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
+import { BannerTitle } from "./BannerTitle";
+import { BODY_TYPE, CONTACT_HOVER, SteadyBold, SUBHEAD_TYPE } from "./GiftGuideTheme";
 
 gsap.registerPlugin(useGSAP);
 
@@ -169,18 +170,20 @@ export function GiftGuideHero() {
         <div className="hidden shrink-0 items-center gap-4 sm:flex">
           <a
             href={CONTACT.phone.href}
-            className="flex items-center gap-2 text-[13px] font-semibold whitespace-nowrap transition-colors hover:text-[#8a6630]"
+            className={`flex items-center gap-2 text-[13px] font-medium whitespace-nowrap ${CONTACT_HOVER}`}
           >
             <Phone aria-hidden className="h-4 w-4" />
-            {CONTACT.phone.label}
+            <SteadyBold>{CONTACT.phone.label}</SteadyBold>
           </a>
           <a
             href={CONTACT.email.href}
             aria-label={`Email ${CONTACT.email.label}`}
-            className="flex items-center gap-2 text-[13px] font-semibold transition-colors hover:text-[#8a6630]"
+            className={`flex items-center gap-2 text-[13px] font-medium ${CONTACT_HOVER}`}
           >
             <Mail aria-hidden className="h-4 w-4" />
-            <span className="xl:max-2xl:hidden">{CONTACT.email.label}</span>
+            <span className="xl:max-2xl:hidden">
+              <SteadyBold>{CONTACT.email.label}</SteadyBold>
+            </span>
           </a>
           <span aria-hidden className="h-5 w-px bg-[#0b1a3d]/20" />
           <ul className="flex items-center gap-1.5">
@@ -238,14 +241,14 @@ export function GiftGuideHero() {
             {/* Tagline: the page's subheading style */}
             <p
               data-reveal
-              className={`mt-[clamp(0.75rem,2vh,1.25rem)] ${SUBHEAD} text-[#f5efe4]/90`}
+              className={`mt-[clamp(0.75rem,2vh,1.25rem)] ${SUBHEAD_TYPE} text-[#f5efe4]/90`}
             >
               Make This Season One to Remember.
             </p>
 
             <p
               data-reveal
-              className={`mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}
+              className={`mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:hidden ${BODY_TYPE} text-[#f5efe4]/80`}
             >
               From timeless favorites to standout new arrivals, explore a
               collection of diamonds and fine jewelry your customers will love

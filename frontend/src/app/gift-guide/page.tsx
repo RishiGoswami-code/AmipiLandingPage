@@ -73,9 +73,10 @@ export const metadata: Metadata = {
 
 /**
  * The page ground: warm champagne ivory under a faint paper grain
- * (public/gift-guide/paper-grain.svg, a 220px tiling noise), so the plain
- * sections read as printed card rather than flat screen white. Sections
- * without a banner are transparent and sit on it.
+ * (public/gift-guide/paper-grain.svg, a 220px tiling noise), so the page
+ * reads as printed card rather than flat screen white. It runs unbroken
+ * behind every section - they are transparent and separated only by even
+ * spacing - so the guide reads as one page (styles in GiftGuideTheme.tsx).
  *
  * The page runs edge to edge: it narrows the site's --spacing-edge gutter
  * (max(1.25rem, 5.5vw) in globals.css) to 3vw for this route only (never
@@ -84,10 +85,8 @@ export const metadata: Metadata = {
  * --gift-gap is the matching space above and below the plain sections, a
  * little more than the side gutter (about 24px on phones, 50px at 1440).
  *
- * A white band runs between the sections from the Diamonds banner down to
- * the footer, so each banner reads as its own panel. The first three - the
- * hero, Top Holiday Trends and Shop by Jewelry Type - share the cream ground
- * and run on without one.
+ * --gift-cta is the red of every call to action on the page, with its hover
+ * shade: changing the buttons' colour is this one line.
  *
  * The sections' negative scroll margin cancels the site's 5rem
  * scroll-padding (globals.css, there for the fixed navbar, which this page
@@ -95,8 +94,8 @@ export const metadata: Metadata = {
  */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
-      <div className="[&>*]:scroll-mt-[-5rem] [&>*:nth-child(n+4)]:border-t-[16px] [&>*:nth-child(n+4)]:border-white sm:[&>*:nth-child(n+4)]:border-t-[28px]">
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] [--gift-cta:#9e1b2c] [--gift-cta-hover:#7f1422] bg-[url(/gift-guide/paper-grain.svg)]`}>
+      <div className="[&>*]:scroll-mt-[-5rem]">
         <GiftGuideHero />
         <GiftGuideTrends />
         <GiftGuideJewelryTypes />

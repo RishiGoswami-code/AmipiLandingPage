@@ -1,9 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import { HEADING } from "./BannerTitle";
-
-/** Navy from the hero banner, used here for the heading. */
-const NAVY = "#0b1a3d";
+import { GiftGuideButton } from "./GiftGuideButton";
+import { CARD, FOLD, SectionHeading } from "./GiftGuideTheme";
 
 /**
  * The six trend tiles, from GiftPageImages/HOLIDAY TRENDS. The tiles are 4:5;
@@ -47,34 +44,28 @@ const TRENDS = [
 const MODEL_SRC = "/gift-guide/trends/model.webp";
 
 /**
- * "Top Holiday Trends" - laid out like the matching section on Stuller's
- * holiday page: a white panel holding a 3x2 grid of numbered trend tiles,
- * with a tall model photo filling the panel's right side. On phones the grid
- * drops to two columns and the model photo follows it.
+ * "Top Holiday Trends" - the page's centred heading, then a card holding a
+ * 3x2 grid of numbered trend tiles, with a tall model photo filling the
+ * card's right side. On phones the grid drops to two columns and the model
+ * photo follows it.
  *
- * Each tile ends in an underlined "Explore" link to /categories, since there
- * are no per-trend pages yet.
+ * Each tile ends in the page's red button, "Shop Now", to /categories, since
+ * there are no per-trend pages yet. The names stay white on the tiles' dark
+ * fade, where navy would not read.
  */
 export function GiftGuideTrends() {
   return (
     <section
       id="trends"
       aria-labelledby="trends-heading"
-      className="px-edge pt-(--gift-gap) pb-(--gift-gap) lg:pt-[calc(var(--gift-gap)/3)]"
+      // Closer under the hero, whose catalog pages already overhang it
+      className={`${FOLD} pt-[calc(var(--gift-gap)*0.35)]`}
     >
-      <div className="grid overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
-        <div className="px-4 pt-10 pb-4 sm:px-8 lg:px-8 lg:pt-12 lg:pb-8 xl:px-10">
-          {/* The page's section heading: Cormorant Italic, as "Holiday" in
-              the hero. Centred on phones, left from 640px like the rest */}
-          <h2
-            id="trends-heading"
-            className={`max-sm:text-center ${HEADING}`}
-            style={{ color: NAVY }}
-          >
-            Top Holiday Trends
-          </h2>
+      <SectionHeading id="trends-heading" title="Top Holiday Trends" />
 
-          <ol className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-10 lg:grid-cols-3">
+      <div className={`mt-[clamp(1.75rem,3vw,2.75rem)] grid overflow-hidden lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] ${CARD}`}>
+        <div className="p-4 sm:p-8 xl:p-10">
+          <ol className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
             {TRENDS.map((trend, i) => (
               <li
                 key={trend.title}
@@ -103,16 +94,15 @@ export function GiftGuideTrends() {
                   {i + 1}
                 </span>
                 <div className="absolute inset-x-0 bottom-0 px-[8%] pb-[8%] text-center">
-                  <h3 className="text-[max(12px,6.2cqw)] leading-snug font-semibold text-white">
+                  <h3 className="text-[max(12px,6.2cqw)] leading-snug font-bold text-white">
                     {trend.title}
                   </h3>
                   {/* No per-trend pages yet, so every link goes to the shop. */}
-                  <Link
-                    href="/categories"
-                    className="mt-1 inline-block text-[max(11px,4.6cqw)] font-medium text-white/90 underline underline-offset-4 transition-colors hover:text-[#ecd3a0]"
-                  >
-                    Shop Now
-                  </Link>
+                  <div className="mt-2">
+                    <GiftGuideButton href="/categories" size="sm">
+                      Shop Now
+                    </GiftGuideButton>
+                  </div>
                 </div>
               </li>
             ))}

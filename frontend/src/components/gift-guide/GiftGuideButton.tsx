@@ -2,40 +2,35 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "gold" | "light" | "dark";
+/** The one call-to-action look: a red pill with a white label. The red is
+ * the page's --gift-cta (set once in app/gift-guide/page.tsx, with its hover
+ * shade --gift-cta-hover), so changing it is a one-line change. */
+export const CTA_CLASSES =
+  "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-(--gift-cta) font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-(--gift-cta-hover)";
 
-/* The site's PillButton colours and small size, with a hover that changes
-   the colour outright rather than deepening it a shade, since the colour
-   change is the whole hover signal. Champagne lightens to ivory, white warms
-   to champagne, navy turns antique gold. */
-const VARIANT_CLASSES: Record<Variant, string> = {
-  gold: "bg-[#dfbf7b] text-navy-950 hover:bg-[#f5efe4]",
-  light:
-    "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-[#dfbf7b]",
-  dark: "bg-navy-900 text-ice-100 hover:bg-[#8a6630] hover:text-white",
+/** `md` for the sections' buttons, `sm` for the compact ones under a
+ * product or category. */
+const SIZES = {
+  md: "h-10 px-5 text-[11px]",
+  sm: "h-8 px-4 text-[10px]",
 };
 
 /**
- * The gift guide's call-to-action pill: the same shape, type and arrow as the
- * site's PillButton at `size="sm"`, but the label stays still on hover - the
- * button's colour answers it instead of the label rolling over to a copy of
- * itself. Kept to the gift guide so the rest of the site's buttons are left
- * as they are.
+ * The gift guide's call to action. The label stays still on hover; the
+ * button's colour answers it, a shade deeper. Kept to the gift guide, so the
+ * rest of the site's buttons are left as they are.
  */
 export function GiftGuideButton({
   href,
-  variant,
+  size = "md",
   children,
 }: {
   href: string;
-  variant: Variant;
+  size?: keyof typeof SIZES;
   children: ReactNode;
 }) {
   return (
-    <Link
-      href={href}
-      className={`group relative inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-5 text-[11px] font-semibold tracking-[0.14em] uppercase transition-[background-color,box-shadow,color] duration-300 ${VARIANT_CLASSES[variant]}`}
-    >
+    <Link href={href} className={`group ${CTA_CLASSES} ${SIZES[size]}`}>
       <span className="block leading-none">{children}</span>
       <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1" />
     </Link>

@@ -1,17 +1,9 @@
-import Image from "next/image";
 import {
   GiftGuideCarousel,
   PRODUCT_SLIDE,
   ProductCard,
 } from "./GiftGuideCarousel";
-import { HEADING, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
-
-/** The navy velvet banner from the hero - ribbons at both ends and plain
- * navy through the middle, where the heading and carousel sit. */
-const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
-
-/** Ivory for the copy on the navy, as in the hero. */
-const IVORY = "#f5efe4";
+import { FOLD, SectionHeading } from "./GiftGuideTheme";
 
 /** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
  * bracelet still use the site's new-arrival product shots. `contain` marks a
@@ -42,49 +34,23 @@ const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
 ];
 
 /**
- * "Holiday Bestsellers" - laid out like the matching section on Stuller's
- * holiday page: a full-bleed banner with a heading and line of copy (centred
- * on phones, on the left from 640px like the other sections), a carousel
- * of white product cards, each with its own red "Shop" button.
+ * "Holiday Bestsellers" - on the page's cream like every other section: the
+ * centred heading with its ribbon line and a line of copy, then a carousel
+ * of product cards in the page's card style, each with the red "Shop"
+ * button. The carousel moves on by itself every few seconds.
  *
  * Every card links to /categories until the product pages exist.
  */
 export function GiftGuideBestsellers() {
   return (
-    <section
-      id="bestsellers"
-      aria-labelledby="bestsellers-heading"
-      className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-8 lg:px-[calc(var(--spacing-edge)/2)] lg:py-[clamp(1.75rem,2.25vw,2.5rem)]"
-      style={{ color: IVORY }}
-    >
-      <div aria-hidden className="absolute inset-0 -z-10">
-        <Image
-          quality={90}
-          src={BANNER_SRC}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-        {/* Darkened through the middle so the cards and copy sit on plain navy;
-            wide enough now that the row runs nearly edge to edge */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_75%_at_50%_50%,rgba(5,13,35,0.65),transparent)]" />
-      </div>
+    <section id="bestsellers" aria-labelledby="bestsellers-heading" className={FOLD}>
+      <SectionHeading
+        id="bestsellers-heading"
+        title="Holiday Bestsellers"
+        intro="A selection of our most-loved styles for the holiday season, from everyday essentials to classic diamond gifts."
+      />
 
-      {/* On the page gutter, where the carousel runs on half of it */}
-      <div className="max-sm:text-center lg:px-[calc(var(--spacing-edge)/2)]">
-        <h2 id="bestsellers-heading" className={HEADING}>
-          Holiday Bestsellers
-        </h2>
-        <p className={`mt-4 max-w-[60ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
-          A selection of our most-loved styles for the holiday season, from
-          everyday essentials to classic diamond gifts.
-        </p>
-      </div>
-
-      {/* The carousel spans the full width between the page gutters rather
-          than the centred column the copy uses */}
-      <div className="mt-6">
+      <div className="mt-[clamp(1.25rem,2.5vw,2.25rem)]">
         <GiftGuideCarousel
           label="bestsellers"
           slideClassName={PRODUCT_SLIDE}

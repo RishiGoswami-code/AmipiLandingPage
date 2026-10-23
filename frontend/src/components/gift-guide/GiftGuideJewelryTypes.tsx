@@ -2,13 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { HEADING } from "./BannerTitle";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { GiftGuideButton } from "./GiftGuideButton";
+import { NAME, SectionHeading } from "./GiftGuideTheme";
 import styles from "./SnowGlobe.module.css";
-
-/** Navy from the hero banner, used for the heading, labels and arrows. */
-const NAVY = "#0b1a3d";
 
 /**
  * AMIPI's product lines, in the order the manager set: necklace, bracelet,
@@ -92,16 +89,16 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
 /**
  * "Shop by Jewelry Type" - one row of snow globes, one per product line.
  *
- * Not centred: the heading sits on the page gutter with the arrows at the
- * right end of its row, and the globes run in a native scroll-snap track
- * that starts on the gutter and runs off the viewport's right edge, so the
- * clipped globe at the end shows there is more. Native scrolling means
+ * The page's centred heading, with the arrows at the right end of its row
+ * from 1024px, then the globes in a native scroll-snap track that starts on
+ * the gutter and runs off the viewport's right edge, so the clipped globe at
+ * the end shows there is more. Native scrolling means
  * swipe, momentum and keyboard all work before hydration; the arrows only
  * call scrollBy. About 1.6 globes show on phones, 3.4 on tablets, 5.4 on
  * desktop.
  *
- * Each globe ends in an underlined "Shop now" link to /categories, since there
- * are no per-type pages yet.
+ * Each globe ends in its name, bold navy, and the page's red button, "Shop
+ * Now", to /categories, since there are no per-type pages yet.
  */
 export function GiftGuideJewelryTypes() {
   const rowRef = useRef<HTMLUListElement>(null);
@@ -146,18 +143,12 @@ export function GiftGuideJewelryTypes() {
     <section
       id="jewelry-types"
       aria-labelledby="types-heading"
-      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pb-[max(0px,calc(var(--gift-gap)-1.5rem))]"
+      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pt-[calc(var(--gift-gap)*0.8)] pb-[max(0px,calc(var(--gift-gap)*0.8-1.5rem))]"
     >
-      <div className="flex items-end justify-between gap-6 px-edge">
-        <h2
-          id="types-heading"
-          className={`max-sm:w-full max-sm:text-center ${HEADING}`}
-          style={{ color: NAVY }}
-        >
-          Shop by Jewelry Type
-        </h2>
+      <div className="relative px-edge">
+        <SectionHeading id="types-heading" title="Shop by Jewelry Type" />
 
-        <div className="hidden shrink-0 gap-3 pb-2 lg:flex">
+        <div className="absolute right-edge bottom-6 hidden gap-3 lg:flex">
           <button
             type="button"
             aria-label="Previous jewelry types"
@@ -187,7 +178,7 @@ export function GiftGuideJewelryTypes() {
         ref={rowRef}
         onScroll={sync}
         data-lenis-prevent-horizontal
-        className="mt-10 ml-edge flex snap-x snap-mandatory gap-x-5 overflow-x-auto overflow-y-hidden pt-2 pb-6 [scrollbar-width:none] sm:gap-x-7 lg:mt-12 lg:gap-x-8 [&::-webkit-scrollbar]:hidden"
+        className="mt-[clamp(1.75rem,3vw,2.75rem)] ml-edge flex snap-x snap-mandatory gap-x-5 overflow-x-auto overflow-y-hidden pt-2 pb-6 [scrollbar-width:none] sm:gap-x-7 lg:gap-x-8 [&::-webkit-scrollbar]:hidden"
       >
         {TYPES.map((type) => (
           <li
@@ -195,19 +186,12 @@ export function GiftGuideJewelryTypes() {
             className="flex w-[58vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
             <SnowGlobe src={type.src} wide={type.wide} />
-            <p
-              className="mt-4 text-center text-[13px] font-semibold tracking-[0.14em] uppercase sm:mt-5 sm:text-sm sm:tracking-[0.2em] lg:text-base"
-              style={{ color: NAVY }}
-            >
-              {type.label}
-            </p>
-            {/* Underlined text only, not a button. */}
-            <Link
-              href="/categories"
-              className="mt-2 text-[13px] font-medium text-[#0b1a3d] underline underline-offset-4 transition-colors hover:text-[#8a6630] sm:text-sm"
-            >
-              Shop now
-            </Link>
+            <p className={`mt-4 sm:mt-5 ${NAME}`}>{type.label}</p>
+            <div className="mt-3">
+              <GiftGuideButton href="/categories" size="sm">
+                Shop Now
+              </GiftGuideButton>
+            </div>
           </li>
         ))}
         {/* Trailing gutter as a flex child: browsers ignore end padding on a

@@ -11,6 +11,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Gem, ArrowRight } from "lucide-react";
+import { CTA_CLASSES } from "./GiftGuideButton";
+import { CARD, NAME } from "./GiftGuideTheme";
 
 type GiftGuideCarouselProps = {
   /** Names the controls for screen readers, e.g. "bestsellers" gives
@@ -182,7 +184,9 @@ export function GiftGuideCarousel({
 
         <ul
           ref={trackRef}
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto max-lg:-mx-edge max-lg:scroll-px-edge max-lg:px-edge [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          // Room above and below for the cards' glow, which the scroller
+          // would otherwise clip
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pt-2 pb-8 max-lg:-mx-edge max-lg:scroll-px-edge max-lg:px-edge [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {Children.map(children, (child) => (
             <li className={`shrink-0 snap-start ${slideClassName}`}>{child}</li>
@@ -201,7 +205,7 @@ export function GiftGuideCarousel({
       </div>
 
       {pages > 1 && (
-        <div className="mt-5 inline-flex items-center gap-2.5 rounded-full bg-white/15 px-3 py-2">
+        <div className="mt-1 inline-flex items-center gap-2.5 rounded-full bg-[#0b1a3d]/[0.06] px-3 py-2">
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
@@ -209,8 +213,8 @@ export function GiftGuideCarousel({
               aria-label={`Show ${label} page ${i + 1}`}
               aria-current={i === page}
               onClick={() => scrollToPage(i)}
-              className={`h-2.5 w-2.5 cursor-pointer rounded-full border border-[#f5efe4]/80 transition-colors ${
-                i === page ? "bg-[#f5efe4]" : "bg-transparent"
+              className={`h-2.5 w-2.5 cursor-pointer rounded-full border border-[#0b1a3d]/60 transition-colors ${
+                i === page ? "bg-[#0b1a3d]" : "bg-transparent"
               }`}
             />
           ))}
@@ -226,10 +230,11 @@ export const PRODUCT_SLIDE =
   "w-[calc((100%-1rem)/1.2)] sm:w-[calc((100%-2rem)/3.3)] lg:w-[calc((100%-4rem)/5.25)]";
 
 /**
- * A white product card, as in Stuller's carousels: a square photo on white
- * and the name under it. With no `src` it shows a placeholder until the
- * product photo is in. `shop` adds a red "Shop" button under the name (the
- * whole card stays the link, so the button is drawn, not nested).
+ * A product card in the page's one card style: a square photo on white and
+ * the name under it, bold navy and centred. With no `src` it shows a
+ * placeholder until the product photo is in. `shop` adds the page's red
+ * call to action under the name (the whole card stays the link, so the
+ * button is drawn, not nested).
  */
 export function ProductCard({
   title,
@@ -249,9 +254,9 @@ export function ProductCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-lg bg-white text-left text-[#141414]"
+      className={`group flex h-full flex-col items-center overflow-hidden ${CARD}`}
     >
-      <div className="relative aspect-square">
+      <div className="relative aspect-square w-full">
         {src ? (
           <Image
             quality={90}
@@ -270,13 +275,11 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <p
-        className={`px-4 pt-2 text-[0.9375rem] leading-snug font-semibold max-sm:text-center ${shop ? "pb-3" : "pb-5"}`}
-      >
+      <p className={`px-4 pt-2 ${NAME} ${shop ? "pb-3" : "pb-5"}`}>
         {title}
       </p>
       {shop && (
-        <span className="mx-4 mt-auto mb-5 inline-flex items-center justify-center gap-1.5 self-start rounded-full bg-[#9e1b2c] max-sm:self-center px-5 py-2 text-[11px] font-semibold tracking-[0.16em] text-white uppercase transition-colors group-hover:bg-[#7f1422]">
+        <span className={`mt-auto mb-5 h-8 px-4 text-[10px] group-hover:bg-(--gift-cta-hover) ${CTA_CLASSES}`}>
           Shop
           <ArrowRight className="h-3.5 w-3.5" />
         </span>
