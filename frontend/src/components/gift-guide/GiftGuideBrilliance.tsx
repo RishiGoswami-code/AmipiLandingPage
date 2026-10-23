@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PillButton } from "@/components/ui/PillButton";
+import { GiftGuideButton } from "./GiftGuideButton";
 import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The blue diamond banner, from GiftPageImages/LuxuaryBlueDiamond.png:
@@ -72,24 +72,18 @@ export function GiftGuideBrilliance() {
             </p>
 
             <div className="mt-[clamp(1.25rem,3vh,2rem)] flex flex-wrap gap-3 max-sm:justify-center">
-              <PillButton
+              <GiftGuideButton
                 href="/categories"
                 variant="gold"
-                size="sm"
-                icon="arrow"
-                hover="color"
               >
                 Shop Natural Diamond Jewelry
-              </PillButton>
-              <PillButton
+              </GiftGuideButton>
+              <GiftGuideButton
                 href="/categories"
                 variant="light"
-                size="sm"
-                icon="arrow"
-                hover="color"
               >
                 Shop Lab-Grown Diamond Jewelry
-              </PillButton>
+              </GiftGuideButton>
             </div>
           </div>
 

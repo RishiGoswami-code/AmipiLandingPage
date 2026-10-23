@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Gem, Lightbulb, Trophy, UserRound, type LucideIcon } from "lucide-react";
-import { PillButton } from "@/components/ui/PillButton";
+import { GiftGuideButton } from "./GiftGuideButton";
 import { BannerTitle, SUBHEAD } from "./BannerTitle";
 
 /** Navy from the hero banner, used for the heading and reason titles. */
@@ -152,9 +152,9 @@ export function GiftGuideCustom() {
           </ul>
 
           <div className="mt-6 flex flex-wrap gap-3 max-sm:justify-center">
-            <PillButton href="/custom" variant="dark" size="sm" icon="arrow" hover="color">
+            <GiftGuideButton href="/custom" variant="dark">
               Get Started
-            </PillButton>
+            </GiftGuideButton>
           </div>
         </div>
 

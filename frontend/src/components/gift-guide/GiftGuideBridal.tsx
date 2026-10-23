@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PillButton } from "@/components/ui/PillButton";
+import { GiftGuideButton } from "./GiftGuideButton";
 import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** Ivory for the copy on the gold, as on the navy bands. */
@@ -80,15 +80,12 @@ export function GiftGuideBridal() {
             proposals, weddings, and every moment after.
           </p>
           <div className="mt-8 max-sm:mt-6">
-            <PillButton
+            <GiftGuideButton
               href="/categories"
               variant="gold"
-              size="sm"
-              icon="arrow"
-              hover="color"
             >
               Shop Now
-            </PillButton>
+            </GiftGuideButton>
           </div>
         </div>
 

@@ -84,13 +84,17 @@ export const metadata: Metadata = {
  * --gift-gap is the matching space above and below the plain sections, a
  * little more than the side gutter (about 24px on phones, 50px at 1440).
  *
- * A thin white line runs between every two sections, from the masthead
- * down to the footer, so each banner and fold reads as its own panel.
+ * A white band runs between every two sections, from the masthead down to
+ * the footer, so each banner and fold reads as its own panel.
+ *
+ * The sections' negative scroll margin cancels the site's 5rem
+ * scroll-padding (globals.css, there for the fixed navbar, which this page
+ * hides), so the masthead's section tabs land flush on each section.
  */
 export default function GiftGuidePage() {
   return (
-    <div data-no-navbar className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
-      <div className="[&>*+*]:border-t-[3px] [&>*+*]:border-white">
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
+      <div className="[&>*]:scroll-mt-[-5rem] [&>*+*]:border-t-[10px] [&>*+*]:border-white sm:[&>*+*]:border-t-[16px]">
         <GiftGuideHero />
         <GiftGuideTrends />
         <GiftGuideJewelryTypes />

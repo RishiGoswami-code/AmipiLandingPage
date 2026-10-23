@@ -56,20 +56,20 @@ export function Footer() {
             <div className="mt-6 space-y-3">
               <a
                 href="tel:+18005302647"
-                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-navy-900"
+                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-gold-500"
               >
-                <Phone className="h-4 w-4 shrink-0 text-navy-900" />
+                <Phone className="h-4 w-4 shrink-0 text-gold-500" />
                 (800) 530-2647
               </a>
               <a
                 href="mailto:info@amipi.com"
-                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-navy-900"
+                className="flex items-center gap-2.5 text-sm text-foreground/70 transition-colors hover:text-gold-500"
               >
-                <Mail className="h-4 w-4 shrink-0 text-navy-900" />
+                <Mail className="h-4 w-4 shrink-0 text-gold-500" />
                 info@amipi.com
               </a>
               <div className="flex items-start gap-2.5 text-sm text-foreground/70">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-navy-900" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
                 <span>
                   42 W 48th St, 15th Flr
                   <br />
@@ -98,7 +98,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold tracking-[0.3em] text-navy-900 uppercase">
+      <p className="text-[11px] font-semibold tracking-[0.3em] text-gold-500 uppercase">
         {title}
       </p>
       <ul className="mt-5 space-y-3">

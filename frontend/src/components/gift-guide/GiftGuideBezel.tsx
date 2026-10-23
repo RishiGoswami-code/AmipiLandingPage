@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PillButton } from "@/components/ui/PillButton";
+import { GiftGuideButton } from "./GiftGuideButton";
 import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The burgundy velvet banner, from GiftPageImages/Burgundy Velvet Jewelry
@@ -70,9 +70,9 @@ export function GiftGuideBezel() {
             </p>
 
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">
-              <PillButton href="/categories" variant="gold" size="sm" icon="arrow" hover="color">
+              <GiftGuideButton href="/categories" variant="gold">
                 Shop Bezel Jewelry
-              </PillButton>
+              </GiftGuideButton>
             </div>
           </div>
 

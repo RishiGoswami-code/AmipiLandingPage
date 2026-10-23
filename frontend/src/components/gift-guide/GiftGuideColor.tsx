@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PillButton } from "@/components/ui/PillButton";
+import { GiftGuideButton } from "./GiftGuideButton";
 import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The golden satin banner, from GiftPageImages/COLOR/Luxury Gemstone
@@ -79,9 +79,9 @@ export function GiftGuideColor() {
               special long after the season is over.
             </p>
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">
-              <PillButton href="/categories" variant="light" size="sm" icon="arrow" hover="color">
+              <GiftGuideButton href="/categories" variant="light">
                 Shop Now
-              </PillButton>
+              </GiftGuideButton>
             </div>
           </div>
 
