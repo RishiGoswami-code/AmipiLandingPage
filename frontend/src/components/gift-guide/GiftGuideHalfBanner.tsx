@@ -5,15 +5,18 @@ import type { ReactNode } from "react";
  * One half of the Diamonds and Bridal row, after the team's mockups: a photo
  * filling its half of the screen, with the copy - heading, a line of body
  * text and the buttons - set over the photo's plain left half: ivory on a
- * dark ground, or (`tone="light"`) ink on a light one. From 1280px the two halves sit side by side, edge to edge
- * (GiftGuideHalfRow), each 3:2 like the photos; from 768px to 1280px each
- * is a full-width banner of its own (3:2, then 16:9 from 1024px), where the
- * copy's half is wider than the copy. The heading is set large, so it holds
- * its own beside the jewelry rather than reading as a caption to it.
+ * dark ground, or (`tone="light"`) ink on a light one. From 1280px the two
+ * halves sit side by side, edge to edge (GiftGuideHalfRow), each at least
+ * 30vw (24rem) tall - a little wider than 3:2, with slim padding above and
+ * below the copy; from 768px to 1280px each is a full-width banner of its
+ * own (at least 60vw tall, then 50vw from 1024px), where the copy's half is
+ * wider than the copy. The heading is set large, so it holds its own
+ * beside the jewelry rather than reading as a caption to it.
  *
  * The photo does not grow with the copy: it is a 3:2 box 88% of the half's
- * width (82% from 1536px), at the right and centred top to bottom, so the jewelry
- * keeps one scale however tall the copy makes the half. It crops to that
+ * width (72% on the full-width banners from 1024px, 82% from 1536px), at
+ * the right and centred top to bottom, so the jewelry keeps one scale
+ * however tall the copy makes the half. It crops to that
  * box, held at `position`, and its left, top and bottom edges fade into
  * the half's ground (`ground`, the photo's own plain colour), so there is
  * no seam. On a light ground the box sits in the bottom corner instead,
@@ -57,7 +60,7 @@ export function GiftGuideHalfBanner({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`relative isolate flex min-w-0 scroll-mt-[-5rem] flex-col overflow-hidden md:min-h-[66.67vw] md:justify-center lg:min-h-[56.25vw] xl:min-h-[max(27rem,33.33vw)] ${
+      className={`relative isolate flex min-w-0 scroll-mt-[-5rem] flex-col overflow-hidden md:min-h-[60vw] md:justify-center lg:min-h-[50vw] xl:min-h-[max(24rem,30vw)] ${
         tone === "light"
           ? "text-[#141a17] [--half-body:rgb(20_26_23/0.75)] [--half-rule:#8a6630]"
           : "text-[#f5efe4] [--half-body:rgb(245_239_228/0.85)] [--half-rule:#d9b877]"
@@ -65,7 +68,7 @@ export function GiftGuideHalfBanner({
       style={{ backgroundColor: ground }}
     >
       <div
-        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] 2xl:w-[82%] ${
+        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] lg:w-[72%] xl:w-[88%] 2xl:w-[82%] ${
           tone === "light"
             ? "md:bottom-0 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%)]"
             : "md:top-1/2 md:-translate-y-1/2 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]"
@@ -87,7 +90,7 @@ export function GiftGuideHalfBanner({
         />
       </div>
 
-      <div className="px-edge py-10 sm:py-12 md:pr-0 md:pl-[clamp(1.5rem,3.5vw,3.5rem)]">
+      <div className="px-edge py-9 sm:py-10 md:py-8 md:pr-0 md:pl-[clamp(1.5rem,3.5vw,3.5rem)]">
         <h2
           id={`${id}-heading`}
           className={`font-[family-name:var(--font-cormorant)] text-[clamp(2.5rem,6vw,4rem)] leading-[1.02] font-medium text-balance xl:text-[clamp(3rem,3.7vw,4.125rem)] ${
