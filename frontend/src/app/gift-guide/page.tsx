@@ -84,8 +84,10 @@ export const metadata: Metadata = {
  * --gift-gap is the matching space above and below the plain sections, a
  * little more than the side gutter (about 24px on phones, 50px at 1440).
  *
- * A white band runs between every two sections, from the masthead down to
- * the footer, so each banner and fold reads as its own panel.
+ * A white band runs between the sections from the Diamonds banner down to
+ * the footer, so each banner reads as its own panel. The first three - the
+ * hero, Top Holiday Trends and Shop by Jewelry Type - share the cream ground
+ * and run on without one.
  *
  * The sections' negative scroll margin cancels the site's 5rem
  * scroll-padding (globals.css, there for the fixed navbar, which this page
@@ -94,7 +96,7 @@ export const metadata: Metadata = {
 export default function GiftGuidePage() {
   return (
     <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
-      <div className="[&>*]:scroll-mt-[-5rem] [&>*+*]:border-t-[10px] [&>*+*]:border-white sm:[&>*+*]:border-t-[16px]">
+      <div className="[&>*]:scroll-mt-[-5rem] [&>*:nth-child(n+4)]:border-t-[16px] [&>*:nth-child(n+4)]:border-white sm:[&>*:nth-child(n+4)]:border-t-[28px]">
         <GiftGuideHero />
         <GiftGuideTrends />
         <GiftGuideJewelryTypes />
