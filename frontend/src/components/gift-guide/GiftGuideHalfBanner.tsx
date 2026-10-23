@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 /**
  * One half of the Diamonds and Bridal row, after the team's mockups: a photo
  * filling its half of the screen, with the copy - heading, a line of body
- * text and the buttons - set over the photo's plain left half, ivory on the
- * dark ground. From 1280px the two halves sit side by side, edge to edge
+ * text and the buttons - set over the photo's plain left half: ivory on a
+ * dark ground, or (`tone="light"`) ink on a light one. From 1280px the two halves sit side by side, edge to edge
  * (GiftGuideHalfRow), each 3:2 like the photos; from 768px to 1280px each
  * is a full-width banner of its own (3:2, then 16:9 from 1024px), where the
  * copy's half is wider than the copy. The heading is set large, so it holds
@@ -16,7 +16,9 @@ import type { ReactNode } from "react";
  * keeps one scale however tall the copy makes the half. It crops to that
  * box, held at `position`, and its left, top and bottom edges fade into
  * the half's ground (`ground`, the photo's own plain colour), so there is
- * no seam; a further fade in that colour runs in from the left behind the
+ * no seam. On a light ground the box sits in the bottom corner instead,
+ * fading only at its left and top, for photos whose cloth runs off the
+ * bottom and right edges; a further fade in that colour runs in from the left behind the
  * copy, so it still reads where a long button comes near the jewelry.
  *
  * On phones the photo leads at 3:2 and the copy follows on `ground`, so the
@@ -35,6 +37,7 @@ export function GiftGuideHalfBanner({
   src,
   position,
   ground,
+  tone = "dark",
   children,
 }: {
   id: string;
@@ -45,6 +48,8 @@ export function GiftGuideHalfBanner({
   position: string;
   /** The photo's plain ground, for the fade and the phone copy block. */
   ground: string;
+  /** The ground's tone: ivory copy on a dark one, ink copy on a light one. */
+  tone?: "dark" | "light";
   /** The body text and buttons. */
   children: ReactNode;
 }) {
@@ -52,10 +57,20 @@ export function GiftGuideHalfBanner({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="relative isolate flex min-w-0 scroll-mt-[-5rem] flex-col overflow-hidden text-[#f5efe4] md:min-h-[66.67vw] md:justify-center lg:min-h-[56.25vw] xl:min-h-[max(27rem,33.33vw)]"
+      className={`relative isolate flex min-w-0 scroll-mt-[-5rem] flex-col overflow-hidden md:min-h-[66.67vw] md:justify-center lg:min-h-[56.25vw] xl:min-h-[max(27rem,33.33vw)] ${
+        tone === "light"
+          ? "text-[#141a17] [--half-body:rgb(20_26_23/0.75)] [--half-rule:#8a6630]"
+          : "text-[#f5efe4] [--half-body:rgb(245_239_228/0.85)] [--half-rule:#d9b877]"
+      }`}
       style={{ backgroundColor: ground }}
     >
-      <div className="relative aspect-[3/2] md:absolute md:top-1/2 md:right-0 md:-z-10 md:w-[88%] 2xl:w-[82%] md:-translate-y-1/2 md:[mask-composite:intersect] md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
+      <div
+        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] 2xl:w-[82%] ${
+          tone === "light"
+            ? "md:bottom-0 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%)]"
+            : "md:top-1/2 md:-translate-y-1/2 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]"
+        }`}
+      >
         <Image
           quality={90}
           src={src}
@@ -90,7 +105,7 @@ export function GiftGuideHalfBanner({
                 </span>
               ))}
         </h2>
-        <span aria-hidden className="mt-5 block h-0.5 w-16 bg-[#d9b877]" />
+        <span aria-hidden className="mt-5 block h-0.5 w-16 bg-(--half-rule)" />
         {children}
       </div>
     </section>
@@ -100,7 +115,7 @@ export function GiftGuideHalfBanner({
 /** The body line under a half banner's heading, held to the photo's plain
  * half. */
 export function HalfBannerText({ children }: { children: ReactNode }) {
-  return <p className="mt-5 max-w-[40ch] md:max-w-[min(40ch,50%)] text-[clamp(1.0625rem,1.4vw,1.3125rem)] leading-relaxed text-pretty text-[#f5efe4]/85">{children}</p>;
+  return <p className="mt-5 max-w-[40ch] md:max-w-[min(40ch,50%)] text-[clamp(1.0625rem,1.4vw,1.3125rem)] leading-relaxed text-pretty text-(--half-body)">{children}</p>;
 }
 
 /** The buttons under a half banner's copy, stacked and left-aligned, each
