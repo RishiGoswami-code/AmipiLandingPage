@@ -10,7 +10,6 @@ import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
 import { GiftGuideConnect } from "@/components/gift-guide/GiftGuideConnect";
-import { GiftGuideRegisterTab } from "@/components/gift-guide/GiftGuideRegisterTab";
 import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
 
 /*
@@ -106,7 +105,6 @@ export default function GiftGuidePage() {
       {/* The site chrome is hidden on this route (layout.tsx), so the home
           page's yellow partner belt is added here to close the page */}
       <PartnerMarquee />
-      <GiftGuideRegisterTab />
     </div>
   );
 }

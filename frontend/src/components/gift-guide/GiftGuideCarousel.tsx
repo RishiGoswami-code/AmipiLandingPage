@@ -25,8 +25,8 @@ type GiftGuideCarouselProps = {
 };
 
 /** How long autoplay rests on a page, and how long it waits after the
- * visitor last touched, clicked or scrolled the carousel. */
-const AUTOPLAY_MS = 4000;
+ * visitor last clicked, swiped or keyed through the carousel. */
+const AUTOPLAY_MS = 3000;
 
 /**
  * The carousel the gift guide's Stuller-style sections share (Holiday
@@ -35,10 +35,12 @@ const AUTOPLAY_MS = 4000;
  * side on desktop and page dots in a pill under it. The arrows and dots only
  * drive the track's scroll position.
  *
- * With `autoplay` it also moves on a page every four seconds and wraps back
- * to the start after the last. It holds while the pointer is over it, while
- * focus is inside it, for a while after the visitor uses it, while it is
- * off screen, and not at all for visitors who prefer reduced motion.
+ * With `autoplay` it also moves on a page every three seconds and wraps
+ * back to the start after the last. It holds while a finger is on it, for
+ * a moment after the visitor uses its arrows, dots or swipe, and while it
+ * is off screen. Resting the pointer over it does not hold it - the row
+ * spans the page, so the pointer is often there. For visitors who prefer
+ * reduced motion it steps without the sliding animation.
  */
 export function GiftGuideCarousel({
   label,
@@ -92,7 +94,9 @@ export function GiftGuideCarousel({
     const root = rootRef.current;
     const track = trackRef.current;
     if (!autoplay || !root || !track) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     let visible = false;
     let touching = false;
@@ -117,7 +121,6 @@ export function GiftGuideCarousel({
     );
     observer.observe(root);
     root.addEventListener("pointerdown", used);
-    root.addEventListener("wheel", used, { passive: true });
     root.addEventListener("keydown", used);
     root.addEventListener("touchstart", touchStart, { passive: true });
     root.addEventListener("touchend", touchEnd);
@@ -128,8 +131,6 @@ export function GiftGuideCarousel({
         !visible ||
         touching ||
         document.hidden ||
-        root.matches(":hover") ||
-        root.contains(document.activeElement) ||
         Date.now() - lastUsed < AUTOPLAY_MS
       )
         return;
@@ -141,14 +142,16 @@ export function GiftGuideCarousel({
       );
       const current = Math.min(Math.round(track.scrollLeft / s), last);
       const next = current >= last ? 0 : current + 1;
-      track.scrollTo({ left: next * s, behavior: "smooth" });
+      track.scrollTo({
+        left: next * s,
+        behavior: reduceMotion ? "instant" : "smooth",
+      });
     }, AUTOPLAY_MS);
 
     return () => {
       window.clearInterval(timer);
       observer.disconnect();
       root.removeEventListener("pointerdown", used);
-      root.removeEventListener("wheel", used);
       root.removeEventListener("keydown", used);
       root.removeEventListener("touchstart", touchStart);
       root.removeEventListener("touchend", touchEnd);
