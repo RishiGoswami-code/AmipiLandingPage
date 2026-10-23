@@ -263,8 +263,11 @@ export function ProductCard({
             src={src}
             alt=""
             fill
-            sizes="(min-width: 1024px) 15rem, (min-width: 640px) 30vw, 60vw"
-            className={`mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.03] ${contain ? "object-contain p-[7%]" : "object-cover"}`}
+            // The tile's real width: a fifth of the row from 1024px, about a
+            // third on tablets and 1/1.6 on phones - so wide and retina
+            // screens get a file big enough to stay sharp
+            sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 62vw"
+            className={`mix-blend-multiply ${contain ? "object-contain p-[7%]" : "object-cover"}`}
           />
         ) : (
           <div className="absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-md border border-dashed border-[#141414]/15 bg-[#f3efe7] text-[#8a6630]">

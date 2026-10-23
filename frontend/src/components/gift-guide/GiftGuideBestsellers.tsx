@@ -5,14 +5,16 @@ import {
 } from "./GiftGuideCarousel";
 import { BAND_WHITE, BandHeading } from "./GiftGuideTheme";
 
-/** AMIPI's bestsellers, on white grounds. The hoops, band and tennis
- * bracelet still use the site's new-arrival product shots. `contain` marks a
+/** AMIPI's bestsellers, on white grounds. The necklace, huggies and bezel
+ * bracelet are cut from GiftPageImages/Holiday Bestsellers at full size and
+ * high quality; the hoops, band and tennis bracelet still use the site's
+ * new-arrival product shots. `contain` marks a
  * cut-out on a transparent ground, shown whole on the tile rather than
  * cropped to fill it. */
 const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
   {
     title: "Unflippable Necklace",
-    src: "/gift-guide/bestsellers/tennis-necklace-fit.webp",
+    src: "/gift-guide/bestsellers/tennis-necklace-hd.webp",
   },
   { title: "Tennis Bracelet", src: "/new-arrival/riviera-bracelet.webp" },
   { title: "Ultra Comfort Band", src: "/new-arrival/half-eternity-band.webp" },
@@ -24,12 +26,12 @@ const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
   },
   {
     title: "3 Stone Huggies",
-    src: "/gift-guide/bestsellers/three-stone-huggies-close.webp",
+    src: "/gift-guide/bestsellers/three-stone-huggies-hd.webp",
   },
   { title: "Split Prong Hoops", src: "/new-arrival/classic-hoops.webp" },
   {
     title: "Bezel Bracelet",
-    src: "/gift-guide/bestsellers/bezel-bracelet.webp",
+    src: "/gift-guide/bestsellers/bezel-bracelet-hd.webp",
   },
 ];
 
