@@ -86,7 +86,8 @@ export const metadata: Metadata = {
  * little more than the side gutter (about 24px on phones, 50px at 1440).
  *
  * --gift-cta is the red of every call to action on the page, with its hover
- * shade: changing the buttons' colour is this one line.
+ * shade: changing the buttons' colour is this one line. --gift-green is the
+ * deep evergreen of the alternating bands (GiftGuideTheme.tsx).
  *
  * The sections' negative scroll margin cancels the site's 5rem
  * scroll-padding (globals.css, there for the fixed navbar, which this page
@@ -94,7 +95,7 @@ export const metadata: Metadata = {
  */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] [--gift-cta:#9e1b2c] [--gift-cta-hover:#7f1422] bg-[url(/gift-guide/paper-grain.svg)]`}>
+    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] [--gift-cta:#9e1b2c] [--gift-cta-hover:#7f1422] [--gift-green:#0f3b2a] bg-[url(/gift-guide/paper-grain.svg)]`}>
       <div className="[&>*]:scroll-mt-[-5rem]">
         <GiftGuideHero />
         <GiftGuideTrends />

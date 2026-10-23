@@ -13,8 +13,8 @@
  *   under each heading (SectionHeading) and faint gold sparkles in a card's
  *   corner (Sparkles).
  *
- * The hero is the one exception: its title sits on the dark navy band, so
- * it keeps the ivory and champagne of BannerTitle.
+ * The masthead, hero, Trends and Jewelry Types have moved on to the
+ * evergreen-and-white bands further down this file.
  */
 
 /** Navy, for headings, product names and links. */
@@ -131,3 +131,75 @@ export function SteadyBold({ children }: { children: string }) {
 /** The hover the contact links share: dark, bold and underlined. */
 export const CONTACT_HOVER =
   "transition-colors hover:font-bold hover:text-[#0b1a3d] hover:underline hover:underline-offset-4";
+
+/** The same hover on the evergreen masthead: ivory, bold and underlined. */
+export const CONTACT_HOVER_LIGHT =
+  "transition-colors hover:font-bold hover:text-white hover:underline hover:underline-offset-4";
+
+/*
+ * The evergreen-and-white redesign (the team's mockups in frontend/Update),
+ * so far for the masthead, hero, Trends and Jewelry Types: full-width bands
+ * that alternate between deep evergreen and white, meeting on hard edges,
+ * with upright Cormorant headings over a small tracked eyebrow and a short
+ * gold rule. The sections further down keep the cream styles above until
+ * they move over too.
+ */
+
+/** Deep evergreen, sampled from the mockups. The page also sets it as
+ * --gift-green (app/gift-guide/page.tsx), which the bands paint with. */
+export const GREEN = "#0f3b2a";
+
+/** Near-black with a hint of green, for headings and names on white. */
+export const INK = "#141a17";
+
+/** Champagne, for eyebrows and rules on the evergreen. */
+export const CHAMPAGNE = "#d9b877";
+
+/** A band heading: upright Cormorant, centred, smaller than the italic. */
+export const DISPLAY =
+  "text-center font-[family-name:var(--font-cormorant)] text-[clamp(2.25rem,3.6vw,3.75rem)] leading-[1.1] font-medium text-balance";
+
+/** The small tracked capitals above a heading or under a globe. */
+export const EYEBROW = "text-[11px] leading-snug font-semibold tracking-[0.32em] uppercase";
+
+/** An evergreen band and a white one: the ground, the text colour and the
+ * band's vertical rhythm. */
+export const BAND_GREEN = "bg-(--gift-green) text-[#f5efe4] py-[calc(var(--gift-gap)*0.9)]";
+export const BAND_WHITE = "bg-white text-[#141a17] py-[calc(var(--gift-gap)*0.9)]";
+
+/**
+ * A band's heading block, after the mockups: an optional eyebrow, the
+ * heading, and a short gold rule with a sparkle at its centre. `tone` is
+ * the band it sits on - ivory and champagne on the evergreen, ink and
+ * antique gold on white.
+ */
+export function BandHeading({
+  id,
+  title,
+  eyebrow,
+  tone,
+}: {
+  id: string;
+  title: string;
+  eyebrow?: string;
+  tone: "green" | "white";
+}) {
+  const gold = tone === "green" ? CHAMPAGNE : DEEP_GOLD;
+  return (
+    <div className="mx-auto max-w-[60rem] text-center">
+      {eyebrow && (
+        <p className={`mb-3 ${EYEBROW}`} style={{ color: gold }}>
+          {eyebrow}
+        </p>
+      )}
+      <h2 id={id} className={DISPLAY} style={{ color: tone === "green" ? "#f5efe4" : INK }}>
+        {title}
+      </h2>
+      <span aria-hidden className="mx-auto mt-4 flex w-32 items-center gap-2.5" style={{ color: gold }}>
+        <span className="h-px flex-1 bg-[linear-gradient(90deg,transparent,currentColor)]" />
+        <Sparkle className="h-2.5 w-2.5" />
+        <span className="h-px flex-1 bg-[linear-gradient(270deg,transparent,currentColor)]" />
+      </span>
+    </div>
+  );
+}

@@ -1,13 +1,12 @@
 import Image from "next/image";
-import { GiftGuideButton } from "./GiftGuideButton";
-import { CARD, FOLD, SectionHeading } from "./GiftGuideTheme";
+import { GiftGuideTextLink } from "./GiftGuideButton";
+import { BAND_GREEN, BandHeading, INK } from "./GiftGuideTheme";
 
 /**
- * The six trend tiles, from GiftPageImages/HOLIDAY TRENDS. The tiles are 4:5;
- * `position` is the focal point the crop keeps on the photos that aren't
- * (Stackables and Color are 2:3, Bezel is nearly square, and Drop - chain drop earrings
- * in a velvet box - is landscape, so its crop sets the earrings left of the
- * big numeral).
+ * The six trend cards, from GiftPageImages/HOLIDAY TRENDS. The photos are
+ * 4:5; `position` is the focal point the crop keeps on the ones that aren't
+ * (Stackables and Color are 2:3, Bezel is nearly square, and Drop - chain
+ * drop earrings in a velvet box - is landscape, held to the earrings).
  */
 const TRENDS = [
   {
@@ -40,87 +39,50 @@ const TRENDS = [
   },
 ];
 
-/** The tall model shot beside the grid (sapphire rings and studs). */
-const MODEL_SRC = "/gift-guide/trends/model.webp";
-
 /**
- * "Top Holiday Trends" - the page's centred heading, then a card holding a
- * 3x2 grid of numbered trend tiles, with a tall model photo filling the
- * card's right side. On phones the grid drops to two columns and the model
- * photo follows it.
+ * "Top Holiday Trends" - an evergreen band, after the "Holiday Edit" row in
+ * the team's mockups: the eyebrow, heading and gold rule, then the six
+ * trends as plain white cards - the photo on top, the name and a "Shop Now"
+ * link under it. One row of six from 1280px, three per row on tablets and
+ * laptops, two on phones.
  *
- * Each tile ends in the page's red button, "Shop Now", to /categories, since
- * there are no per-trend pages yet. The names stay white on the tiles' dark
- * fade, where navy would not read.
+ * Every link goes to /categories, since there are no per-trend pages yet.
  */
 export function GiftGuideTrends() {
   return (
     <section
       id="trends"
       aria-labelledby="trends-heading"
-      // Closer under the hero, whose catalog pages already overhang it
-      className={`${FOLD} pt-[calc(var(--gift-gap)*0.35)]`}
+      className={`${BAND_GREEN} px-edge`}
     >
-      <SectionHeading id="trends-heading" title="Top Holiday Trends" />
+      <BandHeading id="trends-heading" tone="green" eyebrow="The Holiday Edit" title="Top Holiday Trends" />
 
-      <div className={`mt-[clamp(1.75rem,3vw,2.75rem)] grid overflow-hidden lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] ${CARD}`}>
-        <div className="p-4 sm:p-8 xl:p-10">
-          <ol className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-            {TRENDS.map((trend, i) => (
-              <li
-                key={trend.title}
-                className="@container relative aspect-[4/5] overflow-hidden rounded-xl bg-[#ebe7df]"
+      <ul className="mt-[clamp(1.75rem,3vw,2.75rem)] grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:gap-5 xl:grid-cols-6">
+        {TRENDS.map((trend) => (
+          <li key={trend.title} className="flex flex-col overflow-hidden rounded-[2px] bg-white">
+            <div className="relative aspect-[4/5] bg-[#ebe7df]">
+              <Image
+                quality={90}
+                src={trend.src}
+                alt=""
+                fill
+                sizes="(min-width: 1280px) 16vw, (min-width: 768px) 32vw, 48vw"
+                style={{ objectPosition: trend.position }}
+                className="object-cover"
+              />
+            </div>
+            <div className="flex flex-1 flex-col items-center gap-3 px-3 pt-4 pb-5 text-center">
+              <h3
+                className="font-[family-name:var(--font-cormorant)] text-[clamp(1.125rem,1.4vw,1.375rem)] leading-tight font-semibold"
+                style={{ color: INK }}
               >
-                <Image
-                  quality={90}
-                  src={trend.src}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 15rem, 45vw"
-                  style={{ objectPosition: trend.position }}
-                  className="object-cover"
-                />
-                {/* Dark fade from the top for the numeral and from the bottom
-                    for the label, so both read on any photo */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,13,35,0.28)_0%,transparent_35%,transparent_50%,rgba(5,13,35,0.78)_100%)]"
-                />
-                {/* Big Bodoni numeral, Stuller style */}
-                <span
-                  aria-hidden
-                  className="absolute top-[4%] right-[8%] font-[family-name:var(--font-bodoni)] text-[46cqw] leading-none font-medium [font-optical-sizing:none] text-[#f5efe4] [text-shadow:0_2px_18px_rgba(5,13,35,0.45)]"
-                >
-                  {i + 1}
-                </span>
-                <div className="absolute inset-x-0 bottom-0 px-[8%] pb-[8%] text-center">
-                  <h3 className="text-[max(12px,6.2cqw)] leading-snug font-bold text-white">
-                    {trend.title}
-                  </h3>
-                  {/* No per-trend pages yet, so every link goes to the shop. */}
-                  <div className="mt-2">
-                    <GiftGuideButton href="/categories" size="sm">
-                      Shop Now
-                    </GiftGuideButton>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        {/* Model photo: fills the panel's right side on desktop, follows the grid on phones */}
-        <div className="relative m-4 mt-0 aspect-square overflow-hidden sm:aspect-[16/10] rounded-xl sm:m-8 sm:mt-0 lg:m-0 lg:aspect-auto lg:rounded-none">
-          <Image
-            quality={90}
-            src={MODEL_SRC}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover object-[50%_40%] sm:object-[50%_62%] lg:object-[50%_40%]"
-          />
-        </div>
-      </div>
+                {trend.title}
+              </h3>
+              <GiftGuideTextLink href="/categories">Shop Now</GiftGuideTextLink>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

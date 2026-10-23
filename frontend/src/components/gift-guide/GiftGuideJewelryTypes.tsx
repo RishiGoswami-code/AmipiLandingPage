@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { GiftGuideButton } from "./GiftGuideButton";
-import { NAME, SectionHeading } from "./GiftGuideTheme";
+import { GiftGuideTextLink } from "./GiftGuideButton";
+import { BAND_WHITE, BandHeading, EYEBROW, INK } from "./GiftGuideTheme";
 import styles from "./SnowGlobe.module.css";
 
 /**
@@ -87,9 +87,10 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
 }
 
 /**
- * "Shop by Jewelry Type" - one row of snow globes, one per product line.
+ * "Shop by Jewelry Type" - a white band, between the evergreen Trends and the
+ * sections below, holding one row of snow globes, one per product line.
  *
- * The page's centred heading, with the arrows at the right end of its row
+ * The band's centred heading, with the arrows at the right end of its row
  * from 1024px, then the globes in a native scroll-snap track that starts on
  * the gutter and runs off the viewport's right edge, so the clipped globe at
  * the end shows there is more. Native scrolling means
@@ -97,8 +98,9 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  * call scrollBy. About 1.6 globes show on phones, 3.4 on tablets, 5.4 on
  * desktop.
  *
- * Each globe ends in its name, bold navy, and the page's red button, "Shop
- * Now", to /categories, since there are no per-type pages yet.
+ * Each globe ends in its name, in small tracked capitals as in the team's
+ * mockups, and a red "Shop Now" link to /categories, since there are no
+ * per-type pages yet.
  */
 export function GiftGuideJewelryTypes() {
   const rowRef = useRef<HTMLUListElement>(null);
@@ -137,16 +139,18 @@ export function GiftGuideJewelryTypes() {
   };
 
   const arrow =
-    "grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-[#0b1a3d]/25 bg-white text-[#0b1a3d] shadow-[0_6px_18px_-8px_rgba(11,26,61,0.45)] transition-[opacity,background-color] hover:bg-[#f3efe7] disabled:cursor-default disabled:opacity-35 disabled:hover:bg-white";
+    "grid h-11 w-11 cursor-pointer place-items-center rounded-[2px] border border-[#141a17]/25 bg-white text-[#141a17] transition-[opacity,background-color,color,border-color] hover:border-(--gift-green) hover:bg-(--gift-green) hover:text-white disabled:cursor-default disabled:opacity-35 disabled:hover:border-[#141a17]/25 disabled:hover:bg-white disabled:hover:text-[#141a17]";
 
   return (
     <section
       id="jewelry-types"
       aria-labelledby="types-heading"
-      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pt-[calc(var(--gift-gap)*0.8)] pb-[max(0px,calc(var(--gift-gap)*0.8-1.5rem))]"
+      // The track's own bottom padding (room for the floor shadows) counts
+      // towards the band's
+      className={`${BAND_WHITE} pb-[max(0px,calc(var(--gift-gap)*0.9-1.5rem))]`}
     >
       <div className="relative px-edge">
-        <SectionHeading id="types-heading" title="Shop by Jewelry Type" />
+        <BandHeading id="types-heading" tone="white" title="Shop by Jewelry Type" />
 
         <div className="absolute right-edge bottom-6 hidden gap-3 lg:flex">
           <button
@@ -186,11 +190,11 @@ export function GiftGuideJewelryTypes() {
             className="flex w-[58vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
             <SnowGlobe src={type.src} wide={type.wide} />
-            <p className={`mt-4 sm:mt-5 ${NAME}`}>{type.label}</p>
+            <p className={`mt-4 text-center sm:mt-5 ${EYEBROW}`} style={{ color: INK }}>
+              {type.label}
+            </p>
             <div className="mt-3">
-              <GiftGuideButton href="/categories" size="sm">
-                Shop Now
-              </GiftGuideButton>
+              <GiftGuideTextLink href="/categories">Shop Now</GiftGuideTextLink>
             </div>
           </li>
         ))}
