@@ -2,7 +2,7 @@ import { GiftGuideButton } from "./GiftGuideButton";
 import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGuideHalfBanner";
 
 /**
- * "New Bridal Styles for the Season of “Yes”" - the right half of the
+ * "Styles for the Season of “Yes”" - the right half of the
  * Diamonds and Bridal row, from GiftPageImages/Bridal/Elegant Diamond Ring
  * in Velvet Box.png: 3:2, plain near-black red velvet across the left half
  * and, from 48% to 94% across, the oval solitaire (Bridal/OVAL DIAMOND
@@ -15,7 +15,7 @@ export function GiftGuideBridal() {
   return (
     <GiftGuideHalfBanner
       id="bridal"
-      title="New Bridal Styles for the Season of “Yes”"
+      title="Styles for the Season of “Yes”"
       src="/gift-guide/bridal/oval-ring-velvet-box.webp"
       position="100% 50%"
       ground="#1a0101"
