@@ -1,7 +1,7 @@
 import { Gem, Lightbulb, Trophy, UserRound, type LucideIcon } from "lucide-react";
 import { GiftGuideButton } from "./GiftGuideButton";
-import { FeatureActions, GiftGuideFeature } from "./GiftGuideFeature";
-import { DEEP_GOLD, SUBHEAD } from "./GiftGuideTheme";
+import { GiftGuideBanner } from "./GiftGuideBanner";
+import { CHAMPAGNE, GREEN, SUBHEAD_TYPE } from "./GiftGuideTheme";
 
 /**
  * Why custom - the four reasons from the Custom Design Studio page
@@ -32,54 +32,49 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
 ];
 
 /**
- * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), from
+ * "Custom Jewelry" - AMIPI's Custom Design Studio (/custom), as the team's
+ * "Made for You" mockup: an evergreen band, the copy at the left and the
+ * photo at the right fading into the green (GiftGuideBanner). The photo is
  * GiftPageImages/Custom/Luxurious Rings in Warm Sunlight.png: 3:1, plain
  * sunlit cream at the left and, from 62% to 94% across, an emerald-cut halo
- * ring on a travertine block, a green flower bypass ring and a pink sapphire
- * eternity band - so the card's crop is held to the right edge. Photo on the
- * right.
+ * ring on a travertine block, a green flower bypass ring and a pink
+ * sapphire eternity band - so the crop is held to the right edge.
  *
- * Lighter than the full-bleed photo fold it was: the photo is one half of a
- * white card like every other section's, and the copy beside it is the
- * studio page's in brief - a "Made for you" label over "Why Custom
- * Jewelry?", the four reasons with line icons, and the button. The reasons'
- * sentences show on tablets and from 1280px; on phones, and from 1024 to
- * 1280px where the copy shares the card with the photo in a narrow column,
- * the titles stand alone so the card stays short and the crop keeps all
- * three rings.
+ * The copy is the studio page's in brief: "Why Custom Jewelry?", the four
+ * reasons with line icons, and the button. The reasons' sentences show on
+ * tablets and from 1280px; on phones, and from 1024 to 1280px where the
+ * copy shares the band with the photo in a narrow column, the titles stand
+ * alone so the band stays short.
  */
 export function GiftGuideCustom() {
   return (
-    <GiftGuideFeature
+    <GiftGuideBanner
       id="custom"
-      title="Custom Jewelry"
+      eyebrow="Custom Jewelry"
+      title="Made for You"
       src="/gift-guide/custom/rings-warm-sunlight-v3-banner.webp"
       position="100% 50%"
-      photoSide="right"
+      ground={GREEN}
     >
-      <p
-        className="text-xs font-semibold tracking-[0.3em] uppercase"
-        style={{ color: DEEP_GOLD }}
-      >
-        Made for you
-      </p>
-      <h3 className={`mt-1.5 ${SUBHEAD}`}>Why Custom Jewelry?</h3>
+      <h3 className={`mt-6 ${SUBHEAD_TYPE}`} style={{ color: CHAMPAGNE }}>
+        Why Custom Jewelry?
+      </h3>
 
-      <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 text-center sm:gap-x-10">
+      <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 sm:gap-x-10">
         {REASONS.map(({ icon: Icon, title, body }) => (
-          <li key={title} className="flex flex-col items-center gap-1.5">
-            <Icon aria-hidden className="h-6 w-6" strokeWidth={1.4} style={{ color: DEEP_GOLD }} />
-            <h4 className="text-[0.9375rem] leading-snug font-bold text-[#0b1a3d]">{title}</h4>
-            <p className="max-w-[30ch] text-[0.9375rem] leading-relaxed text-[#0b1a3d]/75 max-sm:hidden lg:max-xl:hidden">
+          <li key={title} className="flex flex-col items-start gap-1.5">
+            <Icon aria-hidden className="h-6 w-6" strokeWidth={1.4} style={{ color: CHAMPAGNE }} />
+            <h4 className="text-[0.9375rem] leading-snug font-bold">{title}</h4>
+            <p className="max-w-[34ch] text-[0.9375rem] leading-relaxed text-[#f5efe4]/75 max-sm:hidden lg:max-xl:hidden">
               {body}
             </p>
           </li>
         ))}
       </ul>
 
-      <FeatureActions>
+      <div className="mt-8">
         <GiftGuideButton href="/custom">Get Started</GiftGuideButton>
-      </FeatureActions>
-    </GiftGuideFeature>
+      </div>
+    </GiftGuideBanner>
   );
 }

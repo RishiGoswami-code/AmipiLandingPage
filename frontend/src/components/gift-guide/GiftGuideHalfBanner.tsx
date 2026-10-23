@@ -2,7 +2,8 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 
 /**
- * One half of the Diamonds and Bridal row, after the team's mockups: a photo
+ * One half of the Diamonds and Bridal row (and of Bezel and Color), after
+ * the team's mockups: a photo
  * filling its half of the screen, with the copy - heading, a line of body
  * text and the buttons - set over the photo's plain left half: ivory on a
  * dark ground, or (`tone="light"`) ink on a light one. From 1280px the two
@@ -41,6 +42,7 @@ export function GiftGuideHalfBanner({
   position,
   ground,
   tone = "dark",
+  photo = "large",
   children,
 }: {
   id: string;
@@ -53,6 +55,9 @@ export function GiftGuideHalfBanner({
   ground: string;
   /** The ground's tone: ivory copy on a dark one, ink copy on a light one. */
   tone?: "dark" | "light";
+  /** `small` side by side holds the photo to 66% of the half (62% from
+   * 1536px), so a long paragraph clears jewelry that starts further left. */
+  photo?: "large" | "small";
   /** The body text and buttons. */
   children: ReactNode;
 }) {
@@ -68,7 +73,9 @@ export function GiftGuideHalfBanner({
       style={{ backgroundColor: ground }}
     >
       <div
-        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] lg:w-[72%] xl:w-[88%] 2xl:w-[82%] ${
+        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] lg:w-[72%] ${
+          photo === "small" ? "xl:w-[66%] 2xl:w-[62%]" : "xl:w-[88%] 2xl:w-[82%]"
+        } ${
           tone === "light"
             ? "md:bottom-0 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%)]"
             : "md:top-1/2 md:-translate-y-1/2 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]"

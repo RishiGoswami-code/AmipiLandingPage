@@ -107,8 +107,10 @@ export default function GiftGuidePage() {
         </GiftGuideHalfRow>
         <GiftGuideBestsellers />
         <GiftGuideCustom />
-        <GiftGuideBezel />
-        <GiftGuideColor />
+        <GiftGuideHalfRow>
+          <GiftGuideBezel />
+          <GiftGuideColor />
+        </GiftGuideHalfRow>
         <GiftGuideConnect />
       </div>
       {/* The site chrome is hidden on this route (layout.tsx), so the home
