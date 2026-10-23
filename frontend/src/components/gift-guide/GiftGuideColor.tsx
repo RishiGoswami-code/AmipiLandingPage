@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
+import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The golden satin banner, from GiftPageImages/COLOR/Luxury Gemstone
  * Jewelry on Golden Satin.png: 3:1, dark bronze satin at the left and four
@@ -14,10 +15,6 @@ const BRONZE = "#271304";
 
 /** Ivory for the copy on the bronze. */
 const IVORY = "#f5efe4";
-
-/** Champagne gold for "Color" - the same ramp as "Gift Guide" in the hero. */
-const GOLD_TEXT =
-  "bg-[linear-gradient(180deg,#f6e2b8_0%,#ecd3a0_50%,#dcbc7e_100%)] bg-clip-text text-transparent";
 
 /**
  * "Color" - the coloured-gemstone holiday trend: a full-bleed banner built
@@ -36,6 +33,7 @@ export function GiftGuideColor() {
     // Desktop height follows the copy, with room above and below it; the
     // picture covers the band.
     <section
+      id="color"
       aria-labelledby="color-heading"
       className="relative isolate flex items-center overflow-hidden pt-16 max-sm:pt-[calc(100vw*5/8)] max-sm:pb-12 xl:py-[clamp(4.5rem,6vw,7rem)]"
       style={{ color: IVORY, backgroundColor: BRONZE }}
@@ -53,7 +51,9 @@ export function GiftGuideColor() {
           // From 1280px the band is only as tall as the copy, so the picture
           // is cropped top and bottom; the necklace hangs in from the top
           // edge of the photo anyway
-          className="object-cover object-[96%_50%] sm:object-[85%_50%] xl:object-[100%_50%]"
+          // Dimmed and a little desaturated, so the satin's glare gives way
+          // to the copy and the stones
+          className="object-cover object-[96%_50%] brightness-[.8] saturate-[.85] sm:object-[85%_50%] xl:object-[100%_50%]"
         />
         {/* Phones: the picture fades down into the plain bronze above the
             copy; tablets: it fades up into the bronze under the copy; from
@@ -67,24 +67,19 @@ export function GiftGuideColor() {
               plain middle of the banner, while the paragraph keeps a
               readable measure */}
           <div className="max-sm:text-center">
-            <h2
-              id="color-heading"
-              className={`font-[family-name:var(--font-bodoni)] text-[clamp(3.75rem,7vw,7.5rem)] leading-[0.95] font-medium tracking-[0.01em] lg:text-[clamp(4.25rem,9vw,10rem)] ${GOLD_TEXT}`}
-            >
-              Color
-            </h2>
+            <BannerTitle id="color-heading" accent="Color" />
             {/* From 1280px the picture is height-bound, so the taller the
                 band, the wider the picture and the further left the
                 bracelet: below 1600px the paragraph takes a narrower
                 measure to clear it */}
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:hidden max-w-[64ch] xl:max-[1600px]:max-w-[44ch] min-[1600px]:max-[1900px]:max-w-[52ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/85">
+            <p className={`mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:hidden max-w-[64ch] xl:max-[1600px]:max-w-[44ch] min-[1600px]:max-[1900px]:max-w-[52ch] text-pretty ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
               Bring a little more personality to holiday gifting with rich
               emeralds, deep rubies, and vibrant gemstone accents. Bold enough
               to stand out, easy enough to wear every day, and made to feel
               special long after the season is over.
             </p>
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">
-              <PillButton href="/categories" variant="light" size="sm" icon="arrow">
+              <PillButton href="/categories" variant="light" size="sm" icon="arrow" hover="color">
                 Shop Now
               </PillButton>
             </div>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
-import { BannerTitle } from "./BannerTitle";
+import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The blue diamond banner, from GiftPageImages/LuxuaryBlueDiamond.png:
  * about 3:1, plain midnight blue across the left half and, on the right, a
@@ -33,6 +33,7 @@ export function GiftGuideBrilliance() {
     // Desktop height follows the copy, with only a little padding above and
     // below; the picture covers the band, cropped top and bottom.
     <section
+      id="diamonds"
       aria-labelledby="brilliance-heading"
       className="relative isolate flex items-center overflow-hidden max-sm:pt-[100vw] max-sm:pb-12 lg:py-10"
       style={{ color: IVORY, backgroundColor: BLUE }}
@@ -65,7 +66,7 @@ export function GiftGuideBrilliance() {
               accent="Diamonds"
             />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] max-sm:hidden text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+            <p className={`mt-[clamp(1rem,2.5vh,1.5rem)] max-w-[40ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
               From natural diamonds to lab-grown favorites, explore beautiful
               pieces your customers will be looking for this holiday season.
             </p>
@@ -76,6 +77,7 @@ export function GiftGuideBrilliance() {
                 variant="gold"
                 size="sm"
                 icon="arrow"
+                hover="color"
               >
                 Shop Natural Diamond Jewelry
               </PillButton>
@@ -84,6 +86,7 @@ export function GiftGuideBrilliance() {
                 variant="light"
                 size="sm"
                 icon="arrow"
+                hover="color"
               >
                 Shop Lab-Grown Diamond Jewelry
               </PillButton>

@@ -4,9 +4,10 @@ import {
   PRODUCT_SLIDE,
   ProductCard,
 } from "./GiftGuideCarousel";
+import { HEADING, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The navy velvet banner from the hero - ribbons at both ends and plain
- * navy through the middle, where the centred heading and carousel sit. */
+ * navy through the middle, where the heading and carousel sit. */
 const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 
 /** Ivory for the copy on the navy, as in the hero. */
@@ -42,14 +43,16 @@ const BESTSELLERS: { title: string; src?: string; contain?: boolean }[] = [
 
 /**
  * "Holiday Bestsellers" - laid out like the matching section on Stuller's
- * holiday page: a full-bleed banner with a centred heading and line of copy,
- * a carousel of white product cards, each with its own red "Shop" button.
+ * holiday page: a full-bleed banner with a heading and line of copy (centred
+ * on phones, on the left from 640px like the other sections), a carousel
+ * of white product cards, each with its own red "Shop" button.
  *
  * Every card links to /categories until the product pages exist.
  */
 export function GiftGuideBestsellers() {
   return (
     <section
+      id="bestsellers"
       aria-labelledby="bestsellers-heading"
       className="relative isolate overflow-hidden bg-[#0b1a3d] px-edge py-8 lg:px-[calc(var(--spacing-edge)/2)] lg:py-[clamp(1.75rem,2.25vw,2.5rem)]"
       style={{ color: IVORY }}
@@ -68,14 +71,12 @@ export function GiftGuideBestsellers() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_75%_at_50%_50%,rgba(5,13,35,0.65),transparent)]" />
       </div>
 
-      <div className="text-center">
-        <h2
-          id="bestsellers-heading"
-          className="font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.06] font-medium italic"
-        >
+      {/* On the page gutter, where the carousel runs on half of it */}
+      <div className="max-sm:text-center lg:px-[calc(var(--spacing-edge)/2)]">
+        <h2 id="bestsellers-heading" className={HEADING}>
           Holiday Bestsellers
         </h2>
-        <p className="mx-auto mt-4 max-w-[60ch] max-sm:hidden text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+        <p className={`mt-4 max-w-[60ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
           A selection of our most-loved styles for the holiday season, from
           everyday essentials to classic diamond gifts.
         </p>
@@ -84,7 +85,11 @@ export function GiftGuideBestsellers() {
       {/* The carousel spans the full width between the page gutters rather
           than the centred column the copy uses */}
       <div className="mt-6">
-        <GiftGuideCarousel label="bestsellers" slideClassName={PRODUCT_SLIDE}>
+        <GiftGuideCarousel
+          label="bestsellers"
+          slideClassName={PRODUCT_SLIDE}
+          autoplay
+        >
           {BESTSELLERS.map((piece) => (
             <ProductCard
               key={piece.title}

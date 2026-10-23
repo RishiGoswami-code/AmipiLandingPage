@@ -5,6 +5,9 @@ import type { ReactNode } from "react";
 type Variant = "solid" | "dark" | "gold" | "jewel" | "outline" | "light";
 type Size = "xs" | "sm" | "md" | "hero";
 type Icon = "arrow" | "dot" | "gem" | "none";
+/** `roll` swaps the label for a copy of itself on hover; `color` keeps the
+ * label still and answers the hover with a change of button colour. */
+type Hover = "roll" | "color";
 
 type PillButtonProps = {
   href?: string;
@@ -13,6 +16,7 @@ type PillButtonProps = {
   variant?: Variant;
   size?: Size;
   icon?: Icon;
+  hover?: Hover;
   className?: string;
   children: ReactNode;
 };
@@ -75,6 +79,18 @@ const VARIANT_CLASSES: Record<Variant, string> = {
     "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };
 
+/* For `hover="color"`: the same resting colours, with a hover that changes
+   the colour outright rather than deepening it a shade, since the colour
+   change is the whole hover signal. Champagne lightens to ivory, white warms
+   to champagne, navy turns antique gold. Variants not listed keep their own
+   hover. */
+const COLOR_HOVER_CLASSES: Partial<Record<Variant, string>> = {
+  gold: "bg-[#dfbf7b] text-navy-950 hover:bg-[#f5efe4]",
+  light:
+    "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-[#dfbf7b]",
+  dark: "bg-navy-900 text-ice-100 hover:bg-[#8a6630] hover:text-white",
+};
+
 /* Letterspacing lives here rather than in the shared base string above, so a
    size can set its own. Two `tracking-*` utilities of equal specificity would
    otherwise race on stylesheet order, which is not something a call site should
@@ -121,6 +137,9 @@ const SIZE_CLASSES: Record<Size, string> = {
  * to poke the "hidden" copy back above the clip line - exactly the smeared
  * double-text this button used to render. A straight vertical roll has no
  * such failure mode at any label width, so that is what ships.
+ *
+ * `hover="color"` turns the roll off: one still label, and the hover shown
+ * by the button's colour instead (the gift guide uses this).
  */
 export function PillButton({
   href,
@@ -129,30 +148,35 @@ export function PillButton({
   variant = "solid",
   size = "md",
   icon = "none",
+  hover = "roll",
   className = "",
   children,
 }: PillButtonProps) {
   const classes = [
     "group relative inline-flex shrink-0 items-center justify-center rounded-full",
-    "font-semibold uppercase transition-[background-color,border-color,box-shadow] duration-300",
-    VARIANT_CLASSES[variant],
+    "font-semibold uppercase transition-[background-color,border-color,box-shadow,color] duration-300",
+    (hover === "color" && COLOR_HOVER_CLASSES[variant]) || VARIANT_CLASSES[variant],
     SIZE_CLASSES[size],
     className,
   ].join(" ");
 
   const content = (
     <>
-      <span className="relative block overflow-hidden leading-none">
-        <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
-          {children}
+      {hover === "color" ? (
+        <span className="block leading-none">{children}</span>
+      ) : (
+        <span className="relative block overflow-hidden leading-none">
+          <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
+            {children}
+          </span>
+          <span
+            aria-hidden
+            className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
+          >
+            {children}
+          </span>
         </span>
-        <span
-          aria-hidden
-          className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
-        >
-          {children}
-        </span>
-      </span>
+      )}
       {icon === "arrow" && (
         <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1" />
       )}

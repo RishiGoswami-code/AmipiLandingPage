@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
-import { BannerTitle } from "./BannerTitle";
+import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** Ivory for the copy on the gold, as on the navy bands. */
 const IVORY = "#f5efe4";
@@ -32,6 +32,7 @@ export function GiftGuideBridal() {
     // Desktop height follows the copy, with only a little padding above and
     // below; the picture covers the band, cropped top and bottom.
     <section
+      id="bridal"
       aria-labelledby="bridal-heading"
       className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[calc(100vw*5/8)] max-sm:pb-12 xl:py-10"
       style={{ color: IVORY, backgroundColor: BRONZE }}
@@ -61,8 +62,8 @@ export function GiftGuideBridal() {
       <div className="w-full px-edge">
         <div className="max-sm:text-center">
           {/* The same staggered title as the Diamonds and Bezel banners,
-              its longer lead set a step smaller and broken over two lines,
-              with "Yes" as the gold accent */}
+              its longer lead broken over two lines, with "Yes" as the gold
+              accent */}
           <BannerTitle
             id="bridal-heading"
             lead={
@@ -72,9 +73,8 @@ export function GiftGuideBridal() {
               </>
             }
             accent="“Yes”"
-            long
           />
-          <p className="mt-5 max-w-[48ch] max-sm:hidden text-[clamp(1rem,1.3vw,1.25rem)] leading-relaxed text-[#f5efe4]/80">
+          <p className={`mt-5 max-w-[48ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
             Celebrate forever with our newest bridal styles: timeless
             solitaires, modern settings, and stackable bands designed for
             proposals, weddings, and every moment after.
@@ -85,6 +85,7 @@ export function GiftGuideBridal() {
               variant="gold"
               size="sm"
               icon="arrow"
+              hover="color"
             >
               Shop Now
             </PillButton>

@@ -10,6 +10,7 @@ import { GiftGuideCustom } from "@/components/gift-guide/GiftGuideCustom";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
 import { GiftGuideConnect } from "@/components/gift-guide/GiftGuideConnect";
+import { GiftGuideRegisterTab } from "@/components/gift-guide/GiftGuideRegisterTab";
 import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
 
 /*
@@ -83,23 +84,29 @@ export const metadata: Metadata = {
  * gift-guide sections leaves the same small margin left and right.
  * --gift-gap is the matching space above and below the plain sections, a
  * little more than the side gutter (about 24px on phones, 50px at 1440).
+ *
+ * A thin white line runs between every two sections, from the masthead
+ * down to the footer, so each banner and fold reads as its own panel.
  */
 export default function GiftGuidePage() {
   return (
-    <div className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
-      <GiftGuideHero />
-      <GiftGuideTrends />
-      <GiftGuideJewelryTypes />
-      <GiftGuideBrilliance />
-      <GiftGuideBridal />
-      <GiftGuideBestsellers />
-      <GiftGuideCustom />
-      <GiftGuideBezel />
-      <GiftGuideColor />
-      <GiftGuideConnect />
+    <div data-no-navbar className={`${bodoniModa.variable} ${cormorantItalic.variable} min-h-svh bg-[#f5efe4] [--spacing-edge:max(1rem,3vw)] [--gift-gap:clamp(1.5rem,3.5vw,3.5rem)] bg-[url(/gift-guide/paper-grain.svg)]`}>
+      <div className="[&>*+*]:border-t-[3px] [&>*+*]:border-white">
+        <GiftGuideHero />
+        <GiftGuideTrends />
+        <GiftGuideJewelryTypes />
+        <GiftGuideBrilliance />
+        <GiftGuideBridal />
+        <GiftGuideBestsellers />
+        <GiftGuideCustom />
+        <GiftGuideBezel />
+        <GiftGuideColor />
+        <GiftGuideConnect />
+      </div>
       {/* The site chrome is hidden on this route (layout.tsx), so the home
           page's yellow partner belt is added here to close the page */}
       <PartnerMarquee />
+      <GiftGuideRegisterTab />
     </div>
   );
 }

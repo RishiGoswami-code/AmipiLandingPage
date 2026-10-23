@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HEADING } from "./BannerTitle";
 
 /** Navy from the hero banner, used here for the heading. */
 const NAVY = "#0b1a3d";
@@ -57,15 +58,17 @@ const MODEL_SRC = "/gift-guide/trends/model.webp";
 export function GiftGuideTrends() {
   return (
     <section
+      id="trends"
       aria-labelledby="trends-heading"
       className="px-edge pt-(--gift-gap) pb-(--gift-gap) lg:pt-[calc(var(--gift-gap)/3)]"
     >
       <div className="grid overflow-hidden rounded-2xl border border-[#141414]/[0.06] bg-white shadow-[0_30px_70px_-40px_rgba(11,26,61,0.35)] lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
         <div className="px-4 pt-10 pb-4 sm:px-8 lg:px-8 lg:pt-12 lg:pb-8 xl:px-10">
-          {/* Cormorant Italic, as "Holiday" in the hero */}
+          {/* The page's section heading: Cormorant Italic, as "Holiday" in
+              the hero. Centred on phones, left from 640px like the rest */}
           <h2
             id="trends-heading"
-            className="text-center font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
+            className={`max-sm:text-center ${HEADING}`}
             style={{ color: NAVY }}
           >
             Top Holiday Trends

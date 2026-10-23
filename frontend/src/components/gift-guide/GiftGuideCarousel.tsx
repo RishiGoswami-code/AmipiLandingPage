@@ -19,8 +19,14 @@ type GiftGuideCarouselProps = {
   /** Width of each slide per breakpoint - how many fit, and how much of the
    * next one peeks in. */
   slideClassName: string;
+  /** Move on a page every few seconds on its own (see AUTOPLAY_MS). */
+  autoplay?: boolean;
   children: ReactNode;
 };
+
+/** How long autoplay rests on a page, and how long it waits after the
+ * visitor last touched, clicked or scrolled the carousel. */
+const AUTOPLAY_MS = 4000;
 
 /**
  * The carousel the gift guide's Stuller-style sections share (Holiday
@@ -28,12 +34,19 @@ type GiftGuideCarouselProps = {
  * scroll-snap track, so it swipes on phones, with round white arrows either
  * side on desktop and page dots in a pill under it. The arrows and dots only
  * drive the track's scroll position.
+ *
+ * With `autoplay` it also moves on a page every four seconds and wraps back
+ * to the start after the last. It holds while the pointer is over it, while
+ * focus is inside it, for a while after the visitor uses it, while it is
+ * off screen, and not at all for visitors who prefer reduced motion.
  */
 export function GiftGuideCarousel({
   label,
   slideClassName,
+  autoplay = false,
   children,
 }: GiftGuideCarouselProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(1);
@@ -75,6 +88,74 @@ export function GiftGuideCarousel({
     };
   }, [measure]);
 
+  useEffect(() => {
+    const root = rootRef.current;
+    const track = trackRef.current;
+    if (!autoplay || !root || !track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let visible = false;
+    let touching = false;
+    let lastUsed = 0;
+    const used = () => {
+      lastUsed = Date.now();
+    };
+    const touchStart = () => {
+      touching = true;
+      used();
+    };
+    const touchEnd = () => {
+      touching = false;
+      used();
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(root);
+    root.addEventListener("pointerdown", used);
+    root.addEventListener("wheel", used, { passive: true });
+    root.addEventListener("keydown", used);
+    root.addEventListener("touchstart", touchStart, { passive: true });
+    root.addEventListener("touchend", touchEnd);
+    root.addEventListener("touchcancel", touchEnd);
+
+    const timer = window.setInterval(() => {
+      if (
+        !visible ||
+        touching ||
+        document.hidden ||
+        root.matches(":hover") ||
+        root.contains(document.activeElement) ||
+        Date.now() - lastUsed < AUTOPLAY_MS
+      )
+        return;
+      const s = step();
+      if (!s) return;
+      const last = Math.max(
+        0,
+        Math.ceil((track.scrollWidth - track.clientWidth) / s - 0.05),
+      );
+      const current = Math.min(Math.round(track.scrollLeft / s), last);
+      const next = current >= last ? 0 : current + 1;
+      track.scrollTo({ left: next * s, behavior: "smooth" });
+    }, AUTOPLAY_MS);
+
+    return () => {
+      window.clearInterval(timer);
+      observer.disconnect();
+      root.removeEventListener("pointerdown", used);
+      root.removeEventListener("wheel", used);
+      root.removeEventListener("keydown", used);
+      root.removeEventListener("touchstart", touchStart);
+      root.removeEventListener("touchend", touchEnd);
+      root.removeEventListener("touchcancel", touchEnd);
+    };
+  }, [autoplay, step]);
+
   const scrollToPage = (to: number) => {
     const target = Math.max(0, Math.min(to, pages - 1));
     trackRef.current?.scrollTo({ left: target * step(), behavior: "smooth" });
@@ -84,7 +165,7 @@ export function GiftGuideCarousel({
     "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 cursor-pointer place-items-center rounded-full bg-white text-[#0b1a3d] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.5)] transition-opacity disabled:cursor-default disabled:opacity-40 lg:grid";
 
   return (
-    <div className="text-center">
+    <div ref={rootRef} className="text-center">
       <div className="relative lg:px-12">
         <button
           type="button"
@@ -187,7 +268,7 @@ export function ProductCard({
         )}
       </div>
       <p
-        className={`px-4 pt-2 text-[0.9375rem] leading-snug max-sm:text-center ${shop ? "pb-3" : "pb-5"}`}
+        className={`px-4 pt-2 text-[0.9375rem] leading-snug font-semibold max-sm:text-center ${shop ? "pb-3" : "pb-5"}`}
       >
         {title}
       </p>

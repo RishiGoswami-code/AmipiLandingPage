@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Gem, Lightbulb, Trophy, UserRound, type LucideIcon } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
+import { BannerTitle, SUBHEAD } from "./BannerTitle";
 
 /** Navy from the hero banner, used for the heading and reason titles. */
 const NAVY = "#0b1a3d";
@@ -70,6 +71,7 @@ const REASONS: { icon: LucideIcon; title: string; body: string }[] = [
 export function GiftGuideCustom() {
   return (
     <section
+      id="custom"
       aria-labelledby="custom-heading"
       className="relative isolate flex items-center overflow-hidden pt-8 max-sm:pt-[80vw] max-sm:pb-12 xl:py-[clamp(2rem,3vw,4rem)]"
       style={{ backgroundColor: CREAM }}
@@ -100,16 +102,10 @@ export function GiftGuideCustom() {
       <div className="w-full px-edge">
         <div className="max-w-[46rem] max-sm:text-center xl:max-[1500px]:max-w-[32rem]">
 
-          <h2
-            id="custom-heading"
-            className="font-[family-name:var(--font-bodoni)] text-[clamp(2.75rem,5.2vw,5.5rem)] leading-[1.02] font-normal xl:whitespace-nowrap"
-            style={{ color: NAVY }}
-          >
-            Custom{" "}
-            <span className="bg-[linear-gradient(180deg,#d4b06a_0%,#b8904e_50%,#8a6630_100%)] bg-clip-text pr-[0.08em] font-[family-name:var(--font-cormorant-italic)] text-[1.12em] font-medium text-transparent italic">
-              Jewelry
-            </span>
-          </h2>
+          {/* The page's two-line title, navy with the antique-gold accent */}
+          <div style={{ color: NAVY }}>
+            <BannerTitle id="custom-heading" lead="Custom" accent="Jewelry" tone="light" />
+          </div>
 
           {/* "Made for you" as a small label over the heading for the
               reasons */}
@@ -120,7 +116,7 @@ export function GiftGuideCustom() {
             Made for you
           </p>
           <h3
-            className="mt-1.5 font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.75rem,2.4vw,2.375rem)] leading-tight font-medium italic"
+            className={`mt-1.5 ${SUBHEAD}`}
             style={{ color: NAVY }}
           >
             Why Custom Jewelry?
@@ -147,7 +143,7 @@ export function GiftGuideCustom() {
                   >
                     {title}
                   </h4>
-                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#141414]/75 max-sm:hidden xl:max-[1500px]:hidden">
+                  <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#0b1a3d]/75 max-sm:hidden xl:max-[1500px]:hidden">
                     {body}
                   </p>
                 </div>
@@ -156,7 +152,7 @@ export function GiftGuideCustom() {
           </ul>
 
           <div className="mt-6 flex flex-wrap gap-3 max-sm:justify-center">
-            <PillButton href="/custom" variant="dark" size="sm" icon="arrow">
+            <PillButton href="/custom" variant="dark" size="sm" icon="arrow" hover="color">
               Get Started
             </PillButton>
           </div>

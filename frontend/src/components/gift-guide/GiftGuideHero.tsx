@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Mail, Phone } from "lucide-react";
 import { italiana } from "@/styles/fonts";
-import { GOLD_TEXT } from "./BannerTitle";
+import { CONTACT } from "@/components/nav/navigation";
+import { BannerTitle, SUBHEAD, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 gsap.registerPlugin(useGSAP);
 
@@ -16,6 +18,22 @@ const BANNER_SRC = "/gift-guide/navy-velvet-banner.webp";
 
 /** Ivory for the copy on the navy banner. */
 const IVORY = "#f5efe4";
+
+/** Navy for the masthead's wordmark, links and icons. */
+const NAVY = "#0b1a3d";
+
+/** One tab per section, for the masthead's quick links (wide screens). The
+ * hashes are the sections' ids. */
+const FOLDS = [
+  { label: "Trends", href: "#trends" },
+  { label: "Jewelry Types", href: "#jewelry-types" },
+  { label: "Diamonds", href: "#diamonds" },
+  { label: "Bridal", href: "#bridal" },
+  { label: "Bestsellers", href: "#bestsellers" },
+  { label: "Custom", href: "#custom" },
+  { label: "Bezel", href: "#bezel" },
+  { label: "Color", href: "#color" },
+];
 
 /** The banner photo, filling whichever box it is placed in. */
 function BannerImage({ position = "50% 50%" }: { position?: string }) {
@@ -49,15 +67,18 @@ const SPREAD = [
 ];
 
 /**
- * Holiday Gift Guide hero - trial design. The headline is laid out like the
- * banner on Stuller's holiday page: a large display word on the first line
- * and a serif capital word on the second, pushed right so the two lines stagger
- * rather than share a left edge. The collage on the right borrows the printed
+ * Holiday Gift Guide hero - trial design. The headline is the same two-line
+ * title as "The Season Starts with Diamonds" (BannerTitle): a Cormorant
+ * Italic line over a gold Bodoni line, pushed right so the two stagger.
+ * The collage on the right borrows the printed
  * catalog from landingPageTheme.jpeg; the cover carries a single cover line.
  *
  * The banner is held to 60-70% of the viewport height on desktop (on phones
  * it stacks and takes its natural height). The masthead sits above it,
- * outside that height, the way Stuller's site header sits above its banner.
+ * outside that height: one slim line with the wordmark at the left, a tab
+ * per section in the middle (from 1280px) and the phone, email and social
+ * links at the right (from 640px). On phones it is the wordmark alone,
+ * centred.
  *
  * Standalone: the root layout hides the site chrome on /gift-guide, so the
  * masthead wordmark is the way back home.
@@ -92,15 +113,17 @@ export function GiftGuideHero() {
 
   return (
     <div ref={rootRef} className="text-[#141414]">
-      {/* Masthead strip, on the cream above the banner */}
+      {/* Masthead: one slim line on the cream above the banner */}
       <header
         data-reveal
-        className="mx-edge flex items-center justify-between max-sm:justify-center border-b border-[#141414]/15 pt-6 pb-4 text-[11px] tracking-[0.35em] text-[#141414]/60 uppercase"
+        className="mx-edge flex items-center justify-between gap-6 border-b border-[#0b1a3d]/15 py-2.5 max-sm:justify-center"
+        style={{ color: NAVY }}
       >
         {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
             this page hides the site chrome and the wordmark is the way home.
+            Navy and a step larger, so the thin Italiana reads on the cream.
             Centred on phones, over the centred banner copy. */}
-        <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5 sm:gap-3">
           <Image
             quality={90}
             src="/icon.png"
@@ -108,22 +131,74 @@ export function GiftGuideHero() {
             aria-hidden
             width={512}
             height={512}
-            className="h-8 w-8 sm:h-9 sm:w-9"
+            className="h-9 w-9 sm:h-10 sm:w-10"
           />
           <span className="flex flex-col">
             <span
-              className={`${italiana.className} text-xl tracking-[0.06em] text-[#141414] uppercase transition-colors hover:text-[#a8803f] sm:text-2xl`}
+              className={`${italiana.className} text-[1.625rem] leading-none tracking-[0.06em] uppercase transition-colors hover:text-[#8a6630] sm:text-[1.875rem]`}
             >
               Amipi
             </span>
             {/* The anniversary line under the wordmark, in Cormorant Italic
-                on a metallic gold ramp - deeper than the champagne used on
-                the dark banners, so it holds on the cream */}
-            <span className="-mt-0.5 bg-[linear-gradient(100deg,#9a6b25_0%,#c9a04f_35%,#e6c47a_50%,#c9a04f_65%,#9a6b25_100%)] bg-clip-text font-[family-name:var(--font-cormorant-italic)] text-[13px] leading-tight font-semibold tracking-[0.04em] text-transparent normal-case italic lining-nums sm:text-[15px]">
+                on a metallic gold ramp - deep enough to hold on the cream */}
+            <span className="mt-0.5 bg-[linear-gradient(100deg,#7d5418_0%,#a87d32_35%,#c9a04f_50%,#a87d32_65%,#7d5418_100%)] bg-clip-text font-[family-name:var(--font-cormorant-italic)] text-[14px] leading-tight font-bold tracking-[0.04em] text-transparent italic lining-nums sm:text-[15px]">
               Celebrating 50 Years
             </span>
           </span>
         </Link>
+
+        {/* A tab per section, for quick access */}
+        <nav aria-label="Gift guide sections" className="hidden xl:block">
+          <ul className="flex items-center gap-[clamp(0.875rem,1.5vw,1.75rem)]">
+            {FOLDS.map((fold) => (
+              <li key={fold.href}>
+                <a
+                  href={fold.href}
+                  className="text-[11px] font-semibold tracking-[0.16em] whitespace-nowrap text-[#0b1a3d]/70 uppercase transition-colors hover:text-[#0b1a3d]"
+                >
+                  {fold.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Contact and social links, on the wordmark's line. The email
+            address gives way to its icon while the section tabs need the
+            room (1280 to 1535px). */}
+        <div className="hidden shrink-0 items-center gap-4 sm:flex">
+          <a
+            href={CONTACT.phone.href}
+            className="flex items-center gap-2 text-[13px] font-semibold whitespace-nowrap transition-colors hover:text-[#8a6630]"
+          >
+            <Phone aria-hidden className="h-4 w-4" />
+            {CONTACT.phone.label}
+          </a>
+          <a
+            href={CONTACT.email.href}
+            aria-label={`Email ${CONTACT.email.label}`}
+            className="flex items-center gap-2 text-[13px] font-semibold transition-colors hover:text-[#8a6630]"
+          >
+            <Mail aria-hidden className="h-4 w-4" />
+            <span className="xl:max-2xl:hidden">{CONTACT.email.label}</span>
+          </a>
+          <span aria-hidden className="h-5 w-px bg-[#0b1a3d]/20" />
+          <ul className="flex items-center gap-1.5">
+            {CONTACT.socials.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`AMIPI on ${label}`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[#0b1a3d]/20 transition-colors hover:border-[#0b1a3d] hover:bg-[#0b1a3d] hover:text-[#f5efe4]"
+                >
+                  <Icon className="h-[15px] w-[15px]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </header>
 
       {/* Hero: 65% of the viewport on desktop. The navy band runs edge to edge
@@ -131,10 +206,12 @@ export function GiftGuideHero() {
           and below it the way the products do on Stuller's banner. On phones,
           where the hero stacks, the band sits behind the copy only and the
           collage follows on the cream. */}
-      <section className="relative isolate mt-6 grid items-center gap-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:py-[clamp(1rem,3vh,2rem)]">
+      <section className="relative isolate mt-6 grid items-center gap-10 lg:mt-0 lg:h-[65svh] lg:min-h-[30rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:px-edge lg:pt-[clamp(0.25rem,1vh,0.75rem)] lg:pb-[clamp(1rem,3vh,2rem)]">
+        {/* The band starts close under the masthead, so little cream shows
+            between the two; the catalog pages still break out of it */}
         <div
           aria-hidden
-          className="absolute inset-x-0 top-[13%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block"
+          className="absolute inset-x-0 top-[5%] bottom-[13%] -z-10 hidden overflow-hidden bg-[#0b1a3d] lg:block"
         >
           <BannerImage />
           {/* Soft navy pool behind the copy, so the left ribbon's sheen
@@ -153,33 +230,22 @@ export function GiftGuideHero() {
             <div className="absolute inset-0 bg-[#050d23]/50" />
           </div>
           <div className="max-w-2xl max-sm:text-center">
-            <h1 data-reveal className="leading-none">
-              {/* Cormorant Garamond Italic (the real italic, loaded in the route's
-                page.tsx) at 500 - heavy enough that its hairlines survive on
-                the velvet, calligraphic without turning into a script. */}
-              <span className="block font-[family-name:var(--font-cormorant-italic)] text-[clamp(3.5rem,min(7.5vw,11.5vh),6.25rem)] leading-[1.1] font-medium italic">
-                Holiday
-              </span>{" "}
-              {/* Second line pushed right - the stagger on Stuller's "Magic /
-                MOMENT" - so the two lines don't share a left edge. */}
-              <span
-                className={`mt-[0.2em] ml-[clamp(2.75rem,6.5vw,6.5rem)] max-sm:ml-0 block font-[family-name:var(--font-bodoni)] text-[clamp(2.25rem,min(4.8vw,7.5vh),4.25rem)] font-normal tracking-[0.04em] ${GOLD_TEXT}`}
-              >
-                Gift Guide
-              </span>
-            </h1>
+            {/* The same title as "The Season Starts with Diamonds" */}
+            <div data-reveal>
+              <BannerTitle as="h1" lead="Holiday" accent="Gift Guide" />
+            </div>
 
-            {/* Tagline: Cormorant italic like "Holiday", a step down in size */}
+            {/* Tagline: the page's subheading style */}
             <p
               data-reveal
-              className="mt-[clamp(0.5rem,1.5vh,1rem)] font-[family-name:var(--font-cormorant-italic)] text-[clamp(1.375rem,min(2.2vw,3.6vh),2rem)] leading-snug font-medium italic text-[#f5efe4]/90"
+              className={`mt-[clamp(0.75rem,2vh,1.25rem)] ${SUBHEAD} text-[#f5efe4]/90`}
             >
               Make This Season One to Remember.
             </p>
 
             <p
               data-reveal
-              className="mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:hidden text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-relaxed text-[#f5efe4]/80"
+              className={`mt-[clamp(0.75rem,2.5vh,1.5rem)] max-w-[50ch] max-sm:hidden ${SUBTEXT} ${SUBTEXT_ON_DARK}`}
             >
               From timeless favorites to standout new arrivals, explore a
               collection of diamonds and fine jewelry your customers will love

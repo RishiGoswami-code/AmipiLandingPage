@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
-import { BannerTitle } from "./BannerTitle";
+import { BannerTitle, SUBTEXT, SUBTEXT_ON_DARK } from "./BannerTitle";
 
 /** The burgundy velvet banner, from GiftPageImages/Burgundy Velvet Jewelry
  * Luxe.png: 3:1, plain deep red across the left where the copy sits, and a
@@ -30,6 +30,7 @@ export function GiftGuideBezel() {
     // Desktop height follows the copy, with only a little padding above and
     // below; the picture covers the band, cropped top and bottom.
     <section
+      id="bezel"
       aria-labelledby="bezel-heading"
       className="relative isolate flex items-center overflow-hidden pt-14 max-sm:pt-[80vw] max-sm:pb-12 lg:py-10"
       style={{ color: IVORY, backgroundColor: RED }}
@@ -58,9 +59,9 @@ export function GiftGuideBezel() {
               plain middle of the banner, while the paragraph keeps a
               readable measure */}
           <div className="max-sm:text-center">
-            <BannerTitle id="bezel-heading" lead="Bezel-Set" accent="Styles" large />
+            <BannerTitle id="bezel-heading" lead="Bezel-Set" accent="Styles" />
 
-            <p className="mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:hidden max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-[clamp(1rem,1.25vw,1.1875rem)] leading-relaxed text-pretty text-[#f5efe4]/80">
+            <p className={`mt-[clamp(1rem,2.5vh,1.5rem)] max-sm:hidden max-w-[64ch] lg:max-w-[52ch] xl:max-w-[64ch] text-pretty ${SUBTEXT} ${SUBTEXT_ON_DARK}`}>
               A fresh take on diamond jewelry, bezel settings frame each stone
               with a smooth, polished edge that feels modern, refined, and easy
               to wear. From rings to necklaces, these are pieces that work
@@ -69,7 +70,7 @@ export function GiftGuideBezel() {
             </p>
 
             <div className="mt-[clamp(1.25rem,3vh,2rem)]">
-              <PillButton href="/categories" variant="gold" size="sm" icon="arrow">
+              <PillButton href="/categories" variant="gold" size="sm" icon="arrow" hover="color">
                 Shop Bezel Jewelry
               </PillButton>
             </div>

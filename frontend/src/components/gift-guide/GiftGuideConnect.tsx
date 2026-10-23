@@ -24,8 +24,9 @@ const DETAIL =
  * running across between them. A hairline along the bottom separates it
  * from the yellow partner belt below.
  *
- * The social links, phone and email are the navbar's (CONTACT); the address
- * is the site footer's. No mailing-list
+ * The left column opens with a few lines on AMIPI, from the About Us page
+ * and the site footer. The social links, phone and email are the navbar's
+ * (CONTACT); the address is the site footer's. No mailing-list
  * service is connected yet, so, as in the footer's NewsletterCard, a valid
  * address gets an honest "not connected" reply.
  */
@@ -47,7 +48,17 @@ export function GiftGuideConnect() {
       {/* --gap is the space either side of the dotted rules */}
       <div className="grid [--gap:clamp(2rem,4vw,4.5rem)] max-lg:text-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="pb-8 lg:pr-[var(--gap)] lg:pb-0">
-          <h2 className={LABEL}>Follow Us</h2>
+          {/* AMIPI in brief, from the About Us page and the site footer */}
+          <p className="font-[family-name:var(--font-cormorant-italic)] text-2xl leading-snug font-semibold italic">
+            AMIPI Inc, established since 1976.
+          </p>
+          <p className="mt-2 max-w-[38ch] text-[15px] leading-relaxed text-[#0b1a3d]/75 max-lg:mx-auto">
+            Wholesale diamonds and fine jewelry, priced fair and graded honest:
+            transparent fixed pricing, GIA standard grading, actual weights and
+            the No Bull philosophy.
+          </p>
+
+          <h2 className={`mt-7 ${LABEL}`}>Follow Us</h2>
           <ul className="mt-5 flex flex-wrap gap-3 max-lg:justify-center">
             {CONTACT.socials.map(({ label, href, Icon }) => (
               <li key={label}>
@@ -118,19 +129,19 @@ export function GiftGuideConnect() {
           <h2 className={LABEL}>Contact Us</h2>
           <ul className="mt-5 space-y-3.5">
             <li>
-              <a href={CONTACT.phone.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d]`}>
-                <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+              <a href={CONTACT.phone.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d] hover:underline hover:underline-offset-4`}>
+                <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0b1a3d]" />
                 {CONTACT.phone.label}
               </a>
             </li>
             <li>
-              <a href={CONTACT.email.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d]`}>
-                <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+              <a href={CONTACT.email.href} className={`${DETAIL} transition-colors hover:text-[#0b1a3d] hover:underline hover:underline-offset-4`}>
+                <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0b1a3d]" />
                 {CONTACT.email.label}
               </a>
             </li>
             <li className={DETAIL}>
-              <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6630]" />
+              <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-[#0b1a3d]" />
               <address className="not-italic">
                 42 W 48th St, 15th Flr
                 <br />

@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 /**
  * Footer newsletter sign-up, styled to sit with the rest of the footer: a
  * soft rounded card (the same faint border and shadow as the site's other
- * cards), the footer columns' small gold letterspaced label, a serif heading,
+ * cards), the footer columns' small navy letterspaced label, a serif heading,
  * the footer's muted body text, and a pill email field with a gold Subscribe
  * pill like the navbar's Login.
  *
@@ -27,7 +27,7 @@ export function NewsletterCard() {
       id="newsletter"
       className="w-full max-w-[19rem] rounded-2xl border border-[#a47a35]/25 bg-[#fcf4dc] p-6 shadow-[0_18px_40px_-30px_rgba(27,36,56,0.45)]"
     >
-      <p className="text-[11px] font-semibold tracking-[0.3em] text-gold-500 uppercase">
+      <p className="text-[11px] font-semibold tracking-[0.3em] text-navy-900 uppercase">
         Newsletter
       </p>
       <p className="mt-3 font-[family-name:var(--font-cormorant)] text-2xl leading-tight text-navy-900">

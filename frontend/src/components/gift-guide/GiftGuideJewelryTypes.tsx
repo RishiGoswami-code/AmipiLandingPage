@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { HEADING } from "./BannerTitle";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./SnowGlobe.module.css";
 
@@ -143,13 +144,14 @@ export function GiftGuideJewelryTypes() {
 
   return (
     <section
+      id="jewelry-types"
       aria-labelledby="types-heading"
-      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pb-[max(0px,calc(var(--gift-gap)-1.5rem))]"
+      className="bg-[linear-gradient(180deg,rgb(238_243_248/0)_0%,#eef3f8_18%,#eef3f8_82%,rgb(238_243_248/0)_100%)] pt-[calc(var(--gift-gap)*0.6)] pb-[max(0px,calc(var(--gift-gap)-1.5rem))]"
     >
       <div className="flex items-end justify-between gap-6 px-edge">
         <h2
           id="types-heading"
-          className="max-sm:w-full max-sm:text-center font-[family-name:var(--font-cormorant-italic)] text-[clamp(2.5rem,4.2vw,3.75rem)] leading-[1.1] font-medium italic"
+          className={`max-sm:w-full max-sm:text-center ${HEADING}`}
           style={{ color: NAVY }}
         >
           Shop by Jewelry Type
