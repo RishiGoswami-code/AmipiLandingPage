@@ -203,7 +203,7 @@ export function GiftGuideCarousel({
       </div>
 
       {pages > 1 && (
-        <div className="mt-1 inline-flex items-center gap-2.5 px-3 py-2">
+        <div className="mt-1 inline-flex items-center px-1">
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
@@ -211,8 +211,9 @@ export function GiftGuideCarousel({
               aria-label={`Show ${label} page ${i + 1}`}
               aria-current={i === page}
               onClick={() => scrollToPage(i)}
-              className={`h-2 w-2 cursor-pointer rounded-full border border-[#141a17]/50 transition-colors ${
-                i === page ? "bg-[#141a17]" : "bg-transparent"
+              // A 24px tap target around the 8px dot it draws
+              className={`grid h-6 w-6 cursor-pointer place-items-center before:h-2 before:w-2 before:rounded-full before:border before:border-[#141a17]/50 before:transition-colors before:content-[''] ${
+                i === page ? "before:bg-[#141a17]" : "before:bg-transparent"
               }`}
             />
           ))}

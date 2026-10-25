@@ -6,15 +6,18 @@ import { CHAMPAGNE, EYEBROW } from "./GiftGuideTheme";
  * A full-width photo band, after the team's "Made for You" mockup: the copy
  * - an eyebrow, a large upright heading, a short gold rule, then the body
  * and buttons - in ivory over the band's plain ground at the left, and the
- * photo at the right, fading into that ground so there is no seam.
+ * photo behind it, fading into that ground so there is no seam.
  *
- * The photos are 3:1 with the jewelry towards the right, so from 1024px the
- * photo is a box the band's full height and 62% of its width (58% from
- * 1536px), cropped to `position`; the band is at least 30vw tall (26rem),
- * so the crop stays close to the photo's own shape. A further fade in the
- * ground colour runs in from the left behind the copy, so it reads where
- * a long line comes near the jewelry. Below 1024px the photo leads at 3:2
- * and the copy follows on the ground, the two reading as one block.
+ * The photos are 3:1, shot on the band's own ground with the left half
+ * empty and the jewelry from about 53% across. From 1024px the photo is
+ * held at its own shape to 76% of the band's width, against the right edge
+ * and centred top to bottom, so the jewelry sits at a modest scale from
+ * about 64% to 94% across, well clear of the copy (held to the left half).
+ * The band is at least 28vw tall (24rem), a little taller than the photo,
+ * which is never cut off; its top, bottom and plain left edges fade into
+ * the ground. Below 1024px the photo leads at 2:1, cropped to `position`,
+ * its bottom edge fading into the ground where the copy follows, the two
+ * reading as one block.
  *
  * Its own <section> with an id, for the masthead's tabs: the page's
  * negative scroll margin applies, as it is a direct child of the page.
@@ -45,23 +48,18 @@ export function GiftGuideBanner({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="relative isolate flex flex-col overflow-hidden text-[#f5efe4] lg:min-h-[max(26rem,30vw)] lg:justify-center"
+      className="relative isolate flex flex-col overflow-hidden text-[#f5efe4] lg:min-h-[max(24rem,28vw)] lg:justify-center"
       style={{ backgroundColor: ground }}
     >
-      <div className="relative aspect-[3/2] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[62%] lg:[mask-image:linear-gradient(to_right,transparent,#000_35%)] 2xl:w-[58%]">
+      <div className="relative aspect-[2/1] [mask-image:linear-gradient(to_bottom,#000_82%,transparent)] lg:absolute lg:right-0 lg:top-1/2 lg:w-[76%] lg:-z-10 lg:aspect-[3/1] lg:-translate-y-1/2 lg:[mask-composite:intersect] lg:[mask-image:linear-gradient(to_right,transparent,#000_25%),linear-gradient(to_bottom,transparent,#000_10%,#000_90%,transparent)]">
         <Image
           quality={90}
           src={src}
           alt=""
           fill
-          sizes="(min-width: 1024px) 62vw, 100vw"
+          sizes="(min-width: 1024px) 76vw, 100vw"
           style={{ objectPosition: position }}
           className={`object-cover ${photoClassName}`}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 hidden lg:block"
-          style={{ background: `linear-gradient(90deg, ${ground} 0%, ${ground}b3 25%, ${ground}00 50%)` }}
         />
       </div>
 

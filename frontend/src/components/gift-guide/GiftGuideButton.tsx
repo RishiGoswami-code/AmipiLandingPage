@@ -40,17 +40,15 @@ export function GiftGuideButton({
 
 /**
  * The quiet call to action under a card or globe, as in the mockups: red
- * tracked capitals and an arrow, no button. Underlined on hover, the arrow
- * nudging on.
+ * tracked capitals and an arrow, no button. The whole card around it is the
+ * link (a `group`), so this is drawn, not nested: hovering anywhere on the
+ * card underlines it and nudges the arrow on.
  */
-export function GiftGuideTextLink({ href, children }: { href: string; children: ReactNode }) {
+export function GiftGuideTextLabel({ children }: { children: ReactNode }) {
   return (
-    <Link
-      href={href}
-      className="group inline-flex items-center gap-1.5 text-[11px] leading-none font-semibold tracking-[0.2em] text-(--gift-cta) uppercase underline-offset-4 transition-colors hover:text-(--gift-cta-hover) hover:underline"
-    >
+    <span className="inline-flex items-center gap-1.5 text-[11px] leading-none font-semibold tracking-[0.2em] text-(--gift-cta) uppercase underline-offset-4 transition-colors group-hover:text-(--gift-cta-hover) group-hover:underline">
       {children}
       <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1" />
-    </Link>
+    </span>
   );
 }

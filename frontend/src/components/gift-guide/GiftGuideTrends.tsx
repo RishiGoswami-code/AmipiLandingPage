@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { GiftGuideTextLink } from "./GiftGuideButton";
+import Link from "next/link";
+import { GiftGuideTextLabel } from "./GiftGuideButton";
 import { BAND_GREEN, BandHeading, INK } from "./GiftGuideTheme";
 
 /**
@@ -46,7 +47,9 @@ const TRENDS = [
  * link under it. One row of six from 1280px, three per row on tablets and
  * laptops, two on phones.
  *
- * Every link goes to /categories, since there are no per-trend pages yet.
+ * Each whole card - photo, name and "Shop Now" - is one link, as on the
+ * Holiday Bestsellers tiles. Every link goes to /categories, since there
+ * are no per-trend pages yet.
  */
 export function GiftGuideTrends() {
   return (
@@ -59,27 +62,32 @@ export function GiftGuideTrends() {
 
       <ul className="mt-[clamp(1.75rem,3vw,2.75rem)] grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:gap-5 xl:grid-cols-6">
         {TRENDS.map((trend) => (
-          <li key={trend.title} className="flex flex-col overflow-hidden rounded-[2px] bg-white">
-            <div className="relative aspect-[4/5] bg-[#ebe7df]">
-              <Image
-                quality={90}
-                src={trend.src}
-                alt=""
-                fill
-                sizes="(min-width: 1280px) 16vw, (min-width: 768px) 32vw, 48vw"
-                style={{ objectPosition: trend.position }}
-                className="object-cover"
-              />
-            </div>
-            <div className="flex flex-1 flex-col items-center gap-3 px-3 pt-4 pb-5 text-center">
-              <h3
-                className="font-[family-name:var(--font-cormorant)] text-[clamp(1.125rem,1.4vw,1.375rem)] leading-tight font-semibold"
-                style={{ color: INK }}
-              >
-                {trend.title}
-              </h3>
-              <GiftGuideTextLink href="/categories">Shop Now</GiftGuideTextLink>
-            </div>
+          <li key={trend.title} className="flex">
+            <Link
+              href="/categories"
+              className="group flex w-full flex-col overflow-hidden rounded-[2px] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5efe4]"
+            >
+              <div className="relative aspect-[4/5] bg-[#ebe7df]">
+                <Image
+                  quality={90}
+                  src={trend.src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1280px) 16vw, (min-width: 768px) 32vw, 48vw"
+                  style={{ objectPosition: trend.position }}
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-1 flex-col items-center gap-3 px-3 pt-4 pb-5 text-center">
+                <h3
+                  className="font-[family-name:var(--font-cormorant)] text-[clamp(1.125rem,1.4vw,1.375rem)] leading-tight font-semibold"
+                  style={{ color: INK }}
+                >
+                  {trend.title}
+                </h3>
+                <GiftGuideTextLabel>Shop Now</GiftGuideTextLabel>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

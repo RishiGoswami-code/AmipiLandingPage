@@ -3,21 +3,25 @@ import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGu
 
 /**
  * "Color" - the coloured-gemstone holiday trend, from GiftPageImages/COLOR/
- * Luxury Gemstone Jewelry on Golden Satin.png: 3:1, dark bronze satin at the
- * left and four pieces on golden satin from 47% to 95% across - a ruby
- * tennis bracelet, a diamond and sapphire necklace hanging in from the top
- * edge, an emerald and diamond band, and emerald hoops. The other half of
- * the row with Bezel (GiftGuideHalfBanner), on the photo's own bronze.
+ * Emerald Hoops and Ruby Tennis Bracelet.png: a ruby tennis bracelet and a
+ * pair of emerald hoops on espresso satin at the right-centre, on a plain
+ * espresso ground (#1f0d02) - the dark half beside Bezel's light one, as
+ * the mockup pairs a light and a dark half. The square photo is widened on
+ * the left with that ground, to 1600x1254, so the bracelet starts about
+ * halfway across and clears the copy, and the photo's own plain side sits
+ * behind the copy without a veil; `medium` keeps the pair from shrinking
+ * into the corner side by side (GiftGuideHalfBanner).
  */
 export function GiftGuideColor() {
   return (
     <GiftGuideHalfBanner
       id="color"
       title="Color"
-      src="/gift-guide/color-gemstones-golden-satin-v2-banner.webp"
-      position="94% 50%"
-      photo="small"
-      ground="#251203"
+      src="/gift-guide/color/color-emerald-ruby-espresso-banner.webp"
+      position="100% 50%"
+      photo="medium"
+      ground="#1f0d02"
+      veil={false}
     >
       <HalfBannerText>
         Bring a little more personality to holiday gifting with rich emeralds,

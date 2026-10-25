@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { GiftGuideTextLink } from "./GiftGuideButton";
+import { GiftGuideTextLabel } from "./GiftGuideButton";
 import { BAND_WHITE, BandHeading, EYEBROW, INK } from "./GiftGuideTheme";
 import styles from "./SnowGlobe.module.css";
 
@@ -99,8 +100,9 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  * desktop.
  *
  * Each globe ends in its name, in small tracked capitals as in the team's
- * mockups, and a red "Shop Now" link to /categories, since there are no
- * per-type pages yet.
+ * mockups, and a red "Shop Now". The whole slide - globe, name and "Shop
+ * Now" - is one link, as on the Holiday Bestsellers tiles, to /categories
+ * since there are no per-type pages yet.
  */
 export function GiftGuideJewelryTypes() {
   const rowRef = useRef<HTMLUListElement>(null);
@@ -187,15 +189,20 @@ export function GiftGuideJewelryTypes() {
         {TYPES.map((type) => (
           <li
             key={type.label}
-            className="flex w-[58vw] shrink-0 snap-start flex-col items-center sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
+            className="w-[58vw] shrink-0 snap-start sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
-            <SnowGlobe src={type.src} wide={type.wide} />
-            <p className={`mt-4 text-center sm:mt-5 ${EYEBROW}`} style={{ color: INK }}>
-              {type.label}
-            </p>
-            <div className="mt-3">
-              <GiftGuideTextLink href="/categories">Shop Now</GiftGuideTextLink>
-            </div>
+            <Link
+              href="/categories"
+              className="group flex flex-col items-center rounded-[2px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--gift-green)"
+            >
+              <SnowGlobe src={type.src} wide={type.wide} />
+              <p className={`mt-4 text-center sm:mt-5 ${EYEBROW}`} style={{ color: INK }}>
+                {type.label}
+              </p>
+              <div className="mt-3">
+                <GiftGuideTextLabel>Shop Now</GiftGuideTextLabel>
+              </div>
+            </Link>
           </li>
         ))}
         {/* Trailing gutter as a flex child: browsers ignore end padding on a

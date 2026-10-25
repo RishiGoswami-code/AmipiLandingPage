@@ -13,6 +13,27 @@ const NAVY = "#0b1a3d";
 /** The small letterspaced label over each column. */
 const LABEL = "text-[13px] font-semibold tracking-[0.22em] uppercase";
 
+/** The newsletter form's text fields. Placeholders are upright Manrope,
+ * like the rest of the footer. */
+const FIELD =
+  "w-full border border-[#0b1a3d]/15 bg-white px-5 py-3.5 text-base text-[#0b1a3d] transition-colors outline-none placeholder:text-[#0b1a3d]/45 focus:border-[#0b1a3d]/50 aria-[invalid=true]:border-crimson-500";
+
+/** The newsletter form's fields, in order. Name and email are required;
+ * the company name is optional. */
+const FIELDS = [
+  { name: "name", type: "text", autoComplete: "name", placeholder: "Name", required: true },
+  { name: "email", type: "email", autoComplete: "email", placeholder: "Email", required: true },
+  {
+    name: "company",
+    type: "text",
+    autoComplete: "organization",
+    placeholder: "Company name",
+    required: false,
+  },
+] as const;
+
+type FieldName = (typeof FIELDS)[number]["name"];
+
 /** Phone, email and address lines in the Contact Us column. */
 const DETAIL =
   "flex items-start gap-3 text-[15px] leading-snug text-[#0b1a3d]/75 max-lg:justify-center";
@@ -21,32 +42,45 @@ const DETAIL =
  * The page's footer, under the last banner, after a classic footer strip:
  * three columns across the full width, split by dotted rules - "Follow Us"
  * with AMIPI's social accounts at the left, "Subscribe to Our Newsletter" in the
- * middle (an email field with an italic Subscribe pill beneath it, set to
- * the right), and "Contact Us" with the phone, email and showroom address
+ * middle (name, email and company name fields with the Subscribe button
+ * beneath them, set to the right), and "Contact Us" with the phone, email and showroom address
  * at the right. Below 1024px the three stack, centred, with the rules
  * running across between them. A hairline along the bottom separates it
  * from the yellow partner belt below. It sits on the page's own cream, and
  * behind the columns the AMIPI wordmark runs very large and very faint.
  *
- * The left column opens with AMIPI's intro, in the team's wording. The
+ * The left column opens with AMIPI's intro, in the team's wording, on three
+ * lines: "AMIPI Inc." and "Wholesale Diamonds & Fine Jewelry Since 1976" in
+ * the upright Cormorant of the section headings above, then the paragraph.
+ * Nothing in the footer is italic. The
  * social links, phone and email are the navbar's (CONTACT); the address is
  * the site footer's. No mailing-list
  * service is connected yet, so, as in the footer's NewsletterCard, a valid
- * address gets an honest "not connected" reply.
+ * sign-up gets an honest "not connected" reply.
  */
 export function GiftGuideConnect() {
-  const [state, setState] = useState<"idle" | "invalid" | "done">("idle");
+  const [done, setDone] = useState(false);
+  // The first field that failed, with its message
+  const [error, setError] = useState<{ field: FieldName; message: string } | null>(null);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const email = String(new FormData(e.currentTarget).get("email") ?? "").trim();
-    setState(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "done" : "invalid");
+    const data = new FormData(e.currentTarget);
+    const value = (field: FieldName) => String(data.get(field) ?? "").trim();
+    if (!value("name")) {
+      setError({ field: "name", message: "Please enter your name." });
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value("email"))) {
+      setError({ field: "email", message: "Please enter a valid email address." });
+    } else {
+      setError(null);
+      setDone(true);
+    }
   }
 
   return (
     <section
       aria-labelledby="newsletter-heading"
-      className="relative isolate overflow-hidden border-b border-[#0b1a3d]/70 px-edge py-[var(--gift-gap)]"
+      className="relative isolate overflow-hidden border-b border-[#0b1a3d]/70 px-edge py-[calc(var(--gift-gap)*1.6)]"
       style={{ color: NAVY }}
     >
       {/* The wordmark in the background: the navbar's Italiana, as wide as
@@ -60,13 +94,20 @@ export function GiftGuideConnect() {
       </p>
 
       {/* --gap is the space either side of the dotted rules */}
-      <div className="grid [--gap:clamp(2rem,4vw,4.5rem)] max-lg:text-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="grid [--gap:clamp(2rem,4vw,4.5rem)] lg:max-xl:[--gap:1.5rem] max-lg:text-center lg:grid-cols-[max-content_minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="pb-8 lg:pr-[var(--gap)] lg:pb-0">
-          {/* AMIPI's intro, exactly as the team sent it */}
-          <h2 className="font-[family-name:var(--font-cormorant-italic)] text-[1.375rem] leading-snug font-semibold italic">
-            AMIPI Inc. | Wholesale Diamonds &amp; Fine Jewelry Since 1976
+          {/* AMIPI's intro, exactly as the team sent it, one line each. The
+              Wholesale line never wraps: on phones it scales with the
+              screen, and from 1024px the column is as wide as the line
+              (the gaps by the rules narrow to 1.5rem up to 1280px so the
+              other two columns keep their room) */}
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[clamp(2rem,2.6vw,2.5rem)] leading-none font-semibold">
+            AMIPI Inc.
           </h2>
-          <p className="mt-2 max-w-[42ch] text-[15px] leading-relaxed text-[#0b1a3d]/75 max-lg:mx-auto">
+          <p className="mt-2 font-[family-name:var(--font-cormorant)] text-[clamp(1rem,4.6vw,1.375rem)] leading-snug font-medium whitespace-nowrap lg:text-[clamp(1.125rem,1.5vw,1.5rem)]">
+            Wholesale Diamonds &amp; Fine Jewelry Since 1976
+          </p>
+          <p className="mt-4 max-w-[42ch] text-[15px] leading-relaxed text-[#0b1a3d]/75 max-lg:mx-auto">
             For over 50 years, AMIPI has supplied fine jewelry and wholesale
             diamonds with transparent fixed pricing, GIA standard grading, and
             accurate weights. Discover our No Bull approach to quality and
@@ -95,10 +136,10 @@ export function GiftGuideConnect() {
           <h2 id="newsletter-heading" className={LABEL}>
             Subscribe to Our Newsletter
           </h2>
-          {state === "done" ? (
+          {done ? (
             <p
               role="status"
-              className="mt-5 border border-[#0b1a3d]/15 bg-white/70 px-5 py-4 text-[15px] leading-snug text-[#0b1a3d]/80"
+              className="mt-5 border border-[#0b1a3d]/15 bg-white/70 px-5 py-4 max-lg:mx-auto max-lg:max-w-md text-[15px] leading-snug text-[#0b1a3d]/80"
             >
               Thanks! Sign-up isn&rsquo;t connected yet - please email{" "}
               <a href={CONTACT.email.href} className="font-semibold underline underline-offset-2">
@@ -107,24 +148,32 @@ export function GiftGuideConnect() {
               to join the list.
             </p>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="mt-5">
-              <input
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                placeholder="Enter your email…"
-                aria-label="Email address"
-                aria-invalid={state === "invalid"}
-                onChange={() => state === "invalid" && setState("idle")}
-                className="w-full border border-[#0b1a3d]/15 bg-white px-5 py-3.5 text-base text-[#0b1a3d] transition-colors outline-none placeholder:font-[family-name:var(--font-cormorant-italic)] placeholder:text-xl placeholder:text-[#0b1a3d]/45 placeholder:italic focus:border-[#0b1a3d]/50"
-              />
-              {state === "invalid" && (
-                <p role="alert" className="mt-2 text-left text-[13px] font-medium text-crimson-500">
-                  Please enter a valid email address.
+            <form onSubmit={onSubmit} noValidate className="mt-5 space-y-3 max-lg:mx-auto max-lg:max-w-md">
+              {FIELDS.map((field) => (
+                <input
+                  key={field.name}
+                  name={field.name}
+                  type={field.type}
+                  required={field.required}
+                  autoComplete={field.autoComplete}
+                  placeholder={field.placeholder}
+                  aria-label={field.placeholder}
+                  aria-invalid={error?.field === field.name}
+                  aria-describedby={error?.field === field.name ? "newsletter-error" : undefined}
+                  onChange={() => error?.field === field.name && setError(null)}
+                  className={FIELD}
+                />
+              ))}
+              {error && (
+                <p
+                  id="newsletter-error"
+                  role="alert"
+                  className="text-left text-[13px] font-medium text-crimson-500"
+                >
+                  {error.message}
                 </p>
               )}
-              <div className="mt-4 flex max-lg:justify-center lg:justify-end">
+              <div className="flex pt-1 max-lg:justify-center lg:justify-end">
                 {/* The page's one call-to-action style */}
                 <button
                   type="submit"

@@ -135,7 +135,7 @@ export function GiftGuideHero() {
                 <li key={fold.href}>
                   <a
                     href={fold.href}
-                    className="text-[11px] font-semibold tracking-[0.16em] whitespace-nowrap text-[#f5efe4]/75 uppercase underline-offset-[6px] decoration-[#d9b877] transition-colors hover:text-white hover:underline"
+                    className="text-[11px] font-bold tracking-[0.16em] whitespace-nowrap text-[#f5efe4]/75 uppercase underline-offset-[6px] decoration-[#d9b877] transition-colors hover:text-white hover:underline"
                   >
                     {fold.label}
                   </a>
@@ -212,7 +212,7 @@ export function GiftGuideHero() {
 
           <p
             data-reveal
-            className="mt-[clamp(1rem,2.5vh,1.5rem)] font-[family-name:var(--font-cormorant)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium"
+            className="mt-[clamp(1rem,2.5vh,1.5rem)] font-[family-name:var(--font-cormorant)] text-[clamp(1.375rem,1.9vw,1.875rem)] leading-snug font-medium text-balance"
           >
             Make This Season One to Remember.
           </p>
@@ -256,7 +256,10 @@ export function GiftGuideHero() {
               {/* Cover line, magazine style: a dark fade up from the bottom
                   keeps white type readable over any part of the photo. */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-[7%] pt-[18%] pb-[7%] text-white">
-                <p className="text-[max(8px,1.6cqw)] font-medium tracking-[0.14em] sm:tracking-[0.3em] text-white/80 uppercase">
+                {/* Held to the part of the cover the spread leaves
+                    uncovered, which matters only once the 8px floor stops
+                    the line scaling down with the collage */}
+                <p className="max-w-[68%] text-[max(8px,1.6cqw)] font-medium tracking-[0.14em] sm:tracking-[0.3em] text-white/80 uppercase">
                   The Holiday Edit
                 </p>
               </div>

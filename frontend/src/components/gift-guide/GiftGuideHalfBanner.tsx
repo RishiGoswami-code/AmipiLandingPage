@@ -23,7 +23,9 @@ import type { ReactNode } from "react";
  * no seam. On a light ground the box sits in the bottom corner instead,
  * fading only at its left and top, for photos whose cloth runs off the
  * bottom and right edges; a further fade in that colour runs in from the left behind the
- * copy, so it still reads where a long button comes near the jewelry.
+ * copy, so it still reads where a long button comes near the jewelry
+ * (`veil={false}` leaves it out). With `fill` the photo instead runs the
+ * half's full height, fading only at its left.
  *
  * On phones the photo leads at 3:2 and the copy follows on `ground`, so the
  * two read as one block.
@@ -43,6 +45,8 @@ export function GiftGuideHalfBanner({
   ground,
   tone = "dark",
   photo = "large",
+  veil = true,
+  fill = false,
   children,
 }: {
   id: string;
@@ -55,9 +59,20 @@ export function GiftGuideHalfBanner({
   ground: string;
   /** The ground's tone: ivory copy on a dark one, ink copy on a light one. */
   tone?: "dark" | "light";
-  /** `small` side by side holds the photo to 66% of the half (62% from
-   * 1536px), so a long paragraph clears jewelry that starts further left. */
-  photo?: "large" | "small";
+  /** `small` holds the photo to 80% of the banner below 1024px, and side by
+   * side to 66% of the half (62% from 1536px), so a long paragraph clears
+   * jewelry that starts further left; `medium` is `small` below 1280px and
+   * 80% (74% from 1536px) side by side, for a photo whose jewelry already
+   * sits far to the right. */
+  photo?: "large" | "medium" | "small";
+  /** The fade in `ground` from the left of the photo behind the copy. Off
+   * for photos whose own plain side already sits behind the copy, so it
+   * does not wash over the cloth beyond it. */
+  veil?: boolean;
+  /** From 768px the photo runs the half's full height, held at `position`
+   * and fading only at its left, for a photo whose cloth runs off its top
+   * and bottom edges and is tall enough to keep the jewelry to scale. */
+  fill?: boolean;
   /** The body text and buttons. */
   children: ReactNode;
 }) {
@@ -73,10 +88,16 @@ export function GiftGuideHalfBanner({
       style={{ backgroundColor: ground }}
     >
       <div
-        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:w-[88%] md:[mask-composite:intersect] lg:w-[72%] ${
-          photo === "small" ? "xl:w-[66%] 2xl:w-[62%]" : "xl:w-[88%] 2xl:w-[82%]"
+        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:[mask-composite:intersect] lg:w-[72%] ${
+          photo === "small"
+            ? "md:w-[80%] xl:w-[66%] 2xl:w-[62%]"
+            : photo === "medium"
+            ? "md:w-[80%] xl:w-[80%] 2xl:w-[74%]"
+            : "md:w-[88%] xl:w-[88%] 2xl:w-[82%]"
         } ${
-          tone === "light"
+          fill
+            ? "md:inset-y-0 md:aspect-auto md:[mask-image:linear-gradient(to_right,transparent,#000_30%)]"
+            : tone === "light"
             ? "md:bottom-0 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%)]"
             : "md:top-1/2 md:-translate-y-1/2 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]"
         }`}
@@ -90,11 +111,13 @@ export function GiftGuideHalfBanner({
           style={{ objectPosition: position }}
           className="object-cover"
         />
-        <div
-          aria-hidden
-          className="absolute inset-0 hidden md:block"
-          style={{ background: `linear-gradient(90deg, ${ground} 0%, ${ground}d9 35%, ${ground}00 65%)` }}
-        />
+        {veil && (
+          <div
+            aria-hidden
+            className="absolute inset-0 hidden md:block"
+            style={{ background: `linear-gradient(90deg, ${ground} 0%, ${ground}d9 35%, ${ground}00 65%)` }}
+          />
+        )}
       </div>
 
       <div className="px-edge py-9 sm:py-10 md:py-8 md:pr-0 md:pl-[clamp(1.5rem,3.5vw,3.5rem)]">
@@ -129,9 +152,14 @@ export function HalfBannerText({ children }: { children: ReactNode }) {
 }
 
 /** The buttons under a half banner's copy, stacked and left-aligned, each
- * on one line. */
+ * on one line. On the narrowest phones (under 375px) they tighten their
+ * padding and tracking, so the longest label still fits inside the gutter. */
 export function HalfBannerActions({ children }: { children: ReactNode }) {
-  return <div className="mt-7 flex flex-col items-start gap-3 [&>*]:whitespace-nowrap">{children}</div>;
+  return (
+    <div className="mt-7 flex flex-col items-start gap-3 [&>*]:whitespace-nowrap max-[374px]:[&>*]:px-4 max-[374px]:[&>*]:tracking-[0.1em]">
+      {children}
+    </div>
+  );
 }
 
 /** The row the two halves share: stacked below 1280px, side by side above. */
