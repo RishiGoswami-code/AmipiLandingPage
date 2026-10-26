@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
+import { SectionRule } from "@/components/home/SectionRule";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -116,13 +117,14 @@ export function NewArrivals() {
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
+            <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-navy-700 sm:text-5xl">
               New Arrival
             </h2>
+            <SectionRule />
           </div>
           <Link
             href="/categories"
-            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-foreground/70 transition-colors hover:text-gold-500 sm:flex"
+            className="hidden shrink-0 items-center gap-2 text-[13px] font-semibold tracking-wide text-navy-700 decoration-gold-500 decoration-2 underline-offset-[6px] transition-colors hover:underline sm:flex"
           >
             View All New
             <ArrowRight className="h-4 w-4" />
@@ -153,7 +155,7 @@ export function NewArrivals() {
                   className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
                 />
               </div>
-              <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
+              <h3 className="mt-4 font-display text-base font-semibold text-navy-700 sm:text-lg">
                 {piece.name}
               </h3>
             </Link>
@@ -161,7 +163,7 @@ export function NewArrivals() {
         </div>
 
         <div className="mt-10 flex justify-center sm:hidden">
-          <PillButton href="/categories" variant="outline" icon="arrow">
+          <PillButton href="/categories" variant="brandOutline" icon="arrow">
             View All New
           </PillButton>
         </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Gem } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "solid" | "dark" | "gold" | "jewel" | "outline" | "light";
+type Variant = "solid" | "dark" | "gold" | "brand" | "jewel" | "outline" | "brandOutline" | "light";
 type Size = "xs" | "sm" | "md" | "hero";
 type Icon = "arrow" | "dot" | "gem" | "none";
 
@@ -40,6 +40,10 @@ const VARIANT_CLASSES: Record<Variant, string> = {
      photography; the same hue muted to champagne reads as metal. Hover deepens
      to #d4ae5c, another stop from that same gradient. */
   gold: "bg-[#dfbf7b] text-navy-950 hover:bg-[#d4ae5c]",
+  /* The company colours, for the home page below the hero: brand yellow
+     (#fed700) with the brand blue (#2c3b5b) label, 7.9:1. Hover deepens to
+     gold-600, where the label still holds 6:1. */
+  brand: "bg-gold-500 text-navy-700 hover:bg-gold-600",
   /* The hero's primary CTA, and the only variant drawn for photography rather
      than for a flat panel.
 
@@ -71,6 +75,8 @@ const VARIANT_CLASSES: Record<Variant, string> = {
     "gold-shimmer-gradient shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_14px_34px_-14px_rgba(14,11,10,0.9)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_18px_40px_-14px_rgba(14,11,10,0.95)]",
   outline:
     "border-2 border-foreground/40 text-foreground hover:border-foreground/60",
+  /* `outline` in the brand blue, its border turning brand yellow on hover. */
+  brandOutline: "border-2 border-navy-700/40 text-navy-700 hover:border-gold-500",
   light:
     "bg-white text-navy-950 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.3)] hover:bg-ice-100",
 };

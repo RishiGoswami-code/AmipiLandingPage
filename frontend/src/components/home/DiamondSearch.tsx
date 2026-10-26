@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Gem, Handshake, ShieldCheck } from "lucide-react";
 import { PillButton } from "@/components/ui/PillButton";
+import { SectionRule } from "@/components/home/SectionRule";
 
 type ShapeIconProps = { className?: string };
 type Point = [number, number];
@@ -688,7 +689,7 @@ function FilterBox({
 }) {
   return (
     <div className={`relative ${className}`}>
-      <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
+      <span className="text-[11px] font-semibold tracking-[0.3em] text-navy-700 uppercase">
         {label}
       </span>
       <div className="mt-4 rounded-xl border border-navy-200 px-4 py-3.5">
@@ -724,21 +725,26 @@ export function DiamondSearch() {
               so the scale went up a step - but only from sm. At 390px a 48px
               step broke this into three lines and left "Here" alone on the
               last one, so the phone size stays where it was. */}
-          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl leading-[1.05] font-normal tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl leading-[1.05] font-normal tracking-tight text-navy-700 sm:text-6xl lg:text-7xl">
             Start Your{" "}
+            {/* The one word in brand yellow, as the team asked, over a pale
+                yellow highlight. Yellow on white is only ~1.4:1, so a hairline
+                of navy shadow round the letters gives them an edge. */}
             <span className="relative inline-block text-gold-500">
               <span className="absolute inset-x-0 bottom-1 h-[0.3em] -rotate-1 bg-gold-500/20" />
-              <span className="relative">Diamond</span>
+              <span className="relative [text-shadow:0_0_1px_rgba(44,59,91,0.6),0_1px_0_rgba(44,59,91,0.25)]">
+                Diamond
+              </span>
             </span>{" "}
             Search Here
           </h2>
-          <div className="mx-auto mt-5 h-px w-16 bg-gold-500/60" />
+          <SectionRule center />
         </div>
 
         <div className="mt-10">
           <div className="rounded-2xl border border-navy-200 p-6 sm:p-8">
             <div className="border-b border-navy-200 pb-5">
-              <span className="text-[11px] font-semibold tracking-[0.3em] text-foreground/75 uppercase">
+              <span className="text-[11px] font-semibold tracking-[0.3em] text-navy-700 uppercase">
                 1. Shape
               </span>
             </div>
@@ -756,8 +762,8 @@ export function DiamondSearch() {
                     aria-pressed={active}
                     className={`group flex flex-col items-center overflow-hidden rounded-xl border pt-3 text-center transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none ${
                       active
-                        ? "border-navy-700 bg-white text-foreground shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
-                        : "border-transparent text-foreground/80 hover:border-navy-700 hover:bg-white hover:text-foreground hover:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)] focus-visible:border-navy-700 focus-visible:bg-white focus-visible:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
+                        ? "border-navy-700 bg-white text-navy-700 shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
+                        : "border-transparent text-navy-700/85 hover:border-navy-700 hover:bg-white hover:text-navy-700 hover:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)] focus-visible:border-navy-700 focus-visible:bg-white focus-visible:shadow-[0_10px_24px_-8px_rgba(18,25,38,0.45)]"
                     }`}
                   >
                     {photo ? (
@@ -779,8 +785,8 @@ export function DiamondSearch() {
                     <span
                       className={`mt-auto block w-full py-2 text-[10px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 ${
                         active
-                          ? "bg-navy-700 text-white"
-                          : "group-hover:bg-navy-700 group-hover:text-white group-focus-visible:bg-navy-700 group-focus-visible:text-white"
+                          ? "bg-navy-700 text-gold-500"
+                          : "group-hover:bg-navy-700 group-hover:text-gold-500 group-focus-visible:bg-navy-700 group-focus-visible:text-gold-500"
                       }`}
                     >
                       {s.label}
@@ -799,13 +805,13 @@ export function DiamondSearch() {
               type="button"
               onClick={() => setWeightOpen((v) => !v)}
               aria-expanded={weightOpen}
-              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-foreground uppercase"
+              className="flex w-full items-center justify-between text-xs font-semibold tracking-[0.15em] text-navy-700 uppercase"
             >
               {weightIndex === null
                 ? "Weight Range"
                 : caratBracketLabel(CARAT_BRACKETS[weightIndex]) + "ct"}
               <ChevronDown
-                className={`h-4 w-4 shrink-0 text-gold-500 transition-transform ${weightOpen ? "rotate-180" : ""}`}
+                className={`h-4 w-4 shrink-0 text-navy-700 transition-transform ${weightOpen ? "rotate-180" : ""}`}
               />
             </button>
 
@@ -833,8 +839,8 @@ export function DiamondSearch() {
                         aria-pressed={weightIndex === i}
                         className={`rounded px-1 py-1.5 text-center text-[10px] font-semibold tracking-tight transition-colors ${
                           weightIndex === i
-                            ? "bg-gold-500 text-navy-950"
-                            : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                            ? "bg-gold-500 text-navy-700"
+                            : "text-navy-700/85 hover:bg-navy-700/5 hover:text-navy-700"
                         }`}
                       >
                         {caratBracketLabel(bracket)}
@@ -856,8 +862,8 @@ export function DiamondSearch() {
                   aria-pressed={color === c}
                   className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                     color === c
-                      ? "text-gold-500 underline underline-offset-4"
-                      : "text-foreground/80 hover:text-foreground"
+                      ? "text-navy-700 underline decoration-gold-500 decoration-2 underline-offset-4"
+                      : "text-navy-700/85 hover:text-navy-700"
                   } ${i < COLORS.length - 1 ? "border-r border-navy-200" : ""}`}
                 >
                   {c}
@@ -876,8 +882,8 @@ export function DiamondSearch() {
                   aria-pressed={clarity === c}
                   className={`flex-1 py-0.5 text-center text-xs font-semibold tracking-wide transition-colors ${
                     clarity === c
-                      ? "text-gold-500 underline underline-offset-4"
-                      : "text-foreground/80 hover:text-foreground"
+                      ? "text-navy-700 underline decoration-gold-500 decoration-2 underline-offset-4"
+                      : "text-navy-700/85 hover:text-navy-700"
                   } ${i < CLARITIES.length - 1 ? "border-r border-navy-200" : ""}`}
                 >
                   {c}
@@ -891,24 +897,24 @@ export function DiamondSearch() {
         <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
           <OriginToggle labGrown={labGrown} onChange={setLabGrown} />
           <div className="w-full sm:w-64">
-            <PillButton href="/contact-us" variant="gold" icon="dot" className="w-full">
+            <PillButton href="/contact-us" variant="brand" icon="dot" className="w-full">
               Search Diamonds
             </PillButton>
           </div>
         </div>
 
         {/* Trust badges */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-foreground/65 uppercase">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-semibold tracking-[0.2em] text-navy-700/80 uppercase">
           <span className="inline-flex items-center gap-2">
-            <Gem className="h-4 w-4 text-gold-500" />
+            <Gem className="h-4 w-4 text-navy-700" />
             Ethical Sourcing
           </span>
           <span className="inline-flex items-center gap-2">
-            <Handshake className="h-4 w-4 text-gold-500" />
+            <Handshake className="h-4 w-4 text-navy-700" />
             Integrity First
           </span>
           <span className="inline-flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-gold-500" />
+            <ShieldCheck className="h-4 w-4 text-navy-700" />
             Trust &amp; Transparency
           </span>
         </div>
@@ -935,7 +941,7 @@ function OriginToggle({
 }) {
   const label = (active: boolean) =>
     `cursor-pointer text-[13px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 ${
-      active ? "text-navy-900" : "text-foreground/40 hover:text-foreground/70"
+      active ? "text-navy-700" : "text-navy-700/45 hover:text-navy-700/75"
     }`;
 
   return (
@@ -950,7 +956,7 @@ function OriginToggle({
         aria-label="Lab grown diamonds"
         onClick={() => onChange(!labGrown)}
         className={`relative h-8 w-[3.75rem] shrink-0 cursor-pointer rounded-full border transition-colors duration-300 ${
-          labGrown ? "border-[#c9a24f] bg-[#dfbf7b]" : "border-navy-900 bg-navy-900"
+          labGrown ? "border-gold-600 bg-gold-500" : "border-navy-700 bg-navy-700"
         }`}
       >
         <span

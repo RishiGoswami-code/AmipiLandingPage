@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PillButton } from "@/components/ui/PillButton";
+import { SectionRule } from "@/components/home/SectionRule";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -73,9 +74,10 @@ export function TradeShows() {
     <section ref={sectionRef} className="relative bg-surface">
       <div className="px-6 py-6 sm:px-12 sm:py-8 lg:px-20">
         <div className="text-center">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-navy-700 sm:text-5xl">
             Upcoming Trade Shows
           </h2>
+          <SectionRule center />
         </div>
       </div>
 
@@ -98,8 +100,11 @@ export function TradeShows() {
             <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
               {/* font-medium, not the font-normal the light-ground headings
                   take: reversed out of the navy gradient, a 400-weight serif
-                  optically thins and the hairlines start to break up. */}
-              <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-medium tracking-tight text-ice-100 sm:text-4xl">
+                  optically thins and the hairlines start to break up. Brand
+                  yellow, with a soft navy shadow so it holds over the
+                  brighter parts of a photo (about 4.8:1 over the RJO water,
+                  where large type needs 3:1). */}
+              <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-medium tracking-tight text-gold-500 [text-shadow:0_1px_14px_rgba(18,25,38,0.55)] sm:text-4xl">
                 {show.name}
               </h3>
               <p className="mt-3 flex items-center gap-2.5 text-sm text-ice-100/80">
@@ -111,7 +116,7 @@ export function TradeShows() {
                 {show.location}
               </p>
               <div className="mt-5">
-                <PillButton href="/contact-us" variant="gold" icon="dot">
+                <PillButton href="/contact-us" variant="brand" icon="dot">
                   Schedule Appointment
                 </PillButton>
               </div>

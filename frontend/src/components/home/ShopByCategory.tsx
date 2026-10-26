@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { SectionRule } from "@/components/home/SectionRule";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -29,8 +30,8 @@ type ShopCategory = {
  * Eight categories, in browse order: necklaces, bracelets, bands, studs,
  * earrings, rings, bangles, pendants.
  *
- * Photography is the October `categoryImages` set (the PNGs named after each
- * category), converted to WebP and filed under /public/categories (~1120px
+ * Photography is the October `categoryImages` set, re-shot on brand-colour
+ * grounds (navy, gold, red) in the `Update_Main` set, converted to WebP (the -v2 names keep image caches from serving the old shots) and filed under /public/categories (~1120px
  * wide, 70-155KB each, down from ~2MB PNGs). The older WebPs in that folder
  * are still used by the gift guide and account pages. Every tile
  * links to /categories — there are no per-category routes yet, so a slug in
@@ -40,49 +41,49 @@ type ShopCategory = {
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
     name: "Necklaces",
-    image: "/categories/necklaces.webp",
-    alt: "White gold diamond tennis necklace worn with an open-collared linen shirt",
+    image: "/categories/necklaces-v2.webp",
+    alt: "White gold diamond tennis necklace worn with an open-collared navy satin shirt",
     position: "50% 20%",
   },
   {
     name: "Bracelets",
-    image: "/categories/bracelets.webp",
+    image: "/categories/bracelets-v2.webp",
     alt: "A hand holding a bundle of white and yellow gold diamond tennis bracelets",
     position: "50% 75%",
   },
   {
     name: "Anniversary Bands & Eternity",
-    image: "/categories/anniversary-bands.webp",
+    image: "/categories/anniversary-bands-v2.webp",
     alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
     position: "50% 70%",
   },
   {
     name: "Studs & Jackets",
-    image: "/categories/studs-jackets.webp",
+    image: "/categories/studs-jackets-v2.webp",
     alt: "Round brilliant diamond stud earring in white gold, worn",
     position: "50% 45%",
   },
   {
     name: "Earrings",
-    image: "/categories/earrings.webp",
+    image: "/categories/earrings-v2.webp",
     alt: "Pair of white gold diamond inside-out hoop earrings held between fingertips",
     position: "50% 50%",
   },
   {
     name: "Rings",
-    image: "/categories/rings.webp",
+    image: "/categories/rings-v2.webp",
     alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
     position: "50% 35%",
   },
   {
     name: "Bangles",
-    image: "/categories/bangles.webp",
+    image: "/categories/bangles-v2.webp",
     alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
     position: "50% 40%",
   },
   {
     name: "Pendants",
-    image: "/categories/pendants.webp",
+    image: "/categories/pendants-v2.webp",
     alt: "White gold diamond cross pendant on a fine chain, worn",
     position: "50% 45%",
   },
@@ -231,10 +232,11 @@ export function ShopByCategory() {
       <div className="px-6 sm:px-12 lg:px-20">
         <h2
           id="shop-by-category-heading"
-          className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-foreground sm:text-5xl"
+          className="font-[family-name:var(--font-cormorant)] text-4xl font-normal tracking-tight text-navy-700 sm:text-5xl"
         >
           Shop Jewelry by Category
         </h2>
+        <SectionRule />
       </div>
 
       <div className="relative mt-6">
@@ -303,7 +305,7 @@ export function ShopByCategory() {
                     />
                   )}
                 </div>
-                <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
+                <h3 className="mt-4 font-display text-base font-semibold text-navy-700 sm:text-lg">
                   {category.name}
                 </h3>
               </div>
@@ -362,7 +364,7 @@ function ScrollArrow({
       onClick={onClick}
       disabled={!enabled}
       aria-label={isBack ? "Previous categories" : "Next categories"}
-      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white text-navy-950 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-ice-100 lg:grid ${
+      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-navy-700 text-gold-500 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-navy-800 lg:grid ${
         isBack ? "left-4 lg:left-6" : "right-4 lg:right-6"
       } ${enabled ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >

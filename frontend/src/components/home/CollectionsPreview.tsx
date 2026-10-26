@@ -6,6 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { SectionRule } from "@/components/home/SectionRule";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -91,11 +92,14 @@ export function CollectionsPreview() {
     >
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-5xl leading-[1.1] font-normal tracking-tight text-foreground sm:text-6xl">
-            Discover Our
-            <br />
-            Signature Collections
-          </h2>
+          <div>
+            <h2 className="font-[family-name:var(--font-cormorant)] text-5xl leading-[1.1] font-normal tracking-tight text-navy-700 sm:text-6xl">
+              Discover Our
+              <br />
+              Signature Collections
+            </h2>
+            <SectionRule />
+          </div>
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
@@ -116,7 +120,7 @@ export function CollectionsPreview() {
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
-              <h3 className="mt-4 font-display text-base font-semibold text-foreground sm:text-lg">
+              <h3 className="mt-4 font-display text-base font-semibold text-navy-700 sm:text-lg">
                 {collection.name}
               </h3>
             </Link>
