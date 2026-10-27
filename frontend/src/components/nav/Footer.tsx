@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { NewsletterCard } from "./NewsletterCard";
+import { italiana } from "@/styles/fonts";
 
 const SHOP_LINKS = [
   { label: "Categories", href: "/categories" },
@@ -30,11 +31,22 @@ const LEGAL_LINKS = [
  * fixed, so it scrolls normally and only appears once you reach the
  * bottom). The newsletter card on the left, then the four-column link grid,
  * in the same "one fair price, no bull" voice as the rest of the site. The
- * copyright line lives in the partner strip below (PartnerMarquee).
+ * copyright line lives in the partner strip below (PartnerMarquee). Behind
+ * it all the AMIPI wordmark runs very large and very faint, as in the gift
+ * guide's footer (GiftGuideConnect).
  */
 export function Footer() {
   return (
-    <footer className="relative border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
+    <footer className="relative isolate overflow-hidden border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
+      {/* The wordmark in the background: the navbar's Italiana, as wide as
+          the page and barely darker than the ground, so the columns over it
+          read as clearly as without it */}
+      <p
+        aria-hidden
+        className={`${italiana.className} pointer-events-none absolute inset-x-0 bottom-[-0.12em] -z-10 text-center text-[24vw] leading-none tracking-[0.06em] text-navy-900/[0.06] uppercase select-none`}
+      >
+        Amipi
+      </p>
       <div className="grid w-full gap-12 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-16">
         <div className="flex justify-center lg:justify-start">
           <NewsletterCard />

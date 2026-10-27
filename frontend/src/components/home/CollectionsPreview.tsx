@@ -20,17 +20,17 @@ type Collection = {
  * Each name ends on a different word, so the row doesn't read "Jewelry,
  * Jewelry, Jewelry". */
 const PREVIEW_COLLECTIONS: Collection[] = [
-  { name: "Color Gemstones", image: "/Collections/color-collection.webp" },
-  { name: "Bezel-Set Designs", image: "/Collections/bezel-set-collection.webp" },
-  { name: "Stackable", image: "/Collections/stack-collection.webp" },
+  { name: "Color Gemstones", image: "/Collections/color-collection-v2.webp" },
+  { name: "Bezel-Set Designs", image: "/Collections/bezel-set-collection-v2.webp" },
+  { name: "Stackable", image: "/Collections/stack-collection-v2.webp" },
   { name: "Drop Earrings", image: "/Collections/cascade-collection.webp" },
   {
     name: "Bridal Rings",
-    image: "/Collections/ever-after-bridal-edit.webp",
+    image: "/Collections/ever-after-bridal-edit-v2.webp",
   },
   {
     name: "Multi-Shape Jewelry",
-    image: "/Collections/mosaic-collection.webp",
+    image: "/Collections/mosaic-collection-v2.webp",
   },
 ];
 
@@ -111,7 +111,7 @@ export function CollectionsPreview() {
               className={`group block ${i % 3 === 1 ? "sm:mt-16" : ""}`}
               style={{ transformOrigin: "50% 100%" }}
             >
-              <div className="relative aspect-[3/4] overflow-hidden bg-background">
+              <div className="relative aspect-[4/5] overflow-hidden bg-background">
                 <Image
                   src={collection.image}
                   alt={collection.name}

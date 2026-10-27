@@ -4,7 +4,7 @@
  * on hard edges, with upright Cormorant headings over a small tracked
  * eyebrow and a short gold rule, and the red call to action
  * (GiftGuideButton, coloured from the page's --gift-cta). The photo bands
- * (GiftGuideHalfBanner, GiftGuideBanner) set their copy on the photo's own
+ * (GiftGuideHalfBanner) set their copy on the photo's own
  * ground.
  */
 

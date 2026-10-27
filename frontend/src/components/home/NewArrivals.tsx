@@ -163,7 +163,7 @@ export function NewArrivals() {
         </div>
 
         <div className="mt-10 flex justify-center sm:hidden">
-          <PillButton href="/categories" variant="brandOutline" icon="arrow">
+          <PillButton href="/categories" variant="brand" icon="arrow">
             View All New
           </PillButton>
         </div>

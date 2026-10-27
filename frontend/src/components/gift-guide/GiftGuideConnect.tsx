@@ -7,7 +7,7 @@ import { CONTACT } from "@/components/nav/navigation";
 import { CTA_CLASSES } from "./GiftGuideButton";
 import { CONTACT_HOVER, SteadyBold } from "./GiftGuideTheme";
 
-/** Navy from the hero banner, as on the Custom Jewelry section. */
+/** Navy from the hero banner. */
 const NAVY = "#0b1a3d";
 
 /** The small letterspaced label over each column. */

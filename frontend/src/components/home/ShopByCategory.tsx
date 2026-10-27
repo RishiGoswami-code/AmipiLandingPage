@@ -14,16 +14,12 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 type ShopCategory = {
   name: string;
   /** Optional while a category is still waiting on photography; the tile then
-   * shows its empty surface square, so the row keeps its rhythm. */
+   * shows its empty surface tile, so the row keeps its rhythm. */
   image?: string;
   /** Written out per tile rather than derived from the name: these are
    * near-identical cream-and-white-gold studio shots, so "Earrings" alone
    * would leave a screen reader unable to tell any of them apart. */
   alt?: string;
-  /** CSS object-position for the square crop. The photos are portrait
-   * (roughly 4:5, bangles 2:3), so this picks which band of the height the
-   * tile keeps - set per photo so the piece stays in frame. */
-  position?: string;
 };
 
 /**
@@ -43,56 +39,49 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     name: "Necklaces",
     image: "/categories/necklaces-v2.webp",
     alt: "White gold diamond tennis necklace worn with an open-collared navy satin shirt",
-    position: "50% 20%",
   },
   {
     name: "Bracelets",
     image: "/categories/bracelets-v2.webp",
     alt: "A hand holding a bundle of white and yellow gold diamond tennis bracelets",
-    position: "50% 75%",
   },
   {
     name: "Anniversary Bands & Eternity",
     image: "/categories/anniversary-bands-v2.webp",
     alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
-    position: "50% 70%",
   },
   {
     name: "Studs & Jackets",
     image: "/categories/studs-jackets-v2.webp",
     alt: "Round brilliant diamond stud earring in white gold, worn",
-    position: "50% 45%",
   },
   {
     name: "Earrings",
     image: "/categories/earrings-v2.webp",
     alt: "Pair of white gold diamond inside-out hoop earrings held between fingertips",
-    position: "50% 50%",
   },
   {
     name: "Rings",
     image: "/categories/rings-v2.webp",
     alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
-    position: "50% 35%",
   },
   {
     name: "Bangles",
     image: "/categories/bangles-v2.webp",
     alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
-    position: "50% 40%",
   },
   {
     name: "Pendants",
     image: "/categories/pendants-v2.webp",
     alt: "White gold diamond cross pendant on a fine chain, worn",
-    position: "50% 45%",
   },
 ];
 
 /**
- * Shop Jewelry by Category — a single horizontal row of square tiles with the
- * category name beneath each, scrolled by arrow or swipe rather than wrapped
- * into a grid.
+ * Shop Jewelry by Category — a single horizontal row of 4:5 portrait tiles
+ * with the category name beneath each, scrolled by arrow or swipe rather than
+ * wrapped into a grid. The tiles match the photos' own 4:5 shape, so each
+ * photo shows whole rather than cropped.
  *
  * The row is a native scroll container, not a JS-driven track: the browser
  * already does momentum, snapping, keyboard and touch correctly, and the arrows
@@ -204,8 +193,8 @@ export function ShopByCategory() {
       ref={sectionRef}
       aria-labelledby="shop-by-category-heading"
       /* One tile width, declared once. The arrows centre themselves on the
-         image band with it (`top: calc(var(--cat-tile) / 2)`), which they
-         cannot do from the row's own box — that box includes the captions, and
+         image band with it (`top: calc(var(--cat-tile) * 0.625)`, half the
+         height of a 4:5 image), which they cannot do from the row's own box — that box includes the captions, and
          centring on it would drop both arrows ~20px low.
 
          15.5vw puts six tiles plus the clipped seventh across a ~1600px
@@ -293,14 +282,13 @@ export function ShopByCategory() {
                   Transforming a descendant leaves every snap area where it
                   was. */}
               <div data-card>
-                <div className="relative aspect-square overflow-hidden bg-surface">
+                <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                   {category.image && (
                     <Image
                       src={category.image}
                       alt={category.alt ?? ""}
                       fill
                       sizes="(min-width: 1024px) 16vw, (min-width: 640px) 31vw, 46vw"
-                      style={{ objectPosition: category.position }}
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   )}
@@ -364,7 +352,7 @@ function ScrollArrow({
       onClick={onClick}
       disabled={!enabled}
       aria-label={isBack ? "Previous categories" : "Next categories"}
-      className={`absolute top-[calc(var(--cat-tile)/2)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-navy-700 text-gold-500 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-navy-800 lg:grid ${
+      className={`absolute top-[calc(var(--cat-tile)*0.625)] hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-navy-700 text-gold-500 shadow-[0_6px_20px_-6px_rgba(0,0,0,0.45)] transition-[opacity,background-color] duration-300 hover:bg-navy-800 lg:grid ${
         isBack ? "left-4 lg:left-6" : "right-4 lg:right-6"
       } ${enabled ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >

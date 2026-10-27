@@ -27,8 +27,8 @@ import type { ReactNode } from "react";
  * (`veil={false}` leaves it out). With `fill` the photo instead runs the
  * half's full height, fading only at its left.
  *
- * On phones the photo leads at 3:2 and the copy follows on `ground`, so the
- * two read as one block.
+ * On phones the photo leads at 3:2 (or `phoneAspect`) and the copy follows
+ * on `ground`, so the two read as one block.
  *
  * The shapes are minimum heights in vw rather than aspect-ratio: in the
  * grid, an aspect-ratio box with a minimum height widens past its column.
@@ -47,6 +47,8 @@ export function GiftGuideHalfBanner({
   photo = "large",
   veil = true,
   fill = false,
+  phoneAspect = "",
+  shape = "",
   children,
 }: {
   id: string;
@@ -73,6 +75,15 @@ export function GiftGuideHalfBanner({
    * and fading only at its left, for a photo whose cloth runs off its top
    * and bottom edges and is tall enough to keep the jewelry to scale. */
   fill?: boolean;
+  /** The photo's shape below 768px in place of 3:2, as a literal
+   * `max-md:aspect-*` class, for a photo whose jewelry runs top to bottom
+   * and would lose its ends to a 3:2 crop. */
+  phoneAspect?: string;
+  /** With `fill`, from 768px the photo's own shape as a literal
+   * `md:aspect-[w/h]` class: the box then takes its width from the half's
+   * height instead of `photo`, so a photo whose jewelry runs top to bottom
+   * is never cropped at either end, however wide the banner. */
+  shape?: string;
   /** The body text and buttons. */
   children: ReactNode;
 }) {
@@ -88,15 +99,17 @@ export function GiftGuideHalfBanner({
       style={{ backgroundColor: ground }}
     >
       <div
-        className={`relative aspect-[3/2] md:absolute md:right-0 md:-z-10 md:[mask-composite:intersect] lg:w-[72%] ${
-          photo === "small"
-            ? "md:w-[80%] xl:w-[66%] 2xl:w-[62%]"
+        className={`relative aspect-[3/2] ${phoneAspect} md:absolute md:right-0 md:-z-10 md:[mask-composite:intersect] ${
+          fill && shape
+            ? `${shape} md:w-auto`
+            : photo === "small"
+            ? "md:w-[80%] lg:w-[72%] xl:w-[66%] 2xl:w-[62%]"
             : photo === "medium"
-            ? "md:w-[80%] xl:w-[80%] 2xl:w-[74%]"
-            : "md:w-[88%] xl:w-[88%] 2xl:w-[82%]"
+            ? "md:w-[80%] lg:w-[72%] xl:w-[80%] 2xl:w-[74%]"
+            : "md:w-[88%] lg:w-[72%] xl:w-[88%] 2xl:w-[82%]"
         } ${
           fill
-            ? "md:inset-y-0 md:aspect-auto md:[mask-image:linear-gradient(to_right,transparent,#000_30%)]"
+            ? `md:inset-y-0 ${shape ? "" : "md:aspect-auto"} md:[mask-image:linear-gradient(to_right,transparent,#000_30%)]`
             : tone === "light"
             ? "md:bottom-0 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%)]"
             : "md:top-1/2 md:-translate-y-1/2 md:[mask-image:linear-gradient(to_right,transparent,#000_30%),linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]"

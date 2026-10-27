@@ -28,14 +28,10 @@ const DARK_ROUTES = ["/", "/about"];
  * put the file past 700 lines.
  *
  * It is fixed to the top of the viewport so it stays in reach on a long page.
- * At the top of a page it carries no surface of its own, so it has nothing to
- * sit on and must borrow contrast from whatever is beneath it. On the home route that is the hero
- * photograph, which is warm espresso, so the nav paints light - as it does on
- * the About page, which opens on the same espresso. Every other route renders on
- * `--color-background` (#f5f7fb), where light-on-light would be invisible, so
- * the nav paints dark there instead. Once the page scrolls, whatever is beneath
- * it is content rather than a hero, so the bar takes a frosted white surface and
- * paints dark on every route.
+ * The bar is the brand light blue (ice-200) on every route, with everything
+ * on it - wordmark, tagline, links, social icons - in the brand dark blue
+ * (navy-700). Once the page scrolls it goes slightly translucent and frosted,
+ * with a soft shadow. The roundel is an image and keeps its own colours.
  *
  * The mark is assembled here from the roundel plus live text rather than using
  * the composite amipi-logo.png. That asset's wordmark is navy and its tagline
@@ -60,7 +56,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* The surface becomes frosted cream when scrolled */
+  /* The surface becomes frosted light blue when scrolled */
   const surfaced = scrolled && !open;
 
   useEffect(() => {
@@ -74,16 +70,16 @@ export function Navbar() {
 
   const linkClasses = [
     "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
-    "text-[#2A251F]/85 hover:text-[#110E0C]",
+    "text-navy-700 hover:text-navy-900",
   ].join(" ");
 
   const underlineClasses = [
     "pointer-events-none absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0",
     "transition-transform duration-300 ease-out group-hover/link:scale-x-100",
-    "bg-[#A68551]",
+    "bg-navy-700",
   ].join(" ");
 
-  const barColour = open ? "bg-ice-100" : "bg-[#2A251F]";
+  const barColour = open ? "bg-ice-100" : "bg-navy-700";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -94,8 +90,8 @@ export function Navbar() {
       <div
         className={`nav-bar relative z-10 flex items-center justify-between px-edge transition-[background-color,box-shadow,height] duration-300 ease-out motion-reduce:transition-none ${
           surfaced
-            ? "h-16 bg-[#F5E9DD]/95 shadow-[0_8px_24px_-16px_rgba(40,30,20,0.25)] backdrop-blur-md"
-            : "h-16 sm:h-20 bg-[#F5E9DD]"
+            ? "h-16 bg-ice-200/95 shadow-[0_8px_24px_-16px_rgba(27,36,56,0.3)] backdrop-blur-md"
+            : "h-16 sm:h-20 bg-ice-200"
         }`}
       >
         <Link
@@ -115,12 +111,12 @@ export function Navbar() {
             }`}
           />
           <span
-            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl text-[#2A251F]`}
+            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl text-navy-700`}
           >
             Amipi
           </span>
-          <span className="hidden h-4 w-px bg-[#D4B28C]/80 xl:block mx-1.5" aria-hidden />
-          <span className="hidden text-[8px] font-medium tracking-[0.1em] text-[#A07F4E] uppercase xl:inline-block 2xl:text-[9.5px] 2xl:tracking-[0.14em] whitespace-nowrap">
+          <span className="hidden h-4 w-px bg-navy-700/30 xl:block mx-1.5" aria-hidden />
+          <span className="hidden text-[8px] font-medium tracking-[0.1em] text-navy-700 uppercase xl:inline-block 2xl:text-[9.5px] 2xl:tracking-[0.14em] whitespace-nowrap">
             Celebrating 50 Years of Amipi
           </span>
         </Link>
@@ -131,7 +127,7 @@ export function Navbar() {
         />
 
         <div className="relative z-10 ml-auto hidden items-center gap-2 lg:flex xl:gap-3">
-          <span className="hidden h-5 w-px bg-[#D4B28C]/80 xl:block mr-1" aria-hidden />
+          <span className="hidden h-5 w-px bg-navy-700/30 xl:block mr-1" aria-hidden />
           <ul className="flex items-center">
             {CONTACT.socials.map(({ label, href, Icon }) => (
               <li key={label}>
@@ -140,14 +136,14 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} (opens in a new tab)`}
-                  className="grid h-10 w-7 place-items-center transition-colors xl:w-9 text-[#2A251F]/80 hover:text-[#110E0C]"
+                  className="grid h-10 w-7 place-items-center transition-colors xl:w-9 text-navy-700 hover:text-navy-900"
                 >
                   <Icon className="h-5 w-5 xl:h-6 xl:w-6" />
                 </a>
               </li>
             ))}
           </ul>
-          <PillButton href="/login" variant="gold" size="sm" icon="dot">
+          <PillButton href="/login" variant="navy" size="sm" icon="dot">
             Login
           </PillButton>
         </div>

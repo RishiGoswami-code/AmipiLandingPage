@@ -24,7 +24,6 @@ const FOLDS = [
   { label: "Diamonds", href: "#diamonds" },
   { label: "Bridal", href: "#bridal" },
   { label: "Bestsellers", href: "#bestsellers" },
-  { label: "Custom", href: "#custom" },
   { label: "Bezel", href: "#bezel" },
   { label: "Color", href: "#color" },
 ];
