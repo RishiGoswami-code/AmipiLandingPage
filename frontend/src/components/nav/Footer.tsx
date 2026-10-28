@@ -40,10 +40,12 @@ export function Footer() {
     <footer className="relative isolate overflow-hidden border-t border-border bg-background px-6 pt-10 pb-6 sm:px-12 sm:pt-12 lg:px-20">
       {/* The wordmark in the background: the navbar's Italiana, as wide as
           the page and barely darker than the ground, so the columns over it
-          read as clearly as without it */}
+          read as clearly as without it. From lg it is set against the right
+          edge instead of centred, so the newsletter card at the left does
+          not cover its first letter. */}
       <p
         aria-hidden
-        className={`${italiana.className} pointer-events-none absolute inset-x-0 bottom-[-0.12em] -z-10 text-center text-[24vw] leading-none tracking-[0.06em] text-navy-900/[0.06] uppercase select-none`}
+        className={`${italiana.className} pointer-events-none absolute inset-x-0 bottom-[-0.12em] -z-10 text-center text-[24vw] leading-none tracking-[0.06em] text-navy-900/[0.045] uppercase select-none lg:pr-[1vw] lg:text-right`}
       >
         Amipi
       </p>
