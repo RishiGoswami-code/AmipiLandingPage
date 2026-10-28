@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { HeroLockup } from "./HeroLockup";
-import { HeroSlideCaption, HeroSlideImages, useSlideshow } from "./HeroSlides";
+import { HeroCaption, HeroVideo } from "./HeroVideo";
 import {
   BEATS,
   EXIT_FADE,
@@ -39,9 +39,9 @@ gsap.registerPlugin(useGSAP);
  * to become the page background. Roughly 3.6s; any input fast-forwards it.
  *
  * The moment it resolves, the reveal hands the stage over: the lockup dissolves
- * and the hero's copy — the anniversary line — takes its place, and the
- * backdrop becomes a slideshow of five jewelry photographs (HeroSlides.tsx),
- * each with its own title and the hero's one call to action.
+ * and the hero's copy — the anniversary line — takes its place, over the
+ * looping background film (HeroVideo.tsx), whose title follows the piece on
+ * screen, and the hero's one call to action.
  * Driven by the intro's own completion rather than by scroll, so the whole hero
  * is a single viewport tall and the first scroll goes straight into the next
  * section.
@@ -53,10 +53,10 @@ gsap.registerPlugin(useGSAP);
  */
 export default function HeroStage() {
   const sectionRef = useRef<HTMLElement>(null);
-  /* Flips when the intro resolves (or is skipped): the slideshow starts and
-     its caption appears. Until then the backdrop holds the first slide. */
-  const [slidesOn, setSlidesOn] = useState(false);
-  const [slide, setSlide] = useSlideshow(slidesOn);
+  /* Flips when the intro resolves (or is skipped): the caption appears. */
+  const [revealed, setRevealed] = useState(false);
+  /* Which piece the background film is showing; the caption follows it. */
+  const [chapter, setChapter] = useState(0);
 
   useGSAP(
     () => {
@@ -108,7 +108,7 @@ export default function HeroStage() {
         gsap.set([mark, est, wordmark], { display: "none" });
         gsap.set(copy, { opacity: 1 });
         stage.dataset.heroIntro = "done";
-        setSlidesOn(true);
+        setRevealed(true);
         return;
       }
 
@@ -240,7 +240,7 @@ export default function HeroStage() {
              thrown away, and the visitor is free to scroll past it either way
              since input is released on the same line above. */
           reveal.play();
-          setSlidesOn(true);
+          setRevealed(true);
         },
       });
 
@@ -416,7 +416,7 @@ export default function HeroStage() {
       <div className="hero-viewport relative h-full w-full overflow-hidden">
         <div className="hero-backdrop z-0">
           <div className="hero-backdrop-pan">
-            <HeroSlideImages index={slide} />
+            <HeroVideo onChapter={setChapter} />
           </div>
         </div>
 
@@ -448,7 +448,7 @@ export default function HeroStage() {
           </div>
         </div>
 
-        {slidesOn && <HeroSlideCaption index={slide} onSelect={setSlide} />}
+        {revealed && <HeroCaption index={chapter} />}
 
         <HeroLockup />
       </div>

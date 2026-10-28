@@ -318,31 +318,9 @@
     );
 }
 
-/* From 640px up the backdrop is the navy-velvet shot (Necklace-NavyBlue), so
-   the stage and the scrim follow it into a blue-black key - the espresso values
-   above would read as a brown cast over the navy. #000a1e is the photograph's
-   own edge colour, sampled from its corners. Phones keep the espresso portrait
-   and the espresso values with it. */
-@media (min-width: 640px) {
-  .hero-stage {
-    background-color: #000a1e;
-  }
-
-  .hero-scrim {
-    background:
-      radial-gradient(
-        120% 85% at 50% 45%,
-        transparent 35%,
-        rgba(0, 10, 30, 0.55) 100%
-      ),
-      linear-gradient(
-        to top,
-        rgba(0, 10, 30, 0.78) 0%,
-        rgba(0, 10, 30, 0.12) 45%,
-        rgba(0, 10, 30, 0.4) 100%
-      );
-  }
-}
+/* The same warm key applies at every width. Desktop used to switch to a navy
+   blue-black to match the navy-velvet necklace photo; the background film is
+   warm daylight, and a navy scrim over it read as a blue cast. */
 
 /* ---------------------------------------------------------------------------
    Frame 0.
@@ -474,25 +452,23 @@ body:has(.hero-stage[data-hero-intro="done"]) .assistant-fixed {
 }
 
 /* ---------------------------------------------------------------------------
-   The slideshow (HeroSlides.tsx).
+   The background film (HeroVideo.tsx).
 
    The push-in and 70% anchor above were tuned for the single necklace photo
-   this backdrop used to be. The slides are framed differently, so they opt out
-   of both: no zoom, and on phones each one anchors its own crop
-   (--slide-focus) on the model or the piece rather than the frame's centre.
+   this backdrop used to be. The film is framed for full bleed, so it opts out
+   of both: no zoom, cropped at its centre on every screen.
 --------------------------------------------------------------------------- */
-.hero-backdrop-pan .hero-slide img {
-  transform: none;
-  object-position: var(--slide-focus, center);
+.hero-backdrop-pan .hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
 
-@media (min-width: 640px) {
-  .hero-backdrop-pan .hero-slide img {
-    object-position: center;
-  }
-}
-
-/* Each title rises in just after its photograph has finished fading in. */
+/* Each title rises in when the intro resolves, and again at each cut in the
+   film. */
 @keyframes heroCaptionIn {
   from {
     opacity: 0;
@@ -505,7 +481,7 @@ body:has(.hero-stage[data-hero-intro="done"]) .assistant-fixed {
 }
 
 .hero-caption-in {
-  animation: heroCaptionIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+  animation: heroCaptionIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
