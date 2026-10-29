@@ -17,7 +17,11 @@ export function PostCard({ post, priority = false }: { post: PostSummary; priori
           src={imageUrl(post.mainImage, 900, 506)}
           alt={post.imageAlt}
           fill
-          priority={priority}
+          /* Only the first card (the page passes `priority` to it alone):
+             phones show one card above the fold, so preloading three left
+             two unused. The others are lazy, which still loads them at once
+             when they are already in view on desktop. */
+          loading={priority ? "eager" : undefined}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />

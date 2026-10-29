@@ -715,7 +715,7 @@ export function DiamondSearch() {
   const [labGrown, setLabGrown] = useState(false);
 
   return (
-    <section className="relative bg-background">
+    <section id="diamond-search" className="relative bg-background">
       {/* One white panel carrying everything - heading, shapes, filters,
           buttons - top to bottom. */}
       <div className="relative rounded-t-[3rem] bg-white px-6 pt-12 pb-10 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.18)] sm:rounded-t-[5rem] sm:px-12 sm:pt-16 lg:px-20">

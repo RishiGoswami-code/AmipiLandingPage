@@ -33,7 +33,7 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
         {posts.length ? (
           <div className="mt-12 grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post, i) => (
-              <PostCard key={post._id} post={post} priority={i < 3} />
+              <PostCard key={post._id} post={post} priority={i === 0} />
             ))}
           </div>
         ) : (

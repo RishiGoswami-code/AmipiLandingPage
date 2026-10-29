@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { NewsletterCard } from "./NewsletterCard";
+import { InertLink } from "./InertLink";
+import { UNBUILT, isUnbuilt } from "./navigation";
 import { italiana } from "@/styles/fonts";
 
 const SHOP_LINKS = [
   { label: "Categories", href: "/categories" },
-  { label: "Diamond Search", href: "/#collection" },
-  { label: "New Arrivals", href: "/#collection" },
+  { label: "Diamond Search", href: "/#diamond-search" },
+  { label: "New Arrivals", href: "/#new-arrivals" },
   { label: "Holiday Gift Guide", href: "/gift-guide" },
 ];
 
@@ -22,7 +24,7 @@ const COMPANY_LINKS = [
 const LEGAL_LINKS = [
   { label: "Terms & Conditions", href: "/terms-of-use" },
   { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Shipping & Returns", href: "#" },
+  { label: "Shipping & Returns", href: UNBUILT },
 ];
 
 /**
@@ -118,12 +120,19 @@ function FooterColumn({
       <ul className="mt-5 space-y-3">
         {links.map((link) => (
           <li key={link.label}>
-            <Link
-              href={link.href}
-              className="text-sm text-foreground/60 transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
+            {isUnbuilt(link.href) ? (
+              /* No page yet: InertLink stops the click jumping to the top. */
+              <InertLink className="text-sm text-foreground/60 transition-colors hover:text-foreground">
+                {link.label}
+              </InertLink>
+            ) : (
+              <Link
+                href={link.href}
+                className="text-sm text-foreground/60 transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

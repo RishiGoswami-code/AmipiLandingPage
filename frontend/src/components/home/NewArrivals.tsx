@@ -111,6 +111,7 @@ export function NewArrivals() {
 
   return (
     <section
+      id="new-arrivals"
       ref={sectionRef}
       className="relative bg-background px-6 py-3 sm:px-12 sm:py-4 lg:px-20"
     >
