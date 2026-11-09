@@ -14,7 +14,7 @@ type Chapter = {
   from: number;
   kicker: string;
   title: string;
-  /** The button's label; "Shop the collection" when left out. */
+  /** The button's label; "Shop now" when left out. */
   cta?: string;
   /** Caption colours: the title, the small line above it, and a dark glow
    *  that lifts both off the bright daylight footage. */
@@ -36,8 +36,7 @@ export const CHAPTERS: Chapter[] = [
   {
     from: 5.1,
     kicker: "Made to be worn every day",
-    title: "The Ultra Comfort Bracelet",
-    cta: "Shop now",
+    title: "The Tennis Bracelet",
     tone: { title: "#ffffff", kicker: "#ffffff", glow: "rgba(30, 14, 0, 0.95)" },
   },
   {
@@ -141,7 +140,7 @@ export function HeroCaption({ index }: { index: number }) {
       </div>
       <div className="mt-7">
         <PillButton href="/categories" variant="gold" icon="arrow">
-          {chapter.cta ?? "Shop the collection"}
+          {chapter.cta ?? "Shop now"}
         </PillButton>
       </div>
     </div>
