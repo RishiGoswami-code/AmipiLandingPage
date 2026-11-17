@@ -55,8 +55,7 @@ const TRENDS: Trend[] = [
  *
  * The cards are editorial, not links: there are no per-trend pages. The
  * band's one call to action is a single centred "Shop Now" under the whole
- * group, to the Fine Jewelry page (FINE_JEWELRY_HREF); it is left out
- * until that page exists.
+ * group, to amipi.com's Fine Jewelry page (FINE_JEWELRY_HREF).
  */
 export function GiftGuideTrends() {
   return (

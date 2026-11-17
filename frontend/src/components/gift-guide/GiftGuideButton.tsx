@@ -12,11 +12,11 @@ export const CTA_CLASSES =
 /**
  * The Fine Jewelry page, for the two "Shop Now" buttons that lead there:
  * under Top Holiday Trends and under "Your Holiday Season, Made Easier".
- * The site has no Fine Jewelry page yet (the navbar's Fine Jewelry is a menu
- * of unbuilt links), so this is null and both buttons stay hidden. Set the
- * confirmed URL here and both appear.
+ * This site has no Fine Jewelry page of its own, so it is amipi.com's - the
+ * "Fine Jewelry" entry in amipi.com's own Fine Jewelry menu (desktop and
+ * mobile). Set it to null to hide both buttons.
  */
-export const FINE_JEWELRY_HREF: string | null = null;
+export const FINE_JEWELRY_HREF: string | null = "https://www.amipi.com/jck-fine-jewelry/";
 
 /** `md` for the sections' buttons, `sm` for the compact ones under a
  * product or category. */

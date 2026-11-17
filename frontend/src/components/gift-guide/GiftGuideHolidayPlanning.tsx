@@ -26,8 +26,7 @@ const POINTS = [
  * "Your Holiday Season, Made Easier" - the retailer's planning notes, in a
  * white band under the Bezel and Color row and above the footer: the band
  * heading, four bullet points, a closing line and one "Shop Now!" to the
- * Fine Jewelry page. The button is left out until that page exists
- * (FINE_JEWELRY_HREF).
+ * Fine Jewelry page on amipi.com (FINE_JEWELRY_HREF).
  */
 export function GiftGuideHolidayPlanning() {
   return (
