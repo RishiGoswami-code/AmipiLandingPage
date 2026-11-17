@@ -41,18 +41,17 @@ const PREVIEW_COLLECTIONS: Collection[] = [
  * amipi.com's Fine Jewelry page. The tiles are display only - no links; the
  * button is the section's one way on.
  *
- * The animation is a scroll-scrubbed reveal across the row, 0 to 100% as the
- * row travels from the bottom of the screen to just below the middle:
- * each tile's photo is uncovered from the bottom up (a clip-path wipe)
- * while it rises into place and the photo settles from a slight zoom, the
- * tiles following one another left to right. One timeline for the whole
- * row, no pinning, so it adds no scroll length of its own. `scrub: 1`
- * (a one-second catch-up) rather than `scrub: true`, so it doesn't fight
- * Lenis's own smoothing. Reduced motion shows the row at rest.
- *
- * It replaces two rows of large tiles that each slid in from the left and
- * scaled up from 70% - the same scrubbed idea, at about three times the
- * height.
+ * The animation is the section's original one: each tile slides in from
+ * the left and grows from ~70% as it scrolls into view, tied to the
+ * scrollbar (it plays back in reverse on the way up). In one row the tiles
+ * would all move in step, so they share one timeline, each starting a
+ * little after the one before it - a left-to-right cascade. The timeline
+ * runs from the row entering the bottom of the screen until it is near the
+ * top, so each tile takes more than half a screen of scrolling (the old
+ * per-tile range was half): slow and smooth. `scrub: 1.5` (a 1.5s catch-up)
+ * rather than `scrub: true`, so it eases after the scroll and doesn't fight
+ * Lenis's own smoothing. No pinning, so it adds no scroll length. Reduced
+ * motion shows the row at rest.
  */
 export function CollectionsPreview() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,30 +67,18 @@ export function CollectionsPreview() {
       const tiles = row?.querySelectorAll<HTMLElement>("[data-tile]");
       if (!row || !tiles?.length) return;
 
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
+      gsap.timeline({
         scrollTrigger: {
           trigger: row,
-          start: "top 92%",
-          end: "top 55%",
-          scrub: 1,
+          start: "top bottom",
+          end: "top 15%",
+          scrub: 1.5,
         },
-      });
-
-      tiles.forEach((tile, i) => {
-        const frame = tile.querySelector<HTMLElement>("[data-frame]");
-        const photo = tile.querySelector<HTMLElement>("[data-photo]");
-        const at = i * 0.12;
-        timeline
-          .fromTo(tile, { yPercent: 22, opacity: 0.25 }, { yPercent: 0, opacity: 1, duration: 0.5 }, at)
-          .fromTo(
-            frame,
-            { clipPath: "inset(100% 0% 0% 0%)" },
-            { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5 },
-            at,
-          )
-          .fromTo(photo, { scale: 1.25 }, { scale: 1, duration: 0.6 }, at);
-      });
+      }).fromTo(
+        tiles,
+        { x: -140, scale: 0.7, opacity: 0.4 },
+        { x: 0, scale: 1, opacity: 1, ease: "none", duration: 1, stagger: 0.12 },
+      );
     },
     { scope: sectionRef },
   );
@@ -117,10 +104,9 @@ export function CollectionsPreview() {
         className="mt-8 grid grid-cols-3 gap-x-3 gap-y-6 sm:gap-x-4 md:grid-cols-6 lg:gap-x-5"
       >
         {PREVIEW_COLLECTIONS.map((collection) => (
-          <li key={collection.name} data-tile>
-            <div data-frame className="relative aspect-[4/5] overflow-hidden bg-background">
+          <li key={collection.name} data-tile style={{ transformOrigin: "50% 100%" }}>
+            <div className="relative aspect-[4/5] overflow-hidden bg-background">
               <Image
-                data-photo
                 src={collection.image}
                 alt={collection.name}
                 fill
