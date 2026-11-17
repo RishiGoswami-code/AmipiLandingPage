@@ -25,7 +25,7 @@ const POINTS = [
 /**
  * "Your Holiday Season, Made Easier" - the retailer's planning notes, in a
  * white band under the Bezel and Color row and above the footer: the band
- * heading, four bullet points, a closing line and one "Shop Now!" to the
+ * heading, four bullet points, a closing line and one "Shop Now" to the
  * Fine Jewelry page on amipi.com (FINE_JEWELRY_HREF).
  */
 export function GiftGuideHolidayPlanning() {
@@ -52,7 +52,7 @@ export function GiftGuideHolidayPlanning() {
 
         {FINE_JEWELRY_HREF && (
           <div className="mt-7 flex justify-center">
-            <GiftGuideButton href={FINE_JEWELRY_HREF}>Shop Now!</GiftGuideButton>
+            <GiftGuideButton href={FINE_JEWELRY_HREF}>Shop Now</GiftGuideButton>
           </div>
         )}
       </div>

@@ -16,15 +16,28 @@ import styles from "./SnowGlobe.module.css";
  * diamond bangle from GiftPageImages/JeweleryType, cut out of its white
  * ground (inside the loop as well as around it).
  */
-const TYPES: { label: string; src: string; wide?: boolean }[] = [
-  { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
-  { label: "Bracelets", src: "/gift-guide/types/tennis-bracelet-hd.webp" },
-  { label: "Bands", src: "/gift-guide/types/band-hd.webp" },
-  { label: "Studs", src: "/gift-guide/types/diamond-studs.webp" },
-  { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp" },
-  { label: "Rings", src: "/gift-guide/types/oval-ring.webp" },
+const TYPES: { label: string; src: string; href: string; wide?: boolean }[] = [
+  {
+    label: "Necklaces",
+    src: "/gift-guide/types/tennis-necklace-hd.webp",
+    href: "https://www.amipi.com/necklaces/",
+  },
+  {
+    label: "Bracelets",
+    src: "/gift-guide/types/tennis-bracelet-hd.webp",
+    href: "https://www.amipi.com/bracelets/",
+  },
+  { label: "Bands", src: "/gift-guide/types/band-hd.webp", href: "https://www.amipi.com/bands/" },
+  { label: "Studs", src: "/gift-guide/types/diamond-studs.webp", href: "https://www.amipi.com/studs/" },
+  { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp", href: "https://www.amipi.com/hoops/" },
+  { label: "Rings", src: "/gift-guide/types/oval-ring.webp", href: "https://www.amipi.com/rings/" },
   // A wide, flat piece (about 3.7:1), so it gets more of the globe's width
-  { label: "Bangles", src: "/gift-guide/types/stretchy-bangle.webp", wide: true },
+  {
+    label: "Bangles",
+    src: "/gift-guide/types/stretchy-bangle.webp",
+    href: "https://www.amipi.com/flexi-bangles/",
+    wide: true,
+  },
 ];
 
 /**
@@ -98,8 +111,8 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  *
  * Each globe ends in its name, in small tracked capitals as in the team's
  * mockups, and a red "Shop Now". The whole slide - globe, name and "Shop
- * Now" - is one link, to /categories
- * since there are no per-type pages yet.
+ * Now" - is one link, to that line's page on amipi.com (its Fine Jewelry
+ * menu's pages: Bracelets & Bangles, Anniversary Bands, Flexi Bangles...).
  */
 export function GiftGuideJewelryTypes() {
   const rowRef = useRef<HTMLUListElement>(null);
@@ -189,7 +202,7 @@ export function GiftGuideJewelryTypes() {
             className="w-[58vw] shrink-0 snap-start sm:w-[26vw] lg:w-[clamp(11rem,16vw,17rem)]"
           >
             <Link
-              href="/categories"
+              href={type.href}
               className="group flex flex-col items-center rounded-[2px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--gift-green)"
             >
               <SnowGlobe src={type.src} wide={type.wide} />

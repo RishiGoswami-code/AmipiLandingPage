@@ -1,5 +1,4 @@
-import { GiftGuideButton } from "./GiftGuideButton";
-import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGuideHalfBanner";
+import { GiftGuideHalfBanner, HalfBannerText } from "./GiftGuideHalfBanner";
 
 /**
  * "Bezel-Set Styles", from GiftPageImages/Bezel/Luxury Jewelry on Crimson
@@ -13,7 +12,8 @@ import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGu
  * so the satin has no top or bottom edge to fade; its own off-white side
  * sits behind the copy, so there is no veil. Light, as Bridal is: ink copy
  * beside the dark Color half. One half of a row with Color
- * (GiftGuideHalfBanner).
+ * (GiftGuideHalfBanner). No button of its own: Bridal, Bezel and Color
+ * share one "Shop Now" under this row (app/gift-guide/page.tsx).
  */
 export function GiftGuideBezel() {
   return (
@@ -34,9 +34,6 @@ export function GiftGuideBezel() {
         Bezel settings frame each stone in a smooth, polished edge: modern,
         refined, and special enough for gifting.
       </HalfBannerText>
-      <HalfBannerActions>
-        <GiftGuideButton href="/categories">Shop Bezel Jewelry</GiftGuideButton>
-      </HalfBannerActions>
     </GiftGuideHalfBanner>
   );
 }

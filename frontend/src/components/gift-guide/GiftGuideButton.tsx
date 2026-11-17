@@ -10,14 +10,23 @@ export const CTA_CLASSES =
   "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[2px] bg-(--gift-cta) font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-(--gift-cta-hover)";
 
 /**
- * The Fine Jewelry page, for the two "Shop Now" buttons that lead there:
- * under Top Holiday Trends and under "Your Holiday Season, Made Easier".
- * This site has no Fine Jewelry page of its own, so it is amipi.com's, with
- * the filters the manager sent (metal 10, natural "Earth" diamonds). Set it
- * to null to hide both buttons.
+ * amipi.com's Fine Jewelry page, for the page's "Shop Now" buttons that lead
+ * there: under Top Holiday Trends, under the Bezel and Color row (for
+ * Bridal, Bezel and Color) and under "Your Holiday Season, Made Easier".
+ * It is the link the manager sent, and also what amipi.com itself opens
+ * /basics/ on: its default filters (metal 10, natural "Earth" diamonds).
+ * Set it to null to hide those buttons.
  */
 export const FINE_JEWELRY_HREF: string | null =
   "https://www.amipi.com/basics/?category=&stonetype=&metal=10&origin=Earth";
+
+/** The same Fine Jewelry page, filtered to natural or to lab-grown diamond
+ * jewelry: amipi.com's `origin` filter takes Earth or Lab (anything else
+ * falls back to Earth). */
+export const NATURAL_JEWELRY_HREF =
+  "https://www.amipi.com/basics/?category=&stonetype=&metal=10&origin=Earth";
+export const LAB_GROWN_JEWELRY_HREF =
+  "https://www.amipi.com/basics/?category=&stonetype=&metal=10&origin=Lab";
 
 /** `md` for the sections' buttons, `sm` for the compact ones under a
  * product or category. */

@@ -8,6 +8,7 @@ import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
 import { GiftGuideHalfRow } from "@/components/gift-guide/GiftGuideHalfBanner";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
+import { FINE_JEWELRY_HREF, GiftGuideButton } from "@/components/gift-guide/GiftGuideButton";
 import { GiftGuideHolidayPlanning } from "@/components/gift-guide/GiftGuideHolidayPlanning";
 import { GiftGuideConnect } from "@/components/gift-guide/GiftGuideConnect";
 import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
@@ -108,6 +109,12 @@ export default function GiftGuidePage() {
           <GiftGuideBezel />
           <GiftGuideColor />
         </GiftGuideHalfRow>
+        {/* One "Shop Now" for Bridal, Bezel and Color, under their rows */}
+        {FINE_JEWELRY_HREF && (
+          <div className="flex justify-center px-edge py-[var(--gift-gap)]">
+            <GiftGuideButton href={FINE_JEWELRY_HREF}>Shop Now</GiftGuideButton>
+          </div>
+        )}
         <GiftGuideHolidayPlanning />
         <GiftGuideConnect />
       </div>

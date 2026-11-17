@@ -1,4 +1,4 @@
-import { GiftGuideButton } from "./GiftGuideButton";
+import { GiftGuideButton, LAB_GROWN_JEWELRY_HREF, NATURAL_JEWELRY_HREF } from "./GiftGuideButton";
 import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGuideHalfBanner";
 
 /**
@@ -10,8 +10,8 @@ import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGu
  * and 25% to 85% down, with a pine sprig in the top-right corner - so the
  * crop is held to the right.
  *
- * Both buttons link to /categories until the natural and lab-grown pages
- * exist.
+ * The two buttons open amipi.com's Fine Jewelry filtered to natural or to
+ * lab-grown diamonds.
  */
 export function GiftGuideBrilliance() {
   return (
@@ -27,8 +27,8 @@ export function GiftGuideBrilliance() {
         your customers will be looking for this holiday season.
       </HalfBannerText>
       <HalfBannerActions>
-        <GiftGuideButton href="/categories">Shop Natural Diamond Jewelry</GiftGuideButton>
-        <GiftGuideButton href="/categories">Shop Lab-Grown Diamond Jewelry</GiftGuideButton>
+        <GiftGuideButton href={NATURAL_JEWELRY_HREF}>Shop Natural Diamond Jewelry</GiftGuideButton>
+        <GiftGuideButton href={LAB_GROWN_JEWELRY_HREF}>Shop Lab-Grown Diamond Jewelry</GiftGuideButton>
       </HalfBannerActions>
     </GiftGuideHalfBanner>
   );

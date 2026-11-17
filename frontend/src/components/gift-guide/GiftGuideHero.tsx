@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Mail, Phone } from "lucide-react";
@@ -48,7 +47,7 @@ const SPREAD = [
  * alone, centred.
  *
  * Standalone: the root layout hides the site chrome on /gift-guide, so the
- * masthead wordmark is the way back home.
+ * masthead wordmark is the way back to amipi.com.
  */
 export function GiftGuideHero() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -88,10 +87,10 @@ export function GiftGuideHero() {
           style={{ color: IVORY }}
         >
           {/* Same lockup as the Navbar - roundel plus Italiana at 0.06em - since
-              this page hides the site chrome and the wordmark is the way home.
+              this page hides the site chrome; the wordmark leads to amipi.com.
               Ivory and a step larger, so the thin Italiana reads on the green.
               Centred on phones, over the centred hero copy. */}
-          <Link href="/" className="flex shrink-0 items-center gap-2.5 sm:gap-3">
+          <a href="https://www.amipi.com/" className="flex shrink-0 items-center gap-2.5 sm:gap-3">
             <Image
               quality={90}
               src="/icon.png"
@@ -113,7 +112,7 @@ export function GiftGuideHero() {
                 Celebrating 50 Years
               </span>
             </span>
-          </Link>
+          </a>
 
           {/* amipi.com's own tabs: Diamonds, Fine Jewelry, About, More */}
           <GiftGuideMastheadNav />
