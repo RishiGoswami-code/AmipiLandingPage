@@ -3,16 +3,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SectionRule } from "@/components/home/SectionRule";
+import { AMIPI_CATEGORY } from "@/lib/amipi";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShopCategory = {
   name: string;
+  /** Its page in amipi.com's Fine Jewelry menu. */
+  href: string;
   /** Optional while a category is still waiting on photography; the tile then
    * shows its empty surface tile, so the row keeps its rhythm. */
   image?: string;
@@ -29,49 +32,57 @@ type ShopCategory = {
  * Photography is the October `categoryImages` set, re-shot on brand-colour
  * grounds (navy, gold, red) in the `Update_Main` set, converted to WebP (the -v2 names keep image caches from serving the old shots) and filed under /public/categories (~1120px
  * wide, 70-155KB each, down from ~2MB PNGs). The older WebPs in that folder
- * are still used by the gift guide and account pages. Every tile
- * links to /categories — there are no per-category routes yet, so a slug in
- * this table would be a promise the router cannot keep. When they exist, this
- * is the one place to add them.
+ * are still used by the gift guide and account pages. Each tile, with its
+ * "Shop Now", links to the matching page in amipi.com's Fine Jewelry menu
+ * (lib/amipi.ts); Pendants shares Necklaces' page, which amipi.com titles
+ * "Necklaces & Pendants".
  */
 const SHOP_CATEGORIES: ShopCategory[] = [
   {
     name: "Necklaces",
+    href: AMIPI_CATEGORY.necklaces,
     image: "/categories/necklaces-v2.webp",
     alt: "White gold diamond tennis necklace worn with an open-collared navy satin shirt",
   },
   {
     name: "Bracelets",
+    href: AMIPI_CATEGORY.bracelets,
     image: "/categories/bracelets-v2.webp",
     alt: "A hand holding a bundle of white and yellow gold diamond tennis bracelets",
   },
   {
     name: "Anniversary Bands & Eternity",
+    href: AMIPI_CATEGORY.bands,
     image: "/categories/anniversary-bands-v2.webp",
     alt: "Yellow and white gold diamond eternity bands worn on a hand holding a glass",
   },
   {
     name: "Studs & Jackets",
+    href: AMIPI_CATEGORY.studs,
     image: "/categories/studs-jackets-v2.webp",
     alt: "Round brilliant diamond stud earring in white gold, worn",
   },
   {
     name: "Earrings",
+    href: AMIPI_CATEGORY.earrings,
     image: "/categories/earrings-v2.webp",
     alt: "Pair of white gold diamond inside-out hoop earrings held between fingertips",
   },
   {
     name: "Rings",
+    href: AMIPI_CATEGORY.rings,
     image: "/categories/rings-v2.webp",
     alt: "Round and emerald-cut bezel-set diamond rings in white gold, worn on one hand",
   },
   {
     name: "Bangles",
+    href: AMIPI_CATEGORY.bangles,
     image: "/categories/bangles-v2.webp",
     alt: "Yellow and white gold diamond flexi bangles worn on crossed wrists",
   },
   {
     name: "Pendants",
+    href: AMIPI_CATEGORY.necklaces,
     image: "/categories/pendants-v2.webp",
     alt: "White gold diamond cross pendant on a fine chain, worn",
   },
@@ -269,8 +280,8 @@ export function ShopByCategory() {
           {SHOP_CATEGORIES.map((category) => (
             <Link
               key={category.name}
-              href="/categories"
-              className="group block lg:w-[var(--cat-tile)] lg:shrink-0 lg:snap-start"
+              href={category.href}
+              className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-crimson-500 lg:w-[var(--cat-tile)] lg:shrink-0 lg:snap-start"
             >
               {/* The reveal is animated on this wrapper rather than on the
                   <Link> itself, and that is a correctness fix, not a style
@@ -281,7 +292,9 @@ export function ShopByCategory() {
                   "previous" arrow on a row that had never been scrolled.
                   Transforming a descendant leaves every snap area where it
                   was. */}
-              <div data-card>
+              {/* A column, so every "Shop Now" sits on one line across the
+                  row whether its name takes one line or two */}
+              <div data-card className="flex h-full flex-col">
                 <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                   {category.image && (
                     <Image
@@ -296,6 +309,15 @@ export function ShopByCategory() {
                 <h3 className="mt-4 font-display text-base font-semibold text-navy-700 sm:text-lg">
                   {category.name}
                 </h3>
+                {/* The card is the link; the button is drawn inside it, not
+                    nested, so it is one tab stop and the whole card
+                    answers the hover */}
+                <span className="mt-auto pt-3">
+                  <span className="inline-flex h-9 items-center gap-1.5 rounded-full bg-crimson-500 px-4 text-[10.5px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 group-hover:bg-crimson-600">
+                    Shop Now
+                    <ArrowRight aria-hidden className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+                  </span>
+                </span>
               </div>
             </Link>
           ))}

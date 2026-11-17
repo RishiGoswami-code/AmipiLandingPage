@@ -113,7 +113,10 @@ export function NewArrivals() {
     <section
       id="new-arrivals"
       ref={sectionRef}
-      className="relative bg-background px-6 py-3 sm:px-12 sm:py-4 lg:px-20"
+      // First below the hero, so it opens with real room under the photo;
+      // the bottom stays tight because the Diamond Search panel below
+      // rises out of it on its own rounded top
+      className="relative bg-background px-6 pt-8 pb-3 sm:px-12 sm:pt-12 sm:pb-4 lg:px-20 lg:pt-14"
     >
       <div>
         <div className="flex flex-wrap items-end justify-between gap-6">

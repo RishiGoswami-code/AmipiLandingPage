@@ -69,7 +69,7 @@ export function Navbar() {
   }, [open]);
 
   const linkClasses = [
-    "group/link relative text-[11px] font-medium tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
+    "group/link relative text-[11px] font-bold tracking-[0.08em] uppercase transition-colors 2xl:tracking-[0.14em]",
     "text-navy-700 hover:text-navy-900",
   ].join(" ");
 
@@ -110,13 +110,19 @@ export function Navbar() {
               surfaced ? "sm:h-9 sm:w-9" : "sm:h-10 sm:w-10"
             }`}
           />
+          {/* Italiana ships one weight, and next/font's class pins it to
+              400 above Tailwind's utilities, so the bold is marked important
+              and the browser draws it */}
           <span
-            className={`${italiana.className} text-2xl tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl text-navy-700`}
+            className={`${italiana.className} text-2xl font-bold! tracking-[0.06em] uppercase sm:text-[1.75rem] xl:text-3xl text-navy-700`}
           >
             Amipi
           </span>
           <span className="hidden h-4 w-px bg-navy-700/30 xl:block mx-1.5" aria-hidden />
-          <span className="hidden text-[8px] font-medium tracking-[0.1em] text-navy-700 uppercase xl:inline-block 2xl:text-[9.5px] 2xl:tracking-[0.14em] whitespace-nowrap">
+          {/* Bold, and so a few px wider: from 1280px the centred nav starts
+              just past it, so the tracking is a touch tighter there (0.05em)
+              to keep clear of FINE JEWELRY */}
+          <span className="hidden text-[8px] font-bold tracking-[0.05em] text-navy-700 uppercase xl:inline-block 2xl:text-[9.5px] 2xl:tracking-[0.14em] whitespace-nowrap">
             Celebrating 50 Years of Amipi
           </span>
         </Link>

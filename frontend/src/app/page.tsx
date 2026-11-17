@@ -24,8 +24,8 @@ export default function Home() {
   return (
     <div className="flex-1 bg-background">
       <HeroStage />
-      <DiamondSearch />
       <NewArrivals />
+      <DiamondSearch />
       <ShopByCategory />
       <CollectionsPreview />
       <TradeShows />
