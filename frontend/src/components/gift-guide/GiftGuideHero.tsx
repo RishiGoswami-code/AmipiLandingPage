@@ -8,23 +8,13 @@ import { useGSAP } from "@gsap/react";
 import { Mail, Phone } from "lucide-react";
 import { italiana } from "@/styles/fonts";
 import { CONTACT } from "@/components/nav/navigation";
+import { GiftGuideMastheadNav } from "./GiftGuideMastheadNav";
 import { BODY_TYPE, CONTACT_HOVER_LIGHT, EYEBROW, INK, SteadyBold } from "./GiftGuideTheme";
 
 gsap.registerPlugin(useGSAP);
 
 /** Ivory for the masthead's wordmark, links and icons on the evergreen. */
 const IVORY = "#f5efe4";
-
-/** One tab per section, for the masthead's quick links (wide screens). The
- * hashes are the sections' ids. */
-const FOLDS = [
-  { label: "Trends", href: "#trends" },
-  { label: "Jewelry Types", href: "#jewelry-types" },
-  { label: "Diamonds", href: "#diamonds" },
-  { label: "Bridal", href: "#bridal" },
-  { label: "Bezel", href: "#bezel" },
-  { label: "Color", href: "#color" },
-];
 
 /** The catalog cover: the model in the red dress wearing the diamond
  * necklace, from GiftPageImages/Top banner grid of 4/Single. 4:5, the same
@@ -53,7 +43,7 @@ const SPREAD = [
  * The hero is held to 65% of the viewport height on desktop (on phones it
  * stacks and takes its natural height). The masthead sits above it,
  * outside that height: one slim evergreen bar with the wordmark at the
- * left, a tab per section in the middle (from 1280px) and the phone, email
+ * left, amipi.com's four tabs in the middle (from 1024px) and the phone, email
  * and social links at the right (from 640px). On phones it is the wordmark
  * alone, centred.
  *
@@ -125,25 +115,12 @@ export function GiftGuideHero() {
             </span>
           </Link>
 
-          {/* A tab per section, for quick access */}
-          <nav aria-label="Gift guide sections" className="hidden xl:block">
-            <ul className="flex items-center gap-[clamp(0.875rem,1.5vw,1.75rem)]">
-              {FOLDS.map((fold) => (
-                <li key={fold.href}>
-                  <a
-                    href={fold.href}
-                    className="text-[11px] font-bold tracking-[0.16em] whitespace-nowrap text-[#f5efe4]/75 uppercase underline-offset-[6px] decoration-[#d9b877] transition-colors hover:text-white hover:underline"
-                  >
-                    {fold.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* amipi.com's own tabs: Diamonds, Fine Jewelry, About, More */}
+          <GiftGuideMastheadNav />
 
           {/* Contact and social links, on the wordmark's line. The email
-              address gives way to its icon while the section tabs need the
-              room (1280 to 1535px). */}
+              address gives way to its icon while the tabs need the room
+              (1024 to 1535px). */}
           <div className="hidden shrink-0 items-center gap-4 sm:flex">
             <a
               href={CONTACT.phone.href}
@@ -158,7 +135,7 @@ export function GiftGuideHero() {
               className={`flex items-center gap-2 text-[13px] font-medium ${CONTACT_HOVER_LIGHT}`}
             >
               <Mail aria-hidden className="h-4 w-4" />
-              <span className="xl:max-2xl:hidden">
+              <span className="lg:max-2xl:hidden">
                 <SteadyBold>{CONTACT.email.label}</SteadyBold>
               </span>
             </a>

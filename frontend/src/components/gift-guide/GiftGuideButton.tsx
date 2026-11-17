@@ -12,11 +12,12 @@ export const CTA_CLASSES =
 /**
  * The Fine Jewelry page, for the two "Shop Now" buttons that lead there:
  * under Top Holiday Trends and under "Your Holiday Season, Made Easier".
- * This site has no Fine Jewelry page of its own, so it is amipi.com's - the
- * "Fine Jewelry" entry in amipi.com's own Fine Jewelry menu (desktop and
- * mobile). Set it to null to hide both buttons.
+ * This site has no Fine Jewelry page of its own, so it is amipi.com's, with
+ * the filters the manager sent (metal 10, natural "Earth" diamonds). Set it
+ * to null to hide both buttons.
  */
-export const FINE_JEWELRY_HREF: string | null = "https://www.amipi.com/jck-fine-jewelry/";
+export const FINE_JEWELRY_HREF: string | null =
+  "https://www.amipi.com/basics/?category=&stonetype=&metal=10&origin=Earth";
 
 /** `md` for the sections' buttons, `sm` for the compact ones under a
  * product or category. */
