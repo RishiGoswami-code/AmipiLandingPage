@@ -6,9 +6,8 @@ type Trend = {
   title: string;
   src: string;
   position: string;
-  /** One line on why it is a holiday trend, written by the manager. Not
-   * supplied yet for any of the five: add it here as it arrives. Nothing is
-   * drawn under the name until it is set. */
+  /** Why it is a holiday trend, in the manager's words, under the name.
+   * Optional: nothing is drawn when it is left out. */
   line?: string;
 };
 
@@ -24,12 +23,19 @@ const TRENDS: Trend[] = [
     title: "Everyday Wearables",
     src: "/gift-guide/trends/everyday-wearables.webp",
     position: "50% 50%",
+    line: "Diamonds aren’t just for special occasions anymore. Customers want pieces they can wear every day, making these styles easy favorites for any jewelry store.",
   },
-  { title: "Bezel", src: "/gift-guide/trends/bezel.webp", position: "50% 50%" },
+  {
+    title: "Bezel",
+    src: "/gift-guide/trends/bezel.webp",
+    position: "50% 50%",
+    line: "Bezel jewelry is getting more attention for its sleek look and comfortable fit. A great choice for customers who want diamonds they can wear every day.",
+  },
   {
     title: "Stackables",
     src: "/gift-guide/trends/stackables.webp",
     position: "50% 55%",
+    line: "Why stop at one? Customers love building their own stacks, giving retailers a great opportunity for add-on sales and repeat purchases.",
   },
   // Festive Sapphire Necklace Portrait: 2:3, so the crop sits a little low
   // so the whole necklace and the hand stay in frame
@@ -37,19 +43,21 @@ const TRENDS: Trend[] = [
     title: "Color",
     src: "/gift-guide/trends/sapphire-necklace-portrait.webp",
     position: "50% 55%",
+    line: "Not everyone wants traditional white diamonds. A touch of color gives customers something fun, fresh, and a little more personal to choose from.",
   },
   {
     title: "Bridal",
     src: "/gift-guide/trends/bridal.webp",
     position: "50% 50%",
+    line: "Engagements, weddings, and anniversaries keep bridal jewelry in demand. From classic solitaires to statement rings, these are pieces customers will always come looking for.",
   },
 ];
 
 /**
  * "Top Holiday Trends" - an evergreen band, after the "Holiday Edit" row in
  * the team's mockups: the eyebrow, heading and gold rule, then the five
- * trends as plain white cards - the photo on top, the name (and its one
- * line, once the manager sends it) under it. One row of five from 1280px,
+ * trends as plain white cards - the photo on top, then the name and a
+ * short note on why it is a holiday trend. One row of five from 1280px,
  * three per row on tablets and laptops (the last two centred), two on
  * phones (the last one centred).
  *
