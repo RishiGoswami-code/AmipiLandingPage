@@ -79,8 +79,12 @@ export function GiftGuideHero() {
 
   return (
     <div ref={rootRef} className="bg-white text-[#141414]">
-      {/* Masthead: one slim evergreen bar above the hero */}
-      <div className="bg-(--gift-green)">
+      {/* Masthead: one slim evergreen bar above the hero. Stacked over the
+          hero (relative z-20) so the About and More menus, which hang down
+          over it, stay on top and keep the pointer: without it the hero
+          section (isolate, later in the page) sits above them and the menu
+          closes as soon as the pointer leaves the bar. */}
+      <div className="relative z-20 bg-(--gift-green)">
         <header
           data-reveal
           className="mx-edge flex items-center justify-between gap-6 py-2.5 max-sm:justify-center"
