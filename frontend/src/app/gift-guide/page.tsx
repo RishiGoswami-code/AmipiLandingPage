@@ -6,9 +6,9 @@ import { GiftGuideJewelryTypes } from "@/components/gift-guide/GiftGuideJewelryT
 import { GiftGuideBrilliance } from "@/components/gift-guide/GiftGuideBrilliance";
 import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
 import { GiftGuideHalfRow } from "@/components/gift-guide/GiftGuideHalfBanner";
-import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestsellers";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
+import { GiftGuideHolidayPlanning } from "@/components/gift-guide/GiftGuideHolidayPlanning";
 import { GiftGuideConnect } from "@/components/gift-guide/GiftGuideConnect";
 import { PartnerMarquee } from "@/components/nav/PartnerMarquee";
 
@@ -104,11 +104,11 @@ export default function GiftGuidePage() {
           <GiftGuideBrilliance />
           <GiftGuideBridal />
         </GiftGuideHalfRow>
-        <GiftGuideBestsellers />
         <GiftGuideHalfRow>
           <GiftGuideBezel />
           <GiftGuideColor />
         </GiftGuideHalfRow>
+        <GiftGuideHolidayPlanning />
         <GiftGuideConnect />
       </div>
       {/* The site chrome is hidden on this route (layout.tsx), so the home

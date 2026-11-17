@@ -38,8 +38,8 @@ export default function SmoothScroll({
      would swallow their wheel events, so it stays off there. */
   const pathname = usePathname();
   const inStudio = pathname.startsWith("/studio");
-  /* The gift guide pins nothing, and its Shop by Jewelry Type and Holiday
-     Bestsellers rows are horizontal scrollers that normalizeScroll would
+  /* The gift guide pins nothing, and its Shop by Jewelry Type row is a
+     horizontal scroller that normalizeScroll would
      swallow (it takes every touch gesture off the browser's native path), so
      touch devices keep the native scroll there. */
   const nativeTouch = pathname.startsWith("/gift-guide");

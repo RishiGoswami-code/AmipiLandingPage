@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 import { Mail, Phone } from "lucide-react";
 import { italiana } from "@/styles/fonts";
 import { CONTACT } from "@/components/nav/navigation";
-import { GiftGuideButton } from "./GiftGuideButton";
 import { BODY_TYPE, CONTACT_HOVER_LIGHT, EYEBROW, INK, SteadyBold } from "./GiftGuideTheme";
 
 gsap.registerPlugin(useGSAP);
@@ -23,7 +22,6 @@ const FOLDS = [
   { label: "Jewelry Types", href: "#jewelry-types" },
   { label: "Diamonds", href: "#diamonds" },
   { label: "Bridal", href: "#bridal" },
-  { label: "Bestsellers", href: "#bestsellers" },
   { label: "Bezel", href: "#bezel" },
   { label: "Color", href: "#color" },
 ];
@@ -47,7 +45,7 @@ const SPREAD = [
  * Holiday Gift Guide hero, after the team's mockups: dark copy on white at
  * the left - a small "AMIPI · Holiday Gift Guide" line, the headline "A
  * Season Set in Diamonds" in upright Cormorant, a short red rule, the
- * tagline and paragraph, and a red button down to the trends - and a
+ * tagline and paragraph - and a
  * visual at the right. Until the mockup's hero photo arrives, the visual is
  * the catalog collage (a cover and an open spread, after
  * landingPageTheme.jpeg).
@@ -224,10 +222,6 @@ export function GiftGuideHero() {
             collection of diamonds and fine jewelry your customers will love
             to gift, receive, and cherish long after the holidays.
           </p>
-
-          <div data-reveal className="mt-[clamp(1.25rem,3.5vh,2.25rem)]">
-            <GiftGuideButton href="#trends">Explore the Gift Guide</GiftGuideButton>
-          </div>
         </div>
 
         {/* Catalog collage, the stand-in until the hero photo arrives: a

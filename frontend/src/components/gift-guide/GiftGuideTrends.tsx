@@ -1,7 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
-import { GiftGuideTextLabel } from "./GiftGuideButton";
+import { FINE_JEWELRY_HREF, GiftGuideButton } from "./GiftGuideButton";
 import { BAND_GREEN, BandHeading, INK } from "./GiftGuideTheme";
+
+type Trend = {
+  title: string;
+  src: string;
+  position: string;
+  /** One line on why it is a holiday trend, written by the manager. Not
+   * supplied yet for any of the five: add it here as it arrives. Nothing is
+   * drawn under the name until it is set. */
+  line?: string;
+};
 
 /**
  * The five trend cards, from GiftPageImages/HOLIDAY TRENDS. The photos are
@@ -10,7 +19,7 @@ import { BAND_GREEN, BandHeading, INK } from "./GiftGuideTheme";
  * card yet - the product does not exist - so add it back here, between
  * Everyday Wearables and Bezel, when it does.
  */
-const TRENDS = [
+const TRENDS: Trend[] = [
   {
     title: "Everyday Wearables",
     src: "/gift-guide/trends/everyday-wearables.webp",
@@ -39,13 +48,15 @@ const TRENDS = [
 /**
  * "Top Holiday Trends" - an evergreen band, after the "Holiday Edit" row in
  * the team's mockups: the eyebrow, heading and gold rule, then the five
- * trends as plain white cards - the photo on top, the name and a "Shop Now"
- * link under it. One row of five from 1280px, three per row on tablets and
- * laptops (the last two centred), two on phones (the last one centred).
+ * trends as plain white cards - the photo on top, the name (and its one
+ * line, once the manager sends it) under it. One row of five from 1280px,
+ * three per row on tablets and laptops (the last two centred), two on
+ * phones (the last one centred).
  *
- * Each whole card - photo, name and "Shop Now" - is one link, as on the
- * Holiday Bestsellers tiles. Every link goes to /categories, since there
- * are no per-trend pages yet.
+ * The cards are editorial, not links: there are no per-trend pages. The
+ * band's one call to action is a single centred "Shop Now" under the whole
+ * group, to the Fine Jewelry page (FINE_JEWELRY_HREF); it is left out
+ * until that page exists.
  */
 export function GiftGuideTrends() {
   return (
@@ -62,10 +73,7 @@ export function GiftGuideTrends() {
             key={trend.title}
             className="flex w-[calc(50%-0.375rem)] sm:w-[calc(50%-0.5rem)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-5rem)/5)]"
           >
-            <Link
-              href="/categories"
-              className="group flex w-full flex-col overflow-hidden rounded-[2px] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5efe4]"
-            >
+            <article className="flex w-full flex-col overflow-hidden rounded-[2px] bg-white">
               <div className="relative aspect-[4/5] bg-[#ebe7df]">
                 <Image
                   quality={90}
@@ -77,19 +85,27 @@ export function GiftGuideTrends() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-1 flex-col items-center gap-3 px-3 pt-4 pb-5 text-center">
+              <div className="flex flex-1 flex-col items-center gap-2 px-3 pt-4 pb-5 text-center">
                 <h3
                   className="font-[family-name:var(--font-cormorant)] text-[clamp(1.125rem,1.4vw,1.375rem)] leading-tight font-semibold"
                   style={{ color: INK }}
                 >
                   {trend.title}
                 </h3>
-                <GiftGuideTextLabel>Shop Now</GiftGuideTextLabel>
+                {trend.line && (
+                  <p className="text-[13px] leading-snug text-pretty text-[#141a17]/70">{trend.line}</p>
+                )}
               </div>
-            </Link>
+            </article>
           </li>
         ))}
       </ul>
+
+      {FINE_JEWELRY_HREF && (
+        <div className="mt-[clamp(1.75rem,3vw,2.75rem)] flex justify-center">
+          <GiftGuideButton href={FINE_JEWELRY_HREF}>Shop Now</GiftGuideButton>
+        </div>
+      )}
     </section>
   );
 }

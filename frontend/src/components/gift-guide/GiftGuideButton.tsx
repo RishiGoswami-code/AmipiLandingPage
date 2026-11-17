@@ -9,6 +9,15 @@ import type { ReactNode } from "react";
 export const CTA_CLASSES =
   "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[2px] bg-(--gift-cta) font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-(--gift-cta-hover)";
 
+/**
+ * The Fine Jewelry page, for the two "Shop Now" buttons that lead there:
+ * under Top Holiday Trends and under "Your Holiday Season, Made Easier".
+ * The site has no Fine Jewelry page yet (the navbar's Fine Jewelry is a menu
+ * of unbuilt links), so this is null and both buttons stay hidden. Set the
+ * confirmed URL here and both appear.
+ */
+export const FINE_JEWELRY_HREF: string | null = null;
+
 /** `md` for the sections' buttons, `sm` for the compact ones under a
  * product or category. */
 const SIZES = {

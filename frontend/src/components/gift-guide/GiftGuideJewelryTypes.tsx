@@ -11,19 +11,16 @@ import styles from "./SnowGlobe.module.css";
 /**
  * AMIPI's product lines, in the order the manager set: necklace, bracelet,
  * bands, studs, hoops, rings, bangles. Transparent cut-outs in
- * public/gift-guide/types; Diamond Studs is still the navbar's ~240px
+ * public/gift-guide/types; the Studs photo is still the navbar's ~240px
  * thumbnail, so it reads soft at globe size. The bangle is the stretchy
  * diamond bangle from GiftPageImages/JeweleryType, cut out of its white
  * ground (inside the loop as well as around it).
  */
 const TYPES: { label: string; src: string; wide?: boolean }[] = [
   { label: "Necklaces", src: "/gift-guide/types/tennis-necklace-hd.webp" },
-  {
-    label: "Tennis Bracelets",
-    src: "/gift-guide/types/tennis-bracelet-hd.webp",
-  },
+  { label: "Bracelets", src: "/gift-guide/types/tennis-bracelet-hd.webp" },
   { label: "Bands", src: "/gift-guide/types/band-hd.webp" },
-  { label: "Diamond Studs", src: "/gift-guide/types/diamond-studs.webp" },
+  { label: "Studs", src: "/gift-guide/types/diamond-studs.webp" },
   { label: "Hoops", src: "/gift-guide/types/hoops-hd.webp" },
   { label: "Rings", src: "/gift-guide/types/oval-ring.webp" },
   // A wide, flat piece (about 3.7:1), so it gets more of the globe's width
@@ -101,7 +98,7 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  *
  * Each globe ends in its name, in small tracked capitals as in the team's
  * mockups, and a red "Shop Now". The whole slide - globe, name and "Shop
- * Now" - is one link, as on the Holiday Bestsellers tiles, to /categories
+ * Now" - is one link, to /categories
  * since there are no per-type pages yet.
  */
 export function GiftGuideJewelryTypes() {
