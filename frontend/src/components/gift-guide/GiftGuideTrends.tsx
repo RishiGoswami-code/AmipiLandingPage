@@ -70,7 +70,9 @@ export function GiftGuideTrends() {
     <section
       id="trends"
       aria-labelledby="trends-heading"
-      className={`${BAND_GREEN} px-edge`}
+      // With the button, the band's own bottom padding is trimmed so the
+      // button sits close to the cards and the band's foot
+      className={`${BAND_GREEN} px-edge ${FINE_JEWELRY_HREF ? "pb-[max(1.25rem,calc(var(--gift-gap)*0.45))]" : ""}`}
     >
       <BandHeading id="trends-heading" tone="green" eyebrow="The Holiday Edit" title="Top Holiday Trends" />
 
@@ -109,7 +111,7 @@ export function GiftGuideTrends() {
       </ul>
 
       {FINE_JEWELRY_HREF && (
-        <div className="mt-[clamp(1.75rem,3vw,2.75rem)] flex justify-center">
+        <div className="mt-[max(1rem,calc(var(--gift-gap)*0.4))] flex justify-center">
           <GiftGuideButton href={FINE_JEWELRY_HREF}>Shop Now</GiftGuideButton>
         </div>
       )}

@@ -6,7 +6,6 @@ import { GiftGuideJewelryTypes } from "@/components/gift-guide/GiftGuideJewelryT
 import { GiftGuideBrilliance } from "@/components/gift-guide/GiftGuideBrilliance";
 import { GiftGuideBridal } from "@/components/gift-guide/GiftGuideBridal";
 import { GiftGuideHalfRow } from "@/components/gift-guide/GiftGuideHalfBanner";
-import { GiftGuideBestsellers } from "@/components/gift-guide/GiftGuideBestsellers";
 import { GiftGuideBezel } from "@/components/gift-guide/GiftGuideBezel";
 import { GiftGuideColor } from "@/components/gift-guide/GiftGuideColor";
 import { FINE_JEWELRY_HREF, GiftGuideButton } from "@/components/gift-guide/GiftGuideButton";
@@ -106,7 +105,8 @@ export default function GiftGuidePage() {
           <GiftGuideBrilliance />
           <GiftGuideBridal />
         </GiftGuideHalfRow>
-        <GiftGuideBestsellers />
+        {/* A slim white strip between the two photo rows */}
+        <div aria-hidden className="h-[clamp(0.75rem,1.4vw,1.25rem)] bg-white" />
         <GiftGuideHalfRow>
           <GiftGuideBezel />
           <GiftGuideColor />
@@ -114,7 +114,7 @@ export default function GiftGuidePage() {
         {/* One "Shop Now" for Bezel and Color, under their row: larger and
             in the evergreen, on a slim band of the page's cream */}
         {FINE_JEWELRY_HREF && (
-          <div className="flex justify-center px-edge py-[calc(var(--gift-gap)*0.6)]">
+          <div className="flex justify-center px-edge py-[max(0.875rem,calc(var(--gift-gap)*0.35))]">
             <GiftGuideButton href={FINE_JEWELRY_HREF} size="lg" tone="green">
               Shop Now
             </GiftGuideButton>

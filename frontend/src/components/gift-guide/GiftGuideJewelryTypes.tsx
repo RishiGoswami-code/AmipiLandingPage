@@ -111,7 +111,7 @@ function SnowGlobe({ src, wide = false }: { src: string; wide?: boolean }) {
  *
  * Each globe ends in its name, in small tracked capitals as in the team's
  * mockups, and a red "Shop Now". The whole slide - globe, name and "Shop
- * Now" - is one link, as on the Holiday Bestsellers tiles, to that line's page on amipi.com (its Fine Jewelry
+ * Now" - is one link, to that line's page on amipi.com (its Fine Jewelry
  * menu's pages: Bracelets & Bangles, Anniversary Bands, Flexi Bangles...).
  */
 export function GiftGuideJewelryTypes() {
