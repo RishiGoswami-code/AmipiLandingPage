@@ -12,7 +12,7 @@ import { GiftGuideHalfBanner, HalfBannerText } from "./GiftGuideHalfBanner";
  * so the satin has no top or bottom edge to fade; its own off-white side
  * sits behind the copy, so there is no veil. Light, as Bridal is: ink copy
  * beside the dark Color half. One half of a row with Color
- * (GiftGuideHalfBanner). No button of its own: Bridal, Bezel and Color
+ * (GiftGuideHalfBanner). No button of its own: Bezel and Color
  * share one "Shop Now" under this row (app/gift-guide/page.tsx).
  */
 export function GiftGuideBezel() {

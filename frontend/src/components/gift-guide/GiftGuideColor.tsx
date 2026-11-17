@@ -10,7 +10,7 @@ import { GiftGuideHalfBanner, HalfBannerText } from "./GiftGuideHalfBanner";
  * the copy without a veil. It runs the half's full height (`fill`), so
  * neither the hoops nor the bracelet are cropped, and on phones it is 5:4
  * rather than 3:2 for the same reason (GiftGuideHalfBanner). No button of
- * its own: Bridal, Bezel and Color share one "Shop Now" under this row
+ * its own: Bezel and Color share one "Shop Now" under this row
  * (app/gift-guide/page.tsx).
  */
 export function GiftGuideColor() {

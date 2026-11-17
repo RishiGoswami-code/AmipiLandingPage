@@ -1,4 +1,5 @@
-import { GiftGuideHalfBanner, HalfBannerText } from "./GiftGuideHalfBanner";
+import { GiftGuideButton, RINGS_HREF } from "./GiftGuideButton";
+import { GiftGuideHalfBanner, HalfBannerActions, HalfBannerText } from "./GiftGuideHalfBanner";
 
 /**
  * "Styles for the Season of “Yes”" - the right half of the
@@ -10,8 +11,7 @@ import { GiftGuideHalfBanner, HalfBannerText } from "./GiftGuideHalfBanner";
  * the crop is held to the right. Light, as in the mockups: ink copy on the
  * off-white, beside the green Diamonds half.
  *
- * No button of its own: Bridal, Bezel and Color share one "Shop Now" under
- * the Bezel and Color row (app/gift-guide/page.tsx).
+ * Its "Shop Now" opens amipi.com's rings.
  */
 export function GiftGuideBridal() {
   return (
@@ -28,6 +28,9 @@ export function GiftGuideBridal() {
         modern settings, and stackable bands designed for proposals, weddings,
         and every moment after.
       </HalfBannerText>
+      <HalfBannerActions>
+        <GiftGuideButton href={RINGS_HREF}>Shop Now</GiftGuideButton>
+      </HalfBannerActions>
     </GiftGuideHalfBanner>
   );
 }
